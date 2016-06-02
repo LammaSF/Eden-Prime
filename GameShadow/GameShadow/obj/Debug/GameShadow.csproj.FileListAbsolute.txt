@@ -1,0 +1,21 @@
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\bin\Debug\GameShadow.exe
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\bin\Debug\GameShadow.pdb
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\obj\Debug\GameShadow.csprojResolveAssemblyReference.cache
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\obj\Debug\GameShadow.exe
+C:\Users\Amphibia\Documents\Visual Studio 2015\Projects\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\obj\Debug\GameShadow.exe
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\bin\Debug\GameShadow.exe
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\bin\Debug\GameShadow.pdb
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\obj\Debug\GameShadow.csprojResolveAssemblyReference.cache
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
+C:\Users\Amphibia\Desktop\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
