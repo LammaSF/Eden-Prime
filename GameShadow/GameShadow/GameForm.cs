@@ -70,5 +70,15 @@ namespace GameShadow
             MoveUIPlayer();
         }
         #endregion
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("By SoftUni Team Eden Prime", "Game Shadow");
+        }
     }
 }
