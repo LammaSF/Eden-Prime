@@ -19,3 +19,12 @@ C:\Users\Amphibia\Desktop\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.Gene
 C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
 C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
 C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csprojResolveAssemblyReference.cache
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
