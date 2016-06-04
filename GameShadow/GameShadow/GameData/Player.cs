@@ -1,15 +1,21 @@
 ﻿namespace GameShadow.GameData
 {
-    public class Player
+    public class Player : LivingCreature
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int posX { get; set; }
+        public int posY { get; set; }        
+        public int gold { get; set; }
+        public int experiencePoints { get; set; }
+        public int level { get; set; }
 
-        public Player(int x, int y)
+        public Player(int currentHitPoints, int maximumHitPoints, int golds, int expPoints, int levels,int posXs,int posYs) : base(currentHitPoints, maximumHitPoints)
         {
             // ISSUE: What happens if x, y is not valid position
-            X = x;
-            Y = y;  
+            gold = golds;
+            experiencePoints = expPoints;
+            level = levels;
+            posX = posXs;
+            posY = posYs;
         }
     }
 }

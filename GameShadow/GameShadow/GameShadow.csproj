@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameData\Item.cs" />
+    <Compile Include="GameData\LivingCreature.cs" />
+    <Compile Include="GameData\Monster.cs" />
+    <Compile Include="GameData\Weapon.cs" />
     <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
