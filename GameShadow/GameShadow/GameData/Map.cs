@@ -14,8 +14,8 @@
             Width = width;
             GameField = new int[length, width];
 
-            // ISSUE: Inflexible / hardcoded
-            Player = new Player(length / 2, width / 2);
+            // ISSUE: Inflexible / hardcoded, to change variable after
+            Player = new Player(20,20,100,0,1,length / 2, width / 2);
         }
 
     }

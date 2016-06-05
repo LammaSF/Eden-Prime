@@ -1,13 +1,7 @@
 ﻿using GameShadow.GameData;
 using GameShadow.GameLogic;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GameShadow
@@ -38,7 +32,7 @@ namespace GameShadow
         private void OnGameFormPaint(object sender, PaintEventArgs e)
         {
             // ISSUE: FillRectangle takes the upper-left corner coordinates 
-            e.Graphics.FillRectangle(Brushes.Red, _map.Player.X, _map.Player.Y, 50, 50);
+            e.Graphics.FillRectangle(Brushes.Red, _map.Player.PositionX, _map.Player.PositionY, 50, 50);
         }
 
         private void OnGameFormKeyDown(object sender, KeyEventArgs e)
@@ -49,20 +43,20 @@ namespace GameShadow
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.X,
-                        _map.Player.Y - speed);
+                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX,
+                        _map.Player.PositionY - speed);
                     break;
                 case Keys.Down:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.X,
-                        _map.Player.Y + speed);
+                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX,
+                        _map.Player.PositionY + speed);
                     break;
                 case Keys.Left:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.X - speed,
-                        _map.Player.Y);
+                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX - speed,
+                        _map.Player.PositionY);
                     break;
                 case Keys.Right:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.X + speed,
-                        _map.Player.Y);
+                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX + speed,
+                        _map.Player.PositionY);
                     break;
             }
 

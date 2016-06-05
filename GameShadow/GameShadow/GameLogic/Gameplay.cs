@@ -6,8 +6,8 @@ namespace GameShadow.GameLogic
     {
         public static void UpdatePlayerPosition(Player player, int x, int y)
         {
-            player.X = x;
-            player.Y = y;
+            player.PositionX = x;
+            player.PositionY = y;
         }
     }
 }

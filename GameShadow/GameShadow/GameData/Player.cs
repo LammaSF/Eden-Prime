@@ -2,20 +2,20 @@
 {
     public class Player : LivingCreature
     {
-        public int posX { get; set; }
-        public int posY { get; set; }        
-        public int gold { get; set; }
-        public int experiencePoints { get; set; }
-        public int level { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }        
+        public int Gold { get; set; }
+        public int ExperiencePoints { get; set; }
+        public int Level { get; set; }
 
         public Player(int currentHitPoints, int maximumHitPoints, int golds, int expPoints, int levels,int posXs,int posYs) : base(currentHitPoints, maximumHitPoints)
         {
             // ISSUE: What happens if x, y is not valid position
-            gold = golds;
-            experiencePoints = expPoints;
-            level = levels;
-            posX = posXs;
-            posY = posYs;
+            Gold = golds;
+            ExperiencePoints = expPoints;
+            Level = levels;
+            PositionX = posXs;
+            PositionY = posYs;
         }
     }
 }
