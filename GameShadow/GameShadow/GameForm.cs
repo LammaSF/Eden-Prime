@@ -1,5 +1,7 @@
 ﻿using GameShadow.GameData;
 using GameShadow.GameLogic;
+using GameShadow.Properties;
+using SpriteLibrary;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -8,71 +10,103 @@ namespace GameShadow
 {
     public partial class GameForm : Form
     {
-        private Map _map;
+        private enum Directions { Down, Left, Right, Up, None }
 
+        private const int HeroMovementSpeed = 20;
+
+        #region Private Fields
+        private SpriteController _spriteController;
+        private Sprite _hero;
+        private Point _heroStartPoint = new Point(300, 300);
+        private DateTime _heroLastMovement = DateTime.Now;
+        private bool _heroIsMoving = false;
+        private Directions _direction = Directions.None;
+
+        #endregion
+
+        #region Constructors
         public GameForm()
         {
-            var size = this.Size;
-            // ISSUE: Using string[] arguments for CreateMap() is probably not a good idea
-            _map = GameInitializer.CreateMap(
-                new[] { size.Width.ToString(), size.Height.ToString() });
-
             InitializeComponent();
+
+            InitializeUIGameField();
+            InitializeUIPlayer();
         }
 
+        #endregion
+
         #region Private Methods
-        private void MoveUIPlayer()
+        private void InitializeUIGameField()
         {
-            Invalidate();
+            picGameField.BackgroundImage = Resources.Background;
+            picGameField.BackgroundImageLayout = ImageLayout.Stretch;
+            _spriteController = new SpriteController(picGameField);
+            _spriteController.DoTick += OnKeyPressed;
+        }
+
+        private void InitializeUIPlayer()
+        {
+            _hero = new Sprite(new Point(0, 0), _spriteController,
+                Resources.MaleWizard, 32, 32, 250, 3);
+            _hero.SetSize(new Size(50, 50));
+            _hero.AddAnimation(new Point(0, 32), Resources.MaleWizard, 32, 32, 250, 3);
+            _hero.AddAnimation(new Point(0, 64), Resources.MaleWizard, 32, 32, 250, 3);
+            _hero.AddAnimation(new Point(0, 96), Resources.MaleWizard, 32, 32, 250, 3);
+            _hero.PutPictureBoxLocation(_heroStartPoint);
+            _hero.MovementSpeed = HeroMovementSpeed;
+            _hero.CannotMoveOutsideBox = true;
+        }
+
+        private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
+        {
+            if (_direction != direction)
+            {
+                _hero.SetSpriteDirectionDegrees(directionDegrees);
+                _hero.ChangeAnimation(animationIndex);
+                _direction = direction;
+            }
+
+            _heroIsMoving = true;
+            _hero.MovementSpeed = 20;
+            _hero.AutomaticallyMoves = true;
         }
 
         #endregion
 
         #region Event Handlers
-        private void OnGameFormPaint(object sender, PaintEventArgs e)
+        private void OnKeyPressed(object sender, EventArgs e)
         {
-            // ISSUE: FillRectangle takes the upper-left corner coordinates 
-            e.Graphics.FillRectangle(Brushes.Red, _map.Player.PositionX, _map.Player.PositionY, 50, 50);
-        }
+            TimeSpan duration = DateTime.Now - _heroLastMovement;
+            if (duration.TotalMilliseconds < 100)
+                return;
+            _heroLastMovement = DateTime.Now;
 
-        private void OnGameFormKeyDown(object sender, KeyEventArgs e)
-        {
-            // ISSUE: Moving speed is hardcoded :)
-            int speed = 10;
+            _heroIsMoving = false;
+            bool keyDown = _spriteController.IsKeyPressed(Keys.Down);
+            bool keyLeft = _spriteController.IsKeyPressed(Keys.Left);
+            bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
+            bool keyUp = _spriteController.IsKeyPressed(Keys.Up);
 
-            switch (e.KeyCode)
+            if (keyDown)
+                MoveUIPlayer(0, 270, Directions.Down); // move down
+
+            if (keyLeft)
+                MoveUIPlayer(1, 180, Directions.Left); // move left
+
+            if (keyRight)
+                MoveUIPlayer(2, 0, Directions.Right); // move right
+
+            if (keyUp)
+                MoveUIPlayer(3, 90, Directions.Up); // move up
+
+            if (!_heroIsMoving)
             {
-                case Keys.Up:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX,
-                        _map.Player.PositionY - speed);
-                    break;
-                case Keys.Down:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX,
-                        _map.Player.PositionY + speed);
-                    break;
-                case Keys.Left:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX - speed,
-                        _map.Player.PositionY);
-                    break;
-                case Keys.Right:
-                    Gameplay.UpdatePlayerPosition(_map.Player, _map.Player.PositionX + speed,
-                        _map.Player.PositionY);
-                    break;
+                _direction = Directions.None;
+                _hero.MovementSpeed = 0;
             }
-
-            // ISSUE: The player can exit the form borders :)) 
-            MoveUIPlayer();
         }
+
         #endregion
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("By SoftUni Team Eden Prime", "Game Shadow");
-        }
     }
 }

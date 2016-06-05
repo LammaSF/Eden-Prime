@@ -37,3 +37,12 @@ C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShad
 C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
 C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
 C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csprojResolveAssemblyReference.cache
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.pdb
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.dll
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.pdb
+C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.xml
