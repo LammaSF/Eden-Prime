@@ -1,6 +1,7 @@
 ﻿using GameShadow.GameData;
 using SpriteLibrary;
 using System;
+using System.Windows.Forms;
 
 namespace GameShadow.GameLogic
 {
@@ -23,6 +24,11 @@ namespace GameShadow.GameLogic
             {
                 me.SetSpriteDirectionDegrees(180); //go back left
             }
+        }
+        public static void WeHaveHit(object sender, SpriteEventArgs e)
+        {
+           // MessageBox.Show(" Ooooops ! Malko se blysnahme .");
+            e.TargetSprite.Destroy();
         }
     }
 }

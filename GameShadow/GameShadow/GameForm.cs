@@ -59,6 +59,7 @@ namespace GameShadow
             _hero.PutPictureBoxLocation(_heroStartPoint);
             _hero.MovementSpeed = HeroMovementSpeed;
             _hero.CannotMoveOutsideBox = true;
+            _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
 
             _monster = new Sprite(new Point(0, 0), _spriteController,
                 Resources.FishMonster, 190, 210, 250, 5);
@@ -73,9 +74,11 @@ namespace GameShadow
             _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
             _monster.SetSpriteDirectionDegrees(180);
             _monster.PutBaseImageLocation(new Point(500, 500));
-            
-        }
+           // _monster.SpriteHitsSprite += Gameplay.WeHaveHit;
 
+
+        }
+        
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
             if (_direction != direction)
