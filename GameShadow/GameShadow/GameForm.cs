@@ -16,11 +16,15 @@ namespace GameShadow
 
         #region Private Fields
         private SpriteController _spriteController;
-        private Sprite _hero;
+        private Sprite _hero;       
         private Point _heroStartPoint = new Point(300, 300);
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _direction = Directions.None;
+        private Sprite _monster;
+        private Point _monsterStartPoint = new Point(500, 500);
+        private DateTime _monsterLastMovement = DateTime.Now;
+        private bool _monsterIsMoving = false;
 
         #endregion
 
@@ -55,6 +59,16 @@ namespace GameShadow
             _hero.PutPictureBoxLocation(_heroStartPoint);
             _hero.MovementSpeed = HeroMovementSpeed;
             _hero.CannotMoveOutsideBox = true;
+
+            _monster = new Sprite(new Point(0, 0), _spriteController,
+                Resources.FishMonster, 190, 210, 250, 5);
+            _monster.SetSize(new Size(75, 75));
+            _monster.AddAnimation(new Point(0, 200), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.AddAnimation(new Point(0, 400), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.AddAnimation(new Point(0, 600), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.PutPictureBoxLocation(_heroStartPoint);
+            _monster.MovementSpeed = HeroMovementSpeed;
+            _monster.CannotMoveOutsideBox = true;
         }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
@@ -86,7 +100,7 @@ namespace GameShadow
             bool keyLeft = _spriteController.IsKeyPressed(Keys.Left);
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
             bool keyUp = _spriteController.IsKeyPressed(Keys.Up);
-
+            bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyDown)
                 MoveUIPlayer(0, 270, Directions.Down); // move down
 
@@ -98,6 +112,9 @@ namespace GameShadow
 
             if (keyUp)
                 MoveUIPlayer(3, 90, Directions.Up); // move up
+
+            if (keyEsc)
+                Application.Exit();// exit 
 
             if (!_heroIsMoving)
             {

@@ -46,3 +46,6 @@ C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.pd
 C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.dll
 C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.pdb
 C:\Users\Amphibia\repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.xml
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.dll
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.xml

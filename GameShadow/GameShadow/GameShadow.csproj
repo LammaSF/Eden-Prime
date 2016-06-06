@@ -95,6 +95,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\Background.png" />
+    <Content Include="Resources\FishMonster.png" />
     <Content Include="Resources\MaleWizard.png" />
     <Content Include="SpriteLibrary\SpriteLibrary.dll" />
     <Content Include="SpriteLibrary\SpriteLibrary.pdb" />
