@@ -69,6 +69,11 @@ namespace GameShadow
             _monster.PutPictureBoxLocation(_heroStartPoint);
             _monster.MovementSpeed = HeroMovementSpeed;
             _monster.CannotMoveOutsideBox = true;
+            _monster.AutomaticallyMoves = true;
+            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
+            _monster.SetSpriteDirectionDegrees(180);
+            _monster.PutBaseImageLocation(new Point(500, 500));
+            
         }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
