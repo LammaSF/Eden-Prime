@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
 
+
 namespace GameShadow
 {
-    static class Startup
+   public static class Startup
     {
         /// <summary>
         /// The main entry point for the application.
