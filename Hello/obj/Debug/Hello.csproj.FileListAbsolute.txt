@@ -1,1 +1,10 @@
 c:\users\user\documents\visual studio 2015\Projects\Hello\Hello\bin\Debug\Hello.exe.config
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\bin\Debug\Hello.exe.config
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\bin\Debug\Hello.exe
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\bin\Debug\Hello.pdb
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\obj\Debug\Hello.csprojResolveAssemblyReference.cache
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\obj\Debug\Hello.Game.resources
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\obj\Debug\Hello.Properties.Resources.resources
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\obj\Debug\Hello.csproj.GenerateResource.Cache
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\obj\Debug\Hello.exe
+D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Hello\obj\Debug\Hello.pdb
