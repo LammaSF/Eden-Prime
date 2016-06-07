@@ -25,10 +25,22 @@ namespace GameShadow.GameLogic
                 me.SetSpriteDirectionDegrees(180); //go back left
             }
         }
+
         public static void WeHaveHit(object sender, SpriteEventArgs e)
         {
            // MessageBox.Show(" Ooooops ! Malko se blysnahme .");
             e.TargetSprite.Destroy();
+        }
+
+        public static void UpdatePlayerHealth(Player player, int damage)
+        {
+            player.CurrentHitPoints -= damage;
+        }
+
+        public static void UpdateMonsterPosition(Monster monster, int posX, int posY)
+        {
+            monster.PositionX = posX;
+            monster.PositionY = posY;
         }
     }
 }
