@@ -133,6 +133,7 @@
             this.Controls.Add(this.HighScoreButton);
             this.Controls.Add(this.LoadGameButton);
             this.Controls.Add(this.optionsButton);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Game";

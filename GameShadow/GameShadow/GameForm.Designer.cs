@@ -36,19 +36,22 @@
             // 
             this.picGameField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picGameField.Location = new System.Drawing.Point(0, 0);
+            this.picGameField.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.picGameField.Name = "picGameField";
-            this.picGameField.Size = new System.Drawing.Size(600, 600);
+            this.picGameField.Size = new System.Drawing.Size(795, 734);
             this.picGameField.TabIndex = 1;
             this.picGameField.TabStop = false;
             // 
             // GameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 600);
+            this.ClientSize = new System.Drawing.Size(795, 734);
             this.ControlBox = false;
             this.Controls.Add(this.picGameField);
+            this.Cursor = System.Windows.Forms.Cursors.No;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GameForm";
