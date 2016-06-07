@@ -13,10 +13,11 @@ namespace GameShadow
         private enum Directions { Down, Left, Right, Up, None }
 
         private const int HeroMovementSpeed = 20;
+        private const int MonsterMovementSpeed = 5;
 
         #region Private Fields
         private SpriteController _spriteController;
-        private Sprite _hero;       
+        private Sprite _hero;
         private Point _heroStartPoint = new Point(300, 300);
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
@@ -68,17 +69,17 @@ namespace GameShadow
             _monster.AddAnimation(new Point(0, 400), Resources.FishMonster, 200, 200, 250, 5);
             _monster.AddAnimation(new Point(0, 600), Resources.FishMonster, 200, 200, 250, 5);
             _monster.PutPictureBoxLocation(_heroStartPoint);
-            _monster.MovementSpeed = HeroMovementSpeed;
+            _monster.MovementSpeed = MonsterMovementSpeed;
             _monster.CannotMoveOutsideBox = true;
             _monster.AutomaticallyMoves = true;
             _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
             _monster.SetSpriteDirectionDegrees(180);
             _monster.PutBaseImageLocation(new Point(500, 500));
-           // _monster.SpriteHitsSprite += Gameplay.WeHaveHit;
+            // _monster.SpriteHitsSprite += Gameplay.WeHaveHit;
 
-
+            _monster.MoveTo(_hero.BaseImageLocation);
         }
-        
+
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
             if (_direction != direction)
@@ -91,6 +92,7 @@ namespace GameShadow
             _heroIsMoving = true;
             _hero.MovementSpeed = 20;
             _hero.AutomaticallyMoves = true;
+            _monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
         }
 
         #endregion
