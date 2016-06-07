@@ -10,3 +10,27 @@ D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\GameShadow\GameShadow\obj\Debug\Game
 D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
 D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
 D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.dll
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.pdb
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.xml
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csprojResolveAssemblyReference.cache
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
+C:\Users\Val Lolov\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.pdb
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.dll
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.pdb
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.xml
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csprojResolveAssemblyReference.cache
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
+D:\EdenPrime\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache

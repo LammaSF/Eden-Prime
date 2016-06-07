@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameData\Game.cs" />
     <Compile Include="GameData\Item.cs" />
     <Compile Include="GameData\LivingCreature.cs" />
     <Compile Include="GameData\Monster.cs" />
