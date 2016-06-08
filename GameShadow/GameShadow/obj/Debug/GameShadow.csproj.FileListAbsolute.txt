@@ -49,3 +49,12 @@ C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShad
 C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
 C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
 C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.pdb
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.dll
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.pdb
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\bin\Debug\SpriteLibrary.xml
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csprojResolveAssemblyReference.cache
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache

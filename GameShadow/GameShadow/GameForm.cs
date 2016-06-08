@@ -70,11 +70,8 @@ namespace GameShadow
             Random rnd = new Random();
 
             _monster = new Sprite(new Point(0, 0), _spriteController,
-                Resources.FishMonster, 190, 210, 250, 5);
-            _monster.SetSize(new Size(75, 75));
-            _monster.AddAnimation(new Point(0, 200), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.AddAnimation(new Point(0, 400), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.AddAnimation(new Point(0, 600), Resources.FishMonster, 200, 200, 250, 5);
+                Resources.Emoticon, 200, 198, 100, 35);
+            _monster.SetSize(new Size(50, 50));
             _monster.PutPictureBoxLocation(_heroStartPoint);
             _monster.MovementSpeed = MonsterMovementSpeed;
             _monster.CannotMoveOutsideBox = true;
@@ -144,22 +141,22 @@ namespace GameShadow
                 if (keyUp && keyLeft)
                 {
                     keyUp = keyLeft = false;
-                    MoveUIPlayer(0, 150, Directions.UpLeft); // move up left
+                    MoveUIPlayer(1, 150, Directions.UpLeft); // move up left
                 }
                 if (keyUp && keyRight)
                 {
                     keyUp = keyRight = false;
-                    MoveUIPlayer(0, 45, Directions.UpRight); // move up right
+                    MoveUIPlayer(2, 45, Directions.UpRight); // move up right
                 }
                 if (keyDown && keyLeft)
                 {
                     keyDown = keyLeft = false;
-                    MoveUIPlayer(0, 225, Directions.DownLeft); // move down left
+                    MoveUIPlayer(1, 225, Directions.DownLeft); // move down left
                 }
                 if (keyDown && keyRight)
                 {
                     keyDown = keyRight = false;
-                    MoveUIPlayer(0, -45, Directions.DownRight); // move down right
+                    MoveUIPlayer(2, -45, Directions.DownRight); // move down right
                 }
 
                 if (keyDown)
