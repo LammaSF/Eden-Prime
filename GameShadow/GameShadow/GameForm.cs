@@ -1,4 +1,4 @@
-﻿using GameShadow.GameData;
+using GameShadow.GameData;
 using GameShadow.GameLogic;
 using GameShadow.Properties;
 using SpriteLibrary;
@@ -18,12 +18,13 @@ namespace GameShadow
         #region Private Fields
         private SpriteController _spriteController;
         private Sprite _hero;
-        private Point _heroStartPoint = new Point(300, 300);
+        private Sprite _bullet;
+        private Point _heroStartPoint = new Point(560, 560);
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _direction = Directions.None;
         private Sprite _monster;
-        private Point _monsterStartPoint = new Point(500, 500);
+        //private Point _monsterStartPoint = new Point(500, 500);
         private DateTime _monsterLastMovement = DateTime.Now;
         private bool _monsterIsMoving = false;
 
@@ -33,14 +34,19 @@ namespace GameShadow
         public GameForm()
         {
             InitializeComponent();
-
             InitializeUIGameField();
             InitializeUIPlayer();
+	 	for (int i=1; i<=5; i++)
+		{
+//TO DO - Validate initialization and create new monster, only if its position is not in collision with other monster/player
+		 InitializeUIMonster();
+		}
         }
 
         #endregion
 
         #region Private Methods
+
         private void InitializeUIGameField()
         {
             picGameField.BackgroundImage = Resources.Background;
@@ -60,26 +66,9 @@ namespace GameShadow
             _hero.PutPictureBoxLocation(_heroStartPoint);
             _hero.MovementSpeed = HeroMovementSpeed;
             _hero.CannotMoveOutsideBox = true;
-            _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
-
-            _monster = new Sprite(new Point(0, 0), _spriteController,
-                Resources.FishMonster, 190, 210, 250, 5);
-            _monster.SetSize(new Size(75, 75));
-            _monster.AddAnimation(new Point(0, 200), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.AddAnimation(new Point(0, 400), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.AddAnimation(new Point(0, 600), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.PutPictureBoxLocation(_heroStartPoint);
-            _monster.MovementSpeed = MonsterMovementSpeed;
-            _monster.CannotMoveOutsideBox = true;
-            _monster.AutomaticallyMoves = true;
-            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
-            _monster.SetSpriteDirectionDegrees(180);
-            _monster.PutBaseImageLocation(new Point(500, 500));
-            // _monster.SpriteHitsSprite += Gameplay.WeHaveHit;
-
-            _monster.MoveTo(_hero.BaseImageLocation);
-        }
-
+          //  _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
+	}
+     
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
             if (_direction != direction)
@@ -94,6 +83,46 @@ namespace GameShadow
             _hero.AutomaticallyMoves = true;
             _monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
         }
+        //private void ShootBullets(int animationIndex, int directionDegrees, Directions direction)
+        //{
+        //    _bullet = new Sprite(new Point(0, 0), _spriteController,
+        //       Resources.Bullet, 70, 70, 250, 3);
+        //    _bullet.SetSize(new Size(25, 25));
+        //    _bullet.AddAnimation(new Point(0, 70), Resources.Bullet, 70, 70, 250, 3);
+        //    _bullet.AddAnimation(new Point(0, 140), Resources.Bullet, 70, 70, 250, 3);
+        //    _bullet.AddAnimation(new Point(0, 200), Resources.Bullet, 70, 70, 250, 3);
+        //    _bullet.PutBaseImageLocation(_heroStartPoint);
+        //    _bullet.PutPictureBoxLocation(_heroStartPoint);
+        //    _bullet.MovementSpeed = HeroMovementSpeed;
+        //   // _bullet.CannotMoveOutsideBox = true;
+        //    _bullet.AutomaticallyMoves = true;
+        //    _bullet.SetSpriteDirectionDegrees(directionDegrees);
+        //    _bullet.ChangeAnimation(animationIndex);
+            // NE RABOTI
+        //}
+private void InitializeUIMonster()
+        {
+		 Random rnd = new Random();
+
+            _monster = new Sprite(new Point(0, 0), _spriteController,
+                Resources.FishMonster, 190, 210, 250, 5);
+            _monster.SetSize(new Size(75, 75));
+            _monster.AddAnimation(new Point(0, 200), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.AddAnimation(new Point(0, 400), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.AddAnimation(new Point(0, 600), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.PutPictureBoxLocation(_heroStartPoint);
+            _monster.MovementSpeed = MonsterMovementSpeed;
+            _monster.CannotMoveOutsideBox = true;
+            _monster.AutomaticallyMoves = true;
+            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
+            _monster.SetSpriteDirectionDegrees(180);
+            _monster.PutBaseImageLocation(new Point(rnd.Next(38,500), rnd.Next(38,500)));
+// TO DO - Handle collisions between 2 monsters (to go through each other)
+             _monster.SpriteHitsSprite += Gameplay.WeHaveHit;
+
+            _monster.MoveTo(_hero.BaseImageLocation);
+        }
+
 
         #endregion
 
@@ -111,26 +140,44 @@ namespace GameShadow
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
             bool keyUp = _spriteController.IsKeyPressed(Keys.Up);
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
-            if (keyDown)
-                MoveUIPlayer(0, 270, Directions.Down); // move down
+            bool keySpace= _spriteController.IsKeyPressed(Keys.Space);
+            if (!keySpace)
+            {
+                if (keyDown)
+                    MoveUIPlayer(0, 270, Directions.Down); // move down
 
-            if (keyLeft)
-                MoveUIPlayer(1, 180, Directions.Left); // move left
+                if (keyLeft)
+                    MoveUIPlayer(1, 180, Directions.Left); // move left
 
-            if (keyRight)
-                MoveUIPlayer(2, 0, Directions.Right); // move right
+                if (keyRight)
+                    MoveUIPlayer(2, 0, Directions.Right); // move right
 
-            if (keyUp)
-                MoveUIPlayer(3, 90, Directions.Up); // move up
+                if (keyUp)
+                    MoveUIPlayer(3, 90, Directions.Up); // move up
 
-            if (keyEsc)
-                Application.Exit();// exit 
+            }
+            //else
+            //{
+            //    if (keyDown)
+            //        ShootBullets(0, 270, Directions.Down); // shoot down
 
+            //    if (keyLeft)
+            //        ShootBullets(1, 180, Directions.Left); // shoot left
+
+            //    if (keyRight)
+            //        ShootBullets(2, 0, Directions.Right); // shoot right
+
+            //    if (keyUp)
+            //        ShootBullets(3, 90, Directions.Up); // shoot up
+            //}
             if (!_heroIsMoving)
             {
                 _direction = Directions.None;
                 _hero.MovementSpeed = 0;
             }
+             
+            if (keyEsc)
+                Application.Exit();// exit 
         }
 
         #endregion
