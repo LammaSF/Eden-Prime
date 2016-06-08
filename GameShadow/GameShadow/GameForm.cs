@@ -19,7 +19,7 @@ namespace GameShadow
         private SpriteController _spriteController;
         private Sprite _hero;
         private Sprite _bullet;
-        private Point _heroStartPoint = new Point(560, 560);
+        private Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _direction = Directions.None;
@@ -31,16 +31,13 @@ namespace GameShadow
         #endregion
 
         #region Constructors
+
         public GameForm()
         {
             InitializeComponent();
             InitializeUIGameField();
             InitializeUIPlayer();
-	 	for (int i=1; i<=2; i++)
-		{
-//TO DO - Validate initialization and create new monster, only if its position is not in collision with other monster/player
-		 InitializeUIMonster();
-		}
+            InitializeUIMonster();
         }
 
         #endregion
@@ -66,9 +63,31 @@ namespace GameShadow
             _hero.PutPictureBoxLocation(_heroStartPoint);
             _hero.MovementSpeed = HeroMovementSpeed;
             _hero.CannotMoveOutsideBox = true;
-          //  _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
-	}
-     
+            _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
+        }
+        private void InitializeUIMonster()
+        {
+            Random rnd = new Random();
+
+            _monster = new Sprite(new Point(0, 0), _spriteController,
+                Resources.FishMonster, 190, 210, 250, 5);
+            _monster.SetSize(new Size(75, 75));
+            _monster.AddAnimation(new Point(0, 200), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.AddAnimation(new Point(0, 400), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.AddAnimation(new Point(0, 600), Resources.FishMonster, 200, 200, 250, 5);
+            _monster.PutPictureBoxLocation(_heroStartPoint);
+            _monster.MovementSpeed = MonsterMovementSpeed;
+            _monster.CannotMoveOutsideBox = true;
+            _monster.AutomaticallyMoves = true;
+            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
+            _monster.SetSpriteDirectionDegrees(180);
+            _monster.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
+            // TO DO - Handle collisions between 2 monsters (to go through each other)
+            //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
+
+            _monster.MoveTo(_hero.BaseImageLocation);
+        }
+
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
             if (_direction != direction)
@@ -98,30 +117,9 @@ namespace GameShadow
         //    _bullet.AutomaticallyMoves = true;
         //    _bullet.SetSpriteDirectionDegrees(directionDegrees);
         //    _bullet.ChangeAnimation(animationIndex);
-            // NE RABOTI
+        // NE RABOTI
         //}
-private void InitializeUIMonster()
-        {
-		 Random rnd = new Random();
-
-            _monster = new Sprite(new Point(0, 0), _spriteController,
-                Resources.FishMonster, 190, 210, 250, 5);
-            _monster.SetSize(new Size(75, 75));
-            _monster.AddAnimation(new Point(0, 200), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.AddAnimation(new Point(0, 400), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.AddAnimation(new Point(0, 600), Resources.FishMonster, 200, 200, 250, 5);
-            _monster.PutPictureBoxLocation(_heroStartPoint);
-            _monster.MovementSpeed = MonsterMovementSpeed;
-            _monster.CannotMoveOutsideBox = true;
-            _monster.AutomaticallyMoves = true;
-            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
-            _monster.SetSpriteDirectionDegrees(180);
-            _monster.PutBaseImageLocation(new Point(rnd.Next(38,500), rnd.Next(38, 500)));
-// TO DO - Handle collisions between 2 monsters (to go through each other)
-             _monster.SpriteHitsSprite += Gameplay.WeHaveHit;
-
-            _monster.MoveTo(_hero.BaseImageLocation);
-        }
+        
 
 
         #endregion
@@ -140,7 +138,7 @@ private void InitializeUIMonster()
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
             bool keyUp = _spriteController.IsKeyPressed(Keys.Up);
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
-            bool keySpace= _spriteController.IsKeyPressed(Keys.Space);
+            bool keySpace = _spriteController.IsKeyPressed(Keys.Space);
             if (!keySpace)
             {
                 if (keyUp && keyLeft)
@@ -196,7 +194,7 @@ private void InitializeUIMonster()
                 _direction = Directions.None;
                 _hero.MovementSpeed = 0;
             }
-             
+
             if (keyEsc)
                 Application.Exit();// exit 
         }
