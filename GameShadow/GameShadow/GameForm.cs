@@ -36,7 +36,7 @@ namespace GameShadow
             InitializeComponent();
             InitializeUIGameField();
             InitializeUIPlayer();
-	 	for (int i=1; i<=5; i++)
+	 	for (int i=1; i<=2; i++)
 		{
 //TO DO - Validate initialization and create new monster, only if its position is not in collision with other monster/player
 		 InitializeUIMonster();
@@ -116,7 +116,7 @@ private void InitializeUIMonster()
             _monster.AutomaticallyMoves = true;
             _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
             _monster.SetSpriteDirectionDegrees(180);
-            _monster.PutBaseImageLocation(new Point(rnd.Next(38,500), rnd.Next(38,500)));
+            _monster.PutBaseImageLocation(new Point(rnd.Next(38,500), rnd.Next(38, 500)));
 // TO DO - Handle collisions between 2 monsters (to go through each other)
              _monster.SpriteHitsSprite += Gameplay.WeHaveHit;
 
@@ -143,6 +143,27 @@ private void InitializeUIMonster()
             bool keySpace= _spriteController.IsKeyPressed(Keys.Space);
             if (!keySpace)
             {
+                if (keyUp && keyLeft)
+                {
+                    keyUp = keyLeft = false;
+                    MoveUIPlayer(0, 150, Directions.Down); // move up left
+                }
+                if (keyUp && keyRight)
+                {
+                    keyUp = keyRight = false;
+                    MoveUIPlayer(0, 45, Directions.Down); // move up right
+                }
+                if (keyDown && keyLeft)
+                {
+                    keyDown = keyLeft = false;
+                    MoveUIPlayer(0, 225, Directions.Down); // move down left
+                }
+                if (keyDown && keyRight)
+                {
+                    keyDown = keyRight = false;
+                    MoveUIPlayer(0, -45, Directions.Down); // move down right
+                }
+
                 if (keyDown)
                     MoveUIPlayer(0, 270, Directions.Down); // move down
 
