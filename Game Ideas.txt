@@ -1,0 +1,48 @@
+General game ideas:
+==================================================
+Game theme:
+1. Player and neverending wave of spawning monsters, shoot them all till you die
+
+2. Player and 2 or 3 enemies, which are hard to kill
+(they are invisible most of the time and you can hardly understand where they are in a given moment)
+
+3. Player and enemies/friends, the enemy-friend is enemy part of the time and friend part of the time
+(when it becomes an enemy you are running away from it and vice versa - you chase after it when in friend mode)
+
+
+What are we after?
+-original game or easy game
+
+
+
+More specific ideas:
+==================================================
+Map structure:
+-closed, maze-like, pathways
+-open spaces, halls 
+-something inbetween, closed parts and open spaces
+
+
+Map generation:
+-harcoded map
+-random generated map
+
+
+Enemy movement and actions:
+-runnung away from the player
+-chasing after the player
+-shooting the player
+-appearing and dissapearing 
+
+
+Player movement and actions:
+-running from monsters
+-chasing after the monsters
+-shooting monsters
+-casting spells to freeze the monsters
+
+
+END GAME GOAL?!
+-kill 9E16 enemies? :)))
+-collect 9E16 points :)))
+-just play till you die, you are doomed anyway
