@@ -10,7 +10,7 @@ namespace GameShadow
 {
     public partial class GameForm : Form
     {
-        private enum Directions { Down, Left, Right, Up, None }
+        private enum Directions { Down, Left, Right, Up, UpRight, UpLeft, DownRight, DownLeft, None }
 
         private const int HeroMovementSpeed = 20;
         private const int MonsterMovementSpeed = 5;
@@ -144,22 +144,22 @@ namespace GameShadow
                 if (keyUp && keyLeft)
                 {
                     keyUp = keyLeft = false;
-                    MoveUIPlayer(0, 150, Directions.Down); // move up left
+                    MoveUIPlayer(0, 150, Directions.UpLeft); // move up left
                 }
                 if (keyUp && keyRight)
                 {
                     keyUp = keyRight = false;
-                    MoveUIPlayer(0, 45, Directions.Down); // move up right
+                    MoveUIPlayer(0, 45, Directions.UpRight); // move up right
                 }
                 if (keyDown && keyLeft)
                 {
                     keyDown = keyLeft = false;
-                    MoveUIPlayer(0, 225, Directions.Down); // move down left
+                    MoveUIPlayer(0, 225, Directions.DownLeft); // move down left
                 }
                 if (keyDown && keyRight)
                 {
                     keyDown = keyRight = false;
-                    MoveUIPlayer(0, -45, Directions.Down); // move down right
+                    MoveUIPlayer(0, -45, Directions.DownRight); // move down right
                 }
 
                 if (keyDown)

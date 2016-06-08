@@ -46,3 +46,6 @@ C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShad
 C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.GameForm.resources
 C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.Properties.Resources.resources
 C:\Users\Valcho\Source\Repos\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.csproj.GenerateResource.Cache
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\bin\Debug\GameShadow.exe.config
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.exe
+C:\Users\sivanov\Desktop\GameShadow\Eden-Prime\GameShadow\GameShadow\obj\Debug\GameShadow.pdb
