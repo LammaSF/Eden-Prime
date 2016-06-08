@@ -12,10 +12,11 @@ namespace GameShadow.GameData
         const int FieldWidth = 600;
         public Player Player { get; set; }
         public List<Monster> Monsters { get; set; }
-
-        public Game(Player player, List<Monster> monsters)
+        public int[,] Field = new int[FieldHeight, FieldWidth];
+             
+        public Game(Player player, List<Monster> monsters, int[,] field)
         {
-            int[,] Field = new int[FieldHeight, FieldWidth];
+            field = Field;
             player = Player;
             monsters = Monsters;
         }

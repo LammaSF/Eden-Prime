@@ -12,3 +12,6 @@ D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Main Menu\obj\Debug\Hello.Properties
 D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Main Menu\obj\Debug\Hello.csproj.GenerateResource.Cache
 D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Main Menu\obj\Debug\Hello.exe
 D:\SoftUni\C#Advanced\Eden Prime\Eden-Prime\Main Menu\obj\Debug\Hello.pdb
+D:\EdenPrime\Eden-Prime\Main Menu\bin\Debug\Hello.exe.config
+D:\EdenPrime\Eden-Prime\Main Menu\obj\Debug\Hello.exe
+D:\EdenPrime\Eden-Prime\Main Menu\obj\Debug\Hello.pdb
