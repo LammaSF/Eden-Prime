@@ -16,14 +16,14 @@ namespace GameShadow
         private const int MonsterMovementSpeed = 5;
 
         #region Private Fields
-        private SpriteController _spriteController;
+        private static SpriteController _spriteController;
         private Sprite _hero;
         private Sprite _bullet;
-        private Point _heroStartPoint = new Point(500, 500);
+        private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _direction = Directions.None;
-        private Sprite _monster;
+        public static Sprite _monster;
         //private Point _monsterStartPoint = new Point(500, 500);
         private DateTime _monsterLastMovement = DateTime.Now;
         private bool _monsterIsMoving = false;
@@ -65,7 +65,7 @@ namespace GameShadow
             _hero.CannotMoveOutsideBox = true;
             _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
-        private void InitializeUIMonster()
+        public static  void InitializeUIMonster()
         {
             Random rnd = new Random();
 
@@ -82,7 +82,7 @@ namespace GameShadow
             // TO DO - Handle collisions between 2 monsters (to go through each other)
             //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
 
-            _monster.MoveTo(_hero.BaseImageLocation);
+           // _monster.MoveTo(_hero.BaseImageLocation);
         }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)

@@ -30,6 +30,7 @@ namespace GameShadow.GameLogic
         {
            // MessageBox.Show(" Ooooops ! Malko se blysnahme .");
             e.TargetSprite.Destroy();
+            GameForm.InitializeUIMonster();
         }
 
         public static void UpdatePlayerHealth(Player player, int damage)
