@@ -38,6 +38,7 @@ namespace GameShadow
             InitializeUIGameField();
             InitializeUIPlayer();
             InitializeUIMonster();
+
         }
 
         #endregion
@@ -50,6 +51,14 @@ namespace GameShadow
             picGameField.BackgroundImageLayout = ImageLayout.Stretch;
             _spriteController = new SpriteController(picGameField);
             _spriteController.DoTick += OnKeyPressed;
+            label1.Parent = picGameField;
+            label1.BackColor = Color.Transparent;
+            label2.Parent = picGameField;
+            label2.BackColor = Color.Transparent;
+            lblHealth.Parent = picGameField;
+            lblHealth.BackColor = Color.Transparent;
+            lblKills.Parent = picGameField;
+            lblKills.BackColor = Color.Transparent;
         }
 
         private void InitializeUIPlayer()
@@ -65,7 +74,7 @@ namespace GameShadow
             _hero.CannotMoveOutsideBox = true;
             _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
-        public static  void InitializeUIMonster()
+        public static void InitializeUIMonster()
         {
             Random rnd = new Random();
 
@@ -82,7 +91,7 @@ namespace GameShadow
             // TO DO - Handle collisions between 2 monsters (to go through each other)
             //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
 
-           // _monster.MoveTo(_hero.BaseImageLocation);
+            // _monster.MoveTo(_hero.BaseImageLocation);
         }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
@@ -99,26 +108,8 @@ namespace GameShadow
             _hero.AutomaticallyMoves = true;
             _monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
         }
-        //private void ShootBullets(int animationIndex, int directionDegrees, Directions direction)
-        //{
-        //    _bullet = new Sprite(new Point(0, 0), _spriteController,
-        //       Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.SetSize(new Size(25, 25));
-        //    _bullet.AddAnimation(new Point(0, 70), Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.AddAnimation(new Point(0, 140), Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.AddAnimation(new Point(0, 200), Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.PutBaseImageLocation(_heroStartPoint);
-        //    _bullet.PutPictureBoxLocation(_heroStartPoint);
-        //    _bullet.MovementSpeed = HeroMovementSpeed;
-        //   // _bullet.CannotMoveOutsideBox = true;
-        //    _bullet.AutomaticallyMoves = true;
-        //    _bullet.SetSpriteDirectionDegrees(directionDegrees);
-        //    _bullet.ChangeAnimation(animationIndex);
-        // NE RABOTI
-        //}
+
         
-
-
         #endregion
 
         #region Event Handlers

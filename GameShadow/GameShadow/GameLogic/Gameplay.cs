@@ -30,6 +30,7 @@ namespace GameShadow.GameLogic
         {
            // MessageBox.Show(" Ooooops ! Malko se blysnahme .");
             e.TargetSprite.Destroy();
+           
             GameForm.InitializeUIMonster();
         }
 
