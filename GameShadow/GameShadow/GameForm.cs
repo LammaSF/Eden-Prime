@@ -36,7 +36,7 @@ namespace GameShadow
         //private Point _monsterStartPoint = new Point(500, 500);
         private DateTime _monsterLastMovement = DateTime.Now;
         //private bool _monsterIsMoving = false;
-        private int shootingAngle = 0;
+        private int shootingAngle = 90;
 
         #endregion
 

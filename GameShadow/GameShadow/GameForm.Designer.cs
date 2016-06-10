@@ -41,7 +41,7 @@
             this.picGameField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picGameField.Location = new System.Drawing.Point(0, 0);
             this.picGameField.Name = "picGameField";
-            this.picGameField.Size = new System.Drawing.Size(593, 593);
+            this.picGameField.Size = new System.Drawing.Size(589, 589);
             this.picGameField.TabIndex = 1;
             this.picGameField.TabStop = false;
             // 
@@ -49,40 +49,40 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(40, 59);
+            this.label1.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(26, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 22);
+            this.label1.Size = new System.Drawing.Size(56, 19);
             this.label1.TabIndex = 2;
             this.label1.Text = "Kills:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(40, 81);
+            this.label2.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(26, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 22);
+            this.label2.Size = new System.Drawing.Size(70, 19);
             this.label2.TabIndex = 3;
             this.label2.Text = "Health:";
             // 
             // lblKills
             // 
             this.lblKills.AutoSize = true;
-            this.lblKills.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblKills.Location = new System.Drawing.Point(102, 59);
+            this.lblKills.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKills.Location = new System.Drawing.Point(102, 36);
             this.lblKills.Name = "lblKills";
-            this.lblKills.Size = new System.Drawing.Size(18, 22);
+            this.lblKills.Size = new System.Drawing.Size(22, 19);
             this.lblKills.TabIndex = 4;
             this.lblKills.Text = "0";
             // 
             // lblHealth
             // 
             this.lblHealth.AutoSize = true;
-            this.lblHealth.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblHealth.Location = new System.Drawing.Point(102, 81);
+            this.lblHealth.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHealth.Location = new System.Drawing.Point(102, 55);
             this.lblHealth.Name = "lblHealth";
-            this.lblHealth.Size = new System.Drawing.Size(18, 22);
+            this.lblHealth.Size = new System.Drawing.Size(22, 19);
             this.lblHealth.TabIndex = 5;
             this.lblHealth.Text = "0";
             // 
@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 593);
+            this.ClientSize = new System.Drawing.Size(589, 589);
             this.ControlBox = false;
             this.Controls.Add(this.lblHealth);
             this.Controls.Add(this.lblKills);
