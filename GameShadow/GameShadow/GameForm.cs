@@ -23,10 +23,10 @@ namespace GameShadow
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _direction = Directions.None;
-        //public static Sprite _monster;
-        ////private Point _monsterStartPoint = new Point(500, 500);
-        //private DateTime _monsterLastMovement = DateTime.Now;
-        ////private bool _monsterIsMoving = false;
+        public static Sprite _monster;
+        //private Point _monsterStartPoint = new Point(500, 500);
+        private DateTime _monsterLastMovement = DateTime.Now;
+        //private bool _monsterIsMoving = false;
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace GameShadow
             InitializeComponent();
             InitializeUIGameField();
             InitializeUIPlayer();
-            //InitializeUIMonster();
+            InitializeUIMonster();
         }
 
         #endregion
@@ -50,6 +50,14 @@ namespace GameShadow
             picGameField.BackgroundImageLayout = ImageLayout.Stretch;
             _spriteController = new SpriteController(picGameField);
             _spriteController.DoTick += OnKeyPressed;
+            label1.Parent = picGameField;
+            label1.BackColor = Color.Transparent;
+            label2.Parent = picGameField;
+            label2.BackColor = Color.Transparent;
+            lblHealth.Parent = picGameField;
+            lblHealth.BackColor = Color.Transparent;
+            lblKills.Parent = picGameField;
+            lblKills.BackColor = Color.Transparent;
         }
 
         private void InitializeUIPlayer()
@@ -66,24 +74,25 @@ namespace GameShadow
             _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
 
-        //public static void InitializeUIMonster()
-        //{
-        //    Random rnd = new Random();
+        public static void InitializeUIMonster()
+        {
+            Random rnd = new Random();
 
-        //    _monster = new Sprite(new Point(0, 0), _spriteController,
-        //        Resources.Emoticon, 200, 198, 100, 35);
-        //    _monster.SetSize(new Size(50, 50));
-        //    _monster.PutPictureBoxLocation(_heroStartPoint);
-        //    _monster.MovementSpeed = MonsterMovementSpeed;
-        //    _monster.CannotMoveOutsideBox = true;
-        //    _monster.AutomaticallyMoves = true;
-        //    _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
-        //    _monster.SetSpriteDirectionDegrees(180);
-        //    _monster.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
-        //    // TO DO - Handle collisions between 2 monsters (to go through each other)
-        //    //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
-        //    // _monster.MoveTo(_hero.BaseImageLocation);
-        //}
+            _monster = new Sprite(new Point(0, 0), _spriteController,
+                Resources.Emoticon, 200, 198, 100, 35);
+            _monster.SetSize(new Size(50, 50));
+            _monster.PutPictureBoxLocation(_heroStartPoint);
+            _monster.MovementSpeed = MonsterMovementSpeed;
+            _monster.CannotMoveOutsideBox = true;
+            _monster.AutomaticallyMoves = true;
+            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
+            _monster.SetSpriteDirectionDegrees(180);
+            _monster.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
+            // TO DO - Handle collisions between 2 monsters (to go through each other)
+            //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
+
+            // _monster.MoveTo(_hero.BaseImageLocation);
+        }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
@@ -117,6 +126,7 @@ namespace GameShadow
         //    _bullet.ChangeAnimation(animationIndex);
         // NE RABOTI
         //}                
+                
         #endregion
 
         #region Event Handlers

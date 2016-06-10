@@ -25,7 +25,7 @@ namespace Hello
          
             Application.Exit();
         }
-
+        
         private void newGameButton_Click(object sender, EventArgs e)
         {
         
