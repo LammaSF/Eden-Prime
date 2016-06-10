@@ -12,21 +12,21 @@ namespace GameShadow
     {
         private enum Directions { Down, Left, Right, Up, UpRight, UpLeft, DownRight, DownLeft, None }
 
-        private const int HeroMovementSpeed = 20;
+        private const int HeroMovementSpeed = 10;
         private const int MonsterMovementSpeed = 5;
 
         #region Private Fields
         private static SpriteController _spriteController;
         private Sprite _hero;
-        private Sprite _bullet;
+        //private Sprite _bullet;
         private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _direction = Directions.None;
-        public static Sprite _monster;
-        //private Point _monsterStartPoint = new Point(500, 500);
-        private DateTime _monsterLastMovement = DateTime.Now;
-        private bool _monsterIsMoving = false;
+        //public static Sprite _monster;
+        ////private Point _monsterStartPoint = new Point(500, 500);
+        //private DateTime _monsterLastMovement = DateTime.Now;
+        ////private bool _monsterIsMoving = false;
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace GameShadow
             InitializeComponent();
             InitializeUIGameField();
             InitializeUIPlayer();
-            InitializeUIMonster();
+            //InitializeUIMonster();
         }
 
         #endregion
@@ -54,36 +54,36 @@ namespace GameShadow
 
         private void InitializeUIPlayer()
         {
-            _hero = new Sprite(new Point(0, 0), _spriteController,
-                Resources.MaleWizard, 32, 32, 250, 3);
+            _hero = new Sprite(new Point(0, 128), _spriteController,
+                Resources.Heroes, 32, 32, 250, 3);
             _hero.SetSize(new Size(50, 50));
-            _hero.AddAnimation(new Point(0, 32), Resources.MaleWizard, 32, 32, 250, 3);
-            _hero.AddAnimation(new Point(0, 64), Resources.MaleWizard, 32, 32, 250, 3);
-            _hero.AddAnimation(new Point(0, 96), Resources.MaleWizard, 32, 32, 250, 3);
+            _hero.AddAnimation(new Point(0, 160), Resources.Heroes, 32, 32, 250, 3);
+            _hero.AddAnimation(new Point(0, 192), Resources.Heroes, 32, 32, 250, 3);
+            _hero.AddAnimation(new Point(0, 224), Resources.Heroes, 32, 32, 250, 3);
             _hero.PutPictureBoxLocation(_heroStartPoint);
             _hero.MovementSpeed = HeroMovementSpeed;
             _hero.CannotMoveOutsideBox = true;
             _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
-        public static  void InitializeUIMonster()
-        {
-            Random rnd = new Random();
 
-            _monster = new Sprite(new Point(0, 0), _spriteController,
-                Resources.Emoticon, 200, 198, 100, 35);
-            _monster.SetSize(new Size(50, 50));
-            _monster.PutPictureBoxLocation(_heroStartPoint);
-            _monster.MovementSpeed = MonsterMovementSpeed;
-            _monster.CannotMoveOutsideBox = true;
-            _monster.AutomaticallyMoves = true;
-            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
-            _monster.SetSpriteDirectionDegrees(180);
-            _monster.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
-            // TO DO - Handle collisions between 2 monsters (to go through each other)
-            //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
+        //public static void InitializeUIMonster()
+        //{
+        //    Random rnd = new Random();
 
-           // _monster.MoveTo(_hero.BaseImageLocation);
-        }
+        //    _monster = new Sprite(new Point(0, 0), _spriteController,
+        //        Resources.Emoticon, 200, 198, 100, 35);
+        //    _monster.SetSize(new Size(50, 50));
+        //    _monster.PutPictureBoxLocation(_heroStartPoint);
+        //    _monster.MovementSpeed = MonsterMovementSpeed;
+        //    _monster.CannotMoveOutsideBox = true;
+        //    _monster.AutomaticallyMoves = true;
+        //    _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
+        //    _monster.SetSpriteDirectionDegrees(180);
+        //    _monster.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
+        //    // TO DO - Handle collisions between 2 monsters (to go through each other)
+        //    //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
+        //    // _monster.MoveTo(_hero.BaseImageLocation);
+        //}
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
@@ -97,8 +97,9 @@ namespace GameShadow
             _heroIsMoving = true;
             _hero.MovementSpeed = 20;
             _hero.AutomaticallyMoves = true;
-            _monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
+            //_monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
         }
+        
         //private void ShootBullets(int animationIndex, int directionDegrees, Directions direction)
         //{
         //    _bullet = new Sprite(new Point(0, 0), _spriteController,
@@ -115,10 +116,7 @@ namespace GameShadow
         //    _bullet.SetSpriteDirectionDegrees(directionDegrees);
         //    _bullet.ChangeAnimation(animationIndex);
         // NE RABOTI
-        //}
-        
-
-
+        //}                
         #endregion
 
         #region Event Handlers
@@ -193,7 +191,7 @@ namespace GameShadow
             }
 
             if (keyEsc)
-                Application.Exit();// exit 
+                Close(); // exit 
         }
 
         #endregion

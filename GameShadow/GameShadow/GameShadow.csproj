@@ -65,7 +65,6 @@
     <Compile Include="GameData\Map.cs" />
     <Compile Include="GameData\Player.cs" />
     <Compile Include="GameLogic\Gameplay.cs" />
-    <Compile Include="GameLogic\MapInitializer.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameForm.resx">
@@ -95,10 +94,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Background.png" />
     <None Include="Resources\Emoticon.png" />
+    <None Include="Resources\Background.png" />
     <Content Include="Resources\FishMonster.png" />
-    <Content Include="Resources\MaleWizard.png" />
+    <None Include="Resources\Heroes.png" />
+    <None Include="Resources\Trees.png" />
     <Content Include="SpriteLibrary\SpriteLibrary.dll" />
     <Content Include="SpriteLibrary\SpriteLibrary.pdb" />
     <Content Include="SpriteLibrary\SpriteLibrary.XML" />
