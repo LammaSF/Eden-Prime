@@ -48,6 +48,7 @@ namespace GameShadow
             InitializeUIGameField();
             InitializeUIPlayer();
             InitializeUIMonster();
+            InitializeUISight();
             InitializeUIBullet();
         }
 
@@ -106,6 +107,21 @@ namespace GameShadow
             //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
 
+        private void InitializeUISight()
+        {
+            _sight = new Sprite(new Point(0, 0), _spriteController,
+                Resources.Crosshair, 24, 24, 0, 1);
+            _sight.SetSize(new Size(24, 24));
+            _sight.AutomaticallyMoves = true;
+
+            Point where = _hero.PictureBoxLocation;
+
+            _sight.PutPictureBoxLocation(where);
+            _sight.CannotMoveOutsideBox = true;
+            //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
+        }
+
+
         public void InitializeUIMonster()
         {
             Random rnd = new Random();
@@ -146,9 +162,15 @@ namespace GameShadow
             }
 
             _heroIsMoving = true;
-            _hero.MovementSpeed = 20;
+            _hero.MovementSpeed = 10;
             _hero.AutomaticallyMoves = true;
             //_monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
+
+            _sight.AutomaticallyMoves = true;
+
+            Point where = _hero.PictureBoxLocation;
+
+            _sight.PutPictureBoxLocation(where);
         }
 
         private void CheckPlayerObstacleCollision()
@@ -237,7 +259,7 @@ namespace GameShadow
 
             directionPoint = new Point(-1, -1);
             return false;
-        }                
+        }
         #endregion
 
         #region Event Handlers
@@ -272,7 +294,9 @@ namespace GameShadow
                 MoveUIPlayer(2, -45, Directions.DownRight); // move down right
 
             else if (keyDown)
+            {
                 MoveUIPlayer(0, 270, Directions.Down); // move down
+            }
 
             else if (keyLeft)
                 MoveUIPlayer(1, 180, Directions.Left); // move left
