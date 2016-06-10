@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="GameData\Map.cs" />
     <Compile Include="GameData\Player.cs" />
+    <Compile Include="GameLogic\GameInitializer.cs" />
     <Compile Include="GameLogic\Gameplay.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,11 +95,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Emoticon.png" />
     <None Include="Resources\Background.png" />
-    <Content Include="Resources\FishMonster.png" />
+    <None Include="Resources\Crosshair.png" />
+    <None Include="Resources\Emoticons.png" />
     <None Include="Resources\Heroes.png" />
     <None Include="Resources\Trees.png" />
+    <None Include="Resources\Magicballs.png" />
     <Content Include="SpriteLibrary\SpriteLibrary.dll" />
     <Content Include="SpriteLibrary\SpriteLibrary.pdb" />
     <Content Include="SpriteLibrary\SpriteLibrary.XML" />

@@ -5,10 +5,10 @@ namespace GameShadow.GameLogic
 {
     public static class GameInitializer
     {
-        const int FieldWidth = 12;
-        const int FieldLength = 12;
-        const int NoSpawnRadius = 3;
-        const int MonsterCount = 5;
+        public const int FieldWidth = 12;
+        public const int FieldLength = 12;
+        public const int NoSpawnRadius = 3;
+        public const int MonsterCount = 5;
 
         private static readonly int MaxFieldPosition = FieldWidth * FieldLength - 1;
 
@@ -28,6 +28,7 @@ namespace GameShadow.GameLogic
                 if(distanceToPlayer > NoSpawnRadius * NoSpawnRadius)
                 {
                     Monster monster = new Monster(positionX, positionY);
+                    game.Monsters.Add(monster);
                 }
             }
         }

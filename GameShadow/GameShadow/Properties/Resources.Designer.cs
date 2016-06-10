@@ -73,9 +73,9 @@ namespace GameShadow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Emoticon {
+        internal static System.Drawing.Bitmap Crosshair {
             get {
-                object obj = ResourceManager.GetObject("Emoticon", resourceCulture);
+                object obj = ResourceManager.GetObject("Crosshair", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace GameShadow.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FishMonster {
+        internal static System.Drawing.Bitmap Emoticons {
             get {
-                object obj = ResourceManager.GetObject("FishMonster", resourceCulture);
+                object obj = ResourceManager.GetObject("Emoticons", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,6 +96,16 @@ namespace GameShadow.Properties {
         internal static System.Drawing.Bitmap Heroes {
             get {
                 object obj = ResourceManager.GetObject("Heroes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Magicballs {
+            get {
+                object obj = ResourceManager.GetObject("Magicballs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

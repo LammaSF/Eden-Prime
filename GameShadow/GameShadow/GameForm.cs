@@ -47,9 +47,8 @@ namespace GameShadow
             InitializeComponent();
             InitializeUIGameField();
             InitializeUIPlayer();
-            //InitializeUIMonster();
+            InitializeUIMonster();
             InitializeUIBullet();
-
         }
 
         #endregion
@@ -112,7 +111,7 @@ namespace GameShadow
             Random rnd = new Random();
 
             _monster = new Sprite(new Point(0, 0), _spriteController,
-                Resources.Emoticon, 200, 198, 100, 35);
+                Resources.Emoticons, 50, 50, 100, 10);
             _monster.SetSize(new Size(50, 50));
             _monster.PutPictureBoxLocation(_heroStartPoint);
             _monster.MovementSpeed = MonsterMovementSpeed;
@@ -129,8 +128,9 @@ namespace GameShadow
 
         private void InitializeUIBullet()
         {
-            _bullet = new Sprite(new Point(0, 0), _spriteController, Resources.Emoticon, 200, 198, 0, 1);
-            _bullet.SetSize(new Size(10, 10));
+            _bullet = new Sprite(new Point(0, 675), _spriteController,
+                Resources.Magicballs, 75, 75, 100, 8);
+            _bullet.SetSize(new Size(40, 40));
             _bullet.CannotMoveOutsideBox = false;
 
             _bullet.SetName("shot");
