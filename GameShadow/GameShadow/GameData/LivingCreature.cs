@@ -12,5 +12,9 @@ namespace GameShadow.GameData
             CurrentHitPoints = currHitPoints;
             MaximumHitPoints = maxHitPoints;
         }
+        public LivingCreature()
+        {
+
+        }
     }
 }

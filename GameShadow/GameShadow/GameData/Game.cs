@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameShadow.GameData
 {
-    class Game
+    public class Game
     {
         const int FieldHeight = 600;
         const int FieldWidth = 600;
@@ -16,9 +16,9 @@ namespace GameShadow.GameData
              
         public Game(Player player, List<Monster> monsters, int[,] field)
         {
-            field = Field;
-            player = Player;
-            monsters = Monsters;
+            Field = field;
+            Player = player;
+            Monsters = monsters;
         }
     }
 }

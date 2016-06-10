@@ -24,5 +24,11 @@ namespace GameShadow.GameData
             PositionY = posY;
 
         }
+
+        public Monster(int posX, int posY) : base()
+        {
+            PositionX = posX;
+            PositionY = posY;
+        }
     }
 }
