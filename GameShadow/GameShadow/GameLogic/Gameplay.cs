@@ -12,6 +12,7 @@ namespace GameShadow.GameLogic
             player.PositionX = x;
             player.PositionY = y;
         }
+
         public static void SpriteBounces(object sender, EventArgs e)
         {
             Sprite me = (Sprite)sender;
@@ -30,7 +31,7 @@ namespace GameShadow.GameLogic
         {
            // MessageBox.Show(" Ooooops ! Malko se blysnahme .");
             e.TargetSprite.Destroy();
-            GameForm.InitializeUIMonster();
+            //GameForm.InitializeUIMonster();
         }
 
         public static void UpdatePlayerHealth(Player player, int damage)

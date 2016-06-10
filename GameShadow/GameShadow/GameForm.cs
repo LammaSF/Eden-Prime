@@ -3,6 +3,7 @@ using GameShadow.GameLogic;
 using GameShadow.Properties;
 using SpriteLibrary;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,10 +11,18 @@ namespace GameShadow
 {
     public partial class GameForm : Form
     {
-        private enum Directions { Down, Left, Right, Up, UpRight, UpLeft, DownRight, DownLeft, None }
+        private enum Directions { Down, Left, Right, Up, UpRight, UpLeft, DownRight, DownLeft }
 
         private const int HeroMovementSpeed = 10;
         private const int MonsterMovementSpeed = 5;
+        private const int SpriteDimensions = 50; // 50px x 50px
+
+        // ISSUE Hardcoded obstacle
+        private readonly Dictionary<int, bool> ObstaclesByPosition =
+            new Dictionary<int, bool>
+            {
+                [80] = true
+            };
 
         #region Private Fields
         private static SpriteController _spriteController;
@@ -22,7 +31,7 @@ namespace GameShadow
         private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private bool _heroIsMoving = false;
-        private Directions _direction = Directions.None;
+        private Directions _heroDirection = Directions.Down;
         public static Sprite _monster;
         //private Point _monsterStartPoint = new Point(500, 500);
         private DateTime _monsterLastMovement = DateTime.Now;
@@ -37,7 +46,7 @@ namespace GameShadow
             InitializeComponent();
             InitializeUIGameField();
             InitializeUIPlayer();
-            InitializeUIMonster();
+            //InitializeUIMonster();
         }
 
         #endregion
@@ -50,6 +59,7 @@ namespace GameShadow
             picGameField.BackgroundImageLayout = ImageLayout.Stretch;
             _spriteController = new SpriteController(picGameField);
             _spriteController.DoTick += OnKeyPressed;
+
             label1.Parent = picGameField;
             label1.BackColor = Color.Transparent;
             label2.Parent = picGameField;
@@ -58,6 +68,26 @@ namespace GameShadow
             lblHealth.BackColor = Color.Transparent;
             lblKills.Parent = picGameField;
             lblKills.BackColor = Color.Transparent;
+
+            GenerateUIObstacles();
+        }
+
+        private void GenerateUIObstacles()
+        {
+            //foreach (var obstacle in _game.ObstaclesByPosition)
+            foreach (var obstacle in ObstaclesByPosition)
+            {
+                int positionX = obstacle.Key % 12;
+                int positionY = obstacle.Key / 12;
+                int uiObstaclePosX = positionX * SpriteDimensions;
+                int uiObstaclePosY = positionY * SpriteDimensions;
+
+                var uiObstacle = new Sprite(new Point(0, 0), _spriteController,
+                    Resources.Trees, 120, 150, 2000, 1);
+                uiObstacle.SetSize(new Size(50, 50));
+                uiObstacle.PutBaseImageLocation(new Point(uiObstaclePosX, uiObstaclePosY));
+                uiObstacle.SendToFront();
+            }
         }
 
         private void InitializeUIPlayer()
@@ -71,7 +101,7 @@ namespace GameShadow
             _hero.PutPictureBoxLocation(_heroStartPoint);
             _hero.MovementSpeed = HeroMovementSpeed;
             _hero.CannotMoveOutsideBox = true;
-            _hero.SpriteHitsSprite += Gameplay.WeHaveHit;
+            //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
 
         public static void InitializeUIMonster()
@@ -96,11 +126,11 @@ namespace GameShadow
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
-            if (_direction != direction)
+            if (_heroDirection != direction)
             {
                 _hero.SetSpriteDirectionDegrees(directionDegrees);
                 _hero.ChangeAnimation(animationIndex);
-                _direction = direction;
+                _heroDirection = direction;
             }
 
             _heroIsMoving = true;
@@ -108,7 +138,94 @@ namespace GameShadow
             _hero.AutomaticallyMoves = true;
             //_monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
         }
-        
+
+        private void CheckPlayerObstacleCollision()
+        {
+            Point directionPoint;
+            if (IsPlayerObstacleCollision(out directionPoint))
+                _hero.PutBaseImageLocation(directionPoint);
+        }
+
+        private bool IsPlayerObstacleCollision(out Point directionPoint)
+        {
+            int positionX = _hero.BaseImageLocation.X / SpriteDimensions;
+            int positionY = _hero.BaseImageLocation.Y / SpriteDimensions;
+            int posTopRight = positionY * 12 + positionX; // ISSUE hardcoded value
+            int posTopLeft = posTopRight + 1;
+            int posBottomRight = posTopRight + 12; // ISSUE hardcoded value
+            int posBottomLeft = posTopLeft + 12; // ISSUE hardcoded value
+
+            //if (_game.ObstaclesByPosition.ContainsKey(posTopRight)
+            //    || _game.ObstaclesByPosition.ContainsKey(posTopLeft)
+            //    || _game.ObstaclesByPosition.ContainsKey(posBottomRight)
+            //    || _game.ObstaclesByPosition.ContainsKey(posBottomLeft))
+            if (ObstaclesByPosition.ContainsKey(posTopRight)
+               || ObstaclesByPosition.ContainsKey(posTopLeft)
+               || ObstaclesByPosition.ContainsKey(posBottomRight)
+               || ObstaclesByPosition.ContainsKey(posBottomLeft))
+            {
+                int imagePosX = _hero.BaseImageLocation.X;
+                int imagePosY = _hero.BaseImageLocation.Y;
+
+                switch (_heroDirection)
+                {
+                    case Directions.Down:
+                        imagePosY -= _hero.BaseImageLocation.Y % SpriteDimensions + 1;
+                        break;
+                    case Directions.Left:
+                        imagePosX += (SpriteDimensions
+                            - _hero.BaseImageLocation.X % SpriteDimensions + 1);
+                        break;
+                    case Directions.Right:
+                        imagePosX -= _hero.BaseImageLocation.X % SpriteDimensions + 1;
+                        break;
+                    case Directions.Up:
+                        imagePosY += (SpriteDimensions
+                             - _hero.BaseImageLocation.Y % SpriteDimensions + 1);
+                        break;
+                    case Directions.DownLeft:
+                        int dl = Math.Min(
+                            (SpriteDimensions
+                            - _hero.BaseImageLocation.X % SpriteDimensions + 1),
+                            _hero.BaseImageLocation.Y % SpriteDimensions + 1);
+                        imagePosX += dl;
+                        imagePosY -= dl;
+                        break;
+                    case Directions.DownRight:
+                        int dr = Math.Min(
+                            _hero.BaseImageLocation.X % SpriteDimensions + 1,
+                            _hero.BaseImageLocation.Y % SpriteDimensions + 1);
+                        imagePosX -= dr;
+                        imagePosY -= dr;
+                        break;
+                    case Directions.UpLeft:
+                        int ul = Math.Min(
+                            (SpriteDimensions
+                            - _hero.BaseImageLocation.X % SpriteDimensions + 1),
+                            (SpriteDimensions
+                            - _hero.BaseImageLocation.Y % SpriteDimensions + 1));
+                        imagePosX += ul;
+                        imagePosY += ul;
+                        break;
+                    case Directions.UpRight:
+                        int ur = Math.Min(
+                            _hero.BaseImageLocation.X % SpriteDimensions + 1,
+                            (SpriteDimensions
+                            - _hero.BaseImageLocation.Y % SpriteDimensions + 1));
+                        imagePosX -= ur;
+                        imagePosY += ur;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                directionPoint = new Point(imagePosX, imagePosY);
+                return true;
+            }
+
+            directionPoint = new Point(-1, -1);
+            return false;
+        }
         //private void ShootBullets(int animationIndex, int directionDegrees, Directions direction)
         //{
         //    _bullet = new Sprite(new Point(0, 0), _spriteController,
@@ -125,13 +242,14 @@ namespace GameShadow
         //    _bullet.SetSpriteDirectionDegrees(directionDegrees);
         //    _bullet.ChangeAnimation(animationIndex);
         // NE RABOTI
-        //}                
-                
+        //}                        
         #endregion
 
         #region Event Handlers
         private void OnKeyPressed(object sender, EventArgs e)
         {
+            CheckPlayerObstacleCollision();
+
             TimeSpan duration = DateTime.Now - _heroLastMovement;
             if (duration.TotalMilliseconds < 100)
                 return;
@@ -142,44 +260,31 @@ namespace GameShadow
             bool keyLeft = _spriteController.IsKeyPressed(Keys.Left);
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
             bool keyUp = _spriteController.IsKeyPressed(Keys.Up);
-            bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
-            bool keySpace = _spriteController.IsKeyPressed(Keys.Space);
-            if (!keySpace)
-            {
-                if (keyUp && keyLeft)
-                {
-                    keyUp = keyLeft = false;
-                    MoveUIPlayer(1, 150, Directions.UpLeft); // move up left
-                }
-                if (keyUp && keyRight)
-                {
-                    keyUp = keyRight = false;
-                    MoveUIPlayer(2, 45, Directions.UpRight); // move up right
-                }
-                if (keyDown && keyLeft)
-                {
-                    keyDown = keyLeft = false;
-                    MoveUIPlayer(1, 225, Directions.DownLeft); // move down left
-                }
-                if (keyDown && keyRight)
-                {
-                    keyDown = keyRight = false;
-                    MoveUIPlayer(2, -45, Directions.DownRight); // move down right
-                }
 
-                if (keyDown)
-                    MoveUIPlayer(0, 270, Directions.Down); // move down
+            if (keyUp && keyLeft)
+                MoveUIPlayer(1, 150, Directions.UpLeft); // move up left
 
-                if (keyLeft)
-                    MoveUIPlayer(1, 180, Directions.Left); // move left
+            else if (keyUp && keyRight)
+                MoveUIPlayer(2, 45, Directions.UpRight); // move up right
 
-                if (keyRight)
-                    MoveUIPlayer(2, 0, Directions.Right); // move right
+            else if (keyDown && keyLeft)
+                MoveUIPlayer(1, 225, Directions.DownLeft); // move down left
 
-                if (keyUp)
-                    MoveUIPlayer(3, 90, Directions.Up); // move up
+            else if (keyDown && keyRight)
+                MoveUIPlayer(2, -45, Directions.DownRight); // move down right
 
-            }
+            else if (keyDown)
+                MoveUIPlayer(0, 270, Directions.Down); // move down
+
+            else if (keyLeft)
+                MoveUIPlayer(1, 180, Directions.Left); // move left
+
+            else if (keyRight)
+                MoveUIPlayer(2, 0, Directions.Right); // move right
+
+            else if (keyUp)
+                MoveUIPlayer(3, 90, Directions.Up); // move up
+
             //else
             //{
             //    if (keyDown)
@@ -194,12 +299,11 @@ namespace GameShadow
             //    if (keyUp)
             //        ShootBullets(3, 90, Directions.Up); // shoot up
             //}
-            if (!_heroIsMoving)
-            {
-                _direction = Directions.None;
-                _hero.MovementSpeed = 0;
-            }
 
+            if (!_heroIsMoving)
+                _hero.MovementSpeed = 0;
+
+            bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
                 Close(); // exit 
         }
