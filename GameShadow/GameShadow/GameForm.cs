@@ -16,6 +16,7 @@ namespace GameShadow
         private const int HeroMovementSpeed = 10;
         private const int MonsterMovementSpeed = 5;
         private const int SpriteDimensions = 50; // 50px x 50px
+        private const int BulletMovementSpeed = 30;
 
         // ISSUE Hardcoded obstacle
         private readonly Dictionary<int, bool> ObstaclesByPosition =
@@ -26,16 +27,16 @@ namespace GameShadow
 
         #region Private Fields
         private static SpriteController _spriteController;
-        private Sprite _hero;
-        //private Sprite _bullet;
+        private Sprite _hero, _bullet, _sight, _monster;
         private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
+        private DateTime lastShot = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _heroDirection = Directions.Down;
-        public static Sprite _monster;
         //private Point _monsterStartPoint = new Point(500, 500);
         private DateTime _monsterLastMovement = DateTime.Now;
         //private bool _monsterIsMoving = false;
+        private int shootingAngle = 0;
 
         #endregion
 
@@ -47,6 +48,8 @@ namespace GameShadow
             InitializeUIGameField();
             InitializeUIPlayer();
             //InitializeUIMonster();
+            InitializeUIBullet();
+
         }
 
         #endregion
@@ -104,7 +107,7 @@ namespace GameShadow
             //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
 
-        public static void InitializeUIMonster()
+        public void InitializeUIMonster()
         {
             Random rnd = new Random();
 
@@ -122,6 +125,15 @@ namespace GameShadow
             //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
 
             // _monster.MoveTo(_hero.BaseImageLocation);
+        }
+
+        private void InitializeUIBullet()
+        {
+            _bullet = new Sprite(new Point(0, 0), _spriteController, Resources.Emoticon, 200, 198, 0, 1);
+            _bullet.SetSize(new Size(10, 10));
+            _bullet.CannotMoveOutsideBox = false;
+
+            _bullet.SetName("shot");
         }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
@@ -225,24 +237,7 @@ namespace GameShadow
 
             directionPoint = new Point(-1, -1);
             return false;
-        }
-        //private void ShootBullets(int animationIndex, int directionDegrees, Directions direction)
-        //{
-        //    _bullet = new Sprite(new Point(0, 0), _spriteController,
-        //       Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.SetSize(new Size(25, 25));
-        //    _bullet.AddAnimation(new Point(0, 70), Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.AddAnimation(new Point(0, 140), Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.AddAnimation(new Point(0, 200), Resources.Bullet, 70, 70, 250, 3);
-        //    _bullet.PutBaseImageLocation(_heroStartPoint);
-        //    _bullet.PutPictureBoxLocation(_heroStartPoint);
-        //    _bullet.MovementSpeed = HeroMovementSpeed;
-        //   // _bullet.CannotMoveOutsideBox = true;
-        //    _bullet.AutomaticallyMoves = true;
-        //    _bullet.SetSpriteDirectionDegrees(directionDegrees);
-        //    _bullet.ChangeAnimation(animationIndex);
-        // NE RABOTI
-        //}                        
+        }                
         #endregion
 
         #region Event Handlers
@@ -260,6 +255,9 @@ namespace GameShadow
             bool keyLeft = _spriteController.IsKeyPressed(Keys.Left);
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
             bool keyUp = _spriteController.IsKeyPressed(Keys.Up);
+            bool keySpace = _spriteController.IsKeyPressed(Keys.Space);
+            bool directionUp = _spriteController.IsKeyPressed(Keys.A);
+            bool directionDown = _spriteController.IsKeyPressed(Keys.D);
 
             if (keyUp && keyLeft)
                 MoveUIPlayer(1, 150, Directions.UpLeft); // move up left
@@ -285,20 +283,46 @@ namespace GameShadow
             else if (keyUp)
                 MoveUIPlayer(3, 90, Directions.Up); // move up
 
-            //else
-            //{
-            //    if (keyDown)
-            //        ShootBullets(0, 270, Directions.Down); // shoot down
+            if (keySpace)
+            {
+                TimeSpan Duration = DateTime.Now - lastShot;
+                if (Duration.TotalMilliseconds > 300)
+                {
+                    //We make a new shot sprite.
+                    Sprite newsprite = _spriteController.DuplicateSprite("shot");
+                    if (newsprite != null)
+                    {
+                        //We figure out where to put the shot
+                        Point where = _hero.PictureBoxLocation;
+                        int halfwit = 30;//Spaceship.VisibleWidth / 2;
+                        halfwit = halfwit - (newsprite.VisibleWidth / 2);
+                        int halfhit = -30 + newsprite.VisibleHeight / 2;
+                        where = new Point(where.X + halfwit, where.Y - halfhit);
+                        newsprite.PutPictureBoxLocation(where);
+                        //We tell the sprite to automatically move
+                        newsprite.AutomaticallyMoves = true;
+                        //We give it a direction, up
+                        newsprite.SetSpriteDirectionDegrees(shootingAngle);
+                        //we give it a speed for how fast it moves.
+                        newsprite.MovementSpeed = 120;
+                    }
+                    lastShot = DateTime.Now;
+                }
 
-            //    if (keyLeft)
-            //        ShootBullets(1, 180, Directions.Left); // shoot left
 
-            //    if (keyRight)
-            //        ShootBullets(2, 0, Directions.Right); // shoot right
 
-            //    if (keyUp)
-            //        ShootBullets(3, 90, Directions.Up); // shoot up
-            //}
+            }
+
+            if (directionUp)
+            {
+                shootingAngle += 10;
+            }
+            else if (directionDown)
+            {
+                shootingAngle -= 10;
+            }
+
+
 
             if (!_heroIsMoving)
                 _hero.MovementSpeed = 0;
@@ -306,6 +330,10 @@ namespace GameShadow
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
                 Close(); // exit 
+
+
+
+
         }
 
         #endregion
