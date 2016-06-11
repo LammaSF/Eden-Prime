@@ -7,6 +7,10 @@ namespace GameShadow.GameLogic
 {
     public static class Gameplay
     {
+        static Random rnd = new Random();
+        public static int xDistance;
+        public static int yDistance;
+        public static bool moved = false;
         public static void UpdatePlayerPosition(Player player, int x, int y)
         {
             player.PositionX = x;
@@ -39,10 +43,100 @@ namespace GameShadow.GameLogic
             player.CurrentHitPoints -= damage;
         }
 
-        public static void UpdateMonsterPosition(Monster monster, int posX, int posY)
+        public static void UpdateMonsterPosition(Monster monster, Player player, Game game)
         {
-            monster.PositionX = posX;
-            monster.PositionY = posY;
+            xDistance = monster.PositionX - player.PositionX;
+            yDistance = monster.PositionY - player.PositionY;
+            moved = false;
+
+            if (xDistance == 0 & yDistance == 0) // MonsterAttacksHero();
+                if (xDistance == 0)
+                    MoveVertically(monster, game);
+                else if (yDistance == 0)
+                    MoveHorizontally(monster, game);
+                else
+                if (rnd.Next(0, 2) == 0)
+                {
+                    MoveHorizontally(monster, game);
+                    if (moved == false) MoveVertically(monster, game);
+                }
+                else
+                {
+                    MoveVertically(monster, game);
+                    if (moved == false) MoveHorizontally(monster, game);
+                }
+            if (moved == false) MoveRandomly(monster, game);
+
+        }
+       static void MoveVertically(Monster monster, Game game)
+{
+    if (xDistance > 0)
+        MoveLeft(monster, game);
+    else MoveRight(monster, game);
+}
+
+static void MoveHorizontally(Monster monster, Game game)
+{
+    if (yDistance > 0) MoveDown(monster, game);
+    else MoveUp(monster, game);
+}
+
+static void MoveLeft(Monster monster, Game game)
+{
+    if (monster.PositionX > 0 & game.Field[monster.PositionX - 1, monster.PositionY] == 0)
+    {
+        monster.PositionX--;
+        moved = true;
+    }
+}
+static void MoveRight(Monster monster, Game game)
+{
+    if (monster.PositionX < game.fieldLength - 1 & game.Field[monster.PositionX + 1, monster.PositionY] == 0)
+    {
+        monster.PositionX++;
+        moved = true;
+    }
+}
+static void MoveDown(Monster monster, Game game)
+{
+    if (monster.PositionY > 0 & game.Field[monster.PositionX, monster.PositionY - 1] == 0)
+    {
+        monster.PositionY--;
+        moved = true;
+    }
+}
+static void MoveUp(Monster monster, Game game)
+{
+    if (monster.PositionY < game.fieldWidth - 1 & game.Field[monster.PositionX, monster.PositionY + 1] == 0)
+    {
+        monster.PositionY++;
+        moved = true;
+    }
+
+}
+static void MoveRandomly(Monster monster, Game game)
+{
+            if (monster.PositionX > 0 & game.Field[monster.PositionX - 1, monster.PositionY] == 0)
+            {
+                monster.PositionX--;
+                moved = true;
+            }
+            if (monster.PositionY > 0 & game.Field[monster.PositionX, monster.PositionY - 1] == 0)
+            {
+                monster.PositionY--;
+                moved = true;
+            }
+            if (monster.PositionY < game.fieldWidth - 1 & game.Field[monster.PositionX, monster.PositionY + 1] == 0)
+            {
+                monster.PositionY++;
+                moved = true;
+            }
+            else if (monster.PositionX < game.fieldLength - 1 & game.Field[monster.PositionX + 1, monster.PositionY] == 0)
+                {
+                    monster.PositionX++;
+                    moved = true;
+                }
+
         }
     }
 }
