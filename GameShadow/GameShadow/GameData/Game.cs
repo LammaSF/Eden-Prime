@@ -8,17 +8,20 @@ namespace GameShadow.GameData
 {
     public class Game
     {
-        const int FieldHeight = 600;
-        const int FieldWidth = 600;
+        const int FieldSize = 50;
+        const int FieldLength = 12;
+        const int FieldWidth = 12;
         public Player Player { get; set; }
         public List<Monster> Monsters { get; set; }
-        public int[,] Field = new int[FieldHeight, FieldWidth];
-             
+        public int[,] Field = new int[FieldLength, FieldWidth];
+        public Dictionary<int, bool> ObstaclesByPosition = new Dictionary<int, bool>();
+
         public Game(Player player, List<Monster> monsters, int[,] field)
         {
             Field = field;
             Player = player;
             Monsters = monsters;
         }
+
     }
 }
