@@ -33,6 +33,9 @@ namespace GameShadow
         private const int HeroStartPositionX = 500;
         private const int HeroStartPositionY = 500;
 
+        private readonly Point HeroStartPoint =
+            new Point(HeroStartPositionX, HeroStartPositionY);
+
         #region Private Fields
         private Game _game;
         private static SpriteController _spriteController;
@@ -50,7 +53,7 @@ namespace GameShadow
         private int shootingAngle = 90;
         public int kills = 0;// tezi da vlqzat posle v klasa na geroq
         public int playerHealth = 20;// tezi da vlqzat posle v klasa na geroq
-
+        private int _emoticonCount = 5;
 
         #endregion
 
@@ -141,17 +144,12 @@ namespace GameShadow
 
         private void InitializeUIPlayer()
         {
-            _hero = new Sprite(new Point(0, 128), _spriteController,
-                Resources.Heroes, 32, 32, 250, 3);
-            _hero.SetSize(new Size(50, 50));
-            _hero.AddAnimation(new Point(0, 160), Resources.Heroes, 32, 32, 250, 3);
-            _hero.AddAnimation(new Point(0, 192), Resources.Heroes, 32, 32, 250, 3);
-            _hero.AddAnimation(new Point(0, 224), Resources.Heroes, 32, 32, 250, 3);
-            _hero.PutPictureBoxLocation(_heroStartPoint);
-            _hero.MovementSpeed = HeroMovementSpeed;
+            _hero = new Sprite(_spriteController
+                .DuplicateSprite($"{SpriteNames.Hero}"));
             _hero.CannotMoveOutsideBox = true;
-            _hero.SetName("hero");
-            //_hero.SpriteHitsSprite += WeHaveHit;
+            _hero.PutBaseImageLocation(HeroStartPoint);
+            _hero.SpriteHitsSprite += OnHeroObjectCollision;
+            _hero.payload = _game.Player;
         }
 
         private void InitializeUISight()
@@ -513,6 +511,61 @@ namespace GameShadow
 
         }
 
+        private void OnHeroObjectCollision(object sender, SpriteEventArgs e)
+        {
+            if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
+            {
+                return;
+            }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
+            {
+                e.TargetSprite.Destroy();
+                _emoticonCount--;
+                var player = (Player)_hero.payload;
+                player.Smiles++;
+            }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonCheeky}")
+            {
+                e.TargetSprite.Destroy();
+                _emoticonCount--;
+                var player = (Player)_hero.payload;
+                player.Smiles += 2;
+            }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonGrin}")
+            {
+                e.TargetSprite.Destroy();
+                _emoticonCount--;
+                var player = (Player)_hero.payload;
+                player.Smiles += 3;
+            }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonLove}")
+            {
+                e.TargetSprite.Destroy();
+                _emoticonCount--;
+                var player = (Player)_hero.payload;
+                player.Health += 5;
+                lblHealthValue.Text = $"{player.Health}";
+            }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonAngry}")
+            {
+                e.TargetSprite.Destroy();
+                _emoticonCount--;
+                var player = (Player)_hero.payload;
+                player.Health -= 20;
+                player.Kills++;
+                lblHealthValue.Text = $"{player.Health}";
+                lblKillsValue.Text = $"{player.Kills}";
+            }
+            // TO DO hit by fireball
+
+            if (_emoticonCount == 0)
+            {
+                _game.Emoticons.Clear();
+                GameInitializer.GenerateEmoticions(_game);
+                DrawUIEmoticons();
+                _emoticonCount = 5;
+            }
+        }
         #endregion
 
     }
