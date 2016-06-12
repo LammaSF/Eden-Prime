@@ -22,12 +22,11 @@ namespace GameShadow
         private const int HeroStartPositionX = 500;
         private const int HeroStartPositionY = 500;
 
-
         #region Private Fields
         private Game _game;
-        private SpriteController _spriteController;
-        private Sprite _hero, _bullet, _sight, _monster;
-        private Point _heroStartPoint = new Point(500, 500);
+        private static SpriteController _spriteController;
+        private Sprite _hero, _bullet, _sight, _monster, _monsterBullet;
+        private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private DateTime lastShot = DateTime.Now;
         private DateTime monsterLastShot = DateTime.Now;
@@ -54,6 +53,7 @@ namespace GameShadow
             InitializeUIMonster();
             InitializeUISight();
             InitializeUIBullet();
+            InitializeMonsterBullet();
         }
 
         #endregion
@@ -86,7 +86,7 @@ namespace GameShadow
             lblKills.Parent = picGameField;
             lblKills.BackColor = Color.Transparent;
             lblHealth.Text = playerHealth.ToString();
-           
+
             GenerateUIObstacles();
         }
 
@@ -134,7 +134,7 @@ namespace GameShadow
 
             _sight.PutPictureBoxLocation(where);
             _sight.CannotMoveOutsideBox = true;
-            
+
         }
 
 
@@ -156,8 +156,8 @@ namespace GameShadow
             _monster.SpriteHitsSprite += WeHaveHit;
 
             // _monster.MoveTo(_hero.BaseImageLocation);
-            
-            
+
+
         }
 
         private void InitializeUIBullet()
@@ -170,6 +170,19 @@ namespace GameShadow
             _bullet.SetName("shot");
             //_bullet.SpriteHitsSprite += WeHaveHit;
         }
+
+        private void InitializeMonsterBullet()
+        {
+            _monsterBullet = new Sprite(new Point(0, 375), _spriteController,
+            Resources.Magicballs, 75, 75, 100, 8);
+            _monsterBullet.SetSize(new Size(40, 40));
+            _monsterBullet.CannotMoveOutsideBox = false;
+
+            _monsterBullet.SetName("monsterShot");
+            //_bullet.SpriteHitsSprite += WeHaveHit;
+        }
+
+
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
@@ -214,7 +227,7 @@ namespace GameShadow
                 newPlayer.Play();
                 InitializeUIMonster();
             }
-            else if(e.TargetSprite.SpriteName == "hero")
+            else if (e.TargetSprite.SpriteName == "hero")
             {
                 kills++;
                 lblKills.Text = kills.ToString();
@@ -225,6 +238,33 @@ namespace GameShadow
                 SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
                 newPlayer.Play();
                 InitializeUIMonster();
+            }
+        }
+
+        private void MonsterMakeShot()
+        {
+            TimeSpan MonsterShotDuration = DateTime.Now - monsterLastShot;
+            if (MonsterShotDuration.TotalMilliseconds > 2300)
+            {
+                //We make a new shot sprite.
+                Sprite newsprite = _spriteController.DuplicateSprite("monsterShot");
+                if (newsprite != null)
+                {
+                    //We figure out where to put the shot
+                    Point where = _monster.PictureBoxLocation;
+                    int halfwit = 30; //Spaceship.VisibleWidth / 2;
+                    halfwit = halfwit - (newsprite.VisibleWidth/2);
+                    int halfhit = -30 + newsprite.VisibleHeight/2;
+                    where = new Point(where.X + halfwit, where.Y - halfhit);
+                    newsprite.PutPictureBoxLocation(where);
+                    //We tell the sprite to automatically move
+                    newsprite.AutomaticallyMoves = true;
+                    //We give it a direction, up
+                    newsprite.SetSpriteDirectionDegrees(270);
+                    //we give it a speed for how fast it moves.
+                    newsprite.MovementSpeed = 50;
+                }
+                monsterLastShot = DateTime.Now;
             }
         }
 
@@ -241,7 +281,7 @@ namespace GameShadow
                || _game.ObstaclesByPosition.ContainsKey(posTopLeft)
                || _game.ObstaclesByPosition.ContainsKey(posBottomRight)
                || _game.ObstaclesByPosition.ContainsKey(posBottomLeft))
-            
+
             {
                 int imagePosX = _hero.BaseImageLocation.X;
                 int imagePosY = _hero.BaseImageLocation.Y;
@@ -311,6 +351,7 @@ namespace GameShadow
         private void OnKeyPressed(object sender, EventArgs e)
         {
             CheckPlayerObstacleCollision();
+            MonsterMakeShot();
 
             TimeSpan duration = DateTime.Now - _heroLastMovement;
             if (duration.TotalMilliseconds < 100)
