@@ -41,10 +41,9 @@
             // optionsButton
             // 
             this.optionsButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionsButton.Location = new System.Drawing.Point(236, 327);
-            this.optionsButton.Margin = new System.Windows.Forms.Padding(4);
+            this.optionsButton.Location = new System.Drawing.Point(177, 266);
             this.optionsButton.Name = "optionsButton";
-            this.optionsButton.Size = new System.Drawing.Size(148, 52);
+            this.optionsButton.Size = new System.Drawing.Size(111, 42);
             this.optionsButton.TabIndex = 0;
             this.optionsButton.Text = "Options";
             this.optionsButton.UseVisualStyleBackColor = true;
@@ -52,10 +51,9 @@
             // LoadGameButton
             // 
             this.LoadGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadGameButton.Location = new System.Drawing.Point(408, 327);
-            this.LoadGameButton.Margin = new System.Windows.Forms.Padding(4);
+            this.LoadGameButton.Location = new System.Drawing.Point(306, 266);
             this.LoadGameButton.Name = "LoadGameButton";
-            this.LoadGameButton.Size = new System.Drawing.Size(148, 52);
+            this.LoadGameButton.Size = new System.Drawing.Size(111, 42);
             this.LoadGameButton.TabIndex = 1;
             this.LoadGameButton.Text = "Load Game";
             this.LoadGameButton.UseVisualStyleBackColor = true;
@@ -63,10 +61,9 @@
             // HighScoreButton
             // 
             this.HighScoreButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HighScoreButton.Location = new System.Drawing.Point(71, 402);
-            this.HighScoreButton.Margin = new System.Windows.Forms.Padding(4);
+            this.HighScoreButton.Location = new System.Drawing.Point(53, 327);
             this.HighScoreButton.Name = "HighScoreButton";
-            this.HighScoreButton.Size = new System.Drawing.Size(148, 52);
+            this.HighScoreButton.Size = new System.Drawing.Size(111, 42);
             this.HighScoreButton.TabIndex = 3;
             this.HighScoreButton.Text = "High Scores";
             this.HighScoreButton.UseVisualStyleBackColor = true;
@@ -74,10 +71,9 @@
             // creditsButton
             // 
             this.creditsButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.creditsButton.Location = new System.Drawing.Point(236, 402);
-            this.creditsButton.Margin = new System.Windows.Forms.Padding(4);
+            this.creditsButton.Location = new System.Drawing.Point(177, 327);
             this.creditsButton.Name = "creditsButton";
-            this.creditsButton.Size = new System.Drawing.Size(148, 52);
+            this.creditsButton.Size = new System.Drawing.Size(111, 42);
             this.creditsButton.TabIndex = 4;
             this.creditsButton.Text = "Credits";
             this.creditsButton.UseVisualStyleBackColor = true;
@@ -86,21 +82,19 @@
             // 
             this.Title.AutoSize = true;
             this.Title.Font = new System.Drawing.Font("Snap ITC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Title.Location = new System.Drawing.Point(194, 93);
-            this.Title.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Title.Location = new System.Drawing.Point(146, 76);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(206, 37);
+            this.Title.Size = new System.Drawing.Size(154, 30);
             this.Title.TabIndex = 5;
-            this.Title.Text = "Cheese runner";
+            this.Title.Text = "Emoji Hunter";
             this.Title.UseCompatibleTextRendering = true;
             // 
             // newGameButton
             // 
             this.newGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newGameButton.Location = new System.Drawing.Point(71, 327);
-            this.newGameButton.Margin = new System.Windows.Forms.Padding(4);
+            this.newGameButton.Location = new System.Drawing.Point(53, 266);
             this.newGameButton.Name = "newGameButton";
-            this.newGameButton.Size = new System.Drawing.Size(148, 52);
+            this.newGameButton.Size = new System.Drawing.Size(111, 42);
             this.newGameButton.TabIndex = 6;
             this.newGameButton.Text = "New Game";
             this.newGameButton.UseVisualStyleBackColor = true;
@@ -109,22 +103,21 @@
             // exitButton
             // 
             this.exitButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(408, 402);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(4);
+            this.exitButton.Location = new System.Drawing.Point(306, 327);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(148, 52);
+            this.exitButton.Size = new System.Drawing.Size(111, 42);
             this.exitButton.TabIndex = 7;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // Game
+            // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(600, 515);
+            this.ClientSize = new System.Drawing.Size(450, 418);
             this.ControlBox = false;
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.newGameButton);
@@ -135,8 +128,7 @@
             this.Controls.Add(this.optionsButton);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Game";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game";
             this.ResumeLayout(false);
