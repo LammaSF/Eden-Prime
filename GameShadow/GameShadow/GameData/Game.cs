@@ -24,15 +24,15 @@ namespace GameShadow.GameData
             get { return FieldWidth; }
         }
         public Player Player { get; set; }
-        public List<Monster> Monsters { get; set; }
+        public List<Emoticon> Emoticons { get; set; }
         public int[,] Field = new int[FieldLength, FieldWidth];
         public Dictionary<int, bool> ObstaclesByPosition = new Dictionary<int, bool>();
 
-        public Game(Player player, List<Monster> monsters, int[,] field)
+        public Game(Player player, List<Emoticon> emoticons, int[,] field)
         {
             Field = field;
             Player = player;
-            Monsters = monsters;
+            Emoticons = emoticons;
         }
 	  public Game()
 		{

@@ -9,7 +9,7 @@ namespace GameShadow.GameLogic
         public const int FieldLength = 12;
         public const int MovableTerrainOdds = 90;
         public const int NoSpawnRadius = 3;
-        public const int MonsterCount = 5;
+        public const int EmoticonsCount = 5;
 
         private static readonly int MaxFieldPosition = FieldWidth * FieldLength - 1;
 
@@ -39,7 +39,7 @@ namespace GameShadow.GameLogic
         public static void SpawnMonsters(Game game)
         {
             Random rnd = new Random();
-            while (game.Monsters.Count != MonsterCount)
+            while (game.Emoticons.Count != EmoticonsCount)
             {
                 int position = rnd.Next(0, MaxFieldPosition);
                 int positionX = position % FieldLength;
@@ -52,8 +52,8 @@ namespace GameShadow.GameLogic
 
                     if (distanceToPlayer > NoSpawnRadius * NoSpawnRadius)
                     {
-                        Monster monster = new Monster(positionX, positionY);
-                        game.Monsters.Add(monster);
+                        Emoticon monster = new Emoticon(positionX, positionY);
+                        game.Emoticons.Add(monster);
                     }
                 }
             }

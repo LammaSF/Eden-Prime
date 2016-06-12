@@ -33,12 +33,12 @@ namespace GameShadow.GameLogic
 
         
         
-        public static void UpdatePlayerHealth(Player player, int damage)
-        {
-            player.CurrentHitPoints -= damage;
-        }
+        //public static void UpdatePlayerHealth(Player player, int damage)
+        //{
+        //    player.CurrentHitPoints -= damage;
+        //}
 
-        public static void UpdateMonsterPosition(Monster monster, Player player, Game game)
+        public static void UpdateMonsterPosition(Emoticon monster, Player player, Game game)
         {
             xDistance = monster.PositionX - player.PositionX;
             yDistance = monster.PositionY - player.PositionY;
@@ -63,20 +63,20 @@ namespace GameShadow.GameLogic
             if (moved == false) MoveRandomly(monster, game);
 
         }
-       static void MoveVertically(Monster monster, Game game)
+       static void MoveVertically(Emoticon monster, Game game)
 {
     if (xDistance > 0)
         MoveLeft(monster, game);
     else MoveRight(monster, game);
 }
 
-static void MoveHorizontally(Monster monster, Game game)
+static void MoveHorizontally(Emoticon monster, Game game)
 {
     if (yDistance > 0) MoveDown(monster, game);
     else MoveUp(monster, game);
 }
 
-static void MoveLeft(Monster monster, Game game)
+static void MoveLeft(Emoticon monster, Game game)
 {
     if (monster.PositionX > 0 & game.Field[monster.PositionX - 1, monster.PositionY] == 0)
     {
@@ -84,7 +84,7 @@ static void MoveLeft(Monster monster, Game game)
         moved = true;
     }
 }
-static void MoveRight(Monster monster, Game game)
+static void MoveRight(Emoticon monster, Game game)
 {
     if (monster.PositionX < game.fieldLength - 1 & game.Field[monster.PositionX + 1, monster.PositionY] == 0)
     {
@@ -92,7 +92,7 @@ static void MoveRight(Monster monster, Game game)
         moved = true;
     }
 }
-static void MoveDown(Monster monster, Game game)
+static void MoveDown(Emoticon monster, Game game)
 {
     if (monster.PositionY > 0 & game.Field[monster.PositionX, monster.PositionY - 1] == 0)
     {
@@ -100,7 +100,7 @@ static void MoveDown(Monster monster, Game game)
         moved = true;
     }
 }
-static void MoveUp(Monster monster, Game game)
+static void MoveUp(Emoticon monster, Game game)
 {
     if (monster.PositionY < game.fieldWidth - 1 & game.Field[monster.PositionX, monster.PositionY + 1] == 0)
     {
@@ -109,7 +109,7 @@ static void MoveUp(Monster monster, Game game)
     }
 
 }
-static void MoveRandomly(Monster monster, Game game)
+static void MoveRandomly(Emoticon monster, Game game)
 {
             if (monster.PositionX > 0 & game.Field[monster.PositionX - 1, monster.PositionY] == 0)
             {
