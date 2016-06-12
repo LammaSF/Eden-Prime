@@ -42,7 +42,7 @@ namespace GameShadow
         //private bool _monsterIsMoving = false;
         private int shootingAngle = 90;
         public int kills = 0;// tezi da vlqzat posle v klasa na geroq
-        public int playerHelath = 20;// tezi da vlqzat posle v klasa na geroq
+        public int playerHealth = 20;// tezi da vlqzat posle v klasa na geroq
         #endregion
 
         #region Constructors
@@ -76,7 +76,7 @@ namespace GameShadow
             lblHealth.BackColor = Color.Transparent;
             lblKills.Parent = picGameField;
             lblKills.BackColor = Color.Transparent;
-            lblHealth.Text = playerHelath.ToString();
+            lblHealth.Text = playerHealth.ToString();
             GenerateUIObstacles();
         }
 
@@ -195,7 +195,7 @@ namespace GameShadow
             // ako shot e udaril zvqr
             Sprite me = (Sprite)sender;
 
-            if (e.TargetSprite.SpriteName == "shot")
+            if (e.TargetSprite.SpriteOriginName == "shot")
             {
                 kills++;
                 lblKills.Text = kills.ToString();
@@ -209,8 +209,8 @@ namespace GameShadow
             {
                 kills++;
                 lblKills.Text = kills.ToString();
-                playerHelath -= 5;
-                lblHealth.Text = playerHelath.ToString();
+                playerHealth -= 5;
+                lblHealth.Text = playerHealth.ToString();
                 me.Destroy();
                 //e.TargetSprite.Destroy();
                 SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
