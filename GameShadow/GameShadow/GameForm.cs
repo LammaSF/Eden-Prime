@@ -27,7 +27,7 @@ namespace GameShadow
         }
 
         private const int HeroMovementSpeed = 10;
-        private const int MonsterMovementSpeed = 5;
+        private const int EmoticonMovementSpeed = 5;
         private const int BulletMovementSpeed = 30;
         private const int SpriteDimensions = 50; // 50px x 50px
         private const int HeroStartPositionX = 500;
@@ -37,6 +37,7 @@ namespace GameShadow
         private Game _game;
         private static SpriteController _spriteController;
         private Sprite _hero, _bullet, _sight, _monster, _monsterBullet;
+        private List<Sprite> _uiEmoticons = new List<Sprite>();
         private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private DateTime lastShot = DateTime.Now;
@@ -88,35 +89,54 @@ namespace GameShadow
             _spriteController = new SpriteController(picGameField);
             _spriteController.DoTick += OnKeyPressed;
 
-            label1.Parent = picGameField;
-            label1.BackColor = Color.Transparent;
-            label2.Parent = picGameField;
-            label2.BackColor = Color.Transparent;
+            SpriteInitializer.InitializeSprites(_spriteController, null);
+
             lblHealth.Parent = picGameField;
             lblHealth.BackColor = Color.Transparent;
             lblKills.Parent = picGameField;
             lblKills.BackColor = Color.Transparent;
-            lblHealth.Text = playerHealth.ToString();
+            lblHealthValue.Parent = picGameField;
+            lblHealthValue.BackColor = Color.Transparent;
+            lblKillsValue.Parent = picGameField;
+            lblKillsValue.BackColor = Color.Transparent;
+            lblHealthValue.Text = playerHealth.ToString();
 
-            GenerateUIObstacles();
+            DrawUIObtacles();
+            DrawUIEmoticons();
         }
 
-        private void GenerateUIObstacles()
+        private void DrawUIObtacles()
         {
             foreach (var obstacle in _game.ObstaclesByPosition)
             {
                 int positionX = obstacle.Key % 12;
                 int positionY = obstacle.Key / 12;
-                int uiObstaclePosX = positionX * SpriteDimensions;
-                int uiObstaclePosY = positionY * SpriteDimensions;
+                int uiObstacleX = positionX * SpriteDimensions;
+                int uiObstacleY = positionY * SpriteDimensions;
 
-                var uiObstacle = new Sprite(new Point(0, 0), _spriteController,
-                    Resources.Trees, 120, 150, 2000, 1);
-                uiObstacle.SetSize(new Size(50, 50));
-                uiObstacle.PutBaseImageLocation(new Point(uiObstaclePosX, uiObstaclePosY));
-                uiObstacle.SendToFront();
+                var uiObstacle = _spriteController.DuplicateSprite($"{SpriteNames.ObstacleTree1}");
+                uiObstacle.PutBaseImageLocation(new Point(uiObstacleX, uiObstacleY));
             }
 
+        }
+
+        private void DrawUIEmoticons()
+        {
+            foreach (var emoticon in _game.Emoticons)
+            {
+                int uiEmoticonX = emoticon.PositionX * SpriteDimensions;
+                int uiEmoticonY = emoticon.PositionY * SpriteDimensions;
+                string emoticonName = $"{emoticon.Type}";
+
+                var uiEmoticon = _spriteController
+                    .DuplicateSprite(emoticonName);
+                uiEmoticon.MovementSpeed = EmoticonMovementSpeed;
+                uiEmoticon.CannotMoveOutsideBox = true;
+                uiEmoticon.payload = emoticon;
+                uiEmoticon.PutBaseImageLocation(new Point(uiEmoticonX, uiEmoticonY));
+
+                _uiEmoticons.Add(uiEmoticon);
+            }
         }
 
         private void InitializeUIPlayer()
@@ -157,7 +177,7 @@ namespace GameShadow
                 Resources.Emoticons, 50, 50, 100, 10);
             _monster.SetSize(new Size(50, 50));
             _monster.PutPictureBoxLocation(_heroStartPoint);
-            _monster.MovementSpeed = MonsterMovementSpeed;
+            _monster.MovementSpeed = EmoticonMovementSpeed;
             _monster.CannotMoveOutsideBox = true;
             _monster.AutomaticallyMoves = true;
             _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
@@ -253,7 +273,7 @@ namespace GameShadow
             if (e.TargetSprite.SpriteOriginName == "shot")
             {
                 kills++;
-                lblKills.Text = kills.ToString();
+                lblKillsValue.Text = kills.ToString();
                 me.Destroy();
                 e.TargetSprite.Destroy();
                 SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
@@ -263,9 +283,9 @@ namespace GameShadow
             else if (e.TargetSprite.SpriteName == "hero")
             {
                 kills++;
-                lblKills.Text = kills.ToString();
+                lblKillsValue.Text = kills.ToString();
                 playerHealth -= 5;
-                lblHealth.Text = playerHealth.ToString();
+                lblHealthValue.Text = playerHealth.ToString();
                 me.Destroy();
                 //e.TargetSprite.Destroy();
                 SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);

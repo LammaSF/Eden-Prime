@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.picGameField = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblKills = new System.Windows.Forms.Label();
             this.lblHealth = new System.Windows.Forms.Label();
+            this.lblKills = new System.Windows.Forms.Label();
+            this.lblKillsValue = new System.Windows.Forms.Label();
+            this.lblHealthValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picGameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,44 +47,44 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(26, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 19);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Kills:";
+            this.lblHealth.AutoSize = true;
+            this.lblHealth.BackColor = System.Drawing.SystemColors.Control;
+            this.lblHealth.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHealth.Location = new System.Drawing.Point(26, 36);
+            this.lblHealth.Name = "label1";
+            this.lblHealth.Size = new System.Drawing.Size(56, 19);
+            this.lblHealth.TabIndex = 2;
+            this.lblHealth.Text = "Kills:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 19);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Health:";
+            this.lblKills.AutoSize = true;
+            this.lblKills.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKills.Location = new System.Drawing.Point(26, 55);
+            this.lblKills.Name = "label2";
+            this.lblKills.Size = new System.Drawing.Size(70, 19);
+            this.lblKills.TabIndex = 3;
+            this.lblKills.Text = "Health:";
             // 
             // lblKills
             // 
-            this.lblKills.AutoSize = true;
-            this.lblKills.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKills.Location = new System.Drawing.Point(102, 36);
-            this.lblKills.Name = "lblKills";
-            this.lblKills.Size = new System.Drawing.Size(22, 19);
-            this.lblKills.TabIndex = 4;
-            this.lblKills.Text = "0";
+            this.lblKillsValue.AutoSize = true;
+            this.lblKillsValue.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKillsValue.Location = new System.Drawing.Point(102, 36);
+            this.lblKillsValue.Name = "lblKills";
+            this.lblKillsValue.Size = new System.Drawing.Size(22, 19);
+            this.lblKillsValue.TabIndex = 4;
+            this.lblKillsValue.Text = "0";
             // 
             // lblHealth
             // 
-            this.lblHealth.AutoSize = true;
-            this.lblHealth.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHealth.Location = new System.Drawing.Point(102, 55);
-            this.lblHealth.Name = "lblHealth";
-            this.lblHealth.Size = new System.Drawing.Size(22, 19);
-            this.lblHealth.TabIndex = 5;
-            this.lblHealth.Text = "0";
+            this.lblHealthValue.AutoSize = true;
+            this.lblHealthValue.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHealthValue.Location = new System.Drawing.Point(102, 55);
+            this.lblHealthValue.Name = "lblHealth";
+            this.lblHealthValue.Size = new System.Drawing.Size(22, 19);
+            this.lblHealthValue.TabIndex = 5;
+            this.lblHealthValue.Text = "0";
             // 
             // GameForm
             // 
@@ -92,10 +92,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(589, 589);
             this.ControlBox = false;
-            this.Controls.Add(this.lblHealth);
+            this.Controls.Add(this.lblHealthValue);
+            this.Controls.Add(this.lblKillsValue);
             this.Controls.Add(this.lblKills);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblHealth);
             this.Controls.Add(this.picGameField);
             this.Cursor = System.Windows.Forms.Cursors.No;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -114,10 +114,10 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picGameField;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label lblKills;
         private System.Windows.Forms.Label lblHealth;
+        private System.Windows.Forms.Label lblKills;
+        public System.Windows.Forms.Label lblKillsValue;
+        private System.Windows.Forms.Label lblHealthValue;
     }
 }
 
