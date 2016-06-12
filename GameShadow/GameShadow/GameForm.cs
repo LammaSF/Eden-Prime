@@ -252,9 +252,8 @@ namespace GameShadow
                 {
                     //We figure out where to put the shot
                     Point where = _monster.PictureBoxLocation;
-                    int halfwit = 30; //Spaceship.VisibleWidth / 2;
-                    halfwit = halfwit - (newsprite.VisibleWidth/2);
-                    int halfhit = -30 + newsprite.VisibleHeight/2;
+                    int halfwit = _bullet.VisibleWidth / 2 - (newsprite.VisibleWidth / 2);
+                    int halfhit = 0;
                     where = new Point(where.X + halfwit, where.Y - halfhit);
                     newsprite.PutPictureBoxLocation(where);
                     //We tell the sprite to automatically move
@@ -404,9 +403,8 @@ namespace GameShadow
                     {
                         //We figure out where to put the shot
                         Point where = _hero.PictureBoxLocation;
-                        int halfwit = 30;//Spaceship.VisibleWidth / 2;
-                        halfwit = halfwit - (newsprite.VisibleWidth / 2);
-                        int halfhit = -30 + newsprite.VisibleHeight / 2;
+                        int halfwit = _bullet.VisibleWidth / 2 - (newsprite.VisibleWidth / 2);
+                        int halfhit = 0;
                         where = new Point(where.X + halfwit, where.Y - halfhit);
                         newsprite.PutPictureBoxLocation(where);
                         //We tell the sprite to automatically move
