@@ -13,7 +13,18 @@ namespace GameShadow
 {
     public partial class GameForm : Form
     {
-        private enum Directions { Down, Left, Right, Up, UpRight, UpLeft, DownRight, DownLeft }
+        private enum Directions
+        {
+            Right = 0,
+            UpRight = 45,
+            Up = 90,
+            UpLeft = 135,
+            Left = 180,
+            DownLeft = 225,
+            Down = 270,
+            DownRight = 315,
+            None
+        }
 
         private const int HeroMovementSpeed = 10;
         private const int MonsterMovementSpeed = 5;
@@ -198,8 +209,10 @@ namespace GameShadow
             _sight.PutPictureBoxLocation(where);
         }
 
-        private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
+        private void MoveUIPlayer(int animationIndex, Directions direction)
         {
+            var directionDegrees = (int)direction;
+
             if (_heroDirection != direction)
             {
                 _hero.SetSpriteDirectionDegrees(directionDegrees);
@@ -369,6 +382,7 @@ namespace GameShadow
         {
             CheckPlayerObstacleCollision();
             MonsterMakeShot();
+            MoveUISight();
 
             TimeSpan duration = DateTime.Now - _heroLastMovement;
             if (duration.TotalMilliseconds < 100)
@@ -385,52 +399,21 @@ namespace GameShadow
             bool directionDown = _spriteController.IsKeyPressed(Keys.D);
 
             if (keyUp && keyLeft)
-            {
-                MoveUIPlayer(1, 150, Directions.UpLeft); // move up left
-                MoveUISight(); // COMMIT
-            }
-
+                MoveUIPlayer(1, Directions.UpLeft); // move up left
             else if (keyUp && keyRight)
-            {
-                MoveUIPlayer(2, 45, Directions.UpRight); // move up right
-                MoveUISight(); // COMMIT
-            }
-
+                MoveUIPlayer(2, Directions.UpRight); // move up right
             else if (keyDown && keyLeft)
-            {
-                MoveUIPlayer(1, 225, Directions.DownLeft); // move down left
-                MoveUISight(); // COMMIT
-            }
-
+                MoveUIPlayer(1, Directions.DownLeft); // move down left
             else if (keyDown && keyRight)
-            {
-                MoveUIPlayer(2, -45, Directions.DownRight); // move down right
-                MoveUISight(); // COMMIT
-            }
-
+                MoveUIPlayer(2, Directions.DownRight); // move down right
             else if (keyDown)
-            {
-                MoveUIPlayer(0, 270, Directions.Down); // move down
-                MoveUISight(); // COMMIT
-            }
-
+                MoveUIPlayer(0, Directions.Down); // move down
             else if (keyLeft)
-            {
-                MoveUIPlayer(1, 180, Directions.Left); // move left
-                MoveUISight(); // COMMIT
-            }
-
+                MoveUIPlayer(1, Directions.Left); // move left
             else if (keyRight)
-            {
-                MoveUIPlayer(2, 0, Directions.Right); // move right
-                MoveUISight(); // COMMIT
-            }
-
+                MoveUIPlayer(2, Directions.Right); // move right
             else if (keyUp)
-            {
-                MoveUIPlayer(3, 90, Directions.Up); // move up
-                MoveUISight(); // COMMIT
-            }
+                MoveUIPlayer(3, Directions.Up); // move up
 
             if (keySpace)
             {
