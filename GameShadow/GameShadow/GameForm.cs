@@ -34,14 +34,15 @@ namespace GameShadow
         private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private DateTime lastShot = DateTime.Now;
+        private DateTime monsterLastShot = DateTime.Now;
         private bool _heroIsMoving = false;
         private Directions _heroDirection = Directions.Down;
         //private Point _monsterStartPoint = new Point(500, 500);
         private DateTime _monsterLastMovement = DateTime.Now;
         //private bool _monsterIsMoving = false;
         private int shootingAngle = 90;
-        public int kills = 0;
-
+        public int kills = 0;// tezi da vlqzat posle v klasa na geroq
+        public int playerHelath = 20;// tezi da vlqzat posle v klasa na geroq
         #endregion
 
         #region Constructors
@@ -75,7 +76,7 @@ namespace GameShadow
             lblHealth.BackColor = Color.Transparent;
             lblKills.Parent = picGameField;
             lblKills.BackColor = Color.Transparent;
-
+            lblHealth.Text = playerHelath.ToString();
             GenerateUIObstacles();
         }
 
@@ -109,7 +110,8 @@ namespace GameShadow
             _hero.PutPictureBoxLocation(_heroStartPoint);
             _hero.MovementSpeed = HeroMovementSpeed;
             _hero.CannotMoveOutsideBox = true;
-            //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
+            _hero.SetName("hero");
+            //_hero.SpriteHitsSprite += WeHaveHit;
         }
 
         private void InitializeUISight()
@@ -123,7 +125,7 @@ namespace GameShadow
 
             _sight.PutPictureBoxLocation(where);
             _sight.CannotMoveOutsideBox = true;
-            // _hero.SpriteHitsSprite += WeHaveHit;
+            
         }
 
 
@@ -145,6 +147,8 @@ namespace GameShadow
             _monster.SpriteHitsSprite += WeHaveHit;
 
             // _monster.MoveTo(_hero.BaseImageLocation);
+            
+            
         }
 
         private void InitializeUIBullet()
@@ -191,12 +195,24 @@ namespace GameShadow
             // ako shot e udaril zvqr
             Sprite me = (Sprite)sender;
 
-            if (e.TargetSprite.SpriteOriginName == "shot")
+            if (e.TargetSprite.SpriteName == "shot")
             {
                 kills++;
                 lblKills.Text = kills.ToString();
                 me.Destroy();
                 e.TargetSprite.Destroy();
+                SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
+                newPlayer.Play();
+                InitializeUIMonster();
+            }
+            else if(e.TargetSprite.SpriteName == "hero")
+            {
+                kills++;
+                lblKills.Text = kills.ToString();
+                playerHelath -= 5;
+                lblHealth.Text = playerHelath.ToString();
+                me.Destroy();
+                //e.TargetSprite.Destroy();
                 SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
                 newPlayer.Play();
                 InitializeUIMonster();
