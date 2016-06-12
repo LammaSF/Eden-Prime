@@ -13,7 +13,7 @@ namespace GameShadow.GameLogic
 
         private static readonly int MaxFieldPosition = FieldWidth * FieldLength - 1;
 
-        static void GenerateObstacles(Game game)
+       public static void GenerateObstacles(Game game)
         {
             
             Random rnd = new Random();
@@ -29,7 +29,7 @@ namespace GameShadow.GameLogic
                     {
                         game.ObstaclesByPosition.Add((y * FieldLength + x),true);
                     }
-                    else game.ObstaclesByPosition.Add((y * FieldLength + x), false);
+                  
                 }
             }
 
