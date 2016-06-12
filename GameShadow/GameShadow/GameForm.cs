@@ -152,21 +152,6 @@ namespace GameShadow
             _hero.payload = _game.Player;
         }
 
-        private void InitializeUISight()
-        {
-            _sight = new Sprite(new Point(0, 0), _spriteController,
-                Resources.Crosshair, 24, 24, 0, 1);
-            _sight.SetSize(new Size(24, 24));
-            _sight.AutomaticallyMoves = true;
-
-            Point where = _hero.PictureBoxLocation;
-
-            _sight.PutPictureBoxLocation(where);
-            _sight.CannotMoveOutsideBox = true;
-
-        }
-
-
         public void InitializeUIMonster()
         {
             Random rnd = new Random();
@@ -185,8 +170,17 @@ namespace GameShadow
             _monster.SpriteHitsSprite += WeHaveHit;
 
             // _monster.MoveTo(_hero.BaseImageLocation);
+        }
 
+        private void InitializeUISight()
+        {
+            _sight = new Sprite(_spriteController
+                .DuplicateSprite($"{SpriteNames.Crosshair}"));
 
+            Point location = _hero.PictureBoxLocation;
+            _sight.PutPictureBoxLocation(location);
+            _sight.CannotMoveOutsideBox = true;
+            _sight.AutomaticallyMoves = true;
         }
 
         private void InitializeUIBullet()
