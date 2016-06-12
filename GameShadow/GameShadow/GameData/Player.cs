@@ -1,19 +1,23 @@
-﻿namespace GameShadow.GameData
+﻿using SpriteLibrary;
+
+namespace GameShadow.GameData
 {
-    public class Player : LivingCreature
+    public class Player : SpritePayload
     {
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public int Gold { get; set; }
-        public int ExperiencePoints { get; set; }
-        public int Level { get; set; }
+        public int Health { get; set; }
+        public int Damage { get; set; }
+        public int Smiles { get; set; }
+        public int Kills { get; set; }
 
-        public Player(int currentHitPoints, int maximumHitPoints, int golds, int expPoints, int levels, int posXs, int posYs) : base(currentHitPoints, maximumHitPoints)
+        public Player(int health, int damage, int smiles, int kills, int posXs, int posYs)
         {
             // ISSUE: What happens if x, y is not valid position
-            Gold = golds;
-            ExperiencePoints = expPoints;
-            Level = levels;
+            Health = health;
+            Damage = damage;
+            Smiles = smiles;
+            Kills = kills;
             PositionX = posXs;
             PositionY = posYs;
         }
