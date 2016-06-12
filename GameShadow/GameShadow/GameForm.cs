@@ -204,7 +204,7 @@ namespace GameShadow
             int offsetX = (int)(_hero.VisibleWidth * Math.Cos(shootingAngle * Math.PI / 180));
             int offsetY = (int)(-_hero.VisibleHeight * Math.Sin(shootingAngle * Math.PI / 180));
 
-            where = new Point(where.X + offsetX, where.Y + offsetY);
+            where = new Point(where.X + _hero.VisibleWidth / 4 + offsetX, where.Y + offsetY); // COMMIT
 
             _sight.PutPictureBoxLocation(where);
         }
@@ -390,6 +390,10 @@ namespace GameShadow
             _heroLastMovement = DateTime.Now;
 
             _heroIsMoving = false;
+            bool keyPGUP = _spriteController.IsKeyPressed(Keys.PageUp);
+            bool keyPGDN = _spriteController.IsKeyPressed(Keys.PageDown);
+            bool keyHome = _spriteController.IsKeyPressed(Keys.Home);
+            bool keyEnd = _spriteController.IsKeyPressed(Keys.End);
             bool keyDown = _spriteController.IsKeyPressed(Keys.Down);
             bool keyLeft = _spriteController.IsKeyPressed(Keys.Left);
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
@@ -426,8 +430,8 @@ namespace GameShadow
                     {
                         //We figure out where to put the shot
                         Point where = _hero.PictureBoxLocation;
-                        int halfwit = 0; // COMMIT
-                        int halfhit = 0; // COMMIT
+                        int halfwit = 0;
+                        int halfhit = 0;
                         where = new Point(where.X + halfwit, where.Y - halfhit);
                         newsprite.PutPictureBoxLocation(where);
                         //We tell the sprite to automatically move
