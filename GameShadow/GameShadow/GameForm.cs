@@ -258,6 +258,26 @@ namespace GameShadow
             //_sight.PutPictureBoxLocation(where);
         }
 
+        private void MoveUIEmoticons()
+        {
+            foreach (var uiEmoticon in _uiEmoticons)
+            {
+                var emoticon = (Emoticon)uiEmoticon.payload;
+
+                if (emoticon.Type == EmoticonType.EmoticonAngry)
+                {
+                    uiEmoticon.MoveTo(_hero.BaseImageLocation);
+                }
+                else
+                {
+                    var angle = (int)_heroDirection;
+                    uiEmoticon.SetSpriteDirectionDegrees(angle);
+                }
+
+                uiEmoticon.AutomaticallyMoves = true;
+            }
+        }
+
         private void CheckPlayerObstacleCollision()
         {
             Point directionPoint;
@@ -479,7 +499,7 @@ namespace GameShadow
                 MoveUISight(); // COMMIT
             }
 
-
+            MoveUIEmoticons();
 
             if (!_heroIsMoving)
                 _hero.MovementSpeed = 0;
