@@ -183,6 +183,20 @@ namespace GameShadow
         }
 
 
+        private void MoveUISight()
+        {
+            _sight.AutomaticallyMoves = true;
+
+            Point where = _hero.PictureBoxLocation;
+
+            // offset gives the initial position of the bullet defined by the shooting angle - COMMIT
+            int offsetX = (int)(_hero.VisibleWidth * Math.Cos(shootingAngle * Math.PI / 180));
+            int offsetY = (int)(-_hero.VisibleHeight * Math.Sin(shootingAngle * Math.PI / 180));
+
+            where = new Point(where.X + offsetX, where.Y + offsetY);
+
+            _sight.PutPictureBoxLocation(where);
+        }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
         {
@@ -198,11 +212,17 @@ namespace GameShadow
             _hero.AutomaticallyMoves = true;
             //_monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
 
-            _sight.AutomaticallyMoves = true;
+            //_sight.AutomaticallyMoves = true;
 
-            Point where = _hero.PictureBoxLocation;
+            //Point where = _hero.PictureBoxLocation;
 
-            _sight.PutPictureBoxLocation(where);
+            //// offset gives the initial position of the bullet defined by the shooting angle - COMMIT
+            //int offsetX = (int)(_hero.VisibleWidth * Math.Cos(shootingAngle * Math.PI / 180));
+            //int offsetY = (int)(-_hero.VisibleHeight * Math.Sin(shootingAngle * Math.PI / 180));
+
+            //where = new Point(where.X + offsetX, where.Y + offsetY);
+
+            //_sight.PutPictureBoxLocation(where);
         }
 
         private void CheckPlayerObstacleCollision()
@@ -251,10 +271,8 @@ namespace GameShadow
                 if (newsprite != null)
                 {
                     //We figure out where to put the shot
-                    Point where = _monster.PictureBoxLocation;
-                    int halfwit = _bullet.VisibleWidth / 2 - (newsprite.VisibleWidth / 2);
-                    int halfhit = 0;
-                    where = new Point(where.X + halfwit, where.Y - halfhit);
+                    Point where = _monster.PictureBoxLocation; // COMMIT
+                    where = new Point(where.X, where.Y); // COMMIT
                     newsprite.PutPictureBoxLocation(where);
                     //We tell the sprite to automatically move
                     newsprite.AutomaticallyMoves = true;
@@ -367,30 +385,52 @@ namespace GameShadow
             bool directionDown = _spriteController.IsKeyPressed(Keys.D);
 
             if (keyUp && keyLeft)
+            {
                 MoveUIPlayer(1, 150, Directions.UpLeft); // move up left
+                MoveUISight(); // COMMIT
+            }
 
             else if (keyUp && keyRight)
+            {
                 MoveUIPlayer(2, 45, Directions.UpRight); // move up right
+                MoveUISight(); // COMMIT
+            }
 
             else if (keyDown && keyLeft)
+            {
                 MoveUIPlayer(1, 225, Directions.DownLeft); // move down left
+                MoveUISight(); // COMMIT
+            }
 
             else if (keyDown && keyRight)
+            {
                 MoveUIPlayer(2, -45, Directions.DownRight); // move down right
+                MoveUISight(); // COMMIT
+            }
 
             else if (keyDown)
             {
                 MoveUIPlayer(0, 270, Directions.Down); // move down
+                MoveUISight(); // COMMIT
             }
 
             else if (keyLeft)
+            {
                 MoveUIPlayer(1, 180, Directions.Left); // move left
+                MoveUISight(); // COMMIT
+            }
 
             else if (keyRight)
+            {
                 MoveUIPlayer(2, 0, Directions.Right); // move right
+                MoveUISight(); // COMMIT
+            }
 
             else if (keyUp)
+            {
                 MoveUIPlayer(3, 90, Directions.Up); // move up
+                MoveUISight(); // COMMIT
+            }
 
             if (keySpace)
             {
@@ -403,8 +443,8 @@ namespace GameShadow
                     {
                         //We figure out where to put the shot
                         Point where = _hero.PictureBoxLocation;
-                        int halfwit = _bullet.VisibleWidth / 2 - (newsprite.VisibleWidth / 2);
-                        int halfhit = 0;
+                        int halfwit = 0; // COMMIT
+                        int halfhit = 0; // COMMIT
                         where = new Point(where.X + halfwit, where.Y - halfhit);
                         newsprite.PutPictureBoxLocation(where);
                         //We tell the sprite to automatically move
@@ -424,10 +464,12 @@ namespace GameShadow
             if (directionUp)
             {
                 shootingAngle += 10;
+                MoveUISight(); // COMMIT
             }
             else if (directionDown)
             {
                 shootingAngle -= 10;
+                MoveUISight(); // COMMIT
             }
 
 
