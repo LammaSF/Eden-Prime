@@ -13,7 +13,7 @@ using GameShadow;
 
 namespace GameShadow
 {
-    public partial class Game : Form
+    public partial class MainForm : Form
     {
         public MainForm()
         {

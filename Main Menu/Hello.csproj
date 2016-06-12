@@ -7,9 +7,9 @@
     <ProjectGuid>{785869E2-0852-4A6F-BECD-BA5396042441}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hello</RootNamespace>
+    <RootNamespace>GameShadow</RootNamespace>
     <AssemblyName>Hello</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
