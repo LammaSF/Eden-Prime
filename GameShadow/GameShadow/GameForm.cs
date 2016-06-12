@@ -30,7 +30,7 @@ namespace GameShadow
 
         #region Private Fields
         private static SpriteController _spriteController;
-        private Sprite _hero, _bullet, _sight, _monster;
+        private Sprite _hero, _bullet, _sight, _monster, _monsterBullet;
         private static Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private DateTime lastShot = DateTime.Now;
@@ -55,6 +55,7 @@ namespace GameShadow
             InitializeUIMonster();
             InitializeUISight();
             InitializeUIBullet();
+            InitializeMonsterBullet();
         }
 
         #endregion
@@ -159,6 +160,16 @@ namespace GameShadow
             _bullet.CannotMoveOutsideBox = false;
 
             _bullet.SetName("shot");
+            //_bullet.SpriteHitsSprite += WeHaveHit;
+        }
+        private void InitializeMonsterBullet()
+        {
+         _monsterBullet = new Sprite(new Point(0, 375), _spriteController,
+                Resources.Magicballs, 75, 75, 100, 8);
+            _monsterBullet.SetSize(new Size(40, 40));
+            _monsterBullet.CannotMoveOutsideBox = false;
+
+           _monsterBullet.SetName("monsterShot");
             //_bullet.SpriteHitsSprite += WeHaveHit;
         }
 
@@ -300,11 +311,37 @@ namespace GameShadow
             return false;
         }
         #endregion
-
+        private void MonsterMakeShot()
+        {
+            TimeSpan MonsterShotDuration = DateTime.Now - monsterLastShot;
+            if (MonsterShotDuration.TotalMilliseconds > 2300)
+            {
+                //We make a new shot sprite.
+                Sprite newsprite = _spriteController.DuplicateSprite("monsterShot");
+                if (newsprite != null)
+                {
+                    //We figure out where to put the shot
+                    Point where = _monster.PictureBoxLocation;
+                    int halfwit = 30;//Spaceship.VisibleWidth / 2;
+                    halfwit = halfwit - (newsprite.VisibleWidth / 2);
+                    int halfhit = -30 + newsprite.VisibleHeight / 2;
+                    where = new Point(where.X + halfwit, where.Y - halfhit);
+                    newsprite.PutPictureBoxLocation(where);
+                    //We tell the sprite to automatically move
+                    newsprite.AutomaticallyMoves = true;
+                    //We give it a direction, up
+                    newsprite.SetSpriteDirectionDegrees(270);
+                    //we give it a speed for how fast it moves.
+                    newsprite.MovementSpeed = 50;
+                }
+                monsterLastShot = DateTime.Now;
+            }
+        }
         #region Event Handlers
         private void OnKeyPressed(object sender, EventArgs e)
         {
             CheckPlayerObstacleCollision();
+            MonsterMakeShot();
 
             TimeSpan duration = DateTime.Now - _heroLastMovement;
             if (duration.TotalMilliseconds < 100)
@@ -398,6 +435,8 @@ namespace GameShadow
 
 
         }
+
+        
 
         #endregion
 
