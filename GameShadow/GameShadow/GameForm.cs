@@ -5,6 +5,7 @@ using SpriteLibrary;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Media;
 using System.Windows.Forms;
 
 namespace GameShadow
@@ -25,8 +26,8 @@ namespace GameShadow
                 [80] = true
             };
 
-       
-        
+
+
         #region Private Fields
         private static SpriteController _spriteController;
         private Sprite _hero, _bullet, _sight, _monster;
@@ -74,10 +75,10 @@ namespace GameShadow
             lblHealth.BackColor = Color.Transparent;
             lblKills.Parent = picGameField;
             lblKills.BackColor = Color.Transparent;
-            
+
             GenerateUIObstacles();
         }
-        
+
         private void GenerateUIObstacles()
         {
             //foreach (var obstacle in _game.ObstaclesByPosition)
@@ -94,7 +95,7 @@ namespace GameShadow
                 uiObstacle.PutBaseImageLocation(new Point(uiObstaclePosX, uiObstaclePosY));
                 uiObstacle.SendToFront();
             }
-            
+
         }
 
         private void InitializeUIPlayer()
@@ -110,7 +111,7 @@ namespace GameShadow
             _hero.CannotMoveOutsideBox = true;
             //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
-        
+
         private void InitializeUISight()
         {
             _sight = new Sprite(new Point(0, 0), _spriteController,
@@ -122,7 +123,7 @@ namespace GameShadow
 
             _sight.PutPictureBoxLocation(where);
             _sight.CannotMoveOutsideBox = true;
-           // _hero.SpriteHitsSprite += WeHaveHit;
+            // _hero.SpriteHitsSprite += WeHaveHit;
         }
 
 
@@ -185,18 +186,20 @@ namespace GameShadow
                 _hero.PutBaseImageLocation(directionPoint);
         }
 
-        public  void WeHaveHit(object sender, SpriteEventArgs e)
+        public void WeHaveHit(object sender, SpriteEventArgs e)
         {
             // ako shot e udaril zvqr
             Sprite me = (Sprite)sender;
-            
+
             if (e.TargetSprite.SpriteOriginName == "shot")
             {
                 kills++;
                 lblKills.Text = kills.ToString();
                 me.Destroy();
-                    e.TargetSprite.Destroy();
-               InitializeUIMonster();
+                e.TargetSprite.Destroy();
+                SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
+                newPlayer.Play();
+                InitializeUIMonster();
             }
         }
 

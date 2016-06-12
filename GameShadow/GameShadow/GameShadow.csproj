@@ -101,6 +101,7 @@
     <None Include="Resources\Heroes.png" />
     <None Include="Resources\Trees.png" />
     <None Include="Resources\Magicballs.png" />
+    <None Include="Resources\Tboom.wav" />
     <Content Include="SpriteLibrary\SpriteLibrary.dll" />
     <Content Include="SpriteLibrary\SpriteLibrary.pdb" />
     <Content Include="SpriteLibrary\SpriteLibrary.XML" />
