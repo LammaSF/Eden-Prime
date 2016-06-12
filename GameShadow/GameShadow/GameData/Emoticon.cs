@@ -1,11 +1,20 @@
 ﻿using SpriteLibrary;
-using System;
 
 namespace GameShadow.GameData
 {
     public enum EmoticonType
     {
-        Smile, Sad
+        EmoticonSmile,
+        EmoticonCheeky,
+        EmoticonGrin,
+        EmoticonLove,
+        EmoticonSad,
+        EmoticonShouting,
+        EmoticonShy,
+        EmoticonCry,
+        EmoticonAngry,
+        EmoticonOnFire,
+        Length
     }
 
     public class Emoticon : SpritePayload
@@ -17,20 +26,10 @@ namespace GameShadow.GameData
         public int PositionX { get; set; }
         public int PositionY { get; set; }
 
-        public Emoticon(EmoticonType type, int health, int damage, int rewardSmiles, int posX, int posY)
+        public Emoticon(int positionX, int positionY)
         {
-            Type = type;
-            Health = health;
-            Damage = damage;
-            RewardSmiles = rewardSmiles;
-            PositionX = posX;
-            PositionY = posY;
-        }
-
-        public Emoticon(int posX, int posY)
-        {
-            PositionX = posX;
-            PositionY = posY;
+            PositionX = positionX;
+            PositionY = positionY;
         }
     }
 }

@@ -1,4 +1,5 @@
 using GameShadow.GameData;
+using GameShadow.GameHelpers;
 using GameShadow.GameLogic;
 using GameShadow.Properties;
 using SpriteLibrary;
@@ -16,15 +17,17 @@ namespace GameShadow
 
         private const int HeroMovementSpeed = 10;
         private const int MonsterMovementSpeed = 5;
-        private const int SpriteDimensions = 50; // 50px x 50px
         private const int BulletMovementSpeed = 30;
+        private const int SpriteDimensions = 50; // 50px x 50px
+        private const int HeroStartPositionX = 500;
+        private const int HeroStartPositionY = 500;
 
-     
 
         #region Private Fields
-        private static SpriteController _spriteController;
+        private Game _game;
+        private SpriteController _spriteController;
         private Sprite _hero, _bullet, _sight, _monster;
-        private static Point _heroStartPoint = new Point(500, 500);
+        private Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private DateTime lastShot = DateTime.Now;
         private DateTime monsterLastShot = DateTime.Now;
@@ -36,7 +39,6 @@ namespace GameShadow
         private int shootingAngle = 90;
         public int kills = 0;// tezi da vlqzat posle v klasa na geroq
         public int playerHealth = 20;// tezi da vlqzat posle v klasa na geroq
-        public Game _game = new Game();
 
 
         #endregion
@@ -46,6 +48,7 @@ namespace GameShadow
         public GameForm()
         {
             InitializeComponent();
+            InitializeGame();
             InitializeUIGameField();
             InitializeUIPlayer();
             InitializeUIMonster();
@@ -56,6 +59,16 @@ namespace GameShadow
         #endregion
 
         #region Private Methods
+        private void InitializeGame()
+        {
+            int positionX = HeroStartPositionX / SpriteDimensions;
+            int positionY = HeroStartPositionY / SpriteDimensions;
+            var player = new Player(positionX, positionY);
+            _game = new Game(player);
+
+            GameInitializer.GenerateObstacles(_game);
+            GameInitializer.GenerateEmoticions(_game);
+        }
 
         private void InitializeUIGameField()
         {
@@ -79,9 +92,7 @@ namespace GameShadow
 
         private void GenerateUIObstacles()
         {
-            GameInitializer.GenerateObstacles(_game);
             foreach (var obstacle in _game.ObstaclesByPosition)
-           // foreach (var obstacle in ObstaclesByPosition)
             {
                 int positionX = obstacle.Key % 12;
                 int positionY = obstacle.Key / 12;
