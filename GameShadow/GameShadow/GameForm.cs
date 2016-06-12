@@ -158,9 +158,7 @@ namespace GameShadow
         {
             Random rnd = new Random();
 
-            _monster = new Sprite(new Point(0, 0), _spriteController,
-                Resources.Emoticons, 50, 50, 100, 10);
-            _monster.SetSize(new Size(50, 50));
+            _monster = _spriteController.DuplicateSprite($"{SpriteNames.EmoticonOnFire}");
             _monster.PutPictureBoxLocation(_heroStartPoint);
             _monster.MovementSpeed = EmoticonMovementSpeed;
             _monster.CannotMoveOutsideBox = true;
@@ -491,9 +489,6 @@ namespace GameShadow
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
                 Close(); // exit 
-
-
-
 
         }
 
