@@ -31,13 +31,8 @@ namespace GameShadow.GameLogic
             }
         }
 
-        public static void WeHaveHit(object sender, SpriteEventArgs e)
-        {
-           // MessageBox.Show(" Ooooops ! Malko se blysnahme .");
-            e.TargetSprite.Destroy();
-            //GameForm.InitializeUIMonster();
-        }
-
+        
+        
         public static void UpdatePlayerHealth(Player player, int damage)
         {
             player.CurrentHitPoints -= damage;

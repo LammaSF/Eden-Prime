@@ -25,6 +25,8 @@ namespace GameShadow
                 [80] = true
             };
 
+       
+        
         #region Private Fields
         private static SpriteController _spriteController;
         private Sprite _hero, _bullet, _sight, _monster;
@@ -37,6 +39,7 @@ namespace GameShadow
         private DateTime _monsterLastMovement = DateTime.Now;
         //private bool _monsterIsMoving = false;
         private int shootingAngle = 90;
+        public int kills = 0;
 
         #endregion
 
@@ -71,10 +74,10 @@ namespace GameShadow
             lblHealth.BackColor = Color.Transparent;
             lblKills.Parent = picGameField;
             lblKills.BackColor = Color.Transparent;
-
+            
             GenerateUIObstacles();
         }
-
+        
         private void GenerateUIObstacles()
         {
             //foreach (var obstacle in _game.ObstaclesByPosition)
@@ -91,6 +94,7 @@ namespace GameShadow
                 uiObstacle.PutBaseImageLocation(new Point(uiObstaclePosX, uiObstaclePosY));
                 uiObstacle.SendToFront();
             }
+            
         }
 
         private void InitializeUIPlayer()
@@ -106,7 +110,7 @@ namespace GameShadow
             _hero.CannotMoveOutsideBox = true;
             //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
         }
-
+        
         private void InitializeUISight()
         {
             _sight = new Sprite(new Point(0, 0), _spriteController,
@@ -118,7 +122,7 @@ namespace GameShadow
 
             _sight.PutPictureBoxLocation(where);
             _sight.CannotMoveOutsideBox = true;
-            //_hero.SpriteHitsSprite += Gameplay.WeHaveHit;
+           // _hero.SpriteHitsSprite += WeHaveHit;
         }
 
 
@@ -137,7 +141,7 @@ namespace GameShadow
             _monster.SetSpriteDirectionDegrees(180);
             _monster.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
             // TO DO - Handle collisions between 2 monsters (to go through each other)
-            //_monster.SpriteHitsSprite += Gameplay.WeHaveHit;
+            _monster.SpriteHitsSprite += WeHaveHit;
 
             // _monster.MoveTo(_hero.BaseImageLocation);
         }
@@ -150,6 +154,7 @@ namespace GameShadow
             _bullet.CannotMoveOutsideBox = false;
 
             _bullet.SetName("shot");
+            //_bullet.SpriteHitsSprite += WeHaveHit;
         }
 
         private void MoveUIPlayer(int animationIndex, int directionDegrees, Directions direction)
@@ -178,6 +183,21 @@ namespace GameShadow
             Point directionPoint;
             if (IsPlayerObstacleCollision(out directionPoint))
                 _hero.PutBaseImageLocation(directionPoint);
+        }
+
+        public  void WeHaveHit(object sender, SpriteEventArgs e)
+        {
+            // ako shot e udaril zvqr
+            Sprite me = (Sprite)sender;
+            
+            if (e.TargetSprite.SpriteOriginName == "shot")
+            {
+                kills++;
+                lblKills.Text = kills.ToString();
+                me.Destroy();
+                    e.TargetSprite.Destroy();
+               InitializeUIMonster();
+            }
         }
 
         private bool IsPlayerObstacleCollision(out Point directionPoint)
