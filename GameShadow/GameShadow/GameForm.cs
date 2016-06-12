@@ -376,6 +376,10 @@ namespace GameShadow
             _heroLastMovement = DateTime.Now;
 
             _heroIsMoving = false;
+            bool keyPGUP = _spriteController.IsKeyPressed(Keys.PageUp); // COMMIT
+            bool keyPGDN = _spriteController.IsKeyPressed(Keys.PageDown); // COMMIT
+            bool keyHome = _spriteController.IsKeyPressed(Keys.Home); // COMMIT
+            bool keyEnd = _spriteController.IsKeyPressed(Keys.End); // COMMIT
             bool keyDown = _spriteController.IsKeyPressed(Keys.Down);
             bool keyLeft = _spriteController.IsKeyPressed(Keys.Left);
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
@@ -384,52 +388,52 @@ namespace GameShadow
             bool directionUp = _spriteController.IsKeyPressed(Keys.A);
             bool directionDown = _spriteController.IsKeyPressed(Keys.D);
 
-            if (keyUp && keyLeft)
+            if ((keyUp && keyLeft) || keyHome)
             {
                 MoveUIPlayer(1, 150, Directions.UpLeft); // move up left
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
-            else if (keyUp && keyRight)
+            else if ((keyUp && keyRight) || keyPGUP)
             {
                 MoveUIPlayer(2, 45, Directions.UpRight); // move up right
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
-            else if (keyDown && keyLeft)
+            else if ((keyDown && keyLeft) || keyEnd)
             {
                 MoveUIPlayer(1, 225, Directions.DownLeft); // move down left
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
-            else if (keyDown && keyRight)
+            else if ((keyDown && keyRight) || keyPGDN)
             {
                 MoveUIPlayer(2, -45, Directions.DownRight); // move down right
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
             else if (keyDown)
             {
                 MoveUIPlayer(0, 270, Directions.Down); // move down
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
             else if (keyLeft)
             {
                 MoveUIPlayer(1, 180, Directions.Left); // move left
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
             else if (keyRight)
             {
                 MoveUIPlayer(2, 0, Directions.Right); // move right
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
             else if (keyUp)
             {
                 MoveUIPlayer(3, 90, Directions.Up); // move up
-                MoveUISight(); // COMMIT
+                MoveUISight();
             }
 
             if (keySpace)
