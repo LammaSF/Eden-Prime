@@ -6,11 +6,12 @@ using GameShadow.Serialization;
 using System.Xml;
 using GameShadow;
 using System.IO;
-
+using GameShadow.Properties;
+using System.Media;
 
 namespace GameShadow
 {
-   
+
     public partial class MainForm : Form
     {
         private const string RelativePath = "data.xml";
@@ -26,32 +27,38 @@ namespace GameShadow
         public MainForm()
         {
             InitializeComponent();
-          
-          //  SerializationHelper.Serialize(emoticon, dataFilePath);
-          //  SerializationHelper.Serialize(player, dataFilePath);
+
+            //  SerializationHelper.Serialize(emoticon, dataFilePath);
+            //  SerializationHelper.Serialize(player, dataFilePath);
 
             // Deserialize from data.xml
-           
+
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-         
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
             Application.Exit();
         }
-        
+
         private void newGameButton_Click(object sender, EventArgs e)
         {
-
             GameForm sForm1 = new GameForm(this);
-       // sForm1.Disposing();
-        sForm1.Show();
-        
+
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
+
+            // sForm1.Disposing();
+            sForm1.Show();
+
 
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
             var game = (Game)Tag;
             var dataFilePath = PathHelper.GetDataFilePath(RelativePath);
             SerializationHelper.Serialize(game, dataFilePath);
@@ -59,6 +66,8 @@ namespace GameShadow
 
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
             Game loadedGame = null;
             var dataFilePath = PathHelper.GetDataFilePath(RelativePath);
             if (File.Exists(dataFilePath))

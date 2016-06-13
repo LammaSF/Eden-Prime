@@ -139,4 +139,28 @@
   <data name="Tboom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tboom.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Click.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="emoShot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\emoShot.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GotSmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GotSmile.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Health" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Health.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Hit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hit.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MouseOver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MouseOver.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Shoot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shoot.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="WrongEmo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WrongEmo.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
