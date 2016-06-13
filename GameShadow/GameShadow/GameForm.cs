@@ -107,6 +107,11 @@ namespace GameShadow
             lblKillsValue.Parent = picGameField;
             lblKillsValue.BackColor = Color.Transparent;
             lblHealthValue.Text = $"{_game.Player.Health}";
+            lblEmojiValue.Parent = picGameField;
+            lblEmojiValue.BackColor = Color.Transparent;
+            lblEmojiValue.Text = $"{_game.Player.Health}";
+            lblEmoji.Parent = picGameField;
+            lblEmoji.BackColor = Color.Transparent;
 
             DrawUIObtacles();
             DrawUIEmoticons();
