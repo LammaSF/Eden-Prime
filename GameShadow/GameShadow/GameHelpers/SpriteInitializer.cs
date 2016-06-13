@@ -5,6 +5,20 @@ using System.Drawing;
 
 namespace GameShadow.GameHelpers
 {
+    public enum DeadEmoticons
+    {
+        DeadSmile,
+        DeadCheeky,
+        DeadGrin,
+        DeadLove,
+        DeadSad,
+        DeadShouting,
+        DeadShy,
+        DeadCry,
+        DeadAngry,
+        DeadOnFire,
+        Length,
+    }
     public enum SpriteNames
     {
         EmoticonSmile,
@@ -69,7 +83,7 @@ namespace GameShadow.GameHelpers
         private const int MagicBallDimensions = 30; // 24 px x 24 px
         private const int CrosshairDimensions = 24; // 24 px x 24 px
 
-        private static readonly Size HeroSpriteSize = 
+        private static readonly Size HeroSpriteSize =
             new Size(HeroSpriteDimensions, HeroSpriteDimensions);
         private static readonly Size MagicBallSpriteSize =
             new Size(MagicBallDimensions, MagicBallDimensions);
@@ -88,6 +102,7 @@ namespace GameShadow.GameHelpers
             InitializeSunballSprite(controller, sprite);
             InitializeIceballSprite(controller, sprite);
             InitializeEnemyBallSprite(controller, sprite);
+            InitializeDeadEmoticonSprite(controller, sprite);
         }
 
         #endregion
@@ -157,5 +172,17 @@ namespace GameShadow.GameHelpers
         }
 
         #endregion
+
+        private static void InitializeDeadEmoticonSprite(SpriteController controller, Sprite sprite)
+        {
+            for (DeadEmoticons emoticon = 0; emoticon < DeadEmoticons.Length; emoticon++)
+            {
+                int index = (int)emoticon;
+                sprite = new Sprite(new Point(500, index * 50), controller,
+                                    Resources.Emoticons, 50, 50, 300, 3);
+                sprite.SetSize(HeroSpriteSize);
+                sprite.SetName($"{emoticon}");
+            }
+        }
     }
 }
