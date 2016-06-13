@@ -42,8 +42,8 @@ namespace GameShadow
         
         private void newGameButton_Click(object sender, EventArgs e)
         {
-        
-        GameShadow.GameForm sForm1 = new GameShadow.GameForm(this);
+
+            GameForm sForm1 = new GameForm(this);
        // sForm1.Disposing();
         sForm1.Show();
         
@@ -64,6 +64,8 @@ namespace GameShadow
             if (File.Exists(dataFilePath))
             {
                 loadedGame = SerializationHelper.Deserialize<Game>(dataFilePath);
+                GameForm sForm1 = new GameForm(this, loadedGame);
+                sForm1.Show();
             }
             else
             {
@@ -76,7 +78,6 @@ namespace GameShadow
 
             }
             //   GameShadow.GameForm sForm1 = new GameShadow.GameForm(this);
-            GameShadow.GameForm sForm1 = new GameShadow.GameForm(loadedGame);
 
 
         }

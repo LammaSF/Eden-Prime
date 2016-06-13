@@ -11,17 +11,17 @@ using System.Windows.Forms;
 namespace GameShadow
 {
     public enum Directions
-        {
-            Right = 0,
-            UpRight = 45,
-            Up = 90,
-            UpLeft = 135,
-            Left = 180,
-            DownLeft = 225,
-            Down = 270,
-            DownRight = 315,
-            None
-        }
+    {
+        Right = 0,
+        UpRight = 45,
+        Up = 90,
+        UpLeft = 135,
+        Left = 180,
+        DownLeft = 225,
+        Down = 270,
+        DownRight = 315,
+        None
+    }
 
     public partial class GameForm : Form
     {
@@ -29,7 +29,7 @@ namespace GameShadow
         #region Constants and Readonly Fields
         private const int HeroMovementSpeed = 12;
         private const int EmoticonMovementSpeed = 6;
-        private const int EnemyBallMovementSpeed = 30;
+        private const int EnemyBallMovementSpeed = 20;
         private const int BallMovementSpeed = 120;
         private const int SightSpeed = 15;
         private const int SpriteSize = 50; // 50px x 50px
@@ -37,6 +37,7 @@ namespace GameShadow
         private const int HeroStartPositionY = 500;
         private const int MovementInputDelay = 100; // in ms
         private const int ShootingInputDelay = 500; // in ms
+        private const int TeleportDelay = 1000; // in ms
         private const int EmoticonShootingDelay = 2000; // in ms
         private const int InitialShootingAngle = 135;
 
@@ -53,13 +54,14 @@ namespace GameShadow
         private List<Sprite> _uiEmoticons = new List<Sprite>();
         private DateTime _heroLastMovement = DateTime.Now;
         private DateTime _heroLastShot = DateTime.Now;
+        private DateTime _heroLastTeleport = DateTime.Now;
         private DateTime _emoticonLastShot = DateTime.Now;
         private Directions _heroDirection = Directions.Down;
         private bool _heroIsMoving = false;
+        private bool _gameLoaded = false;
         private int _heroShootingAngle = InitialShootingAngle;
         private int _emoticonCount = GameInitializer.EmoticonCount;
-        private MainForm mainForm;
-        private Game loadedGame;
+        private MainForm _mainForm;
 
         #endregion
 
@@ -71,21 +73,23 @@ namespace GameShadow
             ReducedFieldLength = picGameField.Size.Width / SpriteSize;
             ReducedFieldWidth = picGameField.Size.Height / SpriteSize;
 
-            InitializeGame();
+            if (!_gameLoaded)
+                InitializeGame();
             InitializeUIGameField();
             InitializeUIPlayer();
             InitializeUIMonster();
             InitializeUISight();
         }
 
-        public GameForm(MainForm mainForm):this()
+        public GameForm(MainForm mainForm) : this()
         {
-            this.mainForm = mainForm;
+            _mainForm = mainForm;
         }
 
-        public GameForm(Game loadedGame)
+        public GameForm(MainForm mainForm, Game game) : this(mainForm)
         {
-            this.loadedGame = loadedGame;
+            _game = game;
+            _gameLoaded = true;
         }
 
         #endregion
@@ -201,13 +205,13 @@ namespace GameShadow
         {
             Point location = new Point(_hero.PictureBoxLocation.X, _hero.PictureBoxLocation.Y);
 
-            int offsetX = 
+            int offsetX =
                 (int)(_hero.VisibleWidth * Math.Cos(_heroShootingAngle * Math.PI / 180));
-            int offsetY = 
+            int offsetY =
                 (int)(-_hero.VisibleHeight * Math.Sin(_heroShootingAngle * Math.PI / 180));
 
             location = new Point(location.X + _hero.VisibleWidth / 4 + offsetX,
-                location.Y + offsetY); 
+                location.Y + offsetY);
             _sight.PutPictureBoxLocation(location);
             _sight.AutomaticallyMoves = true;
         }
@@ -266,6 +270,7 @@ namespace GameShadow
                 default:
                     break;
             }
+
             if (destinationX > 25 && destinationX < 575 && destinationY > 25 && destinationY < 575)
             {
                 _hero.PutBaseImageLocation(new Point(destinationX, destinationY));
@@ -303,10 +308,10 @@ namespace GameShadow
         {
             int positionX = _hero.BaseImageLocation.X / SpriteSize;
             int positionY = _hero.BaseImageLocation.Y / SpriteSize;
-            int posTopRight = positionY * 12 + positionX; // ISSUE hardcoded value
+            int posTopRight = positionY * ReducedFieldLength + positionX;
             int posTopLeft = posTopRight + 1;
-            int posBottomRight = posTopRight + 12; // ISSUE hardcoded value
-            int posBottomLeft = posTopLeft + 12; // ISSUE hardcoded value
+            int posBottomRight = posTopRight + ReducedFieldLength;
+            int posBottomLeft = posTopLeft + ReducedFieldLength;
 
             if (_game.ObstaclesByPosition.ContainsKey(posTopRight)
                || _game.ObstaclesByPosition.ContainsKey(posTopLeft)
@@ -366,7 +371,7 @@ namespace GameShadow
                         imagePosY += ur;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        break;
                 }
 
                 directionPoint = new Point(imagePosX, imagePosY);
@@ -384,7 +389,7 @@ namespace GameShadow
                 _game.Emoticons.Clear();
                 GameInitializer.GenerateEmoticions(_game);
                 DrawUIEmoticons();
-                _emoticonCount = 5;
+                _emoticonCount = GameInitializer.EmoticonCount;
             }
         }
 
@@ -397,7 +402,7 @@ namespace GameShadow
                     .DuplicateSprite($"{SpriteNames.EnemyBall}");
                 if (sprite != null)
                 {
-                    Point location = _emoticon.BaseImageLocation; 
+                    Point location = _emoticon.BaseImageLocation;
                     sprite.PutBaseImageLocation(location);
 
                     location = _hero.BaseImageLocation;
@@ -411,7 +416,7 @@ namespace GameShadow
                 _emoticonLastShot = DateTime.Now;
             }
         }
-        
+
         #endregion
 
         #region Event Handlers
@@ -481,21 +486,25 @@ namespace GameShadow
                 }
             }
 
-
+            duration = DateTime.Now - _heroLastTeleport;
             if (keyTeleport)
             {
-                TeleportUIPlayer();
+                if (duration.TotalMilliseconds > TeleportDelay)
+                {
+                    TeleportUIPlayer();
+                    _heroLastTeleport = DateTime.Now;
+                }
             }
 
             if (directionUp)
             {
                 _heroShootingAngle += SightSpeed;
-                MoveUISight(); 
+                MoveUISight();
             }
             else if (directionDown)
             {
                 _heroShootingAngle -= SightSpeed;
-                MoveUISight(); 
+                MoveUISight();
             }
 
             MoveUIEmoticons();
@@ -506,13 +515,10 @@ namespace GameShadow
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
             {
-                Close(); // exit 
-                mainForm.Tag = _game;
-
-                mainForm.SaveButton.Enabled=true;
+                Close();
+                _mainForm.Tag = _game;
+                _mainForm.SaveButton.Enabled = true;
             }
-                
-
         }
 
         private void OnHeroObjectCollision(object sender, SpriteEventArgs e)
@@ -526,7 +532,7 @@ namespace GameShadow
                 e.TargetSprite.Destroy();
 
                 var player = (Player)_hero.payload;
-                player.Health -= 20;
+                player.Health -= 10;
                 lblHealthValue.Text = $"{player.Health}";
 
                 var soundPlayer = new SoundPlayer(Resources.Tboom);
@@ -534,6 +540,7 @@ namespace GameShadow
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
             {
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
@@ -542,6 +549,7 @@ namespace GameShadow
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonCheeky}")
             {
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
@@ -550,6 +558,7 @@ namespace GameShadow
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonGrin}")
             {
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
@@ -558,28 +567,31 @@ namespace GameShadow
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonLove}")
             {
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
-                player.Health += 5;
+                player.Health += 50;
                 lblHealthValue.Text = $"{player.Health}";
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonAngry}")
             {
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
-                player.Health -= 20;
+                player.Health -= 10;
                 player.Kills++;
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonOnFire}")
             {
+                //_uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 //_emoticonCount--;
                 var player = (Player)_hero.payload;
-                player.Health -= 20;
+                player.Health -= 10;
                 player.Kills++;
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
@@ -588,7 +600,7 @@ namespace GameShadow
 
             CreateNewEmoticonGroup();
         }
-        
+
         private void OnBallObjectCollision(object sender, SpriteEventArgs e)
         {
             if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
@@ -610,6 +622,7 @@ namespace GameShadow
             {
                 var ball = (Sprite)sender;
                 ball.Destroy();
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
@@ -621,6 +634,7 @@ namespace GameShadow
             {
                 var ball = (Sprite)sender;
                 ball.Destroy();
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
@@ -632,6 +646,7 @@ namespace GameShadow
             {
                 var ball = (Sprite)sender;
                 ball.Destroy();
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
@@ -644,6 +659,7 @@ namespace GameShadow
                 var ball = (Sprite)sender;
                 ball.Destroy();
                 e.TargetSprite.Destroy();
+                _uiEmoticons.Remove(e.TargetSprite);
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
                 player.Smiles -= 20;
@@ -654,6 +670,7 @@ namespace GameShadow
             {
                 var ball = (Sprite)sender;
                 ball.Destroy();
+                _uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
@@ -665,6 +682,7 @@ namespace GameShadow
             {
                 var ball = (Sprite)sender;
                 ball.Destroy();
+                //_uiEmoticons.Remove(e.TargetSprite);
                 e.TargetSprite.Destroy();
                 //_emoticonCount--;
                 var player = (Player)_hero.payload;

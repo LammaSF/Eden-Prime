@@ -18,7 +18,8 @@ namespace GameShadow.GameHelpers
         DeadAngry,
         DeadOnFire,
         Length,
-    }
+    }
+
     public enum SpriteNames
     {
         EmoticonSmile,
@@ -171,8 +172,6 @@ namespace GameShadow.GameHelpers
             sprite.SetName($"{SpriteNames.Crosshair}");
         }
 
-        #endregion
-
         private static void InitializeDeadEmoticonSprite(SpriteController controller, Sprite sprite)
         {
             for (DeadEmoticons emoticon = 0; emoticon < DeadEmoticons.Length; emoticon++)
@@ -184,5 +183,7 @@ namespace GameShadow.GameHelpers
                 sprite.SetName($"{emoticon}");
             }
         }
+        #endregion
+
     }
 }
