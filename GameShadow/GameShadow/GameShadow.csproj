@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GameShadow</RootNamespace>
     <AssemblyName>GameShadow</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -110,6 +110,14 @@
     <None Include="Resources\Trees.png" />
     <None Include="Resources\Magicballs.png" />
     <None Include="Resources\Tboom.wav" />
+    <None Include="Resources\Click.wav" />
+    <None Include="Resources\emoShot.wav" />
+    <None Include="Resources\GotSmile.wav" />
+    <None Include="Resources\Health.wav" />
+    <None Include="Resources\MouseOver.wav" />
+    <None Include="Resources\Shoot.wav" />
+    <None Include="Resources\WrongEmo.wav" />
+    <None Include="Resources\Hit.wav" />
     <Content Include="SpriteLibrary\SpriteLibrary.dll" />
     <Content Include="SpriteLibrary\SpriteLibrary.pdb" />
     <Content Include="SpriteLibrary\SpriteLibrary.XML" />

@@ -397,6 +397,8 @@ namespace GameShadow
                     .DuplicateSprite($"{SpriteNames.EnemyBall}");
                 if (sprite != null)
                 {
+                    var soundPlayer = new SoundPlayer(Resources.emoShot);
+                    soundPlayer.Play();
                     Point location = _emoticon.BaseImageLocation; 
                     sprite.PutBaseImageLocation(location);
 
@@ -467,6 +469,8 @@ namespace GameShadow
                         DuplicateSprite($"{SpriteNames.Sunball}");
                     if (sprite != null)
                     {
+                        var soundPlayer = new SoundPlayer(Resources.Shoot);
+                        soundPlayer.Play();
                         Point location = _hero.PictureBoxLocation;
                         int halfwit = 0; // ?!
                         int halfhit = 0; // ?!
@@ -529,7 +533,7 @@ namespace GameShadow
                 player.Health -= 20;
                 lblHealthValue.Text = $"{player.Health}";
 
-                var soundPlayer = new SoundPlayer(Resources.Tboom);
+                var soundPlayer = new SoundPlayer(Resources.Hit);
                 soundPlayer.Play();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
@@ -539,6 +543,8 @@ namespace GameShadow
                 var player = (Player)_hero.payload;
                 player.Smiles++;
                 lblEmojiValue.Text = player.Smiles.ToString();
+                var soundPlayer = new SoundPlayer(Resources.GotSmile);
+                soundPlayer.Play();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonCheeky}")
             {
@@ -547,6 +553,8 @@ namespace GameShadow
                 var player = (Player)_hero.payload;
                 player.Smiles += 2;
                 lblEmojiValue.Text = player.Smiles.ToString();
+                var soundPlayer = new SoundPlayer(Resources.GotSmile);
+                soundPlayer.Play();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonGrin}")
             {
@@ -555,6 +563,8 @@ namespace GameShadow
                 var player = (Player)_hero.payload;
                 player.Smiles += 3;
                 lblEmojiValue.Text = player.Smiles.ToString();
+                var soundPlayer = new SoundPlayer(Resources.GotSmile);
+                soundPlayer.Play();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonLove}")
             {
@@ -563,6 +573,8 @@ namespace GameShadow
                 var player = (Player)_hero.payload;
                 player.Health += 5;
                 lblHealthValue.Text = $"{player.Health}";
+                var soundPlayer = new SoundPlayer(Resources.Health);
+                soundPlayer.Play();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonAngry}")
             {
@@ -573,6 +585,8 @@ namespace GameShadow
                 player.Kills++;
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
+                var soundPlayer = new SoundPlayer(Resources.WrongEmo);
+                soundPlayer.Play();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonOnFire}")
             {
@@ -584,6 +598,8 @@ namespace GameShadow
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
                 InitializeUIMonster();
+                var soundPlayer = new SoundPlayer(Resources.WrongEmo);
+                soundPlayer.Play();
             }
 
             CreateNewEmoticonGroup();

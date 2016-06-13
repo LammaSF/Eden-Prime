@@ -6,7 +6,8 @@ using GameShadow.Serialization;
 using System.Xml;
 using GameShadow;
 using System.IO;
-
+using GameShadow.Properties;
+using System.Media;
 
 namespace GameShadow
 {
@@ -36,14 +37,16 @@ namespace GameShadow
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-         
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
             Application.Exit();
         }
         
         private void newGameButton_Click(object sender, EventArgs e)
         {
-        
-        GameShadow.GameForm sForm1 = new GameShadow.GameForm(this);
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
+            GameShadow.GameForm sForm1 = new GameShadow.GameForm(this);
        // sForm1.Disposing();
         sForm1.Show();
         
@@ -52,6 +55,8 @@ namespace GameShadow
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
             var game = (Game)Tag;
             var dataFilePath = PathHelper.GetDataFilePath(RelativePath);
             SerializationHelper.Serialize(game, dataFilePath);
@@ -59,6 +64,8 @@ namespace GameShadow
 
         private void LoadGameButton_Click(object sender, EventArgs e)
         {
+            var soundPlayer = new SoundPlayer(Resources.Click);
+            soundPlayer.Play();
             Game loadedGame = null;
             var dataFilePath = PathHelper.GetDataFilePath(RelativePath);
             if (File.Exists(dataFilePath))
