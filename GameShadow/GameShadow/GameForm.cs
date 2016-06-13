@@ -27,12 +27,15 @@ namespace GameShadow
         }
 
         #region Constants and Readonly Fields
-        private const int HeroMovementSpeed = 10;
-        private const int EmoticonMovementSpeed = 5;
-        private const int BulletMovementSpeed = 30;
+        private const int HeroMovementSpeed = 12;
+        private const int EmoticonMovementSpeed = 6;
+        private const int BallMovementSpeed = 30;
         private const int SpriteDimensions = 50; // 50px x 50px
         private const int HeroStartPositionX = 500;
         private const int HeroStartPositionY = 500;
+        private const int MovementInputDelay = 100; // in ms
+        private const int ShootingInputDelay = 300; // in ms
+        private const int EmoticonShootingDelay = 2000; // in ms
 
         private readonly Point HeroStartPoint =
             new Point(HeroStartPositionX, HeroStartPositionY);
@@ -41,21 +44,16 @@ namespace GameShadow
 
         #region Private Fields
         private Game _game;
-        private static SpriteController _spriteController;
-        private Sprite _hero, _sight, _monster, _monsterBullet;
+        private SpriteController _spriteController;
+        private Sprite _hero, _sight, _emoticon, _emoticonBall;
         private List<Sprite> _uiEmoticons = new List<Sprite>();
-        private static Point _heroStartPoint = new Point(500, 500);
+        private Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
-        private DateTime lastShot = DateTime.Now;
-        private DateTime monsterLastShot = DateTime.Now;
-        private bool _heroIsMoving = false;
+        private DateTime _heroLastShot = DateTime.Now;
+        private DateTime _emoticonLastShot = DateTime.Now;
         private Directions _heroDirection = Directions.Down;
-        //private Point _monsterStartPoint = new Point(500, 500);
-        private DateTime _monsterLastMovement = DateTime.Now;
-        //private bool _monsterIsMoving = false;
-        private int shootingAngle = 90;
-        public int kills = 0;// tezi da vlqzat posle v klasa na geroq
-        public int playerHealth = 20;// tezi da vlqzat posle v klasa na geroq
+        private bool _heroIsMoving = false;
+        private int _heroShootingAngle = 90;
         private int _emoticonCount = 5;
 
         #endregion
@@ -70,7 +68,6 @@ namespace GameShadow
             InitializeUIPlayer();
             InitializeUIMonster();
             InitializeUISight();
-            InitializeMonsterBullet();
         }
 
         #endregion
@@ -104,7 +101,7 @@ namespace GameShadow
             lblHealthValue.BackColor = Color.Transparent;
             lblKillsValue.Parent = picGameField;
             lblKillsValue.BackColor = Color.Transparent;
-            lblHealthValue.Text = playerHealth.ToString();
+            lblHealthValue.Text = $"{_game.Player.Health}";
 
             DrawUIObtacles();
             DrawUIEmoticons();
@@ -158,18 +155,14 @@ namespace GameShadow
         {
             Random rnd = new Random();
 
-            _monster = _spriteController.DuplicateSprite($"{SpriteNames.EmoticonOnFire}");
-            _monster.PutPictureBoxLocation(_heroStartPoint);
-            _monster.MovementSpeed = EmoticonMovementSpeed;
-            _monster.CannotMoveOutsideBox = true;
-            _monster.AutomaticallyMoves = true;
-            _monster.SpriteHitsPictureBox += Gameplay.SpriteBounces;
-            _monster.SetSpriteDirectionDegrees(180);
-            _monster.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
-            // TO DO - Handle collisions between 2 monsters (to go through each other)
-            _monster.SpriteHitsSprite += WeHaveHit;
-
-            // _monster.MoveTo(_hero.BaseImageLocation);
+            _emoticon = _spriteController.DuplicateSprite($"{SpriteNames.EmoticonOnFire}");
+            _emoticon.PutPictureBoxLocation(_heroStartPoint);
+            _emoticon.MovementSpeed = EmoticonMovementSpeed;
+            _emoticon.CannotMoveOutsideBox = true;
+            _emoticon.AutomaticallyMoves = true;
+            _emoticon.SpriteHitsPictureBox += Gameplay.SpriteBounces;
+            _emoticon.SetSpriteDirectionDegrees(180);
+            _emoticon.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
         }
 
         private void InitializeUISight()
@@ -183,17 +176,6 @@ namespace GameShadow
             _sight.AutomaticallyMoves = true;
         }
 
-        private void InitializeMonsterBullet()
-        {
-            _monsterBullet = new Sprite(new Point(0, 375), _spriteController,
-            Resources.Magicballs, 75, 75, 100, 8);
-            _monsterBullet.SetSize(new Size(40, 40));
-            _monsterBullet.CannotMoveOutsideBox = false;
-
-            _monsterBullet.SetName("monsterShot");
-            //_bullet.SpriteHitsSprite += WeHaveHit;
-        }
-        
         private void MoveUISight()
         {
             _sight.AutomaticallyMoves = true;
@@ -201,8 +183,8 @@ namespace GameShadow
             Point location = _hero.PictureBoxLocation;
 
             // offset gives the initial position of the bullet defined by the shooting angle - COMMIT
-            int offsetX = (int)(_hero.VisibleWidth * Math.Cos(shootingAngle * Math.PI / 180));
-            int offsetY = (int)(-_hero.VisibleHeight * Math.Sin(shootingAngle * Math.PI / 180));
+            int offsetX = (int)(_hero.VisibleWidth * Math.Cos(_heroShootingAngle * Math.PI / 180));
+            int offsetY = (int)(-_hero.VisibleHeight * Math.Sin(_heroShootingAngle * Math.PI / 180));
 
             location = new Point(location.X + _hero.VisibleWidth / 4 + offsetX, location.Y + offsetY); // COMMIT
 
@@ -342,70 +324,44 @@ namespace GameShadow
             directionPoint = new Point(-1, -1);
             return false;
         }
+
+        private void MakeEmoticonShot()
+        {
+            TimeSpan EmoticonShotDuration = DateTime.Now - _emoticonLastShot;
+            if (EmoticonShotDuration.TotalMilliseconds > EmoticonShootingDelay)
+            {
+                Sprite sprite = _spriteController
+                    .DuplicateSprite($"{SpriteNames.EnemyBall}");
+                if (sprite != null)
+                {
+                    Point location = _emoticon.BaseImageLocation; 
+                    sprite.PutBaseImageLocation(location);
+
+                    location = _hero.BaseImageLocation;
+                    sprite.MoveTo(location);
+                    sprite.MovementSpeed = BallMovementSpeed;
+                    sprite.AutomaticallyMoves = true;
+
+                    sprite.SpriteHitsSprite += OnEmoticonBallObjectCollision;
+                    sprite.SpriteHitsSprite += OnBallObjectCollision;
+                }
+
+                _emoticonLastShot = DateTime.Now;
+            }
+        }
+        
         #endregion
 
         #region Event Handlers
-        public void WeHaveHit(object sender, SpriteEventArgs e)
-        {
-            // ako shot e udaril zvqr
-            Sprite me = (Sprite)sender;
-
-            if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.Sunball}")
-            {
-                kills++;
-                lblKillsValue.Text = kills.ToString();
-                me.Destroy();
-                e.TargetSprite.Destroy();
-                SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
-                newPlayer.Play();
-                InitializeUIMonster();
-            }
-            else if (e.TargetSprite.SpriteName == "hero")
-            {
-                kills++;
-                lblKillsValue.Text = kills.ToString();
-                playerHealth -= 5;
-                lblHealthValue.Text = playerHealth.ToString();
-                me.Destroy();
-                //e.TargetSprite.Destroy();
-                SoundPlayer newPlayer = new SoundPlayer(Resources.Tboom);
-                newPlayer.Play();
-                InitializeUIMonster();
-            }
-        }
-
-        private void MonsterMakeShot()
-        {
-            TimeSpan MonsterShotDuration = DateTime.Now - monsterLastShot;
-            if (MonsterShotDuration.TotalMilliseconds > 2300)
-            {
-                //We make a new shot sprite.
-                Sprite newsprite = _spriteController.DuplicateSprite("monsterShot");
-                if (newsprite != null)
-                {
-                    //We figure out where to put the shot
-                    Point where = _monster.PictureBoxLocation; // COMMIT
-                    where = new Point(where.X, where.Y); // COMMIT
-                    newsprite.PutPictureBoxLocation(where);
-                    //We tell the sprite to automatically move
-                    newsprite.AutomaticallyMoves = true;
-                    //We give it a direction, up
-                    newsprite.SetSpriteDirectionDegrees(270);
-                    //we give it a speed for how fast it moves.
-                    newsprite.MovementSpeed = 50;
-                }
-                monsterLastShot = DateTime.Now;
-            }
-        }
 
         private void OnGameIteration(object sender, EventArgs e)
         {
             CheckPlayerObstacleCollision();
-            MonsterMakeShot();
+            MakeEmoticonShot();
             MoveUISight();
 
             TimeSpan duration = DateTime.Now - _heroLastMovement;
-            if (duration.TotalMilliseconds < 100)
+            if (duration.TotalMilliseconds < MovementInputDelay)
                 return;
             _heroLastMovement = DateTime.Now;
 
@@ -441,8 +397,8 @@ namespace GameShadow
 
             if (keySpace)
             {
-                TimeSpan Duration = DateTime.Now - lastShot;
-                if (Duration.TotalMilliseconds > 300)
+                TimeSpan Duration = DateTime.Now - _heroLastShot;
+                if (Duration.TotalMilliseconds > ShootingInputDelay)
                 {
                     //We make a new shot sprite.
                     Sprite sprite = _spriteController.
@@ -458,12 +414,12 @@ namespace GameShadow
                         //We tell the sprite to automatically move
                         sprite.AutomaticallyMoves = true;
                         //We give it a direction, up
-                        sprite.SetSpriteDirectionDegrees(shootingAngle);
+                        sprite.SetSpriteDirectionDegrees(_heroShootingAngle);
                         //we give it a speed for how fast it moves.
                         sprite.MovementSpeed = 120;
                         sprite.SpriteHitsSprite += OnBallObjectCollision;
                     }
-                    lastShot = DateTime.Now;
+                    _heroLastShot = DateTime.Now;
                 }
 
 
@@ -472,12 +428,12 @@ namespace GameShadow
 
             if (directionUp)
             {
-                shootingAngle += 10;
+                _heroShootingAngle += 10;
                 MoveUISight(); // COMMIT
             }
             else if (directionDown)
             {
-                shootingAngle -= 10;
+                _heroShootingAngle -= 10;
                 MoveUISight(); // COMMIT
             }
 
@@ -497,6 +453,17 @@ namespace GameShadow
             if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
             {
                 return;
+            }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EnemyBall}")
+            {
+                e.TargetSprite.Destroy();
+
+                var player = (Player)_hero.payload;
+                player.Health -= 20;
+                lblHealthValue.Text = $"{player.Health}";
+
+                var soundPlayer = new SoundPlayer(Resources.Tboom);
+                soundPlayer.Play();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
             {
@@ -537,7 +504,16 @@ namespace GameShadow
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
             }
-            // TO DO hit by fireball
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonAngry}")
+            {
+                e.TargetSprite.Destroy();
+                //_emoticonCount--;
+                var player = (Player)_hero.payload;
+                player.Health -= 20;
+                player.Kills++;
+                lblHealthValue.Text = $"{player.Health}";
+                lblKillsValue.Text = $"{player.Kills}";
+            }
 
             if (_emoticonCount == 0)
             {
@@ -550,18 +526,19 @@ namespace GameShadow
 
         private void OnBallObjectCollision(object sender, SpriteEventArgs e)
         {
-            if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EnemyBall}")
-            {
-                var ball = (Sprite)sender;
-                if (ball.SpriteOriginName == $"{SpriteNames.Hero}")
-                {
-                    // TO DO
-                }
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
+            if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
             {
                 var ball = (Sprite)sender;
                 ball.Destroy();
+            }
+            else if (((Sprite)sender).SpriteOriginName == $"{SpriteNames.EnemyBall}")
+            {
+                if (e.TargetSprite.payload is Emoticon) // DOES NOT WORK
+                {
+                    var ball = (Sprite)sender;
+                    ball.Destroy();
+                    e.TargetSprite.Destroy();
+                }
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
             {
@@ -617,8 +594,26 @@ namespace GameShadow
                 player.Kills++;
                 lblKillsValue.Text = $"{player.Kills}";
             }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonOnFire}"
+                && ((Sprite)sender).SpriteOriginName != $"{SpriteNames.EnemyBall}")
+            {
+                var ball = (Sprite)sender;
+                ball.Destroy();
+                e.TargetSprite.Destroy();
+                //_emoticonCount--;
+                var player = (Player)_hero.payload;
+                player.Kills++;
+                lblKillsValue.Text = $"{player.Kills}";
+                InitializeUIMonster();
+            }
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EnemyBall}")
+            {
+                var ball = (Sprite)sender;
+                ball.Destroy();
+                e.TargetSprite.Destroy();
+            }
         }
-
+        
         #endregion
     }
 }

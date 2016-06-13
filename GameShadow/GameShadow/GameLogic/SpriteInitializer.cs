@@ -64,10 +64,19 @@ namespace GameShadow.GameLogic
 
     public static class SpriteInitializer
     {
-        private const int SpriteDimensions = 50; // 50px x 50px
-        private static readonly Size SpriteSize = 
-            new Size(SpriteDimensions, SpriteDimensions);
-        
+        #region Constants and Readonly Fields
+        private const int HeroSpriteDimensions = 50; // 50 px x 50 px
+        private const int MagicBallDimensions = 30; // 24 px x 24 px
+        private const int CrosshairDimensions = 24; // 24 px x 24 px
+
+        private static readonly Size HeroSpriteSize = 
+            new Size(HeroSpriteDimensions, HeroSpriteDimensions);
+        private static readonly Size MagicBallSpriteSize =
+            new Size(MagicBallDimensions, MagicBallDimensions);
+        private static readonly Size CrosshairSpriteSize =
+            new Size(CrosshairDimensions, CrosshairDimensions);
+
+        #endregion
         #region Public Methods
         public static void InitializeSprites(SpriteController controller, Sprite sprite)
         {
@@ -76,6 +85,8 @@ namespace GameShadow.GameLogic
             InitializeTreeSprite(controller, sprite);
             InitializeCrosshairSprite(controller, sprite);
             InitializeSunballSprite(controller, sprite);
+            InitializeIceballSprite(controller, sprite);
+            InitializeEnemyBallSprite(controller, sprite);
         }
 
         #endregion
@@ -88,7 +99,7 @@ namespace GameShadow.GameLogic
             sprite.AddAnimation(new Point(0, 160), Resources.Heroes, 32, 32, 250, 3);
             sprite.AddAnimation(new Point(0, 192), Resources.Heroes, 32, 32, 250, 3);
             sprite.AddAnimation(new Point(0, 224), Resources.Heroes, 32, 32, 250, 3);
-            sprite.SetSize(SpriteSize);
+            sprite.SetSize(HeroSpriteSize);
             sprite.SetName($"{SpriteNames.Hero}");
         }
 
@@ -99,7 +110,7 @@ namespace GameShadow.GameLogic
                 int index = (int)emoticon;
                 sprite = new Sprite(new Point(0, index * 50), controller,
                     Resources.Emoticons, 50, 50, 300, 10);
-                sprite.SetSize(SpriteSize);
+                sprite.SetSize(HeroSpriteSize);
                 sprite.SetName($"{emoticon}");
             }
         }
@@ -108,7 +119,7 @@ namespace GameShadow.GameLogic
         {
             sprite = new Sprite(new Point(0, 0), controller,
                 Resources.Trees, 120, 150, 100000, 1);
-            sprite.SetSize(SpriteSize);
+            sprite.SetSize(HeroSpriteSize);
             sprite.SetName($"{SpriteNames.ObstacleTree1}");
         }
 
@@ -116,15 +127,31 @@ namespace GameShadow.GameLogic
         {
             sprite = new Sprite(new Point(0, 675), controller,
                 Resources.Magicballs, 75, 75, 100, 8);
-            sprite.SetSize(SpriteSize);
+            sprite.SetSize(MagicBallSpriteSize);
             sprite.SetName($"{SpriteNames.Sunball}");
+        }
+
+        private static void InitializeIceballSprite(SpriteController controller, Sprite sprite)
+        {
+            sprite = new Sprite(new Point(0, 375), controller,
+                Resources.Magicballs, 75, 75, 100, 8);
+            sprite.SetSize(MagicBallSpriteSize);
+            sprite.SetName($"{SpriteNames.Iceball}");
+        }
+
+        private static void InitializeEnemyBallSprite(SpriteController controller, Sprite sprite)
+        {
+            sprite = new Sprite(new Point(0, 225), controller,
+                Resources.Magicballs, 75, 75, 100, 8);
+            sprite.SetSize(MagicBallSpriteSize);
+            sprite.SetName($"{SpriteNames.EnemyBall}");
         }
 
         private static void InitializeCrosshairSprite(SpriteController controller, Sprite sprite)
         {
             sprite = new Sprite(new Point(0, 0), controller,
                 Resources.Crosshair, 24, 24, 0, 1);
-            sprite.SetSize(new Size(24, 24));
+            sprite.SetSize(CrosshairSpriteSize);
             sprite.SetName($"{SpriteNames.Crosshair}");
         }
 
