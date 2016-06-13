@@ -10,9 +10,7 @@ using System.Windows.Forms;
 
 namespace GameShadow
 {
-    public partial class GameForm : Form
-    {
-        private enum Directions
+    public enum Directions
         {
             Right = 0,
             UpRight = 45,
@@ -24,6 +22,9 @@ namespace GameShadow
             DownRight = 315,
             None
         }
+
+    public partial class GameForm : Form
+    {
 
         #region Constants and Readonly Fields
         private const int HeroMovementSpeed = 12;
