@@ -43,7 +43,7 @@
             this.picGameField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picGameField.Location = new System.Drawing.Point(0, 0);
             this.picGameField.Name = "picGameField";
-            this.picGameField.Size = new System.Drawing.Size(596, 596);
+            this.picGameField.Size = new System.Drawing.Size(600, 600);
             this.picGameField.TabIndex = 1;
             this.picGameField.TabStop = false;
             // 
@@ -112,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 596);
+            this.ClientSize = new System.Drawing.Size(600, 600);
             this.ControlBox = false;
             this.Controls.Add(this.lblEmojiValue);
             this.Controls.Add(this.lblEmoji);
