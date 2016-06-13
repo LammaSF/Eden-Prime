@@ -58,6 +58,8 @@ namespace GameShadow
         private bool _heroIsMoving = false;
         private int _heroShootingAngle = InitialShootingAngle;
         private int _emoticonCount = GameInitializer.EmoticonCount;
+        private MainForm mainForm;
+        private Game loadedGame;
 
         #endregion
 
@@ -74,6 +76,16 @@ namespace GameShadow
             InitializeUIPlayer();
             InitializeUIMonster();
             InitializeUISight();
+        }
+
+        public GameForm(MainForm mainForm):this()
+        {
+            this.mainForm = mainForm;
+        }
+
+        public GameForm(Game loadedGame)
+        {
+            this.loadedGame = loadedGame;
         }
 
         #endregion
@@ -493,7 +505,11 @@ namespace GameShadow
 
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
+            {
                 Close(); // exit 
+                mainForm.Tag = _game;
+            }
+                
 
         }
 

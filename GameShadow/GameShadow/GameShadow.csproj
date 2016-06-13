@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,6 +69,8 @@
     <Compile Include="GameData\Player.cs" />
     <Compile Include="GameHelpers\GameInitializer.cs" />
     <Compile Include="GameHelpers\SpriteInitializer.cs" />
+    <Compile Include="Serialization\PathHelper.cs" />
+    <Compile Include="Serialization\SerializationHelper.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
