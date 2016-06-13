@@ -342,7 +342,6 @@ namespace GameShadow
                     sprite.MovementSpeed = BallMovementSpeed;
                     sprite.AutomaticallyMoves = true;
 
-                    sprite.SpriteHitsSprite += OnEmoticonBallObjectCollision;
                     sprite.SpriteHitsSprite += OnBallObjectCollision;
                 }
 
