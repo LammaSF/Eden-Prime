@@ -29,7 +29,9 @@ namespace GameShadow
         #region Constants and Readonly Fields
         private const int HeroMovementSpeed = 12;
         private const int EmoticonMovementSpeed = 6;
-        private const int BallMovementSpeed = 30;
+        private const int EnemyBallMovementSpeed = 30;
+        private const int BallMovementSpeed = 120;
+        private const int SightSpeed = 15;
         private const int SpriteDimensions = 50; // 50px x 50px
         private const int HeroStartPositionX = 500;
         private const int HeroStartPositionY = 500;
@@ -39,13 +41,12 @@ namespace GameShadow
 
         private readonly Point HeroStartPoint =
             new Point(HeroStartPositionX, HeroStartPositionY);
-
         #endregion
 
         #region Private Fields
         private Game _game;
         private SpriteController _spriteController;
-        private Sprite _hero, _sight, _emoticon, _emoticonBall;
+        private Sprite _hero, _sight, _emoticon;
         private List<Sprite> _uiEmoticons = new List<Sprite>();
         private Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
@@ -151,7 +152,7 @@ namespace GameShadow
             _hero.payload = _game.Player;
         }
 
-        public void InitializeUIMonster()
+        private void InitializeUIMonster()
         {
             Random rnd = new Random();
 
@@ -183,10 +184,13 @@ namespace GameShadow
             Point location = _hero.PictureBoxLocation;
 
             // offset gives the initial position of the bullet defined by the shooting angle - COMMIT
-            int offsetX = (int)(_hero.VisibleWidth * Math.Cos(_heroShootingAngle * Math.PI / 180));
-            int offsetY = (int)(-_hero.VisibleHeight * Math.Sin(_heroShootingAngle * Math.PI / 180));
+            int offsetX = 
+                (int)(_hero.VisibleWidth * Math.Cos(_heroShootingAngle * Math.PI / 180));
+            int offsetY = 
+                (int)(-_hero.VisibleHeight * Math.Sin(_heroShootingAngle * Math.PI / 180));
 
-            location = new Point(location.X + _hero.VisibleWidth / 4 + offsetX, location.Y + offsetY); // COMMIT
+            location = new Point(location.X + _hero.VisibleWidth / 4 + offsetX,
+                location.Y + offsetY); 
 
             _sight.PutPictureBoxLocation(location);
         }
@@ -203,21 +207,8 @@ namespace GameShadow
             }
 
             _heroIsMoving = true;
-            _hero.MovementSpeed = 10;
+            _hero.MovementSpeed = HeroMovementSpeed;
             _hero.AutomaticallyMoves = true;
-            //_monster.MoveTo(_hero.BaseImageLocation);// gada trygva kym geroq
-
-            //_sight.AutomaticallyMoves = true;
-
-            //Point where = _hero.PictureBoxLocation;
-
-            //// offset gives the initial position of the bullet defined by the shooting angle - COMMIT
-            //int offsetX = (int)(_hero.VisibleWidth * Math.Cos(shootingAngle * Math.PI / 180));
-            //int offsetY = (int)(-_hero.VisibleHeight * Math.Sin(shootingAngle * Math.PI / 180));
-
-            //where = new Point(where.X + offsetX, where.Y + offsetY);
-
-            //_sight.PutPictureBoxLocation(where);
         }
 
         private void MoveUIEmoticons()
@@ -339,7 +330,7 @@ namespace GameShadow
 
                     location = _hero.BaseImageLocation;
                     sprite.MoveTo(location);
-                    sprite.MovementSpeed = BallMovementSpeed;
+                    sprite.MovementSpeed = EnemyBallMovementSpeed;
                     sprite.AutomaticallyMoves = true;
 
                     sprite.SpriteHitsSprite += OnBallObjectCollision;
@@ -399,41 +390,33 @@ namespace GameShadow
                 TimeSpan Duration = DateTime.Now - _heroLastShot;
                 if (Duration.TotalMilliseconds > ShootingInputDelay)
                 {
-                    //We make a new shot sprite.
                     Sprite sprite = _spriteController.
                         DuplicateSprite($"{SpriteNames.Sunball}");
                     if (sprite != null)
                     {
-                        //We figure out where to put the shot
-                        Point where = _hero.PictureBoxLocation;
-                        int halfwit = 0;
-                        int halfhit = 0;
-                        where = new Point(where.X + halfwit, where.Y - halfhit);
-                        sprite.PutPictureBoxLocation(where);
-                        //We tell the sprite to automatically move
-                        sprite.AutomaticallyMoves = true;
-                        //We give it a direction, up
+                        Point location = _hero.PictureBoxLocation;
+                        int halfwit = 0; // ?!
+                        int halfhit = 0; // ?!
+                        location = new Point(location.X + halfwit, location.Y - halfhit);
+                        sprite.PutPictureBoxLocation(location);
                         sprite.SetSpriteDirectionDegrees(_heroShootingAngle);
-                        //we give it a speed for how fast it moves.
-                        sprite.MovementSpeed = 120;
+                        sprite.MovementSpeed = BallMovementSpeed;
+                        sprite.AutomaticallyMoves = true;
                         sprite.SpriteHitsSprite += OnBallObjectCollision;
                     }
                     _heroLastShot = DateTime.Now;
                 }
-
-
-
             }
 
             if (directionUp)
             {
-                _heroShootingAngle += 10;
-                MoveUISight(); // COMMIT
+                _heroShootingAngle += SightSpeed;
+                MoveUISight(); 
             }
             else if (directionDown)
             {
-                _heroShootingAngle -= 10;
-                MoveUISight(); // COMMIT
+                _heroShootingAngle -= SightSpeed;
+                MoveUISight(); 
             }
 
             MoveUIEmoticons();
