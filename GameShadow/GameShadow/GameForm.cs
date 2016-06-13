@@ -161,7 +161,7 @@ namespace GameShadow
             _emoticon.MovementSpeed = EmoticonMovementSpeed;
             _emoticon.CannotMoveOutsideBox = true;
             _emoticon.AutomaticallyMoves = true;
-            _emoticon.SpriteHitsPictureBox += Gameplay.SpriteBounces;
+            _emoticon.SpriteHitsPictureBox += OnEmoticonEdgeCollision;
             _emoticon.SetSpriteDirectionDegrees(180);
             _emoticon.PutBaseImageLocation(new Point(rnd.Next(38, 500), rnd.Next(38, 500)));
         }
@@ -511,8 +511,6 @@ namespace GameShadow
             CreateNewEmoticonGroup();
         }
 
-        
-
         private void OnBallObjectCollision(object sender, SpriteEventArgs e)
         {
             if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
@@ -605,7 +603,21 @@ namespace GameShadow
 
             CreateNewEmoticonGroup();
         }
-        
+
+        public static void OnEmoticonEdgeCollision(object sender, EventArgs e)
+        {
+            var sprite = (Sprite)sender;
+            int degrees = (int)sprite.GetSpriteDegrees();
+            if (Math.Abs(degrees) > 120)
+            {
+                sprite.SetSpriteDirectionDegrees(0);//go right
+            }
+            else
+            {
+                sprite.SetSpriteDirectionDegrees(180); //go back left
+            }
+        }
+
         #endregion
     }
 }
