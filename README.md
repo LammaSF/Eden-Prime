@@ -45,6 +45,6 @@ Valentin Lolov (valcho62)
 
  Radoslav Stefanov -
 
- Svetoslav Ivanov - game graphics, hero movement, shooting, hindsight
+ Svetoslav Ivanov - game graphics, hero movement, shooting, controls, hindsight
  
  Valentin Lolov - classes, emoticons shooting, emoticons animations and sounds,labels, collisions
