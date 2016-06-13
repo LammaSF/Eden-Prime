@@ -210,6 +210,50 @@ namespace GameShadow
             _hero.AutomaticallyMoves = true;
         }
 
+        private void TeleportUIPlayer()
+        {
+            int destinationX = _hero.BaseImageLocation.X;
+            int destinationY = _hero.BaseImageLocation.Y;
+
+            switch (_heroDirection)
+            {
+                case Directions.Down:
+                    destinationY += 200;
+                    break;
+                case Directions.Left:
+                    destinationX -= 160;
+                    break;
+                case Directions.Right:
+                    destinationX += 160;
+                    break;
+                case Directions.Up:
+                    destinationY -= 200;
+                    break;
+                case Directions.UpRight:
+                    destinationX += 160;
+                    destinationY -= 160;
+                    break;
+                case Directions.UpLeft:
+                    destinationX -= 160;
+                    destinationY -= 160;
+                    break;
+                case Directions.DownRight:
+                    destinationX += 160;
+                    destinationY += 160;
+                    break;
+                case Directions.DownLeft:
+                    destinationX -= 160;
+                    destinationY += 160;
+                    break;
+                default:
+                    break;
+            }
+            if (destinationX > 25 && destinationX < 575 && destinationY > 25 && destinationY < 575)
+            {
+                _hero.PutBaseImageLocation(new Point(destinationX, destinationY));
+            }
+        }
+
         private void MoveUIEmoticons()
         {
             foreach (var uiEmoticon in _uiEmoticons)
@@ -377,6 +421,7 @@ namespace GameShadow
             bool keySpace = _spriteController.IsKeyPressed(Keys.Space);
             bool directionUp = _spriteController.IsKeyPressed(Keys.A);
             bool directionDown = _spriteController.IsKeyPressed(Keys.D);
+            bool keyTeleport = _spriteController.IsKeyPressed(Keys.T);
 
             if (keyUp && keyLeft)
                 MoveUIPlayer(1, Directions.UpLeft); // move up left
@@ -416,6 +461,12 @@ namespace GameShadow
                     }
                     _heroLastShot = DateTime.Now;
                 }
+            }
+
+
+            if (keyTeleport)
+            {
+                TeleportUIPlayer();
             }
 
             if (directionUp)
