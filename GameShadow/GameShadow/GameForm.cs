@@ -1,6 +1,5 @@
 using GameShadow.GameData;
 using GameShadow.GameHelpers;
-using GameShadow.GameLogic;
 using GameShadow.Properties;
 using SpriteLibrary;
 using System;
@@ -32,15 +31,18 @@ namespace GameShadow
         private const int EnemyBallMovementSpeed = 30;
         private const int BallMovementSpeed = 120;
         private const int SightSpeed = 15;
-        private const int SpriteDimensions = 50; // 50px x 50px
+        private const int SpriteSize = 50; // 50px x 50px
         private const int HeroStartPositionX = 500;
         private const int HeroStartPositionY = 500;
         private const int MovementInputDelay = 100; // in ms
-        private const int ShootingInputDelay = 300; // in ms
+        private const int ShootingInputDelay = 500; // in ms
         private const int EmoticonShootingDelay = 2000; // in ms
+        private const int InitialShootingAngle = 135;
 
-        private readonly Point HeroStartPoint =
+        private static readonly Point HeroStartPoint =
             new Point(HeroStartPositionX, HeroStartPositionY);
+        private readonly int ReducedFieldLength;
+        private readonly int ReducedFieldWidth;
         #endregion
 
         #region Private Fields
@@ -48,14 +50,13 @@ namespace GameShadow
         private SpriteController _spriteController;
         private Sprite _hero, _sight, _emoticon;
         private List<Sprite> _uiEmoticons = new List<Sprite>();
-        private Point _heroStartPoint = new Point(500, 500);
         private DateTime _heroLastMovement = DateTime.Now;
         private DateTime _heroLastShot = DateTime.Now;
         private DateTime _emoticonLastShot = DateTime.Now;
         private Directions _heroDirection = Directions.Down;
         private bool _heroIsMoving = false;
-        private int _heroShootingAngle = 90;
-        private int _emoticonCount = 5;
+        private int _heroShootingAngle = InitialShootingAngle;
+        private int _emoticonCount = GameInitializer.EmoticonCount;
 
         #endregion
 
@@ -64,6 +65,9 @@ namespace GameShadow
         public GameForm()
         {
             InitializeComponent();
+            ReducedFieldLength = picGameField.Size.Width / SpriteSize;
+            ReducedFieldWidth = picGameField.Size.Height / SpriteSize;
+
             InitializeGame();
             InitializeUIGameField();
             InitializeUIPlayer();
@@ -76,8 +80,8 @@ namespace GameShadow
         #region Private Methods
         private void InitializeGame()
         {
-            int positionX = HeroStartPositionX / SpriteDimensions;
-            int positionY = HeroStartPositionY / SpriteDimensions;
+            int positionX = HeroStartPositionX / SpriteSize;
+            int positionY = HeroStartPositionY / SpriteSize;
             var player = new Player(positionX, positionY);
             _game = new Game(player);
 
@@ -112,23 +116,22 @@ namespace GameShadow
         {
             foreach (var obstacle in _game.ObstaclesByPosition)
             {
-                int positionX = obstacle.Key % 12;
-                int positionY = obstacle.Key / 12;
-                int uiObstacleX = positionX * SpriteDimensions;
-                int uiObstacleY = positionY * SpriteDimensions;
+                int positionX = obstacle.Key % ReducedFieldLength;
+                int positionY = obstacle.Key / ReducedFieldWidth;
+                int uiObstacleX = positionX * SpriteSize;
+                int uiObstacleY = positionY * SpriteSize;
 
                 var uiObstacle = _spriteController.DuplicateSprite($"{SpriteNames.ObstacleTree1}");
                 uiObstacle.PutBaseImageLocation(new Point(uiObstacleX, uiObstacleY));
             }
-
         }
 
         private void DrawUIEmoticons()
         {
             foreach (var emoticon in _game.Emoticons)
             {
-                int uiEmoticonX = emoticon.PositionX * SpriteDimensions;
-                int uiEmoticonY = emoticon.PositionY * SpriteDimensions;
+                int uiEmoticonX = emoticon.PositionX * SpriteSize;
+                int uiEmoticonY = emoticon.PositionY * SpriteSize;
                 string emoticonName = $"{emoticon.Type}";
 
                 var uiEmoticon = _spriteController
@@ -157,7 +160,6 @@ namespace GameShadow
             Random rnd = new Random();
 
             _emoticon = _spriteController.DuplicateSprite($"{SpriteNames.EmoticonOnFire}");
-            _emoticon.PutPictureBoxLocation(_heroStartPoint);
             _emoticon.MovementSpeed = EmoticonMovementSpeed;
             _emoticon.CannotMoveOutsideBox = true;
             _emoticon.AutomaticallyMoves = true;
@@ -179,11 +181,8 @@ namespace GameShadow
 
         private void MoveUISight()
         {
-            _sight.AutomaticallyMoves = true;
+            Point location = new Point(_hero.PictureBoxLocation.X, _hero.PictureBoxLocation.Y);
 
-            Point location = _hero.PictureBoxLocation;
-
-            // offset gives the initial position of the bullet defined by the shooting angle - COMMIT
             int offsetX = 
                 (int)(_hero.VisibleWidth * Math.Cos(_heroShootingAngle * Math.PI / 180));
             int offsetY = 
@@ -191,8 +190,8 @@ namespace GameShadow
 
             location = new Point(location.X + _hero.VisibleWidth / 4 + offsetX,
                 location.Y + offsetY); 
-
             _sight.PutPictureBoxLocation(location);
+            _sight.AutomaticallyMoves = true;
         }
 
         private void MoveUIPlayer(int animationIndex, Directions direction)
@@ -240,8 +239,8 @@ namespace GameShadow
 
         private bool IsPlayerObstacleCollision(out Point directionPoint)
         {
-            int positionX = _hero.BaseImageLocation.X / SpriteDimensions;
-            int positionY = _hero.BaseImageLocation.Y / SpriteDimensions;
+            int positionX = _hero.BaseImageLocation.X / SpriteSize;
+            int positionY = _hero.BaseImageLocation.Y / SpriteSize;
             int posTopRight = positionY * 12 + positionX; // ISSUE hardcoded value
             int posTopLeft = posTopRight + 1;
             int posBottomRight = posTopRight + 12; // ISSUE hardcoded value
@@ -259,48 +258,48 @@ namespace GameShadow
                 switch (_heroDirection)
                 {
                     case Directions.Down:
-                        imagePosY -= _hero.BaseImageLocation.Y % SpriteDimensions + 1;
+                        imagePosY -= _hero.BaseImageLocation.Y % SpriteSize + 1;
                         break;
                     case Directions.Left:
-                        imagePosX += (SpriteDimensions
-                            - _hero.BaseImageLocation.X % SpriteDimensions + 1);
+                        imagePosX += (SpriteSize
+                            - _hero.BaseImageLocation.X % SpriteSize + 1);
                         break;
                     case Directions.Right:
-                        imagePosX -= _hero.BaseImageLocation.X % SpriteDimensions + 1;
+                        imagePosX -= _hero.BaseImageLocation.X % SpriteSize + 1;
                         break;
                     case Directions.Up:
-                        imagePosY += (SpriteDimensions
-                             - _hero.BaseImageLocation.Y % SpriteDimensions + 1);
+                        imagePosY += (SpriteSize
+                             - _hero.BaseImageLocation.Y % SpriteSize + 1);
                         break;
                     case Directions.DownLeft:
                         int dl = Math.Min(
-                            (SpriteDimensions
-                            - _hero.BaseImageLocation.X % SpriteDimensions + 1),
-                            _hero.BaseImageLocation.Y % SpriteDimensions + 1);
+                            (SpriteSize
+                            - _hero.BaseImageLocation.X % SpriteSize + 1),
+                            _hero.BaseImageLocation.Y % SpriteSize + 1);
                         imagePosX += dl;
                         imagePosY -= dl;
                         break;
                     case Directions.DownRight:
                         int dr = Math.Min(
-                            _hero.BaseImageLocation.X % SpriteDimensions + 1,
-                            _hero.BaseImageLocation.Y % SpriteDimensions + 1);
+                            _hero.BaseImageLocation.X % SpriteSize + 1,
+                            _hero.BaseImageLocation.Y % SpriteSize + 1);
                         imagePosX -= dr;
                         imagePosY -= dr;
                         break;
                     case Directions.UpLeft:
                         int ul = Math.Min(
-                            (SpriteDimensions
-                            - _hero.BaseImageLocation.X % SpriteDimensions + 1),
-                            (SpriteDimensions
-                            - _hero.BaseImageLocation.Y % SpriteDimensions + 1));
+                            (SpriteSize
+                            - _hero.BaseImageLocation.X % SpriteSize + 1),
+                            (SpriteSize
+                            - _hero.BaseImageLocation.Y % SpriteSize + 1));
                         imagePosX += ul;
                         imagePosY += ul;
                         break;
                     case Directions.UpRight:
                         int ur = Math.Min(
-                            _hero.BaseImageLocation.X % SpriteDimensions + 1,
-                            (SpriteDimensions
-                            - _hero.BaseImageLocation.Y % SpriteDimensions + 1));
+                            _hero.BaseImageLocation.X % SpriteSize + 1,
+                            (SpriteSize
+                            - _hero.BaseImageLocation.Y % SpriteSize + 1));
                         imagePosX -= ur;
                         imagePosY += ur;
                         break;
@@ -497,7 +496,7 @@ namespace GameShadow
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
             }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonAngry}")
+            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonOnFire}")
             {
                 e.TargetSprite.Destroy();
                 //_emoticonCount--;
@@ -506,11 +505,12 @@ namespace GameShadow
                 player.Kills++;
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
+                InitializeUIMonster();
             }
 
             CreateNewEmoticonGroup();
         }
-
+        
         private void OnBallObjectCollision(object sender, SpriteEventArgs e)
         {
             if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
@@ -604,7 +604,7 @@ namespace GameShadow
             CreateNewEmoticonGroup();
         }
 
-        public static void OnEmoticonEdgeCollision(object sender, EventArgs e)
+        private void OnEmoticonEdgeCollision(object sender, EventArgs e)
         {
             var sprite = (Sprite)sender;
             int degrees = (int)sprite.GetSpriteDegrees();

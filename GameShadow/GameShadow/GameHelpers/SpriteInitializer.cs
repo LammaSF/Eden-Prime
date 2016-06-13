@@ -3,7 +3,7 @@ using GameShadow.Properties;
 using SpriteLibrary;
 using System.Drawing;
 
-namespace GameShadow.GameLogic
+namespace GameShadow.GameHelpers
 {
     public enum SpriteNames
     {
@@ -77,6 +77,7 @@ namespace GameShadow.GameLogic
             new Size(CrosshairDimensions, CrosshairDimensions);
 
         #endregion
+
         #region Public Methods
         public static void InitializeSprites(SpriteController controller, Sprite sprite)
         {

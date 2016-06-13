@@ -66,9 +66,8 @@
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GameData\Player.cs" />
-    <Compile Include="GameLogic\GameInitializer.cs" />
-    <Compile Include="GameLogic\Gameplay.cs" />
-    <Compile Include="GameLogic\SpriteInitializer.cs" />
+    <Compile Include="GameHelpers\GameInitializer.cs" />
+    <Compile Include="GameHelpers\SpriteInitializer.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">

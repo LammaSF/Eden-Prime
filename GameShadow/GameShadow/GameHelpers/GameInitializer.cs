@@ -5,13 +5,13 @@ namespace GameShadow.GameHelpers
 {
     public static class GameInitializer
     {
-        public const int FieldWidth = 12;
-        public const int FieldLength = 12;
-        public const int MovableTerrainOdds = 93;
-        public const int NoSpawnRadius = 5;
+        public const int ReducedFieldLength = 12;
+        public const int ReducedFieldWidth = 12;
+        public const int MovableTerrainOdds = 95;
+        public const int NoSpawnRadius = 8;
         public const int EmoticonCount = 5;
 
-        private static readonly int MaxFieldPosition = FieldWidth * FieldLength - 1;
+        private static readonly int MaxFieldPosition = ReducedFieldWidth * ReducedFieldLength - 1;
 
         public static void GenerateObstacles(Game game)
         {
@@ -19,9 +19,9 @@ namespace GameShadow.GameHelpers
             int playerPositionY = game.Player.PositionY;
             Random rnd = new Random();
 
-            for (int x = 0; x < FieldLength; x++)
+            for (int x = 0; x < ReducedFieldLength; x++)
             {
-                for (int y = 0; y < FieldWidth; y++)
+                for (int y = 0; y < ReducedFieldWidth; y++)
                 {
                     if (x == playerPositionX && y == playerPositionY)
                         continue;
@@ -29,7 +29,7 @@ namespace GameShadow.GameHelpers
                     int r = rnd.Next(0, 100);
                     if (r > MovableTerrainOdds)
                     {
-                        int position = (y * FieldWidth + x);
+                        int position = (y * ReducedFieldWidth + x);
                         game.ObstaclesByPosition.Add(position, true);
                     }
                 }
@@ -46,8 +46,8 @@ namespace GameShadow.GameHelpers
 
                 if (!game.ObstaclesByPosition.ContainsKey(position))
                 {
-                    int positionX = position % FieldLength;
-                    int positionY = position / FieldWidth;
+                    int positionX = position % ReducedFieldLength;
+                    int positionY = position / ReducedFieldWidth;
                     int distanceToPlayer =
                         (positionX - game.Player.PositionX)
                         * (positionX - game.Player.PositionX)

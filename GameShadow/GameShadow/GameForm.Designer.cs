@@ -41,47 +41,47 @@
             this.picGameField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picGameField.Location = new System.Drawing.Point(0, 0);
             this.picGameField.Name = "picGameField";
-            this.picGameField.Size = new System.Drawing.Size(589, 589);
+            this.picGameField.Size = new System.Drawing.Size(600, 600);
             this.picGameField.TabIndex = 1;
             this.picGameField.TabStop = false;
             // 
-            // label1
+            // lblHealth
             // 
             this.lblHealth.AutoSize = true;
             this.lblHealth.BackColor = System.Drawing.SystemColors.Control;
             this.lblHealth.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHealth.Location = new System.Drawing.Point(26, 36);
-            this.lblHealth.Name = "label1";
+            this.lblHealth.Name = "lblHealth";
             this.lblHealth.Size = new System.Drawing.Size(56, 19);
             this.lblHealth.TabIndex = 2;
             this.lblHealth.Text = "Kills:";
             // 
-            // label2
+            // lblKills
             // 
             this.lblKills.AutoSize = true;
             this.lblKills.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblKills.Location = new System.Drawing.Point(26, 55);
-            this.lblKills.Name = "label2";
+            this.lblKills.Name = "lblKills";
             this.lblKills.Size = new System.Drawing.Size(70, 19);
             this.lblKills.TabIndex = 3;
             this.lblKills.Text = "Health:";
             // 
-            // lblKills
+            // lblKillsValue
             // 
             this.lblKillsValue.AutoSize = true;
             this.lblKillsValue.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblKillsValue.Location = new System.Drawing.Point(102, 36);
-            this.lblKillsValue.Name = "lblKills";
+            this.lblKillsValue.Name = "lblKillsValue";
             this.lblKillsValue.Size = new System.Drawing.Size(22, 19);
             this.lblKillsValue.TabIndex = 4;
             this.lblKillsValue.Text = "0";
             // 
-            // lblHealth
+            // lblHealthValue
             // 
             this.lblHealthValue.AutoSize = true;
             this.lblHealthValue.Font = new System.Drawing.Font("Snap ITC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHealthValue.Location = new System.Drawing.Point(102, 55);
-            this.lblHealthValue.Name = "lblHealth";
+            this.lblHealthValue.Name = "lblHealthValue";
             this.lblHealthValue.Size = new System.Drawing.Size(22, 19);
             this.lblHealthValue.TabIndex = 5;
             this.lblHealthValue.Text = "0";
@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 589);
+            this.ClientSize = new System.Drawing.Size(600, 600);
             this.ControlBox = false;
             this.Controls.Add(this.lblHealthValue);
             this.Controls.Add(this.lblKillsValue);
