@@ -316,6 +316,17 @@ namespace GameShadow
             return false;
         }
 
+        private void CreateNewEmoticonGroup()
+        {
+            if (_emoticonCount == 0)
+            {
+                _game.Emoticons.Clear();
+                GameInitializer.GenerateEmoticions(_game);
+                DrawUIEmoticons();
+                _emoticonCount = 5;
+            }
+        }
+
         private void MakeEmoticonShot()
         {
             TimeSpan EmoticonShotDuration = DateTime.Now - _emoticonLastShot;
@@ -497,14 +508,10 @@ namespace GameShadow
                 lblKillsValue.Text = $"{player.Kills}";
             }
 
-            if (_emoticonCount == 0)
-            {
-                _game.Emoticons.Clear();
-                GameInitializer.GenerateEmoticions(_game);
-                DrawUIEmoticons();
-                _emoticonCount = 5;
-            }
+            CreateNewEmoticonGroup();
         }
+
+        
 
         private void OnBallObjectCollision(object sender, SpriteEventArgs e)
         {
@@ -520,6 +527,7 @@ namespace GameShadow
                     var ball = (Sprite)sender;
                     ball.Destroy();
                     e.TargetSprite.Destroy();
+                    _emoticonCount--;
                 }
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
@@ -594,6 +602,8 @@ namespace GameShadow
                 ball.Destroy();
                 e.TargetSprite.Destroy();
             }
+
+            CreateNewEmoticonGroup();
         }
         
         #endregion
