@@ -109,7 +109,7 @@ namespace GameShadow
             lblHealthValue.Text = $"{_game.Player.Health}";
             lblEmojiValue.Parent = picGameField;
             lblEmojiValue.BackColor = Color.Transparent;
-            lblEmojiValue.Text = $"{_game.Player.Health}";
+            lblEmojiValue.Text = $"{_game.Player.Smiles}";
             lblEmoji.Parent = picGameField;
             lblEmoji.BackColor = Color.Transparent;
 
@@ -519,6 +519,7 @@ namespace GameShadow
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
                 player.Smiles++;
+                lblEmojiValue.Text = player.Smiles.ToString();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonCheeky}")
             {
@@ -526,6 +527,7 @@ namespace GameShadow
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
                 player.Smiles += 2;
+                lblEmojiValue.Text = player.Smiles.ToString();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonGrin}")
             {
@@ -533,6 +535,7 @@ namespace GameShadow
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
                 player.Smiles += 3;
+                lblEmojiValue.Text = player.Smiles.ToString();
             }
             else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonLove}")
             {
