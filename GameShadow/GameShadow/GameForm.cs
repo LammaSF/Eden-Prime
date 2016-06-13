@@ -508,6 +508,8 @@ namespace GameShadow
             {
                 Close(); // exit 
                 mainForm.Tag = _game;
+
+                mainForm.SaveButton.Enabled=true;
             }
                 
 

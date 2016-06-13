@@ -14,7 +14,14 @@ namespace GameShadow
     public partial class MainForm : Form
     {
         private const string RelativePath = "data.xml";
-       
+
+        public Button SaveButton
+        {
+            get
+            {
+                return saveButton;
+            }
+        }
 
         public MainForm()
         {
@@ -39,8 +46,7 @@ namespace GameShadow
         GameShadow.GameForm sForm1 = new GameShadow.GameForm(this);
        // sForm1.Disposing();
         sForm1.Show();
-         
-
+        
 
         }
 
@@ -58,6 +64,16 @@ namespace GameShadow
             if (File.Exists(dataFilePath))
             {
                 loadedGame = SerializationHelper.Deserialize<Game>(dataFilePath);
+            }
+            else
+            {
+                MessageBox.Show("No such file. Please start a new game!");
+
+
+
+
+
+
             }
             //   GameShadow.GameForm sForm1 = new GameShadow.GameForm(this);
             GameShadow.GameForm sForm1 = new GameShadow.GameForm(loadedGame);

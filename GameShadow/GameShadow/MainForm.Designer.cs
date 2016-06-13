@@ -42,7 +42,7 @@
             // 
             this.optionsButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionsButton.Location = new System.Drawing.Point(236, 327);
-            this.optionsButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.optionsButton.Margin = new System.Windows.Forms.Padding(4);
             this.optionsButton.Name = "optionsButton";
             this.optionsButton.Size = new System.Drawing.Size(148, 52);
             this.optionsButton.TabIndex = 0;
@@ -53,7 +53,7 @@
             // 
             this.LoadGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadGameButton.Location = new System.Drawing.Point(408, 327);
-            this.LoadGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LoadGameButton.Margin = new System.Windows.Forms.Padding(4);
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(148, 52);
             this.LoadGameButton.TabIndex = 1;
@@ -65,7 +65,7 @@
             // 
             this.HighScoreButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HighScoreButton.Location = new System.Drawing.Point(71, 402);
-            this.HighScoreButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.HighScoreButton.Margin = new System.Windows.Forms.Padding(4);
             this.HighScoreButton.Name = "HighScoreButton";
             this.HighScoreButton.Size = new System.Drawing.Size(148, 52);
             this.HighScoreButton.TabIndex = 3;
@@ -74,13 +74,14 @@
             // 
             // saveButton
             // 
+            this.saveButton.Enabled = false;
             this.saveButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveButton.Location = new System.Drawing.Point(236, 402);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(148, 52);
             this.saveButton.TabIndex = 4;
-            this.saveButton.Text = "Credits";
+            this.saveButton.Text = "Save Game";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -100,7 +101,7 @@
             // 
             this.newGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newGameButton.Location = new System.Drawing.Point(71, 327);
-            this.newGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.newGameButton.Margin = new System.Windows.Forms.Padding(4);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(148, 52);
             this.newGameButton.TabIndex = 6;
@@ -112,7 +113,7 @@
             // 
             this.exitButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.Location = new System.Drawing.Point(408, 402);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(148, 52);
             this.exitButton.TabIndex = 7;
@@ -137,7 +138,7 @@
             this.Controls.Add(this.optionsButton);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game";
