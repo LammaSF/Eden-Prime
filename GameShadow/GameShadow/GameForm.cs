@@ -448,6 +448,21 @@ namespace GameShadow
             }
         }
 
+        private void UpdateGameInfo()
+        {
+            _game.Player.PositionX = _hero.BaseImageLocation.X / SpriteSize;
+            _game.Player.PositionY = _hero.BaseImageLocation.Y / SpriteSize;
+            _game.Emoticons.Clear();
+
+            foreach (var uiEmoticon in _uiEmoticons)
+            {
+                var emoticon = (Emoticon)uiEmoticon.payload;
+                emoticon.PositionX = uiEmoticon.BaseImageLocation.X / SpriteSize;
+                emoticon.PositionY = uiEmoticon.BaseImageLocation.Y / SpriteSize;
+                _game.Emoticons.Add(emoticon);
+            }
+
+        }
         #endregion
 
         #region Event Handlers
@@ -558,18 +573,24 @@ namespace GameShadow
             }
         }
 
-        private void UpdateGameInfo()
-        {
-            _game.Player.PositionX = _hero.BaseImageLocation.X / SpriteSize;
-            _game.Player.PositionY = _hero.BaseImageLocation.Y / SpriteSize;
-            _game.Emoticons.Clear();
 
-            foreach (var uiEmoticon in _uiEmoticons)
+        private void GameOver()
+        {
+            picGameField.BackgroundImage = Resources.Gameover;
+            picGameField.BackgroundImageLayout = ImageLayout.Stretch;
+
+            //_spriteController.DoTick -= OnGameIteration;
+
+             _spriteController.DoTick += OnEndGame;
+           
+        }
+
+        private void OnEndGame(object sender, EventArgs e)
+        {
+            bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
+            if (keyEsc)
             {
-                var emoticon = (Emoticon)uiEmoticon.payload;
-                emoticon.PositionX = uiEmoticon.BaseImageLocation.X / SpriteSize;
-                emoticon.PositionY = uiEmoticon.BaseImageLocation.Y / SpriteSize;
-                _game.Emoticons.Add(emoticon);
+                Close();
             }
         }
 
@@ -585,6 +606,10 @@ namespace GameShadow
 
                 var player = (Player)_hero.payload;
                 player.Health -= 10;
+                if (player.Health < 1)
+                {
+                    GameOver();
+                }
                 lblHealthValue.Text = $"{player.Health}";
 
                 var soundPlayer = new SoundPlayer(Resources.Hit);
