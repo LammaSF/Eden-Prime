@@ -25,6 +25,14 @@ namespace GameShadow
             }
         }
 
+        public Button ResumeButton
+        {
+            get
+            {
+                return resumeButton;
+            }
+        }
+
         public SpriteController Controller { get; set; }
         public GameForm GameForm { get; set; }
 
@@ -117,7 +125,9 @@ namespace GameShadow
 
         private void ResumeButton_Click(object sender, EventArgs e)
         {
-
+            Controller.DoTick += GameForm.OnGameIteration;
+            Controller.UnPause();
+            GameForm.Show();
         }
     }
 }

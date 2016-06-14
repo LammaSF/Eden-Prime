@@ -472,6 +472,23 @@ namespace GameShadow
             }
 
         }
+
+        private void GameOver()
+        {
+            _gameOver = true;
+            List<Sprite> allSprites = _spriteController.AllSprites();
+            _spriteController.Pause();
+            _spriteController.DoTick -= OnGameIteration;
+
+            for (int i = allSprites.Count - 1; i >= 0; i--)
+            {
+                allSprites[i].Destroy();
+            }
+            picGameField.BackgroundImage = Resources.Gameover;
+            picGameField.BackgroundImageLayout = ImageLayout.Stretch;
+            _spriteController.DoTick += OnEndGame;
+        }
+
         #endregion
 
         #region Event Handlers
@@ -581,31 +598,19 @@ namespace GameShadow
                 Hide();
                 _mainForm.Tag = _game;
                 _mainForm.SaveButton.Enabled = true;
+                _mainForm.ResumeButton.Visible = true;
+                _mainForm.Controller = _spriteController;
             }
         }
 
 
-        private void GameOver()
-        {
-            _gameOver = true;
-            List<Sprite> allSprites = _spriteController.AllSprites();
-            _spriteController.Pause();
-            _spriteController.DoTick -= OnGameIteration;
-
-            for (int i = allSprites.Count - 1; i >= 0; i--)
-            {
-                allSprites[i].Destroy();
-            }
-            picGameField.BackgroundImage = Resources.Gameover;
-            picGameField.BackgroundImageLayout = ImageLayout.Stretch;
-            _spriteController.DoTick += OnEndGame;
-        }
 
         private void OnEndGame(object sender, EventArgs e)
         {
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
             {
+                _mainForm.ResumeButton.Visible = false;
                 _spriteController.DoTick -= OnEndGame;
                 Close();
             }
