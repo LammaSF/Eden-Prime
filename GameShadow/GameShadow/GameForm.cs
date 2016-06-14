@@ -61,7 +61,8 @@ namespace GameShadow
         private int _heroShootingAngle = InitialShootingAngle;
         private int _emoticonCount = GameInitializer.EmoticonCount;
         private MainForm _mainForm;
-        private bool _paused;
+        private bool _paused = false;
+        private bool _gameOver = false;
 
         #endregion
 
@@ -205,6 +206,10 @@ namespace GameShadow
 
         private void InitializeUIMonster()
         {
+            if (_gameOver)
+            {
+                return;
+            }
             Random rnd = new Random();
 
             _emoticon = _spriteController.DuplicateSprite($"{SpriteNames.EmoticonOnFire}");
@@ -410,6 +415,10 @@ namespace GameShadow
 
         private void CreateNewEmoticonGroup()
         {
+            if (_gameOver)
+            {
+                return;
+            }
             if (_uiEmoticons.Count == 0)
             {
                 _game.Player.PositionX = _hero.BaseImageLocation.X / SpriteSize;
@@ -578,6 +587,7 @@ namespace GameShadow
 
         private void GameOver()
         {
+            _gameOver = true;
             List<Sprite> allSprites = _spriteController.AllSprites();
             _spriteController.Pause();
             _spriteController.DoTick -= OnGameIteration;
@@ -596,109 +606,117 @@ namespace GameShadow
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
             {
+                _spriteController.DoTick -= OnEndGame;
                 Close();
             }
         }
 
         private void OnHeroObjectCollision(object sender, SpriteEventArgs e)
         {
-            if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
+            try
+            {
+                if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
+                {
+                    return;
+                }
+                else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EnemyBall}")
+                {
+                    e.TargetSprite.Destroy();
+
+                    var player = (Player)_hero.payload;
+                    player.Health -= 10;
+                    if (player.Health < 1)
+                    {
+                        GameOver();
+                    }
+                    lblHealthValue.Text = $"{player.Health}";
+
+                    var soundPlayer = new SoundPlayer(Resources.Hit);
+                    soundPlayer.Play();
+                }
+                else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
+                {
+                    _uiEmoticons.Remove(e.TargetSprite);
+                    e.TargetSprite.Destroy();
+                    _emoticonCount--;
+                    var player = (Player)_hero.payload;
+                    player.Smiles++;
+                    lblEmojiValue.Text = player.Smiles.ToString();
+                    var soundPlayer = new SoundPlayer(Resources.GotSmile);
+                    soundPlayer.Play();
+                }
+                else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonCheeky}")
+                {
+                    _uiEmoticons.Remove(e.TargetSprite);
+                    e.TargetSprite.Destroy();
+                    _emoticonCount--;
+                    var player = (Player)_hero.payload;
+                    player.Smiles += 2;
+                    lblEmojiValue.Text = player.Smiles.ToString();
+                    var soundPlayer = new SoundPlayer(Resources.GotSmile);
+                    soundPlayer.Play();
+                }
+                else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonGrin}")
+                {
+                    _uiEmoticons.Remove(e.TargetSprite);
+                    e.TargetSprite.Destroy();
+                    _emoticonCount--;
+                    var player = (Player)_hero.payload;
+                    player.Smiles += 3;
+                    lblEmojiValue.Text = player.Smiles.ToString();
+                    var soundPlayer = new SoundPlayer(Resources.GotSmile);
+                    soundPlayer.Play();
+                }
+                else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonLove}")
+                {
+                    _uiEmoticons.Remove(e.TargetSprite);
+                    e.TargetSprite.Destroy();
+                    _emoticonCount--;
+                    var player = (Player)_hero.payload;
+                    player.Health += 50;
+                    lblHealthValue.Text = $"{player.Health}";
+                    var soundPlayer = new SoundPlayer(Resources.Health);
+                    soundPlayer.Play();
+                }
+                else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonAngry}")
+                {
+                    _uiEmoticons.Remove(e.TargetSprite);
+                    e.TargetSprite.Destroy();
+                    _emoticonCount--;
+                    var player = (Player)_hero.payload;
+                    player.Health -= 10;
+                    if (player.Health < 1)
+                    {
+                        GameOver();
+                    }
+                    player.Kills++;
+                    lblHealthValue.Text = $"{player.Health}";
+                    lblKillsValue.Text = $"{player.Kills}";
+                    var soundPlayer = new SoundPlayer(Resources.WrongEmo);
+                    soundPlayer.Play();
+                }
+                else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonOnFire}")
+                {
+                    //_uiEmoticons.Remove(e.TargetSprite);
+                    e.TargetSprite.Destroy();
+                    //_emoticonCount--;
+                    var player = (Player)_hero.payload;
+                    player.Health -= 10;
+                    if (player.Health < 1)
+                    {
+                        GameOver();
+                    }
+                    player.Kills++;
+                    lblHealthValue.Text = $"{player.Health}";
+                    lblKillsValue.Text = $"{player.Kills}";
+                    InitializeUIMonster();
+                    var soundPlayer = new SoundPlayer(Resources.WrongEmo);
+                    soundPlayer.Play();
+                }
+            }
+            catch (ArgumentOutOfRangeException)
             {
                 return;
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EnemyBall}")
-            {
-                e.TargetSprite.Destroy();
-
-                var player = (Player)_hero.payload;
-                player.Health -= 10;
-                if (player.Health < 1)
-                {
-                    GameOver();
-                }
-                lblHealthValue.Text = $"{player.Health}";
-
-                var soundPlayer = new SoundPlayer(Resources.Hit);
-                soundPlayer.Play();
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonSmile}")
-            {
-                _uiEmoticons.Remove(e.TargetSprite);
-                e.TargetSprite.Destroy();
-                _emoticonCount--;
-                var player = (Player)_hero.payload;
-                player.Smiles++;
-                lblEmojiValue.Text = player.Smiles.ToString();
-                var soundPlayer = new SoundPlayer(Resources.GotSmile);
-                soundPlayer.Play();
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonCheeky}")
-            {
-                _uiEmoticons.Remove(e.TargetSprite);
-                e.TargetSprite.Destroy();
-                _emoticonCount--;
-                var player = (Player)_hero.payload;
-                player.Smiles += 2;
-                lblEmojiValue.Text = player.Smiles.ToString();
-                var soundPlayer = new SoundPlayer(Resources.GotSmile);
-                soundPlayer.Play();
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonGrin}")
-            {
-                _uiEmoticons.Remove(e.TargetSprite);
-                e.TargetSprite.Destroy();
-                _emoticonCount--;
-                var player = (Player)_hero.payload;
-                player.Smiles += 3;
-                lblEmojiValue.Text = player.Smiles.ToString();
-                var soundPlayer = new SoundPlayer(Resources.GotSmile);
-                soundPlayer.Play();
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonLove}")
-            {
-                _uiEmoticons.Remove(e.TargetSprite);
-                e.TargetSprite.Destroy();
-                _emoticonCount--;
-                var player = (Player)_hero.payload;
-                player.Health += 50;
-                lblHealthValue.Text = $"{player.Health}";
-                var soundPlayer = new SoundPlayer(Resources.Health);
-                soundPlayer.Play();
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonAngry}")
-            {
-                _uiEmoticons.Remove(e.TargetSprite);
-                e.TargetSprite.Destroy();
-                _emoticonCount--;
-                var player = (Player)_hero.payload;
-                player.Health -= 10;
-                if (player.Health < 1)
-                {
-                    GameOver();
-                }
-                player.Kills++;
-                lblHealthValue.Text = $"{player.Health}";
-                lblKillsValue.Text = $"{player.Kills}";
-                var soundPlayer = new SoundPlayer(Resources.WrongEmo);
-                soundPlayer.Play();
-            }
-            else if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.EmoticonOnFire}")
-            {
-                //_uiEmoticons.Remove(e.TargetSprite);
-                e.TargetSprite.Destroy();
-                //_emoticonCount--;
-                var player = (Player)_hero.payload;
-                player.Health -= 10;
-                if (player.Health < 1)
-                {
-                    GameOver();
-                }
-                player.Kills++;
-                lblHealthValue.Text = $"{player.Health}";
-                lblKillsValue.Text = $"{player.Kills}";
-                InitializeUIMonster();
-                var soundPlayer = new SoundPlayer(Resources.WrongEmo);
-                soundPlayer.Play();
             }
 
             CreateNewEmoticonGroup();
