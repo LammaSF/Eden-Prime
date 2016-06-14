@@ -31,7 +31,7 @@ namespace GameShadow
         private const int EmoticonMovementSpeed = 6;
         private const int EnemyBallMovementSpeed = 20;
         private const int BallMovementSpeed = 120;
-        private const int SightSpeed = 15;
+        private const int SightSpeed = 20;
         private const int SpriteSize = 50; // 50px x 50px
         private const int HeroStartPositionX = 500;
         private const int HeroStartPositionY = 500;
@@ -488,6 +488,8 @@ namespace GameShadow
             bool keyRight = _spriteController.IsKeyPressed(Keys.Right);
             bool keyUp = _spriteController.IsKeyPressed(Keys.Up);
             bool keySpace = _spriteController.IsKeyPressed(Keys.Space);
+            bool keyS = _spriteController.IsKeyPressed(Keys.S);
+            bool keyC = _spriteController.IsKeyPressed(Keys.C);
             bool directionUp = _spriteController.IsKeyPressed(Keys.A);
             bool directionDown = _spriteController.IsKeyPressed(Keys.D);
             bool keyTeleport = _spriteController.IsKeyPressed(Keys.T);
@@ -509,7 +511,7 @@ namespace GameShadow
             else if (keyUp)
                 MoveUIPlayer(3, Directions.Up); // move up
 
-            if (keySpace)
+            if (keySpace || keyC || keyS)
             {
                 TimeSpan Duration = DateTime.Now - _heroLastShot;
                 if (Duration.TotalMilliseconds > ShootingInputDelay)
