@@ -432,7 +432,7 @@ namespace GameShadow
                 {
                     var soundPlayer = new SoundPlayer(Resources.emoShot);
                     soundPlayer.Play();
-                    Point location = _emoticon.BaseImageLocation; 
+                    Point location = _emoticon.BaseImageLocation;
 
                     sprite.PutBaseImageLocation(location);
 
@@ -578,13 +578,17 @@ namespace GameShadow
 
         private void GameOver()
         {
+            List<Sprite> allSprites = _spriteController.AllSprites();
+            _spriteController.Pause();
+            _spriteController.DoTick -= OnGameIteration;
+
+            for (int i = allSprites.Count - 1; i >= 0; i--)
+            {
+                allSprites[i].Destroy();
+            }
             picGameField.BackgroundImage = Resources.Gameover;
             picGameField.BackgroundImageLayout = ImageLayout.Stretch;
-
-            //_spriteController.DoTick -= OnGameIteration;
-
-             _spriteController.DoTick += OnEndGame;
-           
+            _spriteController.DoTick += OnEndGame;
         }
 
         private void OnEndGame(object sender, EventArgs e)
@@ -668,6 +672,10 @@ namespace GameShadow
                 _emoticonCount--;
                 var player = (Player)_hero.payload;
                 player.Health -= 10;
+                if (player.Health < 1)
+                {
+                    GameOver();
+                }
                 player.Kills++;
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
@@ -681,6 +689,10 @@ namespace GameShadow
                 //_emoticonCount--;
                 var player = (Player)_hero.payload;
                 player.Health -= 10;
+                if (player.Health < 1)
+                {
+                    GameOver();
+                }
                 player.Kills++;
                 lblHealthValue.Text = $"{player.Health}";
                 lblKillsValue.Text = $"{player.Kills}";
