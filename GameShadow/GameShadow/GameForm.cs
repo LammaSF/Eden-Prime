@@ -62,6 +62,7 @@ namespace GameShadow
         private int _heroShootingAngle = InitialShootingAngle;
         private int _emoticonCount = GameInitializer.EmoticonCount;
         private MainForm _mainForm;
+        private bool _paused;
 
         #endregion
 
@@ -424,7 +425,7 @@ namespace GameShadow
 
         #region Event Handlers
 
-        private void OnGameIteration(object sender, EventArgs e)
+        public void OnGameIteration(object sender, EventArgs e)
         {
             CheckPlayerObstacleCollision();
             MakeEmoticonShot();
@@ -520,7 +521,10 @@ namespace GameShadow
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
             {
-                Close();
+                _paused = true;
+                _spriteController.Pause();
+                _spriteController.DoTick -= OnGameIteration;
+                Hide();
                 _mainForm.Tag = _game;
                 _mainForm.SaveButton.Enabled = true;
             }
