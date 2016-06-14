@@ -7,8 +7,8 @@ namespace GameShadow.GameHelpers
     {
         public const int ReducedFieldLength = 12;
         public const int ReducedFieldWidth = 12;
-        public const int MovableTerrainOdds = 95;
-        public const int NoSpawnRadius = 8;
+        public const int MovableTerrainOdds = 97;
+        public const int NoSpawnRadius = 5;
         public const int EmoticonCount = 5;
 
         private static readonly int MaxFieldPosition = ReducedFieldWidth * ReducedFieldLength - 1;

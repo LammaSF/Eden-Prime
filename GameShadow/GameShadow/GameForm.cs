@@ -58,7 +58,6 @@ namespace GameShadow
         private DateTime _emoticonLastShot = DateTime.Now;
         private Directions _heroDirection = Directions.Down;
         private bool _heroIsMoving = false;
-        private bool _gameLoaded = false;
         private int _heroShootingAngle = InitialShootingAngle;
         private int _emoticonCount = GameInitializer.EmoticonCount;
         private MainForm _mainForm;
@@ -71,11 +70,12 @@ namespace GameShadow
         public GameForm()
         {
             InitializeComponent();
+            Size = new Size(610, 610);
+            picGameField.Size = new Size(600, 600);
             ReducedFieldLength = picGameField.Size.Width / SpriteSize;
             ReducedFieldWidth = picGameField.Size.Height / SpriteSize;
 
-            if (!_gameLoaded)
-                InitializeGame();
+            InitializeGame();
             InitializeUIGameField();
             InitializeUIPlayer();
             InitializeUIMonster();
@@ -87,15 +87,27 @@ namespace GameShadow
             _mainForm = mainForm;
         }
 
-        public GameForm(MainForm mainForm, Game game) : this(mainForm)
+        public GameForm(MainForm mainForm, Game game)
         {
             _game = game;
-            _gameLoaded = true;
+            _mainForm = mainForm;
+
+            InitializeComponent();
+            Size = new Size(610, 610);
+            picGameField.Size = new Size(600, 600);
+            ReducedFieldLength = picGameField.Size.Width / SpriteSize;
+            ReducedFieldWidth = picGameField.Size.Height / SpriteSize;
+
+            InitializeUIGameField();
+            LoadUIPlayer();
+            InitializeUIMonster();
+            InitializeUISight();
         }
 
         #endregion
 
         #region Private Methods
+
         private void InitializeGame()
         {
             int positionX = HeroStartPositionX / SpriteSize;
@@ -145,7 +157,7 @@ namespace GameShadow
                 int uiObstacleY = positionY * SpriteSize;
 
                 var uiObstacle = _spriteController.DuplicateSprite($"{SpriteNames.ObstacleTree1}");
-                uiObstacle.PutBaseImageLocation(new Point(uiObstacleX, uiObstacleY));
+                uiObstacle.PutPictureBoxLocation(new Point(uiObstacleX, uiObstacleY));
             }
         }
 
@@ -162,10 +174,23 @@ namespace GameShadow
                 uiEmoticon.MovementSpeed = EmoticonMovementSpeed;
                 uiEmoticon.CannotMoveOutsideBox = true;
                 uiEmoticon.payload = emoticon;
-                uiEmoticon.PutBaseImageLocation(new Point(uiEmoticonX, uiEmoticonY));
+                uiEmoticon.PutPictureBoxLocation(new Point(uiEmoticonX, uiEmoticonY));
 
                 _uiEmoticons.Add(uiEmoticon);
             }
+        }
+
+        private void LoadUIPlayer()
+        {
+            _hero = new Sprite(_spriteController
+                .DuplicateSprite($"{SpriteNames.Hero}"));
+            _hero.CannotMoveOutsideBox = true;
+            int imagePositionX = _game.Player.PositionX * SpriteSize;
+            int imagePositionY = _game.Player.PositionY * SpriteSize;
+            var location = new Point(imagePositionX, imagePositionY);
+            _hero.PutBaseImageLocation(location);
+            _hero.SpriteHitsSprite += OnHeroObjectCollision;
+            _hero.payload = _game.Player;
         }
 
         private void InitializeUIPlayer()
@@ -385,8 +410,10 @@ namespace GameShadow
 
         private void CreateNewEmoticonGroup()
         {
-            if (_emoticonCount == 0)
+            if (_uiEmoticons.Count == 0)
             {
+                _game.Player.PositionX = _hero.BaseImageLocation.X / SpriteSize;
+                _game.Player.PositionY = _hero.BaseImageLocation.Y / SpriteSize;
                 _game.Emoticons.Clear();
                 GameInitializer.GenerateEmoticions(_game);
                 DrawUIEmoticons();
@@ -524,9 +551,25 @@ namespace GameShadow
                 _paused = true;
                 _spriteController.Pause();
                 _spriteController.DoTick -= OnGameIteration;
+                UpdateGameInfo();
                 Hide();
                 _mainForm.Tag = _game;
                 _mainForm.SaveButton.Enabled = true;
+            }
+        }
+
+        private void UpdateGameInfo()
+        {
+            _game.Player.PositionX = _hero.BaseImageLocation.X / SpriteSize;
+            _game.Player.PositionY = _hero.BaseImageLocation.Y / SpriteSize;
+            _game.Emoticons.Clear();
+
+            foreach (var uiEmoticon in _uiEmoticons)
+            {
+                var emoticon = (Emoticon)uiEmoticon.payload;
+                emoticon.PositionX = uiEmoticon.BaseImageLocation.X / SpriteSize;
+                emoticon.PositionY = uiEmoticon.BaseImageLocation.Y / SpriteSize;
+                _game.Emoticons.Add(emoticon);
             }
         }
 
@@ -635,6 +678,7 @@ namespace GameShadow
                 {
                     var ball = (Sprite)sender;
                     ball.Destroy();
+                    _uiEmoticons.Remove(e.TargetSprite);
                     e.TargetSprite.Destroy();
                     _emoticonCount--;
                 }
