@@ -530,6 +530,26 @@ namespace GameShadow
             }
         }
 
+        private void GameOver()
+        {
+            picGameField.BackgroundImage = Resources.Gameover;
+            picGameField.BackgroundImageLayout = ImageLayout.Stretch;
+
+            //_spriteController.DoTick -= OnGameIteration;
+
+             _spriteController.DoTick += OnEndGame;
+           
+        }
+
+        private void OnEndGame(object sender, EventArgs e)
+        {
+            bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
+            if (keyEsc)
+            {
+                Close();
+            }
+        }
+
         private void OnHeroObjectCollision(object sender, SpriteEventArgs e)
         {
             if (e.TargetSprite.SpriteOriginName == $"{SpriteNames.ObstacleTree1}")
@@ -542,6 +562,10 @@ namespace GameShadow
 
                 var player = (Player)_hero.payload;
                 player.Health -= 10;
+                if (player.Health < 1)
+                {
+                    GameOver();
+                }
                 lblHealthValue.Text = $"{player.Health}";
 
                 var soundPlayer = new SoundPlayer(Resources.Hit);
