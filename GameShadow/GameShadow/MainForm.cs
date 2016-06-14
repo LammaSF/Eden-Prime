@@ -129,5 +129,35 @@ namespace GameShadow
             Controller.UnPause();
             GameForm.Show();
         }
+
+        private void optionsButton_Click(object sender, EventArgs e)
+        {
+            newGameButton.Visible = false;
+            saveButton.Visible = false;
+            resumeButton.Visible = false;
+            LoadGameButton.Visible = false;
+            exitButton.Visible = false;
+            optionsButton.Visible = false;
+            textBox1.Visible = true;
+            backOptions.Visible = true;
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void backOptions_Click(object sender, EventArgs e)
+        {
+            newGameButton.Visible = true;
+            saveButton.Visible = true;
+            resumeButton.Visible = true;
+            LoadGameButton.Visible = true;
+            exitButton.Visible = true;
+            optionsButton.Visible = true;
+            textBox1.Visible = false;
+            backOptions.Visible = false;
+        }
     }
 }

@@ -35,24 +35,29 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.newGameButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.backOptions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // optionsButton
             // 
             this.optionsButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionsButton.Location = new System.Drawing.Point(241, 337);
+            this.optionsButton.Location = new System.Drawing.Point(243, 415);
+            this.optionsButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.optionsButton.Name = "optionsButton";
-            this.optionsButton.Size = new System.Drawing.Size(111, 42);
+            this.optionsButton.Size = new System.Drawing.Size(148, 52);
             this.optionsButton.TabIndex = 0;
             this.optionsButton.Text = "Options";
             this.optionsButton.UseVisualStyleBackColor = true;
+            this.optionsButton.Click += new System.EventHandler(this.optionsButton_Click);
             // 
             // LoadGameButton
             // 
             this.LoadGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadGameButton.Location = new System.Drawing.Point(370, 276);
+            this.LoadGameButton.Location = new System.Drawing.Point(432, 340);
+            this.LoadGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LoadGameButton.Name = "LoadGameButton";
-            this.LoadGameButton.Size = new System.Drawing.Size(111, 42);
+            this.LoadGameButton.Size = new System.Drawing.Size(148, 52);
             this.LoadGameButton.TabIndex = 1;
             this.LoadGameButton.Text = "Load Game";
             this.LoadGameButton.UseVisualStyleBackColor = true;
@@ -61,9 +66,10 @@
             // resumeButton
             // 
             this.resumeButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resumeButton.Location = new System.Drawing.Point(117, 337);
+            this.resumeButton.Location = new System.Drawing.Point(44, 415);
+            this.resumeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.resumeButton.Name = "resumeButton";
-            this.resumeButton.Size = new System.Drawing.Size(111, 42);
+            this.resumeButton.Size = new System.Drawing.Size(148, 52);
             this.resumeButton.TabIndex = 3;
             this.resumeButton.Text = "Resume";
             this.resumeButton.UseVisualStyleBackColor = true;
@@ -74,9 +80,10 @@
             // 
             this.saveButton.Enabled = false;
             this.saveButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveButton.Location = new System.Drawing.Point(241, 276);
+            this.saveButton.Location = new System.Drawing.Point(243, 340);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(111, 42);
+            this.saveButton.Size = new System.Drawing.Size(148, 52);
             this.saveButton.TabIndex = 4;
             this.saveButton.Text = "Save Game";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -85,9 +92,10 @@
             // newGameButton
             // 
             this.newGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newGameButton.Location = new System.Drawing.Point(117, 276);
+            this.newGameButton.Location = new System.Drawing.Point(44, 340);
+            this.newGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.newGameButton.Name = "newGameButton";
-            this.newGameButton.Size = new System.Drawing.Size(111, 42);
+            this.newGameButton.Size = new System.Drawing.Size(148, 52);
             this.newGameButton.TabIndex = 6;
             this.newGameButton.Text = "New Game";
             this.newGameButton.UseVisualStyleBackColor = true;
@@ -96,22 +104,46 @@
             // exitButton
             // 
             this.exitButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(370, 337);
+            this.exitButton.Location = new System.Drawing.Point(432, 415);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(111, 42);
+            this.exitButton.Size = new System.Drawing.Size(148, 52);
             this.exitButton.TabIndex = 7;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(190, 233);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(238, 22);
+            this.textBox1.TabIndex = 8;
+            this.textBox1.Text = "Controls";
+            this.textBox1.Visible = false;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // backOptions
+            // 
+            this.backOptions.Location = new System.Drawing.Point(252, 509);
+            this.backOptions.Name = "backOptions";
+            this.backOptions.Size = new System.Drawing.Size(138, 55);
+            this.backOptions.TabIndex = 9;
+            this.backOptions.Text = "Back";
+            this.backOptions.UseVisualStyleBackColor = true;
+            this.backOptions.Visible = false;
+            this.backOptions.Click += new System.EventHandler(this.backOptions_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(610, 610);
             this.ControlBox = false;
+            this.Controls.Add(this.backOptions);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.newGameButton);
             this.Controls.Add(this.saveButton);
@@ -121,11 +153,13 @@
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -137,6 +171,8 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button newGameButton;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button backOptions;
     }
 }
 
