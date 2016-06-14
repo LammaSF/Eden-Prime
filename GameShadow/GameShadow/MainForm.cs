@@ -104,5 +104,20 @@ namespace GameShadow
 
 
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Title_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ResumeButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
