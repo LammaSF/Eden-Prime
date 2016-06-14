@@ -119,6 +119,8 @@
     <None Include="Resources\WrongEmo.wav" />
     <None Include="Resources\Hit.wav" />
     <None Include="Resources\Gameover.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="SpriteLibrary\SpriteLibrary.dll" />
     <Content Include="SpriteLibrary\SpriteLibrary.pdb" />
     <Content Include="SpriteLibrary\SpriteLibrary.XML" />
