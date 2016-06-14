@@ -9,6 +9,7 @@ using System.IO;
 using GameShadow.Properties;
 using System.Media;
 using SpriteLibrary;
+using System.Drawing;
 
 namespace GameShadow
 {
@@ -39,7 +40,7 @@ namespace GameShadow
         public MainForm()
         {
             InitializeComponent();
-
+            Size = new Size(610, 610);
             //  SerializationHelper.Serialize(emoticon, dataFilePath);
             //  SerializationHelper.Serialize(player, dataFilePath);
 
