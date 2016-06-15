@@ -1,10 +1,7 @@
 ﻿using System;
-
 using System.Windows.Forms;
 using GameShadow.GameData;
 using GameShadow.Serialization;
-using System.Xml;
-using GameShadow;
 using System.IO;
 using GameShadow.Properties;
 using System.Media;
@@ -41,21 +38,17 @@ namespace GameShadow
         {
             InitializeComponent();
             Size = new Size(610, 610);
-            //  SerializationHelper.Serialize(emoticon, dataFilePath);
-            //  SerializationHelper.Serialize(player, dataFilePath);
-
-            // Deserialize from data.xml
-
+            resumeButton.Enabled = false;
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
+        private void OnExitButtonClick(object sender, EventArgs e)
         {
             var soundPlayer = new SoundPlayer(Resources.Click);
             soundPlayer.Play();
             Application.Exit();
         }
 
-        private void newGameButton_Click(object sender, EventArgs e)
+        private void OnNewGameButtonClick(object sender, EventArgs e)
         {
             GameForm gameForm = new GameForm(this);
             if (GameForm != null)
@@ -72,7 +65,7 @@ namespace GameShadow
 
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void OnSaveButtonClick(object sender, EventArgs e)
         {
             var soundPlayer = new SoundPlayer(Resources.Click);
             soundPlayer.Play();
@@ -81,7 +74,7 @@ namespace GameShadow
             SerializationHelper.Serialize(game, dataFilePath);
         }
 
-        private void LoadGameButton_Click(object sender, EventArgs e)
+        private void OnLoadButtonClick(object sender, EventArgs e)
         {
             var soundPlayer = new SoundPlayer(Resources.Click);
             soundPlayer.Play();
@@ -113,52 +106,37 @@ namespace GameShadow
 
 
         }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Title_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ResumeButton_Click(object sender, EventArgs e)
+                
+        private void OnResumeButtonClick(object sender, EventArgs e)
         {
             Controller.DoTick += GameForm.OnGameIteration;
             Controller.UnPause();
             GameForm.Show();
         }
 
-        private void optionsButton_Click(object sender, EventArgs e)
+        private void OnOptionsButtonClick(object sender, EventArgs e)
         {
             newGameButton.Visible = false;
             saveButton.Visible = false;
             resumeButton.Visible = false;
-            LoadGameButton.Visible = false;
+            loadButton.Visible = false;
             exitButton.Visible = false;
             optionsButton.Visible = false;
-            textBox1.Visible = true;
-            backOptions.Visible = true;
+            txtOptions.Visible = true;
+            backButton.Visible = true;
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void backOptions_Click(object sender, EventArgs e)
+        private void OnBackButtonClick(object sender, EventArgs e)
         {
             newGameButton.Visible = true;
             saveButton.Visible = true;
             resumeButton.Visible = true;
-            LoadGameButton.Visible = true;
+            loadButton.Visible = true;
             exitButton.Visible = true;
             optionsButton.Visible = true;
-            textBox1.Visible = false;
-            backOptions.Visible = false;
+            txtOptions.Visible = false;
+            backButton.Visible = false;
         }
     }
 }

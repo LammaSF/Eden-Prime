@@ -61,7 +61,6 @@ namespace GameShadow
         private int _heroShootingAngle = InitialShootingAngle;
         private int _emoticonCount = GameInitializer.EmoticonCount;
         private MainForm _mainForm;
-        private bool _paused = false;
         private bool _gameOver = false;
 
         #endregion
@@ -591,14 +590,13 @@ namespace GameShadow
             bool keyEsc = _spriteController.IsKeyPressed(Keys.Escape);
             if (keyEsc)
             {
-                _paused = true;
                 _spriteController.Pause();
                 _spriteController.DoTick -= OnGameIteration;
                 UpdateGameInfo();
                 Hide();
                 _mainForm.Tag = _game;
                 _mainForm.SaveButton.Enabled = true;
-                _mainForm.ResumeButton.Visible = true;
+                _mainForm.ResumeButton.Enabled = true;
                 _mainForm.Controller = _spriteController;
             }
         }
