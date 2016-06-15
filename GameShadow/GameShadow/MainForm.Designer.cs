@@ -41,8 +41,8 @@
             // 
             // optionsButton
             // 
-            this.optionsButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionsButton.Location = new System.Drawing.Point(182, 337);
+            this.optionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionsButton.Location = new System.Drawing.Point(173, 396);
             this.optionsButton.Name = "optionsButton";
             this.optionsButton.Size = new System.Drawing.Size(111, 42);
             this.optionsButton.TabIndex = 0;
@@ -52,8 +52,8 @@
             // 
             // LoadGameButton
             // 
-            this.LoadGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadGameButton.Location = new System.Drawing.Point(324, 276);
+            this.LoadGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadGameButton.Location = new System.Drawing.Point(396, 306);
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(111, 42);
             this.LoadGameButton.TabIndex = 1;
@@ -63,8 +63,8 @@
             // 
             // resumeButton
             // 
-            this.resumeButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resumeButton.Location = new System.Drawing.Point(33, 337);
+            this.resumeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resumeButton.Location = new System.Drawing.Point(98, 444);
             this.resumeButton.Name = "resumeButton";
             this.resumeButton.Size = new System.Drawing.Size(111, 42);
             this.resumeButton.TabIndex = 3;
@@ -76,8 +76,8 @@
             // saveButton
             // 
             this.saveButton.Enabled = false;
-            this.saveButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveButton.Location = new System.Drawing.Point(182, 276);
+            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveButton.Location = new System.Drawing.Point(252, 306);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(111, 42);
             this.saveButton.TabIndex = 4;
@@ -87,8 +87,8 @@
             // 
             // newGameButton
             // 
-            this.newGameButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newGameButton.Location = new System.Drawing.Point(33, 276);
+            this.newGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newGameButton.Location = new System.Drawing.Point(98, 306);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(111, 42);
             this.newGameButton.TabIndex = 6;
@@ -98,8 +98,8 @@
             // 
             // exitButton
             // 
-            this.exitButton.Font = new System.Drawing.Font("Ravie", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(324, 337);
+            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Location = new System.Drawing.Point(354, 396);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(111, 42);
             this.exitButton.TabIndex = 7;
@@ -109,18 +109,20 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(142, 189);
+            this.textBox1.Location = new System.Drawing.Point(226, 215);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(180, 20);
+            this.textBox1.Size = new System.Drawing.Size(180, 117);
             this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "Controls";
+            this.textBox1.Text = "Controls:\r\nUp - ↑\r\nDown - ↓\r\nRight - →\r\nLeft  - ←\r\nTeleport - S\r\nShoot - Space\r\nT" +
+    "argeting-A,D\r\n\r\n\r\n";
             this.textBox1.Visible = false;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // backOptions
             // 
-            this.backOptions.Location = new System.Drawing.Point(189, 414);
+            this.backOptions.Location = new System.Drawing.Point(459, 502);
             this.backOptions.Margin = new System.Windows.Forms.Padding(2);
             this.backOptions.Name = "backOptions";
             this.backOptions.Size = new System.Drawing.Size(104, 45);
@@ -137,7 +139,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(458, 496);
+            this.ClientSize = new System.Drawing.Size(607, 606);
             this.ControlBox = false;
             this.Controls.Add(this.backOptions);
             this.Controls.Add(this.textBox1);
