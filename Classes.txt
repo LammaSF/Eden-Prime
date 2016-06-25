@@ -1,9 +1,9 @@
 Classes:
 
-Emoticon
+Emoticon - Gergana
 
-GoodEmoticon : Emoticon
-BadEmoticon : Emoticon
+GoodEmoticon : Emoticon - Gergana
+BadEmoticon : Emoticon - Gergana
 
 SmileEmoticon : GoodEmoticon
 CheekyEmoticon : GoodEmoticon
