@@ -1,0 +1,23 @@
+Classes:
+
+Emoticon
+
+GoodEmoticon : Emoticon
+BadEmoticon : Emoticon
+
+SmileEmoticon : GoodEmoticon
+CheekyEmoticon : GoodEmoticon
+GrinEmoticon : GoodEmoticon
+LoveEmoticon : GoodEmoticon
+ShyEmoticon : GoodEmoticon
+SadEmoticon : BadEmoticon
+ShoutingEmoticon : BadEmoticon
+CryEmoticon : BadEmoticon
+AngryEmoticon : BadEmoticon
+OnfireEmoticon : BadEmoticon
+
+
+Hero
+
+LightHero : Hero
+DarkHero : Hero
