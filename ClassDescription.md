@@ -2,10 +2,7 @@
 
 Properties:
 
-Health
-Armor
-MovementSpeed
-Location (x, y)
+Health, Armor, MovementSpeed, Location (x, y)
 
 Constructors:
 
@@ -16,8 +13,7 @@ protected Emoticon(Location(x, y))
 
 Properties: 
 
-Damage
-AttackSpeed
+Damage, AttackSpeed
 
 Constructors:
 protected Emoticon(Location(x, y)) : base(Location(x, y))
@@ -36,26 +32,21 @@ protected Emoticon(Location(x, y)) : base(Location(x, y))
 #SpecificEmoticon : BadEmoticon
 
 Constants:
-DefaultHealth
-DefaultArmor
-DefaultMovementSpeed
-DefaultDamage
-DefaultAttackSpeed
+
+DefaultHealth, DefaultArmor, DefaultMovementSpeed, DefaultDamage, DefaultAttackSpeed
 
 Constructors:
 protected Emoticon(Location(x, y)) : base(Location(x, y))
 
-**The default values should be set in the constructor!
+The default values should be set in the constructor!
 ---------------------------------------------------------
 #SpecificEmoticon : GoodEmoticon
 
 Constants:
-DefaultHealth
-DefaultArmor
-DefaultMovementSpeed
-DefaultReward
+
+DefaultHealth, DefaultArmor, DefaultMovementSpeed, DefaultReward
 
 Constructors:
 protected Emoticon(Location(x, y)) : base(Location(x, y))
 
-**The default values should be set in the constructor!
+The default values should be set in the constructor!
