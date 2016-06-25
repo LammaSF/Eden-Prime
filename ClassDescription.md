@@ -5,7 +5,6 @@ Properties:
 Health, Armor, MovementSpeed, Location (x, y)
 
 Constructors:
-
 protected Emoticon(Location(x, y))
 
 ---------------------------------------------------------
