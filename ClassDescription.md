@@ -35,7 +35,7 @@ Constants:
 DefaultHealth, DefaultArmor, DefaultMovementSpeed, DefaultDamage, DefaultAttackSpeed
 
 Constructors:
-protected Emoticon(Location(x, y)) : base(Location(x, y))
+public Emoticon(Location(x, y)) : base(Location(x, y))
 
 The default values should be set in the constructor!
 ---------------------------------------------------------
@@ -46,6 +46,6 @@ Constants:
 DefaultHealth, DefaultArmor, DefaultMovementSpeed, DefaultReward
 
 Constructors:
-protected Emoticon(Location(x, y)) : base(Location(x, y))
+public Emoticon(Location(x, y)) : base(Location(x, y))
 
 The default values should be set in the constructor!
