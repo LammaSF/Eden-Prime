@@ -3,6 +3,8 @@ using EmojiHunter.UIComponents;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using EmojiHunter.GameData;
+using EmojiHunter.GameAnimation;
 
 namespace EmojiHunter
 {
@@ -15,6 +17,9 @@ namespace EmojiHunter
         SpriteBatch spriteBatch;
 
         UIEmoticon uiEmoticon;
+        Emoticon emoticon;
+        AnimatedSprite sprite;
+        
         Rectangle screenRectangle;
 
         public EmojiHunterGame()
@@ -38,7 +43,7 @@ namespace EmojiHunter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            
             base.Initialize();
         }
 
@@ -52,14 +57,17 @@ namespace EmojiHunter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Texture2D texture = Content.Load<Texture2D>("Emoticons");
-            uiEmoticon = new UIEmoticon(texture, screenRectangle);
+            Rectangle frame = new Rectangle(0, 0, 50, 50);
+            this.sprite = new AnimatedSprite(texture, frame, 250, 3);
+            this.emoticon = new Emoticon();
+            this.uiEmoticon = new UIEmoticon(sprite, emoticon);
 
             StartGame();
         }
 
         private void StartGame()
         {
-            uiEmoticon.SetInStartPosition();
+            uiEmoticon.SetInStartPosition(100, 100);
         }
 
         /// <summary>
