@@ -8,12 +8,18 @@ namespace EmojiHunter.GameAnimation
     {
         private List<Animation> animations;
 
-        public AnimatedSprite(Texture2D texture, Rectangle frame, double frameDuration, int frameCount)
+        public AnimatedSprite(AnimatedSprite sprite)
+        {
+            this.animations = sprite.animations;
+        }
+
+        public AnimatedSprite(Texture2D texture, Rectangle frame, float frameDuration, int frameCount)
         {
             this.animations = new List<Animation>();
             AddAnimation(texture, frame, frameDuration, frameCount);
         }
 
+        public string Name { get; set; }
         public int AnimationIndex { get; set; }
         public Vector2 Position
         {
