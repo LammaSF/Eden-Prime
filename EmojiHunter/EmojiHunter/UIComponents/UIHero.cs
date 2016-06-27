@@ -5,27 +5,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EmojiHunter.UIComponents
 {
-    internal class UIEmoticon
+    internal class UIHero
     {
         private Vector2 position;
 
-        public UIEmoticon(AnimatedSprite sprite, Emoticon emoticon)
+        public UIHero(AnimatedSprite sprite, Hero hero)
         {
             Sprite = sprite;
-            Emoticon = emoticon;
+            Hero = hero;
         }
 
         public AnimatedSprite Sprite { get; set; }
-        public Emoticon Emoticon { get; set; }
+        public Hero Hero { get; set; }
 
         public void Update(GameTime gameTime)
         {
-            Sprite.Update(gameTime);               
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Sprite.Draw(spriteBatch);
+            Sprite.Update(gameTime);
         }
 
         public void SetInStartPosition(float x, float y)
@@ -35,6 +30,10 @@ namespace EmojiHunter.UIComponents
 
             Sprite.Position = position;
         }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Sprite.Draw(spriteBatch);
+        }
     }
 }
-

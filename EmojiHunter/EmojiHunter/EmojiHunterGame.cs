@@ -12,22 +12,24 @@ namespace EmojiHunter
     /// </summary>
     public class EmojiHunterGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
-        SpriteData spriteData;
-        UIEmoticon uiEmoticon;
-        Emoticon emoticon;
-        AnimatedSprite sprite;
-        
-        Rectangle screenRectangle;
+        private SpriteData spriteData;
+        private UIEmoticon uiEmoticon;
+        private UIHero uiHero;
+        private Hero hero;
+        private Emoticon emoticon;
+        private AnimatedSprite sprite;
+
+        private Rectangle screenRectangle;
 
         public EmojiHunterGame()
         {
-            graphics = new GraphicsDeviceManager(this);
+            this.graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            screenRectangle = new Rectangle(
+            this.screenRectangle = new Rectangle(
                 0,
                 0,
                 graphics.PreferredBackBufferWidth,
@@ -57,19 +59,24 @@ namespace EmojiHunter
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.spriteData = new SpriteData();
 
-            SpriteInitializer.InitializeSprites(spriteData, Content);
+            SpriteInitializer.InitializeSprites(this.spriteData, Content);
 
             this.emoticon = new Emoticon("OnfireEmoticon");
-            this.sprite = spriteData.DuplicateSprite(emoticon.Name);
-            this.uiEmoticon = new UIEmoticon(sprite, emoticon);
-            uiEmoticon.Sprite.AnimationIndex = 3;
+            this.sprite = spriteData.DuplicateSprite(this.emoticon.Name);
+            this.uiEmoticon = new UIEmoticon(this.sprite, this.emoticon);
+            this.uiEmoticon.Sprite.AnimationIndex = 3;
+
+            this.hero = new Hero("LightHero");
+            this.sprite = spriteData.DuplicateSprite(this.hero.Name);
+            this.uiHero = new UIHero(this.sprite, this.hero);
 
             StartGame();
         }
 
         private void StartGame()
         {
-            uiEmoticon.SetInStartPosition(100, 100);
+            this.uiEmoticon.SetInStartPosition(100, 100);
+            this.uiHero.SetInStartPosition(200, 200);
         }
 
         /// <summary>
@@ -91,7 +98,8 @@ namespace EmojiHunter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            uiEmoticon.Update(gameTime);
+            this.uiEmoticon.Update(gameTime);
+            this.uiHero.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -104,11 +112,12 @@ namespace EmojiHunter
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            this.spriteBatch.Begin();
 
-            uiEmoticon.Draw(spriteBatch);
-            
-            spriteBatch.End();
+            this.uiEmoticon.Draw(this.spriteBatch);
+            this.uiHero.Draw(this.spriteBatch);
+
+            this.spriteBatch.End();
 
             base.Draw(gameTime);
         }
