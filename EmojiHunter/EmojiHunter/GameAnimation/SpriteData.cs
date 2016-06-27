@@ -17,5 +17,13 @@ namespace EmojiHunter.GameAnimation
                 return null;
             return new AnimatedSprite(sprite);
         }
+
+        public AnimatedSprite DuplicateSprite(string spriteName)
+        {
+            if (SpriteByName.ContainsKey(spriteName))
+                return DuplicateSprite(SpriteByName[spriteName]);
+
+            return null;
+        }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using EmojiHunter.UIComponents;
+﻿using EmojiHunter.UIComponents;
+using EmojiHunter.GameAnimation;
+using EmojiHunter.GameData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using EmojiHunter.GameData;
-using EmojiHunter.GameAnimation;
 
 namespace EmojiHunter
 {
@@ -16,6 +15,7 @@ namespace EmojiHunter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        SpriteData spriteData;
         UIEmoticon uiEmoticon;
         Emoticon emoticon;
         AnimatedSprite sprite;
@@ -54,13 +54,15 @@ namespace EmojiHunter
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteData = new SpriteData();
 
-            Texture2D texture = Content.Load<Texture2D>("Emoticons");
-            Rectangle frame = new Rectangle(0, 0, 50, 50);
-            this.sprite = new AnimatedSprite(texture, frame, 250, 3);
-            this.emoticon = new Emoticon();
+            SpriteInitializer.InitializeSprites(spriteData, Content);
+
+            this.emoticon = new Emoticon("OnfireEmoticon");
+            this.sprite = spriteData.DuplicateSprite(emoticon.Name);
             this.uiEmoticon = new UIEmoticon(sprite, emoticon);
+            uiEmoticon.Sprite.AnimationIndex = 3;
 
             StartGame();
         }
