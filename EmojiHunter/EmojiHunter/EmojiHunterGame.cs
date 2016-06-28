@@ -45,7 +45,7 @@ namespace EmojiHunter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
+
             base.Initialize();
         }
 
@@ -97,6 +97,19 @@ namespace EmojiHunter
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (InputManager.Instance.KeyDown(Keys.Right))
+                // to do - move right
+
+            if (InputManager.Instance.KeyDown(Keys.Left))
+                    // to do - move right
+
+            if (InputManager.Instance.KeyDown(Keys.Up))
+                        // to do - move right
+
+            if (InputManager.Instance.KeyDown(Keys.Down))
+                            // to do - move right
+
 
             this.uiEmoticon.Update(gameTime);
             this.uiHero.Update(gameTime);
