@@ -15,6 +15,7 @@ namespace EmojiHunter
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        private Texture2D background;
         private SpriteData spriteData;
         private UIEmoticon uiEmoticon;
         private UIHero uiHero;
@@ -27,9 +28,11 @@ namespace EmojiHunter
         public EmojiHunterGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 1280; // HARDCODED
+            graphics.PreferredBackBufferHeight = 720; // HARDCODED
+            graphics.ToggleFullScreen();
 
-            this.screenRectangle = new Rectangle(
+            screenRectangle = new Rectangle(
                 0,
                 0,
                 graphics.PreferredBackBufferWidth,
@@ -58,6 +61,8 @@ namespace EmojiHunter
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.spriteData = new SpriteData();
+
+            this.background = Content.Load<Texture2D>(@"Content\Background");
 
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
 
@@ -98,17 +103,17 @@ namespace EmojiHunter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (InputManager.Instance.KeyDown(Keys.Right))
-                // to do - move right
+            //if (InputManager.Instance.KeyDown(Keys.Right))
+            //    // to do - move right
 
-            if (InputManager.Instance.KeyDown(Keys.Left))
-                    // to do - move right
+            //if (InputManager.Instance.KeyDown(Keys.Left))
+            //        // to do - move right
 
-            if (InputManager.Instance.KeyDown(Keys.Up))
-                        // to do - move right
+            //if (InputManager.Instance.KeyDown(Keys.Up))
+            //            // to do - move right
 
-            if (InputManager.Instance.KeyDown(Keys.Down))
-                            // to do - move right
+            //if (InputManager.Instance.KeyDown(Keys.Down))
+            //                // to do - move right
 
 
             this.uiEmoticon.Update(gameTime);
@@ -127,6 +132,7 @@ namespace EmojiHunter
 
             this.spriteBatch.Begin();
 
+            this.spriteBatch.Draw(this.background, screenRectangle, Color.White);
             this.uiEmoticon.Draw(this.spriteBatch);
             this.uiHero.Draw(this.spriteBatch);
 

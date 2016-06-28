@@ -46,7 +46,7 @@ namespace EmojiHunter.GameAnimation
 
         private static void InitializeHeroSprite(SpriteData spriteData, ContentManager content)
         {
-            var texture = content.Load<Texture2D>("Heroes");
+            var texture = content.Load<Texture2D>(@"Content\Heroes");
             var sprite = new AnimatedSprite(texture, new Rectangle(0, 128, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
 
@@ -65,7 +65,7 @@ namespace EmojiHunter.GameAnimation
 
         private static void InitializeEmoticonSprite(SpriteData spriteData, ContentManager content)
         {
-            var texture = content.Load<Texture2D>("Emoticons");
+            var texture = content.Load<Texture2D>(@"Content\Emoticons");
             for (EmoticonType emoticon = 0; emoticon < EmoticonType.Length; emoticon++)
             {
                 int index = (int)emoticon;
