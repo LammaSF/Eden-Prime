@@ -44,6 +44,7 @@ namespace EmojiHunter.UIComponents
         private List<UIShot> uiShots;
         private AnimatedSprite spellShotSprite;
         private float lastShotElapsedTime;
+        private float lastTeleportElapsedTime;
 
         public UIHero(AnimatedSprite sprite, Hero hero, UISight uiSight, AnimatedSprite spellShotSprite)
         {
@@ -127,7 +128,25 @@ namespace EmojiHunter.UIComponents
                     uiShots.Add(uiShot); //ISSUE: We never dispose of the shots!
                     lastShotElapsedTime = 0;
                 }
-                
+            }
+
+            lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (keyTeleport)
+            {
+                if (lastTeleportElapsedTime > 1000)
+                {
+                    Teleport();
+                    lastTeleportElapsedTime = 0;
+                }
+            }
+        }
+
+        private void Teleport()
+        {
+            if (lastDirection != Direction.None)
+            {
+                this.position += 150 * MotionByDirection[lastDirection];
+                this.Sprite.Position = this.position;
             }
         }
 
