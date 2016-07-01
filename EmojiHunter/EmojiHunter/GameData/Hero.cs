@@ -9,7 +9,7 @@ namespace EmojiHunter.GameData
 {
     public class Hero
     {
-        
+        private bool isRunning;
 
         public Hero(string name)
         {
@@ -19,6 +19,16 @@ namespace EmojiHunter.GameData
             ShootingSpeed = 10;
         }
 
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+
+            set
+            {
+                this.isRunning = value;
+                MovementSpeed = (this.IsRunning) ? 5 : 1;
+            }
+        }
         public float MovementSpeed { get; set; }
         public string Name { get; set; }
         public int ShootingAngle { get; internal set; }

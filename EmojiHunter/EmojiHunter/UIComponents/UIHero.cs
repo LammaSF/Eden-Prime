@@ -83,6 +83,7 @@ namespace EmojiHunter.UIComponents
             bool keyRotateLeft = inputManager.KeyDown(Keys.A);
             bool keyRotateRight = inputManager.KeyDown(Keys.D);
             bool keyTeleport = inputManager.KeyDown(Keys.T);
+            bool keySprint = inputManager.KeyDown(Keys.LeftShift);
 
             if (keyUp && keyLeft)
                 Move(1, Direction.UpLeft); // move up left
@@ -139,6 +140,9 @@ namespace EmojiHunter.UIComponents
                     lastTeleportElapsedTime = 0;
                 }
             }
+
+            Hero.IsRunning = keySprint;
+            
         }
 
         private void Teleport()
