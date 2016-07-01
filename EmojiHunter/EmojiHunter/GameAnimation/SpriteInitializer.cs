@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EmojiHunter.GameAnimation
 {
-    internal enum EmoticonType
+    public enum EmoticonType
     {
         SmileEmoticon,
         CheekyEmoticon,
@@ -19,20 +19,27 @@ namespace EmojiHunter.GameAnimation
         Length
     }
 
-    internal enum HeroType
+    public enum HeroType
     {
         LightHero,
         DarkHero
     }
 
-    internal static class SpriteInitializer
+    public enum MiscellaneousType
+    {
+        Sight
+    }
+
+    public static class SpriteInitializer
     {
         private const float HeroFrameDuration = 250f;
+        private const float SightFrameDuration = 100000f;
         private const float EmoticonFrameDuration = 250f;
         private const float DeadEmoticonFrameDuration = 250f;
         private const float FreezeEmoticonFrameDuration = 250f;
         private const float CrazyEmoticonFrameDuration = 250f;
         private const int HeroFrameCount = 3;
+        private const int SightFrameCount = 0;
         private const int EmoticonFrameCount = 10;
         private const int DeadEmoticonFrameCount = 3;
         private const int FreezeEmoticonFrameCount = 3;
@@ -41,6 +48,7 @@ namespace EmojiHunter.GameAnimation
         public static void InitializeSprites(SpriteData spriteData, ContentManager content)
         {
             InitializeHeroSprite(spriteData, content);
+            InitializeSightSprite(spriteData, content);
             InitializeEmoticonSprite(spriteData, content);
         }
 
@@ -83,6 +91,17 @@ namespace EmojiHunter.GameAnimation
 
                 UpdateSpriteData(spriteData, sprite);
             }
+        }
+
+        public static void InitializeSightSprite(SpriteData spriteData, ContentManager content)
+        {
+            var texture = content.Load<Texture2D>(@"Content\Crosshair");
+            var sprite = new AnimatedSprite(texture, new Rectangle(0, 0, 24, 24),
+                SightFrameDuration, SightFrameCount);
+
+            sprite.Name = $"{MiscellaneousType.Sight}";
+
+            UpdateSpriteData(spriteData, sprite);
         }
 
         private static void UpdateSpriteData(SpriteData spriteData, AnimatedSprite sprite)

@@ -2,7 +2,7 @@
 
 namespace EmojiHunter.GameAnimation
 {
-    internal class SpriteData
+    public class SpriteData
     {
         public Dictionary<string, AnimatedSprite> SpriteByName { get; private set; }
 

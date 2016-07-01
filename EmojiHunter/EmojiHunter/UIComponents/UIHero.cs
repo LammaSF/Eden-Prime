@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System;
 
 namespace EmojiHunter.UIComponents
 {
@@ -41,21 +42,25 @@ namespace EmojiHunter.UIComponents
         private Vector2 motion;
         private Direction lastDirection;
 
-        public UIHero(AnimatedSprite sprite, Hero hero)
+        public UIHero(AnimatedSprite sprite, Hero hero, UISight uiSight)
         {
             this.inputManager = InputManager.Instance;
+            
             Sprite = sprite;
             Hero = hero;
+            this.UISight = uiSight;
         }
 
         public AnimatedSprite Sprite { get; set; }
         public Hero Hero { get; set; }
+        public UISight UISight { get; set; }
 
         public void Update(GameTime gameTime)
         {
             this.inputManager.Update();
             CheckKeyboardInput();
             Sprite.Update(gameTime);
+            UISight.Update(gameTime);
         }
 
         private void CheckKeyboardInput()
@@ -85,6 +90,22 @@ namespace EmojiHunter.UIComponents
                 Move(2, Direction.Right); // move right
             else if (keyUp)
                 Move(3, Direction.Up); // move up
+
+            if (keyRotateLeft)
+            {
+                Hero.ShootingAngle += Hero.SightSpeed;
+            }
+            else if (keyRotateRight)
+            {
+                Hero.ShootingAngle -= Hero.SightSpeed;
+            }
+
+            UISight.Move(Hero.ShootingAngle, this.position);
+        }
+
+        private void MoveSight()
+        {
+            throw new NotImplementedException();
         }
 
         private void Move(int animationIndex, Direction direction)
@@ -111,6 +132,7 @@ namespace EmojiHunter.UIComponents
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
+            UISight.Draw(spriteBatch);
         }
     }
 }

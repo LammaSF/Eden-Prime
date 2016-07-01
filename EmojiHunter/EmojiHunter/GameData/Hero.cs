@@ -15,9 +15,12 @@ namespace EmojiHunter.GameData
         {
             Name = name;
             MovementSpeed = 1;
+            SightSpeed = 10;
         }
 
         public float MovementSpeed { get; set; }
         public string Name { get; set; }
+        public int ShootingAngle { get; internal set; }
+        public int SightSpeed { get; internal set; }
     }
 }

@@ -19,6 +19,7 @@ namespace EmojiHunter
         private SpriteData spriteData;
         private UIEmoticon uiEmoticon;
         private UIHero uiHero;
+        private UISight uiSight;
         private Hero hero;
         private Emoticon emoticon;
         private AnimatedSprite sprite;
@@ -75,7 +76,8 @@ namespace EmojiHunter
 
             this.hero = new Hero("LightHero");
             this.sprite = spriteData.DuplicateSprite(this.hero.Name);
-            this.uiHero = new UIHero(this.sprite, this.hero);
+            this.uiSight = new UISight(spriteData.DuplicateSprite("Sight"));
+            this.uiHero = new UIHero(this.sprite, this.hero, uiSight);
 
             StartGame();
         }
