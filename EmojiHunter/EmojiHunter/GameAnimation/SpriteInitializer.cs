@@ -27,19 +27,22 @@ namespace EmojiHunter.GameAnimation
 
     public enum MiscellaneousType
     {
-        Sight
+        Sight,
+        SpellShot    
     }
 
     public static class SpriteInitializer
     {
         private const float HeroFrameDuration = 250f;
         private const float SightFrameDuration = 100000f;
+        private const float SpellShotFrameDuration = 100f;
         private const float EmoticonFrameDuration = 250f;
         private const float DeadEmoticonFrameDuration = 250f;
         private const float FreezeEmoticonFrameDuration = 250f;
         private const float CrazyEmoticonFrameDuration = 250f;
         private const int HeroFrameCount = 3;
         private const int SightFrameCount = 0;
+        private const int SpellShotFrameCount = 8;
         private const int EmoticonFrameCount = 10;
         private const int DeadEmoticonFrameCount = 3;
         private const int FreezeEmoticonFrameCount = 3;
@@ -49,6 +52,7 @@ namespace EmojiHunter.GameAnimation
         {
             InitializeHeroSprite(spriteData, content);
             InitializeSightSprite(spriteData, content);
+            InitializeSpellShotSprite(spriteData, content);
             InitializeEmoticonSprite(spriteData, content);
         }
 
@@ -69,7 +73,6 @@ namespace EmojiHunter.GameAnimation
 
             UpdateSpriteData(spriteData, sprite);
         }
-
 
         private static void InitializeEmoticonSprite(SpriteData spriteData, ContentManager content)
         {
@@ -100,6 +103,24 @@ namespace EmojiHunter.GameAnimation
                 SightFrameDuration, SightFrameCount);
 
             sprite.Name = $"{MiscellaneousType.Sight}";
+
+            UpdateSpriteData(spriteData, sprite);
+        }
+
+        private static void InitializeSpellShotSprite(SpriteData spriteData, ContentManager content)
+        {
+            var texture = content.Load<Texture2D>(@"Content\Magicballs");
+            var sprite = new AnimatedSprite(texture, new Rectangle(0, 675, 75, 75),
+                SpellShotFrameDuration, SpellShotFrameCount);
+
+            sprite.AddAnimation(texture, new Rectangle(0, 75, 75, 75),
+                SpellShotFrameDuration, SpellShotFrameCount);
+            sprite.AddAnimation(texture, new Rectangle(0, 375, 75, 75),
+                SpellShotFrameDuration, SpellShotFrameCount);
+            sprite.AddAnimation(texture, new Rectangle(0, 225, 75, 75),
+                SpellShotFrameDuration, SpellShotFrameCount);
+
+            sprite.Name = $"{MiscellaneousType.SpellShot}";
 
             UpdateSpriteData(spriteData, sprite);
         }

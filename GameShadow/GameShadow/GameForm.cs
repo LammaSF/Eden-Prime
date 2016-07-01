@@ -230,7 +230,7 @@ namespace GameShadow
             _sight.CannotMoveOutsideBox = true;
             _sight.AutomaticallyMoves = true;
         }
-
+        //done
         private void MoveUISight()
         {
             Point location = new Point(_hero.PictureBoxLocation.X, _hero.PictureBoxLocation.Y);
@@ -245,7 +245,7 @@ namespace GameShadow
             _sight.PutPictureBoxLocation(location);
             _sight.AutomaticallyMoves = true;
         }
-
+        //done
         private void MoveUIPlayer(int animationIndex, Directions direction)
         {
             var directionDegrees = (int)direction;
@@ -518,7 +518,7 @@ namespace GameShadow
             bool directionUp = _spriteController.IsKeyPressed(Keys.A);
             bool directionDown = _spriteController.IsKeyPressed(Keys.D);
             bool keyTeleport = _spriteController.IsKeyPressed(Keys.T);
-
+            //done
             if (keyUp && keyLeft)
                 MoveUIPlayer(1, Directions.UpLeft); // move up left
             else if (keyUp && keyRight)
@@ -570,7 +570,7 @@ namespace GameShadow
                     _heroLastTeleport = DateTime.Now;
                 }
             }
-
+            //done
             if (directionUp)
             {
                 _heroShootingAngle += SightSpeed;

@@ -41,14 +41,19 @@ namespace EmojiHunter.UIComponents
         private Vector2 position;
         private Vector2 motion;
         private Direction lastDirection;
+        private List<UIShot> uiShots;
+        private AnimatedSprite spellShotSprite;
+        private float lastShotElapsedTime;
 
-        public UIHero(AnimatedSprite sprite, Hero hero, UISight uiSight)
+        public UIHero(AnimatedSprite sprite, Hero hero, UISight uiSight, AnimatedSprite spellShotSprite)
         {
             this.inputManager = InputManager.Instance;
-            
-            Sprite = sprite;
-            Hero = hero;
+            this.Sprite = sprite;
+            this.Hero = hero;
             this.UISight = uiSight;
+            this.spellShotSprite = spellShotSprite;
+            this.spellShotSprite.AnimationIndex = 2;
+            this.uiShots = new List<UIShot>();
         }
 
         public AnimatedSprite Sprite { get; set; }
@@ -58,12 +63,16 @@ namespace EmojiHunter.UIComponents
         public void Update(GameTime gameTime)
         {
             this.inputManager.Update();
-            CheckKeyboardInput();
+            CheckKeyboardInput(gameTime);
             Sprite.Update(gameTime);
             UISight.Update(gameTime);
+            foreach (var uiShot in uiShots)
+            {
+                uiShot.Update(gameTime);
+            }
         }
 
-        private void CheckKeyboardInput()
+        private void CheckKeyboardInput(GameTime gameTime)
         {
             bool keyDown = inputManager.KeyDown(Keys.Down);
             bool keyLeft = inputManager.KeyDown(Keys.Left);
@@ -101,11 +110,25 @@ namespace EmojiHunter.UIComponents
             }
 
             UISight.Move(Hero.ShootingAngle, this.position);
-        }
 
-        private void MoveSight()
-        {
-            throw new NotImplementedException();
+            lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (keyShoot)
+            {
+                if (lastShotElapsedTime > 500)
+                {
+                    var uiShot = new UIShot(this.spellShotSprite, Hero.ShootingSpeed);
+                    uiShot.SetInStartPosition(this.position.X, this.position.Y);
+
+                    var motionX = (float)Math.Cos(Hero.ShootingAngle * Math.PI / 180);
+                    var motionY = (float)Math.Sin(Hero.ShootingAngle * Math.PI / 180);
+
+                    uiShot.SetInMotion(motionX, motionY);
+
+                    uiShots.Add(uiShot); //ISSUE: We never dispose of the shots!
+                    lastShotElapsedTime = 0;
+                }
+                
+            }
         }
 
         private void Move(int animationIndex, Direction direction)
@@ -133,6 +156,11 @@ namespace EmojiHunter.UIComponents
         {
             Sprite.Draw(spriteBatch);
             UISight.Draw(spriteBatch);
+
+            foreach (var uiShot in uiShots)
+            {
+                uiShot.Draw(spriteBatch);
+            }
         }
     }
 }

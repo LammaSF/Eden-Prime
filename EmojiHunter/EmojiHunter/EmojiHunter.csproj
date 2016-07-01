@@ -51,6 +51,7 @@
     <Compile Include="UIComponents\InputManager.cs" />
     <Compile Include="UIComponents\UIEmoticon.cs" />
     <Compile Include="UIComponents\UIHero.cs" />
+    <Compile Include="UIComponents\UIShot.cs" />
     <Compile Include="UIComponents\UISight.cs" />
   </ItemGroup>
   <ItemGroup>

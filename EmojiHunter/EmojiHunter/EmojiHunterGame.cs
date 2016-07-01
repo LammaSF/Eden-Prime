@@ -77,7 +77,8 @@ namespace EmojiHunter
             this.hero = new Hero("LightHero");
             this.sprite = spriteData.DuplicateSprite(this.hero.Name);
             this.uiSight = new UISight(spriteData.DuplicateSprite("Sight"));
-            this.uiHero = new UIHero(this.sprite, this.hero, uiSight);
+            this.uiHero = new UIHero(this.sprite, this.hero, uiSight, 
+                spriteData.DuplicateSprite("SpellShot"));
 
             StartGame();
         }
