@@ -77,8 +77,11 @@
     <None Include="Content\EmoticonSprites\Emoticons.xnb" />
     <None Include="Content\EndScreen\Gameover.xnb" />
     <None Include="Content\Gameover.xnb" />
-    <None Include="Content\Heroes.xnb" />
-    <None Include="Content\Heroes.xnb" />
+    <None Include="Content\LightHeroFreeze.xnb" />
+    <None Include="Content\LightHeroInvisible.xnb" />
+    <None Include="Content\LightHeroMirror.xnb" />
+    <None Include="Content\LightHeroNormal.xnb" />
+    <None Include="Content\LightHeroShield.xnb" />
     <None Include="Content\Magicballs.xnb" />
     <None Include="Content\Spells\Magicballs.xnb" />
     <None Include="Content\Obstacles\Trees.xnb" />

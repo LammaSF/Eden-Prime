@@ -21,6 +21,16 @@ namespace EmojiHunter.UIComponents
         None
     }
 
+    public enum HeroState
+    {
+        Normal = 0,
+        Shielded,
+        Mirrored,
+        Invisible,
+        Frozen
+    }
+
+
     public class UIHero
     {
         private readonly Dictionary<Direction, Vector2> MotionByDirection =
@@ -37,6 +47,7 @@ namespace EmojiHunter.UIComponents
                 [Direction.None] = new Vector2(0, 0)
             };
 
+        private HeroState state;
         private InputManager inputManager;
         private Vector2 position;
         private Vector2 motion;
@@ -84,23 +95,26 @@ namespace EmojiHunter.UIComponents
             bool keyRotateRight = inputManager.KeyDown(Keys.D);
             bool keyTeleport = inputManager.KeyDown(Keys.T);
             bool keySprint = inputManager.KeyDown(Keys.LeftShift);
+            bool keyShield = inputManager.IsKeyReleased(Keys.Q);
+            bool keyMirror = inputManager.IsKeyReleased(Keys.W);
+            bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
 
             if (keyUp && keyLeft)
-                Move(1, Direction.UpLeft); // move up left
+                Move(1 + (int)this.state * 4, Direction.UpLeft); // move up left
             else if (keyUp && keyRight)
-                Move(2, Direction.UpRight); // move up right
+                Move(2 + (int)this.state * 4, Direction.UpRight); // move up right
             else if (keyDown && keyLeft)
-                Move(1, Direction.DownLeft); // move down left
+                Move(1 + (int)this.state * 4, Direction.DownLeft); // move down left
             else if (keyDown && keyRight)
-                Move(2, Direction.DownRight); // move down right
+                Move(2 + (int)this.state * 4, Direction.DownRight); // move down right
             else if (keyDown)
-                Move(0, Direction.Down); // move down
+                Move(0 + (int)this.state * 4, Direction.Down); // move down
             else if (keyLeft)
-                Move(1, Direction.Left); // move left
+                Move(1 + (int)this.state * 4, Direction.Left); // move left
             else if (keyRight)
-                Move(2, Direction.Right); // move right
+                Move(2 + (int)this.state * 4, Direction.Right); // move right
             else if (keyUp)
-                Move(3, Direction.Up); // move up
+                Move(3 + (int)this.state * 4, Direction.Up); // move up
 
             if (keyRotateLeft)
             {
@@ -142,7 +156,28 @@ namespace EmojiHunter.UIComponents
             }
 
             Hero.IsRunning = keySprint;
-            
+
+            // ISSUE hero should move to update visual state
+            if (keyInvisible)
+            {
+                this.state = (this.state == HeroState.Invisible)
+                    ? HeroState.Normal
+                    : HeroState.Invisible;
+            }
+
+            if (keyShield)
+            {
+                this.state = (this.state == HeroState.Shielded)
+                    ? HeroState.Normal
+                    : HeroState.Shielded;
+            }
+
+            if (keyMirror)
+            {
+                this.state = (this.state == HeroState.Mirrored)
+                    ? HeroState.Normal
+                    : HeroState.Mirrored;
+            }
         }
 
         private void Teleport()

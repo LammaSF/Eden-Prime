@@ -58,20 +58,38 @@ namespace EmojiHunter.GameAnimation
 
         private static void InitializeHeroSprite(SpriteData spriteData, ContentManager content)
         {
-            var texture = content.Load<Texture2D>(@"Content\Heroes");
-            var sprite = new AnimatedSprite(texture, new Rectangle(0, 128, 32, 32),
-                HeroFrameDuration, HeroFrameCount);
+            var texture = content.Load<Texture2D>(@"Content\LightHeroNormal");
+            var sprite = new AnimatedSprite();
 
+            AddHeroAnimations(texture, sprite);
+
+            texture = content.Load<Texture2D>(@"Content\LightHeroShield");
+            AddHeroAnimations(texture, sprite);
+
+            texture = content.Load<Texture2D>(@"Content\LightHeroMirror");
+            AddHeroAnimations(texture, sprite);
+
+            texture = content.Load<Texture2D>(@"Content\LightHeroInvisible");
+            AddHeroAnimations(texture, sprite);
+
+            texture = content.Load<Texture2D>(@"Content\LightHeroFreeze");
+            AddHeroAnimations(texture, sprite);
+
+            sprite.Name = $"{HeroType.LightHero}";
+
+            UpdateSpriteData(spriteData, sprite);
+        }
+
+        private static void AddHeroAnimations(Texture2D texture, AnimatedSprite sprite)
+        {
+            sprite.AddAnimation(texture, new Rectangle(0, 128, 32, 32),
+                HeroFrameDuration, HeroFrameCount);
             sprite.AddAnimation(texture, new Rectangle(0, 160, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
             sprite.AddAnimation(texture, new Rectangle(0, 192, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
             sprite.AddAnimation(texture, new Rectangle(0, 224, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
-
-            sprite.Name = $"{HeroType.LightHero}";
-
-            UpdateSpriteData(spriteData, sprite);
         }
 
         private static void InitializeEmoticonSprite(SpriteData spriteData, ContentManager content)
