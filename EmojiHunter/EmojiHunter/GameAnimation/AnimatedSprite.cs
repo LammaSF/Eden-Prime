@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace EmojiHunter.GameAnimation
 {
-    internal class AnimatedSprite
+    public class AnimatedSprite
     {
         private List<Animation> animations;
 

@@ -28,9 +28,11 @@ namespace EmojiHunter
         public EmojiHunterGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280; // HARDCODED
-            graphics.PreferredBackBufferHeight = 720; // HARDCODED
-            graphics.ToggleFullScreen();
+            graphics.PreferredBackBufferWidth = 600; // HARDCODED
+            graphics.PreferredBackBufferHeight = 600; // HARDCODED
+            //graphics.PreferredBackBufferWidth = 1280; // HARDCODED
+            //graphics.PreferredBackBufferHeight = 720; // HARDCODED
+            //graphics.ToggleFullScreen();
 
             screenRectangle = new Rectangle(
                 0,
