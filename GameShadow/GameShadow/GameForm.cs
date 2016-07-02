@@ -519,13 +519,13 @@ namespace GameShadow
             bool directionDown = _spriteController.IsKeyPressed(Keys.D);
             bool keyTeleport = _spriteController.IsKeyPressed(Keys.T);
             //done
-            if (keyUp && keyLeft)
+            if ((keyUp && keyLeft) || keyHome)
                 MoveUIPlayer(1, Directions.UpLeft); // move up left
-            else if (keyUp && keyRight)
+            else if ((keyUp && keyRight) || keyPGUP)
                 MoveUIPlayer(2, Directions.UpRight); // move up right
-            else if (keyDown && keyLeft)
+            else if ((keyDown && keyLeft) || keyEnd)
                 MoveUIPlayer(1, Directions.DownLeft); // move down left
-            else if (keyDown && keyRight)
+            else if ((keyDown && keyRight) || keyPGDN)
                 MoveUIPlayer(2, Directions.DownRight); // move down right
             else if (keyDown)
                 MoveUIPlayer(0, Directions.Down); // move down
@@ -548,9 +548,7 @@ namespace GameShadow
                         var soundPlayer = new SoundPlayer(Resources.Shoot);
                         soundPlayer.Play();
                         Point location = _hero.PictureBoxLocation;
-                        int halfwit = 0; // ?!
-                        int halfhit = 0; // ?!
-                        location = new Point(location.X + halfwit, location.Y - halfhit);
+                        location = new Point(location.X, location.Y);
                         sprite.PutPictureBoxLocation(location);
                         sprite.SetSpriteDirectionDegrees(_heroShootingAngle);
                         sprite.MovementSpeed = BallMovementSpeed;
