@@ -94,7 +94,7 @@ namespace EmojiHunter.UIComponents
             bool keyRotateLeft = inputManager.KeyDown(Keys.A);
             bool keyRotateRight = inputManager.KeyDown(Keys.D);
             bool keyTeleport = inputManager.KeyDown(Keys.T);
-            bool keySprint = inputManager.KeyDown(Keys.LeftShift);
+            bool keySprint = inputManager.IsKeyReleased(Keys.LeftShift);
             bool keyShield = inputManager.IsKeyReleased(Keys.Q);
             bool keyMirror = inputManager.IsKeyReleased(Keys.W);
             bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
@@ -155,7 +155,12 @@ namespace EmojiHunter.UIComponents
                 }
             }
 
-            Hero.IsRunning = keySprint;
+            if (keySprint)
+            {
+                Hero.IsRunning = (Hero.IsRunning == true)
+                    ? false
+                    : true;
+            }
 
             // ISSUE hero should move to update visual state
             if (keyInvisible)
@@ -177,6 +182,33 @@ namespace EmojiHunter.UIComponents
                 this.state = (this.state == HeroState.Mirrored)
                     ? HeroState.Normal
                     : HeroState.Mirrored;
+            }
+
+            CheckForHeroObjectCollision();
+        }
+
+        private void CheckForHeroObjectCollision()
+        {
+            foreach (var uiObject in UIObjectContainer.UIObjects)
+            {
+                if (this != uiObject)
+                {
+                    if (this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
+                    {
+                        this.position -= this.Hero.MovementSpeed * this.motion;
+                        this.Sprite.Position = this.position;
+                    }
+
+                    if (uiObject is UIEmoticon)
+                    {
+                        //TO DO
+                    }
+
+                    if (uiObject is UIShot)
+                    {
+                        //TO DO
+                    }
+                }
             }
         }
 

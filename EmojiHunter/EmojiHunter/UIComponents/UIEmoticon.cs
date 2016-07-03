@@ -16,6 +16,7 @@ namespace EmojiHunter.UIComponents
         }
 
         public AnimatedSprite Sprite { get; set; }
+
         public Emoticon Emoticon { get; set; }
 
         public void Update(GameTime gameTime)
