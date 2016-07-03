@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EmojiHunter.UIComponents
 {
-    public class UIShot
+    public class UIShot : IUIObject
     {
         private float speed;
         private Vector2 position;

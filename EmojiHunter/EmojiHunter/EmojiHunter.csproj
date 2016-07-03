@@ -49,6 +49,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIComponents\InputManager.cs" />
+    <Compile Include="UIComponents\IUIObject.cs" />
+    <Compile Include="UIComponents\UIObjectContainer.cs" />
     <Compile Include="UIComponents\UIEmoticon.cs" />
     <Compile Include="UIComponents\UIHero.cs" />
     <Compile Include="UIComponents\UIShot.cs" />

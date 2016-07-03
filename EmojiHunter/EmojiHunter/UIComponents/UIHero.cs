@@ -31,7 +31,7 @@ namespace EmojiHunter.UIComponents
     }
 
 
-    public class UIHero
+    public class UIHero : IUIObject
     {
         private readonly Dictionary<Direction, Vector2> MotionByDirection =
             new Dictionary<Direction, Vector2>()

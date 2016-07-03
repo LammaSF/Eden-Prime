@@ -6,6 +6,10 @@ namespace EmojiHunter.GameAnimation
 {
     public class AnimatedSprite
     {
+        private static ulong id;
+
+        private Rectangle rectangle;
+
         private List<Animation> animations;
 
         public AnimatedSprite()
@@ -16,6 +20,9 @@ namespace EmojiHunter.GameAnimation
         public AnimatedSprite(AnimatedSprite sprite)
         {
             this.animations = sprite.animations;
+            this.rectangle = sprite.Rectangle;
+            this.ID = AnimatedSprite.id;
+            AnimatedSprite.id++;
         }
 
         public AnimatedSprite(Texture2D texture, Rectangle frame, float frameDuration, int frameCount) : this()
@@ -23,8 +30,10 @@ namespace EmojiHunter.GameAnimation
             AddAnimation(texture, frame, frameDuration, frameCount);
         }
 
+        public ulong ID { get; private set; }
         public string Name { get; set; }
         public int AnimationIndex { get; set; }
+        public Rectangle Rectangle => this.rectangle;
         public Vector2 Position
         {
             get
@@ -35,7 +44,15 @@ namespace EmojiHunter.GameAnimation
             set
             {
                 animations[AnimationIndex].Position = value;
+                this.rectangle.X = (int)value.X;
+                this.rectangle.Y = (int)value.Y;
             }
+        }
+
+        public void SetSize(int width, int height)
+        {
+            this.rectangle.Width = width;
+            this.rectangle.Height = height;
         }
 
         public void AddAnimation(Texture2D texture, Rectangle frame, double frameDuration, int frameCount)

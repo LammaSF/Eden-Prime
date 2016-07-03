@@ -74,11 +74,15 @@ namespace EmojiHunter
             this.uiEmoticon = new UIEmoticon(this.sprite, this.emoticon);
             this.uiEmoticon.Sprite.AnimationIndex = 3;
 
+            UIObjectContainer.AddUIObject(this.uiEmoticon);
+
             this.hero = new Hero("LightHero");
             this.sprite = spriteData.DuplicateSprite(this.hero.Name);
             this.uiSight = new UISight(spriteData.DuplicateSprite("Sight"));
             this.uiHero = new UIHero(this.sprite, this.hero, uiSight, 
                 spriteData.DuplicateSprite("SpellShot"));
+
+            UIObjectContainer.AddUIObject(this.uiHero);
 
             StartGame();
         }
@@ -108,22 +112,11 @@ namespace EmojiHunter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //if (InputManager.Instance.KeyDown(Keys.Right))
-            //    // to do - move right
-
-            //if (InputManager.Instance.KeyDown(Keys.Left))
-            //        // to do - move right
-
-            //if (InputManager.Instance.KeyDown(Keys.Up))
-            //            // to do - move right
-
-            //if (InputManager.Instance.KeyDown(Keys.Down))
-            //                // to do - move right
-
-
-            this.uiEmoticon.Update(gameTime);
-            this.uiHero.Update(gameTime);
-
+            foreach (var uiObject in UIObjectContainer.UIObjects)
+            {
+                uiObject.Update(gameTime);
+            }
+            
             base.Update(gameTime);
         }
 
@@ -138,8 +131,11 @@ namespace EmojiHunter
             this.spriteBatch.Begin();
 
             this.spriteBatch.Draw(this.background, screenRectangle, Color.White);
-            this.uiEmoticon.Draw(this.spriteBatch);
-            this.uiHero.Draw(this.spriteBatch);
+
+            foreach (var uiObject in UIObjectContainer.UIObjects)
+            {
+                uiObject.Draw(this.spriteBatch);
+            }
 
             this.spriteBatch.End();
 

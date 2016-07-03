@@ -90,6 +90,7 @@ namespace EmojiHunter.GameAnimation
                 HeroFrameDuration, HeroFrameCount);
             sprite.AddAnimation(texture, new Rectangle(0, 224, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
+            sprite.SetSize(32, 32);
         }
 
         private static void InitializeEmoticonSprite(SpriteData spriteData, ContentManager content)
@@ -107,6 +108,7 @@ namespace EmojiHunter.GameAnimation
                     FreezeEmoticonFrameDuration, FreezeEmoticonFrameCount);
                 sprite.AddAnimation(texture, new Rectangle(800, index * 50, 50, 50),
                     CrazyEmoticonFrameDuration, CrazyEmoticonFrameCount);
+                sprite.SetSize(50, 50);
 
                 sprite.Name = $"{emoticon}";
 
@@ -119,7 +121,7 @@ namespace EmojiHunter.GameAnimation
             var texture = content.Load<Texture2D>(@"Content\Crosshair");
             var sprite = new AnimatedSprite(texture, new Rectangle(0, 0, 24, 24),
                 SightFrameDuration, SightFrameCount);
-
+            sprite.SetSize(24, 24);
             sprite.Name = $"{MiscellaneousType.Sight}";
 
             UpdateSpriteData(spriteData, sprite);
@@ -137,7 +139,7 @@ namespace EmojiHunter.GameAnimation
                 SpellShotFrameDuration, SpellShotFrameCount);
             sprite.AddAnimation(texture, new Rectangle(0, 225, 75, 75),
                 SpellShotFrameDuration, SpellShotFrameCount);
-
+            sprite.SetSize(75, 75);
             sprite.Name = $"{MiscellaneousType.SpellShot}";
 
             UpdateSpriteData(spriteData, sprite);
