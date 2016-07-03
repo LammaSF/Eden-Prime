@@ -23,6 +23,7 @@ namespace EmojiHunter
         private Hero hero;
         private Emoticon emoticon;
         private AnimatedSprite sprite;
+        private EmoticonFactory emoticonFactory;
 
         private Rectangle screenRectangle;
 
@@ -69,7 +70,8 @@ namespace EmojiHunter
 
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
 
-            this.emoticon = new Emoticon("OnfireEmoticon");
+            this.emoticonFactory = new EmoticonFactory();
+            this.emoticon = emoticonFactory.CreateEmoticon("Onfire");
             this.sprite = spriteData.DuplicateSprite(this.emoticon.Name);
             this.uiEmoticon = new UIEmoticon(this.sprite, this.emoticon);
             this.uiEmoticon.Sprite.AnimationIndex = 3;

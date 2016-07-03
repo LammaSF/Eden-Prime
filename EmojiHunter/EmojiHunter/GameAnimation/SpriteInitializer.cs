@@ -6,16 +6,16 @@ namespace EmojiHunter.GameAnimation
 {
     public enum EmoticonType
     {
-        SmileEmoticon,
-        CheekyEmoticon,
-        GrinEmoticon,
-        LoveEmoticon,
-        SadEmoticon,
-        ShoutingEmoticon,
-        ShyEmoticon,
-        CryEmoticon,
-        AngryEmoticon,
-        OnfireEmoticon,
+        Smile,
+        Cheeky,
+        Grin,
+        Love,
+        Sad,
+        Shouting,
+        Shy,
+        Cry,
+        Angry,
+        Onfire,
         Length
     }
 

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
+using EmojiHunter.GameData.Emoticons;
 
 namespace EmojiHunter.UIComponents
 {
@@ -56,6 +57,7 @@ namespace EmojiHunter.UIComponents
         private AnimatedSprite spellShotSprite;
         private float lastShotElapsedTime;
         private float lastTeleportElapsedTime;
+        private float lastHeroEmoticonCollisionElapsedTime;
 
         public UIHero(AnimatedSprite sprite, Hero hero, UISight uiSight, AnimatedSprite spellShotSprite)
         {
@@ -184,10 +186,10 @@ namespace EmojiHunter.UIComponents
                     : HeroState.Mirrored;
             }
 
-            CheckForHeroObjectCollision();
+            CheckForHeroObjectCollision(gameTime);
         }
 
-        private void CheckForHeroObjectCollision()
+        private void CheckForHeroObjectCollision(GameTime gameTime)
         {
             foreach (var uiObject in UIObjectContainer.UIObjects)
             {
@@ -197,18 +199,49 @@ namespace EmojiHunter.UIComponents
                     {
                         this.position -= this.Hero.MovementSpeed * this.motion;
                         this.Sprite.Position = this.position;
-                    }
 
-                    if (uiObject is UIEmoticon)
-                    {
-                        //TO DO
-                    }
-
-                    if (uiObject is UIShot)
-                    {
-                        //TO DO
+                        ExecuteHeroObjectCollision(gameTime, uiObject);
                     }
                 }
+            }
+        }
+
+        private void ExecuteHeroObjectCollision(GameTime gameTime, IUIObject uiObject)
+        {
+            if (uiObject is UIEmoticon)
+            {
+                var uiEmoticon = uiObject as UIEmoticon;
+
+                if (uiEmoticon.Emoticon is GoodEmoticon)
+                {
+                    var goodEmoticon = uiEmoticon.Emoticon as GoodEmoticon;
+
+                    goodEmoticon.Reward.AddReward(this.Hero);
+
+                    // TO DO: Kill emoticon scenario
+                }
+                else
+                {
+                    var badEmoticon = uiEmoticon.Emoticon as BadEmoticon;
+
+                    this.lastHeroEmoticonCollisionElapsedTime +=
+                        gameTime.ElapsedGameTime.Milliseconds;
+
+                    if (this.lastHeroEmoticonCollisionElapsedTime >
+                        badEmoticon.AttackSpeed)
+                    {
+                        this.Hero.Health -= badEmoticon.Damage;
+                        badEmoticon.Health -= this.Hero.Damage;
+
+                        this.lastHeroEmoticonCollisionElapsedTime %= badEmoticon.AttackSpeed;
+                        // TO DO: Kill emoticon scenario
+                    }
+                }
+            }
+
+            if (uiObject is UIShot)
+            {
+                //TO DO
             }
         }
 

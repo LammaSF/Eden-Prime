@@ -19,6 +19,9 @@ namespace EmojiHunter.GameData
             ShootingSpeed = 10;
         }
 
+        public int Damage { get; internal set; }
+        public int Health { get; internal set; }
+
         public bool IsRunning
         {
             get { return this.isRunning; }
@@ -29,6 +32,12 @@ namespace EmojiHunter.GameData
                 MovementSpeed = (this.IsRunning) ? 5 : 1;
             }
         }
+
+        public int MaxDamage { get; internal set; }
+        public int MaxHealth { get; internal set; }
+        public int MaxMana { get; internal set; }
+        public float MaxSpeed { get; internal set; }
+        public int MaxStrength { get; internal set; }
         public float MovementSpeed { get; set; }
         public string Name { get; set; }
         public int ShootingAngle { get; internal set; }
