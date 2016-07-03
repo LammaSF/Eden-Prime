@@ -116,7 +116,7 @@ namespace EmojiHunter
             {
                 uiObject.Update(gameTime);
             }
-            
+
             base.Update(gameTime);
         }
 
