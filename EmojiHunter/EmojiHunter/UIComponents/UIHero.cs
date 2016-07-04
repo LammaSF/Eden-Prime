@@ -52,7 +52,6 @@ namespace EmojiHunter.UIComponents
         private SpriteFont font;
         private HeroState state;
         private InputManager inputManager;
-        private Vector2 position;
         private Vector2 motion;
         private Direction lastDirection;
         private List<UIShot> uiShots;
@@ -77,6 +76,7 @@ namespace EmojiHunter.UIComponents
         public AnimatedSprite Sprite { get; set; }
         public Hero Hero { get; set; }
         public UISight UISight { get; set; }
+        public Vector2 Position { get; private set; }
 
         public void Update(GameTime gameTime)
         {
@@ -131,7 +131,7 @@ namespace EmojiHunter.UIComponents
                 Hero.ShootingAngle -= Hero.SightSpeed;
             }
 
-            UISight.Move(Hero.ShootingAngle, this.position);
+            UISight.Move(Hero.ShootingAngle, this.Position);
 
             lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyShoot)
@@ -139,10 +139,10 @@ namespace EmojiHunter.UIComponents
                 if (lastShotElapsedTime > 500)
                 {
                     var uiShot = new UIShot(this.spellShotSprite, Hero.ShootingSpeed);
-                    uiShot.SetInStartPosition(this.position.X, this.position.Y);
+                    uiShot.SetInStartPosition(this.Position.X, this.Position.Y);
 
                     var motionX = (float)Math.Cos(Hero.ShootingAngle * Math.PI / 180);
-                    var motionY = (float)Math.Sin(Hero.ShootingAngle * Math.PI / 180);
+                    var motionY = -(float)Math.Sin(Hero.ShootingAngle * Math.PI / 180);
 
                     uiShot.SetInMotion(motionX, motionY);
 
@@ -201,8 +201,8 @@ namespace EmojiHunter.UIComponents
                 {
                     if (this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
                     {
-                        this.position -= this.Hero.MovementSpeed * this.motion;
-                        this.Sprite.Position = this.position;
+                        this.Position -= this.Hero.MovementSpeed * this.motion;
+                        this.Sprite.Position = this.Position;
 
                         ExecuteHeroObjectCollision(gameTime, uiObject);
                     }
@@ -253,8 +253,8 @@ namespace EmojiHunter.UIComponents
         {
             if (lastDirection != Direction.None)
             {
-                this.position += 150 * MotionByDirection[lastDirection];
-                this.Sprite.Position = this.position;
+                this.Position += 150 * MotionByDirection[lastDirection];
+                this.Sprite.Position = this.Position;
             }
         }
 
@@ -267,15 +267,13 @@ namespace EmojiHunter.UIComponents
                 this.motion = MotionByDirection[direction];
             }
 
-            this.position += this.Hero.MovementSpeed * this.motion;
-            this.Sprite.Position = this.position;
+            this.Position += this.Hero.MovementSpeed * this.motion;
+            this.Sprite.Position = this.Position;
         }
 
-        public void SetInStartPosition(float x, float y)
+        public void SetInStartPosition(Vector2 position)
         {
-            position.X = x;
-            position.Y = y;
-
+            Position = position;
             Sprite.Position = position;
         }
 

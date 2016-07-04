@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EmojiHunter.UIComponents
 {
-    internal class UIEmoticon : IUIObject
+    public class UIEmoticon : IUIObject
     {
         private Vector2 position;
 

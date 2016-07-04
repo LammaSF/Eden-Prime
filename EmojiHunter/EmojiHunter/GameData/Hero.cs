@@ -24,7 +24,7 @@
 
         private const int InitialArmor = 0;
 
-        private const int InitialMana = 0;
+        private const int InitialMana = 100;
 
         private const int InitialStrength = 100;
 
@@ -81,15 +81,15 @@
             this.WalkSpeed = InitialWalkSpeed;
             this.RunSpeed = InitialRunSpeed;
             this.CurrentSpeedBonus = 0;
-            this.Health = InitialHealth;
             this.CurrentMaxHealth = InitialHealth;
+            this.CurrentMaxMana = InitialMana;
+            this.CurrentMaxStrength = InitialStrength;
+            this.CurrentMaxDamage = InitialDamage;
+            this.Health = InitialHealth;
             this.Armor = InitialArmor;
             this.Mana = InitialMana;
-            this.CurrentMaxMana = InitialMana;
             this.Strength = InitialStrength;
-            this.CurrentMaxStrength = InitialStrength;
             this.Damage = InitialDamage;
-            this.CurrentMaxDamage = InitialDamage;
             this.ShootingAngle = DefaultShootingAngle;
             this.ShootingSpeed = DefaultShootingSpeed;
             this.ShootingDelay = DefaultShootingDelay;
@@ -186,7 +186,7 @@
                     value = MaxHealth;
                 }
 
-                this.health = value;
+                this.currentMaxHealth = value;
             }
         }
 

@@ -4,6 +4,7 @@ using EmojiHunter.GameData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using EmojiHunter.GameHelpers;
 
 namespace EmojiHunter
 {
@@ -13,20 +14,18 @@ namespace EmojiHunter
     public class EmojiHunterGame : Game
     {
         private GraphicsDeviceManager graphics;
+
         private SpriteBatch spriteBatch;
 
-        private Texture2D background;
-        private SpriteData spriteData;
-        private UIEmoticon uiEmoticon;
-        private UIHero uiHero;
-        private UISight uiSight;
-        private Hero hero;
-        private Emoticon emoticon;
-        private AnimatedSprite sprite;
-        private EmoticonFactory emoticonFactory;
-        
-
         private Rectangle screenRectangle;
+
+        private Texture2D background;
+
+        private SpriteData spriteData;
+
+        private UIHero uiHero;
+
+        private Hero hero;
 
         public EmojiHunterGame()
         {
@@ -67,33 +66,21 @@ namespace EmojiHunter
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.spriteData = new SpriteData();
 
-           
             this.background = Content.Load<Texture2D>(@"Content\Background");
-
+           
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
-
-            this.emoticonFactory = new EmoticonFactory();
-            this.emoticon = emoticonFactory.CreateEmoticon("Onfire");
-            this.sprite = spriteData.DuplicateSprite(this.emoticon.Name);
-            this.uiEmoticon = new UIEmoticon(this.sprite, this.emoticon);
-            this.uiEmoticon.Sprite.AnimationIndex = 3;
-
-            UIObjectContainer.AddUIObject(this.uiEmoticon);
 
             this.hero = new Hero("LightHero");
             this.uiHero = new UIHero(Content, this.spriteData, this.hero);
+            this.uiHero.SetInStartPosition(new Vector2(300, 300));
 
             UIObjectContainer.AddUIObject(this.uiHero);
 
-            StartGame();
+            var uiEmoticon = UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
+                this.uiHero.Position);
+            UIObjectContainer.AddUIObject(uiEmoticon);
         }
-
-        private void StartGame()
-        {
-            this.uiEmoticon.SetInStartPosition(100, 100);
-            this.uiHero.SetInStartPosition(200, 200);
-        }
-
+        
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -132,8 +119,6 @@ namespace EmojiHunter
             this.spriteBatch.Begin();
 
             this.spriteBatch.Draw(this.background, screenRectangle, Color.White);
-
-            
 
             foreach (var uiObject in UIObjectContainer.UIObjects)
             {
