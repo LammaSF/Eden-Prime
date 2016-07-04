@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace EmojiHunter
 {
@@ -15,7 +16,8 @@ namespace EmojiHunter
         static void Main()
         {
             using (var game = new EmojiHunterGame())
-                game.Run();
+                Application.Run(new MainMenu());
+             //   game.Run();
         }
     }
 #endif

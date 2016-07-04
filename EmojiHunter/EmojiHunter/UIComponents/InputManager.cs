@@ -66,5 +66,6 @@ namespace EmojiHunter.UIComponents
             }
             return false;
         }
+        
     }
 }
