@@ -15,8 +15,8 @@ namespace EmojiHunter.GameData.Maps
                     [new Vector2(1100, 320)] = $"{ObstacleType.Tree3}",
                     [new Vector2(600, 600)] = $"{ObstacleType.Tree1}",
                     [new Vector2(700, 200)] = $"{ObstacleType.Tree3}",
-                    [new Vector2(550, 200)] = $"{ObstacleType.Tree4}",
-                    [new Vector2(900, 380)] = $"{ObstacleType.Tree6}",
+                    [new Vector2(520, 200)] = $"{ObstacleType.Tree4}",
+                    [new Vector2(1000, 280)] = $"{ObstacleType.Tree6}",
                     [new Vector2(200, 540)] = $"{ObstacleType.Tree7}",
                 };
         }

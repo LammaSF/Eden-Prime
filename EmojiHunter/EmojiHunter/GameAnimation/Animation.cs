@@ -16,6 +16,18 @@ namespace EmojiHunter.GameAnimation
         private int frameCount;
         private int currentFrame;
 
+        public Animation(Animation animation)
+        {
+            this.texture = animation.texture;
+            this.frame = animation.frame;
+            this.frameStartPositionX = animation.frame.X;
+            this.frameStartPositionY = animation.frame.Y;
+            this.frameWidth = animation.frame.Width;
+            this.frameHeight = animation.frame.Height;
+            this.frameDuration = animation.frameDuration;
+            this.frameCount = animation.frameCount;
+        }
+
         public Animation(Texture2D texture, Rectangle frame, double frameDuration, int frameCount)
         {
             this.texture = texture;

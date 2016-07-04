@@ -105,6 +105,7 @@
     <None Include="Content\LightHeroNormal.xnb" />
     <None Include="Content\LightHeroShield.xnb" />
     <None Include="Content\Magicballs.xnb" />
+    <None Include="Content\Potion.xnb" />
     <None Include="Content\Spells\Magicballs.xnb" />
     <None Include="Content\Obstacles\Trees.xnb" />
     <None Include="Content\Trees.xnb" />

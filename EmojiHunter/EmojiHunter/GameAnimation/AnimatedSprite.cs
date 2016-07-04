@@ -19,8 +19,15 @@ namespace EmojiHunter.GameAnimation
 
         public AnimatedSprite(AnimatedSprite sprite)
         {
-            this.animations = sprite.animations;
-            this.rectangle = sprite.Rectangle;
+            this.animations = new List<Animation>();
+
+            foreach (var animation in sprite.animations)
+            {
+                animations.Add(new Animation(animation));
+            }
+
+            this.rectangle = new Rectangle(sprite.Rectangle.X, sprite.Rectangle.Y,
+                sprite.Rectangle.Width, sprite.Rectangle.Height);
             this.ID = AnimatedSprite.id;
             AnimatedSprite.id++;
         }

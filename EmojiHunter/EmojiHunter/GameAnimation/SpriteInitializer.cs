@@ -6,6 +6,15 @@ using System;
 
 namespace EmojiHunter.GameAnimation
 {
+    public enum ItemType
+    {
+        Armor,
+        HealthPotion,
+        ManaPotion,
+        StrengthPotion,
+        Length
+    }
+
     public enum ObstacleType
     {
         Tree1,
@@ -83,6 +92,23 @@ namespace EmojiHunter.GameAnimation
             InitializeSpellShotSprite(spriteData, content);
             InitializeEmoticonSprite(spriteData, content);
             InitializeObstacleSprite(spriteData, content);
+            InitializeItemSprite(spriteData, content);
+        }
+
+        private static void InitializeItemSprite(SpriteData spriteData, ContentManager content)
+        {
+            var texture = content.Load<Texture2D>(@"Content\Potion");
+            for (ItemType item = (ItemType)1; item < ItemType.Length; item++)
+            {
+                int index = (int)item;
+
+                var sprite = new AnimatedSprite(texture, new Rectangle(0, 0, 51, 57),
+                    ObstacleFrameDuration, ObstacleFrameCount);
+                sprite.SetSize(51, 57);
+                sprite.Name = $"{item}";
+
+                UpdateSpriteData(spriteData, sprite);
+            }
         }
 
         private static void InitializeObstacleSprite(SpriteData spriteData, ContentManager content)

@@ -22,6 +22,8 @@ namespace EmojiHunter
 
         private Texture2D background;
 
+        private AnimatedSprite potion;
+
         private SpriteData spriteData;
 
         private UIHero uiHero;
@@ -68,7 +70,7 @@ namespace EmojiHunter
             this.spriteData = new SpriteData();
 
             this.background = Content.Load<Texture2D>(@"Content\Background");
-           
+                       
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
 
             this.hero = new Hero("LightHero");
@@ -89,8 +91,14 @@ namespace EmojiHunter
             var uiEmoticon = UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
                 this.uiHero.Position);
             UIObjectContainer.AddUIObject(uiEmoticon);
+            uiEmoticon = UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
+                this.uiHero.Position);
+            UIObjectContainer.AddUIObject(uiEmoticon);
+
+            this.potion = new AnimatedSprite(spriteData.DuplicateSprite("HealthPotion"));
+            this.potion.Position = new Vector2(1000, 800);
         }
-        
+
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -134,6 +142,8 @@ namespace EmojiHunter
             {
                 uiObject.Draw(this.spriteBatch);
             }
+
+            this.potion.Draw(spriteBatch);
 
             this.spriteBatch.End();
 
