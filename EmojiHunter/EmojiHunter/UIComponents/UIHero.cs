@@ -105,6 +105,7 @@ namespace EmojiHunter.UIComponents
             bool keyMirror = inputManager.IsKeyReleased(Keys.W);
             bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
 
+            // Process Movement
             if (keyUp && keyLeft)
                 Move(1 + (int)this.state * 4, Direction.UpLeft); // move up left
             else if (keyUp && keyRight)
@@ -122,6 +123,7 @@ namespace EmojiHunter.UIComponents
             else if (keyUp)
                 Move(3 + (int)this.state * 4, Direction.Up); // move up
 
+            // Process Sight Movement
             if (keyRotateLeft)
             {
                 Hero.ShootingAngle += Hero.SightSpeed;
@@ -133,6 +135,7 @@ namespace EmojiHunter.UIComponents
 
             UISight.Move(Hero.ShootingAngle, this.Position);
 
+            // Process Shooting
             lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyShoot)
             {
@@ -151,6 +154,7 @@ namespace EmojiHunter.UIComponents
                 }
             }
 
+            // Process Teleportation
             lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyTeleport)
             {
@@ -161,6 +165,7 @@ namespace EmojiHunter.UIComponents
                 }
             }
 
+            //Process State Change
             if (keySprint)
             {
                 Hero.IsRunning = (Hero.IsRunning == true)
@@ -189,6 +194,7 @@ namespace EmojiHunter.UIComponents
                     ? HeroState.Normal
                     : HeroState.Mirrored;
             }
+            // END OF KEYBOARD PROCESSING
 
             CheckForHeroObjectCollision(gameTime);
         }
