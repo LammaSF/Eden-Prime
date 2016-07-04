@@ -41,7 +41,7 @@ namespace EmojiHunter.GameAnimation
         private const float FreezeEmoticonFrameDuration = 250f;
         private const float CrazyEmoticonFrameDuration = 250f;
         private const int HeroFrameCount = 3;
-        private const int SightFrameCount = 0;
+        private const int SightFrameCount = 1;
         private const int SpellShotFrameCount = 8;
         private const int EmoticonFrameCount = 10;
         private const int DeadEmoticonFrameCount = 3;

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 using EmojiHunter.GameData.Emoticons;
+using Microsoft.Xna.Framework.Content;
 
 namespace EmojiHunter.UIComponents
 {
@@ -48,6 +49,7 @@ namespace EmojiHunter.UIComponents
                 [Direction.None] = new Vector2(0, 0)
             };
 
+        private SpriteFont font;
         private HeroState state;
         private InputManager inputManager;
         private Vector2 position;
@@ -59,13 +61,15 @@ namespace EmojiHunter.UIComponents
         private float lastTeleportElapsedTime;
         private float lastHeroEmoticonCollisionElapsedTime;
 
-        public UIHero(AnimatedSprite sprite, Hero hero, UISight uiSight, AnimatedSprite spellShotSprite)
+        public UIHero(ContentManager content, SpriteData spriteData, Hero hero)
         {
             this.inputManager = InputManager.Instance;
-            this.Sprite = sprite;
+            this.font = content.Load<SpriteFont>(@"Content\Font");
+
             this.Hero = hero;
-            this.UISight = uiSight;
-            this.spellShotSprite = spellShotSprite;
+            this.Sprite = spriteData.DuplicateSprite(this.Hero.Name);
+            this.UISight = new UISight(spriteData.DuplicateSprite("Sight"));
+            this.spellShotSprite = spriteData.DuplicateSprite("SpellShot");
             this.spellShotSprite.AnimationIndex = 2;
             this.uiShots = new List<UIShot>();
         }
@@ -284,6 +288,19 @@ namespace EmojiHunter.UIComponents
             {
                 uiShot.Draw(spriteBatch);
             }
+
+            spriteBatch.DrawString(this.font, $"Health: {this.Hero.Health}",
+                new Vector2(20, 20), Color.Red);
+            spriteBatch.DrawString(this.font, $"Armor: {this.Hero.Armor}",
+                new Vector2(20, 50), Color.GreenYellow);
+            spriteBatch.DrawString(this.font, $"Mana: {this.Hero.Mana}", 
+                new Vector2(20, 80), Color.Blue);
+            spriteBatch.DrawString(this.font, $"Strength:  {this.Hero.Strength}", 
+                new Vector2(20, 110), Color.Yellow);
+            spriteBatch.DrawString(this.font, $"Kills: {this.Hero.Kills}", 
+                new Vector2(20, 140), Color.Black);
+            spriteBatch.DrawString(this.font, $"Points:  {this.Hero.Points}", 
+                new Vector2(20, 170), Color.Black);
         }
     }
 }

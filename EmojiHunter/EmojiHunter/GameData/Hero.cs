@@ -19,6 +19,7 @@ namespace EmojiHunter.GameData
             ShootingSpeed = 10;
         }
 
+        public int Armor { get; internal set; }
         public int Damage { get; internal set; }
         public int Health { get; internal set; }
 
@@ -33,6 +34,8 @@ namespace EmojiHunter.GameData
             }
         }
 
+        public int Kills { get; set; }
+        public int Mana { get; internal set; }
         public int MaxDamage { get; internal set; }
         public int MaxHealth { get; internal set; }
         public int MaxMana { get; internal set; }
@@ -40,8 +43,10 @@ namespace EmojiHunter.GameData
         public int MaxStrength { get; internal set; }
         public float MovementSpeed { get; set; }
         public string Name { get; set; }
+        public int Points { get; internal set; }
         public int ShootingAngle { get; internal set; }
         public int ShootingSpeed { get; internal set; }
         public int SightSpeed { get; internal set; }
+        public int Strength { get; internal set; }
     }
 }

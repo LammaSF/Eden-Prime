@@ -24,14 +24,15 @@ namespace EmojiHunter
         private Emoticon emoticon;
         private AnimatedSprite sprite;
         private EmoticonFactory emoticonFactory;
+        
 
         private Rectangle screenRectangle;
 
         public EmojiHunterGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 600; // HARDCODED
-            graphics.PreferredBackBufferHeight = 600; // HARDCODED
+            graphics.PreferredBackBufferWidth = 720; // HARDCODED
+            graphics.PreferredBackBufferHeight = 720; // HARDCODED
             //graphics.PreferredBackBufferWidth = 1280; // HARDCODED
             //graphics.PreferredBackBufferHeight = 720; // HARDCODED
             //graphics.ToggleFullScreen();
@@ -66,6 +67,7 @@ namespace EmojiHunter
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.spriteData = new SpriteData();
 
+           
             this.background = Content.Load<Texture2D>(@"Content\Background");
 
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
@@ -79,10 +81,7 @@ namespace EmojiHunter
             UIObjectContainer.AddUIObject(this.uiEmoticon);
 
             this.hero = new Hero("LightHero");
-            this.sprite = spriteData.DuplicateSprite(this.hero.Name);
-            this.uiSight = new UISight(spriteData.DuplicateSprite("Sight"));
-            this.uiHero = new UIHero(this.sprite, this.hero, uiSight, 
-                spriteData.DuplicateSprite("SpellShot"));
+            this.uiHero = new UIHero(Content, this.spriteData, this.hero);
 
             UIObjectContainer.AddUIObject(this.uiHero);
 
@@ -133,6 +132,8 @@ namespace EmojiHunter
             this.spriteBatch.Begin();
 
             this.spriteBatch.Draw(this.background, screenRectangle, Color.White);
+
+            
 
             foreach (var uiObject in UIObjectContainer.UIObjects)
             {

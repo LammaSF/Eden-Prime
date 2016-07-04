@@ -92,6 +92,7 @@
     <None Include="Content\Emoticons.xnb" />
     <None Include="Content\EmoticonSprites\Emoticons.xnb" />
     <None Include="Content\EndScreen\Gameover.xnb" />
+    <None Include="Content\Font.xnb" />
     <None Include="Content\Gameover.xnb" />
     <None Include="Content\LightHeroFreeze.xnb" />
     <None Include="Content\LightHeroInvisible.xnb" />
