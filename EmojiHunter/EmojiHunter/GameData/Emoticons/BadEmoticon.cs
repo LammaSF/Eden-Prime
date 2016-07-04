@@ -3,7 +3,6 @@
 namespace EmojiHunter.GameData.Emoticons
 {
     public abstract class BadEmoticon : Emoticon
-
     {
         private int damage;
 

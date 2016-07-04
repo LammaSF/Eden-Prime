@@ -92,18 +92,52 @@ namespace EmojiHunter.UIComponents
 
         private void CheckKeyboardInput(GameTime gameTime)
         {
+                      
+            ProcessMovement(inputManager.KeyDown);
+
+            ProcessShootingAngle(inputManager.KeyDown);
+
+            UISight.Move(Hero.ShootingAngle, this.Position);            
+
+            ProcessShooting(inputManager.KeyDown, gameTime);
+
+            ProcessTeleportation(inputManager.KeyDown, gameTime);
+
+            ProcessSprint(inputManager.IsKeyReleased);
+
+
+            // ISSUE hero should move to update visual state            
+      
+            ProcessIsibility(inputManager.IsKeyReleased);
+
+            ProcessShield(inputManager.IsKeyReleased);
+
+            ProcessMirror(inputManager.IsKeyReleased);            
+
+            CheckForHeroObjectCollision(gameTime);
+        }
+
+        private void ProcessShootingAngle(Func<Keys[], bool> keyDown)
+        {
+            bool keyRotateLeft = inputManager.KeyDown(Keys.A);
+            bool keyRotateRight = inputManager.KeyDown(Keys.D);
+
+            if (keyRotateLeft)
+            {
+                Hero.ShootingAngle += Hero.SightSpeed;
+            }
+            else if (keyRotateRight)
+            {
+                Hero.ShootingAngle -= Hero.SightSpeed;
+            }
+        }
+
+        private void ProcessMovement(Func<Keys[], bool> key)
+        {
             bool keyDown = inputManager.KeyDown(Keys.Down);
             bool keyLeft = inputManager.KeyDown(Keys.Left);
             bool keyRight = inputManager.KeyDown(Keys.Right);
             bool keyUp = inputManager.KeyDown(Keys.Up);
-            bool keyShoot = inputManager.KeyDown(Keys.S);
-            bool keyRotateLeft = inputManager.KeyDown(Keys.A);
-            bool keyRotateRight = inputManager.KeyDown(Keys.D);
-            bool keyTeleport = inputManager.KeyDown(Keys.T);
-            bool keySprint = inputManager.IsKeyReleased(Keys.LeftShift);
-            bool keyShield = inputManager.IsKeyReleased(Keys.Q);
-            bool keyMirror = inputManager.IsKeyReleased(Keys.W);
-            bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
 
             if (keyUp && keyLeft)
                 Move(1 + (int)this.state * 4, Direction.UpLeft); // move up left
@@ -121,18 +155,69 @@ namespace EmojiHunter.UIComponents
                 Move(2 + (int)this.state * 4, Direction.Right); // move right
             else if (keyUp)
                 Move(3 + (int)this.state * 4, Direction.Up); // move up
+        }
 
-            if (keyRotateLeft)
+        private void ProcessMirror(Func<Keys[], bool> key)
+        {
+            bool keyMirror = inputManager.IsKeyReleased(Keys.W);
+            if (keyMirror)
             {
-                Hero.ShootingAngle += Hero.SightSpeed;
+                this.state = (this.state == HeroState.Mirrored)
+                    ? HeroState.Normal
+                    : HeroState.Mirrored;
             }
-            else if (keyRotateRight)
+        }
+
+        private void ProcessShield(Func<Keys[], bool> key)
+        {
+            bool keyShield = inputManager.IsKeyReleased(Keys.Q);
+            if (keyShield)
             {
-                Hero.ShootingAngle -= Hero.SightSpeed;
+                this.state = (this.state == HeroState.Shielded)
+                    ? HeroState.Normal
+                    : HeroState.Shielded;
             }
+        }
 
-            UISight.Move(Hero.ShootingAngle, this.Position);
+        private void ProcessIsibility(Func<Keys[], bool> key)
+        {
+            bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
+            if (keyInvisible)
+            {
+                this.state = (this.state == HeroState.Invisible)
+                    ? HeroState.Normal
+                    : HeroState.Invisible;
+            }
+        }
 
+        private void ProcessSprint(Func<Keys[], bool> key)
+        {
+            bool keySprint = inputManager.IsKeyReleased(Keys.LeftShift);
+            if (keySprint)
+            {
+                Hero.IsRunning = (Hero.IsRunning == true)
+                    ? false
+                    : true;
+            }
+        }
+
+        private void ProcessTeleportation(Func<Keys[], bool> key, GameTime gameTime)
+        {
+            bool keyTeleport = inputManager.KeyDown(Keys.T);
+            lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (keyTeleport)
+            {
+                if (lastTeleportElapsedTime > 1000)
+                {
+                    Teleport();
+                    lastTeleportElapsedTime = 0;
+                }
+            }
+        }
+
+        private void ProcessShooting(Func<Keys[], bool> keyDown, GameTime gameTime)
+        {
+            bool keyShoot = inputManager.KeyDown(Keys.S);
             lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyShoot)
             {
@@ -150,47 +235,6 @@ namespace EmojiHunter.UIComponents
                     lastShotElapsedTime = 0;
                 }
             }
-
-            lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-            if (keyTeleport)
-            {
-                if (lastTeleportElapsedTime > 1000)
-                {
-                    Teleport();
-                    lastTeleportElapsedTime = 0;
-                }
-            }
-
-            if (keySprint)
-            {
-                Hero.IsRunning = (Hero.IsRunning == true)
-                    ? false
-                    : true;
-            }
-
-            // ISSUE hero should move to update visual state
-            if (keyInvisible)
-            {
-                this.state = (this.state == HeroState.Invisible)
-                    ? HeroState.Normal
-                    : HeroState.Invisible;
-            }
-
-            if (keyShield)
-            {
-                this.state = (this.state == HeroState.Shielded)
-                    ? HeroState.Normal
-                    : HeroState.Shielded;
-            }
-
-            if (keyMirror)
-            {
-                this.state = (this.state == HeroState.Mirrored)
-                    ? HeroState.Normal
-                    : HeroState.Mirrored;
-            }
-
-            CheckForHeroObjectCollision(gameTime);
         }
 
         private void CheckForHeroObjectCollision(GameTime gameTime)
