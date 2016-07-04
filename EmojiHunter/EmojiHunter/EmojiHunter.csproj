@@ -59,7 +59,10 @@
     <Compile Include="GameData\Emoticons\ShoutingEmoticon.cs" />
     <Compile Include="GameData\Emoticons\ShyEmoticon.cs" />
     <Compile Include="GameData\Emoticons\SmileEmoticon.cs" />
+    <Compile Include="GameData\Maps\CenterMap.cs" />
+    <Compile Include="GameData\Maps\Map.cs" />
     <Compile Include="GameData\Reward.cs" />
+    <Compile Include="GameHelpers\UIObstacleGenerator.cs" />
     <Compile Include="GameHelpers\UIEmoticonGenerator.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="UIComponents\UIObjectContainer.cs" />
     <Compile Include="UIComponents\UIEmoticon.cs" />
     <Compile Include="UIComponents\UIHero.cs" />
+    <Compile Include="UIComponents\UIObstacle.cs" />
     <Compile Include="UIComponents\UIShot.cs" />
     <Compile Include="UIComponents\UISight.cs" />
   </ItemGroup>

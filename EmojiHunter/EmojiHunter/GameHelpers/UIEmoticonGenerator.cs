@@ -15,9 +15,9 @@ namespace EmojiHunter.GameHelpers
 
         private const int EmoticonSpriteSize = 50;
 
-        private static readonly int FieldWidth = 720 - EmoticonSpriteSize - 1;
+        private static readonly int FieldWidth = 1600 - EmoticonSpriteSize - 1;
 
-        private static readonly int FieldHeight = 720 - EmoticonSpriteSize - 1;
+        private static readonly int FieldHeight = 900 - EmoticonSpriteSize - 1;
 
         private static EmoticonFactory emoticonFactory;
 

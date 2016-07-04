@@ -8,7 +8,7 @@
 
         private const float DefaultShootingDelay = 500f; // in ms
 
-        private const float DefaultShootingAngle = 135f; // in degrees
+        private const float DefaultShootingAngle = 45f; // in degrees
 
         private const float DefaultSightSpeed = 7;
 

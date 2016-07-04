@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using EmojiHunter.GameHelpers;
+using EmojiHunter.GameData.Maps;
 
 namespace EmojiHunter
 {
@@ -30,8 +31,8 @@ namespace EmojiHunter
         public EmojiHunterGame()
         {
             this.graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 720; // HARDCODED
-            graphics.PreferredBackBufferHeight = 720; // HARDCODED
+            graphics.PreferredBackBufferWidth = 1600; // HARDCODED
+            graphics.PreferredBackBufferHeight = 900; // HARDCODED
             //graphics.PreferredBackBufferWidth = 1280; // HARDCODED
             //graphics.PreferredBackBufferHeight = 720; // HARDCODED
             //graphics.ToggleFullScreen();
@@ -72,9 +73,18 @@ namespace EmojiHunter
 
             this.hero = new Hero("LightHero");
             this.uiHero = new UIHero(Content, this.spriteData, this.hero);
-            this.uiHero.SetInStartPosition(new Vector2(300, 300));
+            this.uiHero.SetInStartPosition(
+                new Vector2(150, graphics.PreferredBackBufferHeight - 182));
 
             UIObjectContainer.AddUIObject(this.uiHero);
+
+            var map = new CenterMap();
+            var uiObstacles = UIObstacleGenerator.GenerateObstacles(this.spriteData, map);
+
+            foreach (var uiObstacle in uiObstacles)
+            {
+                UIObjectContainer.AddUIObject(uiObstacle);
+            }
 
             var uiEmoticon = UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
                 this.uiHero.Position);

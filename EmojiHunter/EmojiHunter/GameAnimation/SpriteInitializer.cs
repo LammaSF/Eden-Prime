@@ -1,9 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System;
 
 namespace EmojiHunter.GameAnimation
 {
+    public enum ObstacleType
+    {
+        Tree1,
+        Tree2,
+        Tree3,
+        Tree4,
+        Tree5,
+        Tree6,
+        Tree7,
+        Length
+    }
+
     public enum EmoticonType
     {
         Smile,
@@ -35,6 +49,7 @@ namespace EmojiHunter.GameAnimation
     {
         private const float HeroFrameDuration = 250f;
         private const float SightFrameDuration = 100000f;
+        private const float ObstacleFrameDuration = 100000f;
         private const float SpellShotFrameDuration = 100f;
         private const float EmoticonFrameDuration = 250f;
         private const float DeadEmoticonFrameDuration = 250f;
@@ -42,11 +57,24 @@ namespace EmojiHunter.GameAnimation
         private const float CrazyEmoticonFrameDuration = 250f;
         private const int HeroFrameCount = 3;
         private const int SightFrameCount = 1;
+        private const int ObstacleFrameCount = 1;
         private const int SpellShotFrameCount = 8;
         private const int EmoticonFrameCount = 10;
         private const int DeadEmoticonFrameCount = 3;
         private const int FreezeEmoticonFrameCount = 3;
         private const int CrazyEmoticonFrameCount = 3;
+
+        private static readonly Dictionary<ObstacleType, Rectangle> RectangleByObstacle =
+            new Dictionary<ObstacleType, Rectangle>()
+            {
+                [ObstacleType.Tree1] = new Rectangle(10, 2, 100, 157),
+                [ObstacleType.Tree2] = new Rectangle(124, 27, 83, 134),
+                [ObstacleType.Tree3] = new Rectangle(217, 5, 128, 160),
+                [ObstacleType.Tree4] = new Rectangle(356, 18, 109, 145),
+                [ObstacleType.Tree5] = new Rectangle(10, 173, 90, 153),
+                [ObstacleType.Tree6] = new Rectangle(116, 186, 94, 134),
+                [ObstacleType.Tree7] = new Rectangle(220, 170, 86, 158),
+            };
 
         public static void InitializeSprites(SpriteData spriteData, ContentManager content)
         {
@@ -54,6 +82,22 @@ namespace EmojiHunter.GameAnimation
             InitializeSightSprite(spriteData, content);
             InitializeSpellShotSprite(spriteData, content);
             InitializeEmoticonSprite(spriteData, content);
+            InitializeObstacleSprite(spriteData, content);
+        }
+
+        private static void InitializeObstacleSprite(SpriteData spriteData, ContentManager content)
+        {
+            var texture = content.Load<Texture2D>(@"Content\Trees");
+            for (ObstacleType obstacle = 0; obstacle < ObstacleType.Length; obstacle++)
+            {
+                var sprite = new AnimatedSprite(texture, RectangleByObstacle[obstacle],
+                    ObstacleFrameDuration, ObstacleFrameCount);
+                sprite.SetSize(RectangleByObstacle[obstacle].Width,
+                    RectangleByObstacle[obstacle].Height);
+                sprite.Name = $"{obstacle}";
+
+                UpdateSpriteData(spriteData, sprite);
+            }
         }
 
         private static void InitializeHeroSprite(SpriteData spriteData, ContentManager content)
