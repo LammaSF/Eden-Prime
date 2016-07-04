@@ -10,7 +10,7 @@ namespace EmojiHunter.UIComponents
         private Vector2 position;
         private Vector2 motion;
 
-        public UIShot(AnimatedSprite sprite, int speed)
+        public UIShot(AnimatedSprite sprite, float speed)
         {
             Sprite = sprite;
             this.speed = speed;

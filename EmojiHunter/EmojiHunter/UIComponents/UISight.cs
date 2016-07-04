@@ -36,12 +36,12 @@ namespace EmojiHunter.UIComponents
             Sprite.Position = position;
         }
 
-        public void Move(int angle, Vector2 heroPosition)
+        public void Move(float angle, Vector2 heroPosition)
         {
             int offsetX =
                 (int)(DistanceToHero * HeroSpriteSize * Math.Cos(angle * Math.PI / 180));
             int offsetY =
-                (int)(DistanceToHero * HeroSpriteSize * Math.Sin(angle * Math.PI / 180));
+                -(int)(DistanceToHero * HeroSpriteSize * Math.Sin(angle * Math.PI / 180));
 
             this.position.X = heroPosition.X + HeroSpriteSize / 4 + offsetX;
             this.position.Y = heroPosition.Y + HeroSpriteSize / 4 + offsetY;

@@ -23,11 +23,11 @@
 
         public void AddReward(Hero hero)
         {
-            hero.MaxHealth += this.Health;
-            hero.MaxMana += this.Mana;
-            hero.MaxDamage += this.Damage;
-            hero.MaxStrength += this.Strength;
-            hero.MaxSpeed += this.Speed; 
+            hero.CurrentMaxHealth += this.Health;
+            hero.CurrentMaxMana += this.Mana;
+            hero.CurrentMaxDamage += this.Damage;
+            hero.CurrentMaxStrength += this.Strength;
+            hero.CurrentSpeedBonus += this.Speed; 
         }
     }
 }
