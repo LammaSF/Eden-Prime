@@ -1,4 +1,5 @@
 ﻿using EmojiHunter.GameAnimation;
+using EmojiHunter.GameData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,13 +11,16 @@ namespace EmojiHunter.UIComponents
         private Vector2 position;
         private Vector2 motion;
 
-        public UIShot(AnimatedSprite sprite, float speed)
+        public UIShot(Shot shot, AnimatedSprite sprite, float speed)
         {
-            Sprite = sprite;
+            this.Shot = shot;
+            this.Sprite = sprite;
             this.speed = speed;
         }
 
         public AnimatedSprite Sprite { get; set; }
+
+        public Shot Shot { get; set; }
 
         public void Update(GameTime gameTime)
         {

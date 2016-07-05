@@ -64,7 +64,9 @@
     <Compile Include="GameData\Maps\CenterMap.cs" />
     <Compile Include="GameData\Maps\Map.cs" />
     <Compile Include="GameData\Maps\SpringMap.cs" />
+    <Compile Include="GameData\Potion.cs" />
     <Compile Include="GameData\Reward.cs" />
+    <Compile Include="GameData\Shot.cs" />
     <Compile Include="GameHelpers\UIObstacleGenerator.cs" />
     <Compile Include="GameHelpers\UIEmoticonGenerator.cs" />
     <Compile Include="GameHelpers\UIPotionGenerator.cs" />

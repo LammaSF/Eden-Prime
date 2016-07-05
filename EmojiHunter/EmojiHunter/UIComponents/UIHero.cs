@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using EmojiHunter.GameData.Emoticons;
 using Microsoft.Xna.Framework.Content;
+using EmojiHunter.GameHelpers;
 
 namespace EmojiHunter.UIComponents
 {
@@ -60,8 +61,6 @@ namespace EmojiHunter.UIComponents
 
         private Direction lastDirection;
 
-        private List<UIShot> uiShots;
-
         private float lastShotElapsedTime;
 
         private float lastTeleportElapsedTime;
@@ -77,7 +76,6 @@ namespace EmojiHunter.UIComponents
             this.Hero = hero;
             this.Sprite = spriteData.DuplicateSprite(this.Hero.Name);
             this.UISight = new UISight(spriteData.DuplicateSprite("Sight"));
-            this.uiShots = new List<UIShot>();
         }
 
         public AnimatedSprite Sprite { get; set; }
@@ -99,36 +97,47 @@ namespace EmojiHunter.UIComponents
             this.inputManager.Update();
             CheckKeyboardInput(gameTime);
             Sprite.Update(gameTime);
-            UISight.Update(gameTime);
-            foreach (var uiShot in uiShots)
-            {
-                uiShot.Update(gameTime);
-            }
+            UISight.Update(gameTime);            
         }
-
-
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
             UISight.Draw(spriteBatch);
 
-            foreach (var uiShot in uiShots)
-            {
-                uiShot.Draw(spriteBatch);
-            }
+            spriteBatch.DrawString(
+                this.font, 
+                $"Health: {this.Hero.Health} / {this.Hero.CurrentMaxHealth}",
+                new Vector2(20, 20), 
+                Color.Red);
 
-            spriteBatch.DrawString(this.font, $"Health: {this.Hero.Health}",
-                new Vector2(20, 20), Color.Red);
-            spriteBatch.DrawString(this.font, $"Armor: {this.Hero.Armor}",
-                new Vector2(20, 50), Color.GreenYellow);
-            spriteBatch.DrawString(this.font, $"Mana: {this.Hero.Mana}",
-                new Vector2(20, 80), Color.Blue);
-            spriteBatch.DrawString(this.font, $"Strength:  {this.Hero.Strength}",
-                new Vector2(20, 110), Color.Yellow);
-            spriteBatch.DrawString(this.font, $"Kills: {this.Hero.Kills}",
-                new Vector2(20, 140), Color.Black);
-            spriteBatch.DrawString(this.font, $"Points:  {this.Hero.Points}",
-                new Vector2(20, 170), Color.Black);
+            spriteBatch.DrawString(
+                this.font, 
+                $"Armor: {this.Hero.Armor} / {Hero.MaxArmor}",
+                new Vector2(20, 50), 
+                Color.GreenYellow);
+
+            spriteBatch.DrawString(
+                this.font, 
+                $"Mana: {this.Hero.Mana} / {this.Hero.CurrentMaxMana}",
+                new Vector2(20, 80), 
+                Color.Blue);
+
+            spriteBatch.DrawString(
+                this.font, 
+                $"Strength: {this.Hero.Strength} / {this.Hero.CurrentMaxStrength}",
+                new Vector2(20, 110),
+                Color.Yellow);
+
+            spriteBatch.DrawString(this.font,
+                $"Kills: {this.Hero.Kills}",
+                new Vector2(20, 140), 
+                Color.Black);
+
+            spriteBatch.DrawString(this.font,
+                $"Points:  {this.Hero.Points}",
+                new Vector2(20, 170),
+                Color.Black);
         }
 
         private void CheckKeyboardInput(GameTime gameTime)
@@ -262,10 +271,17 @@ namespace EmojiHunter.UIComponents
             {
                 if (lastShotElapsedTime > 500)
                 {
+                    var shot = new Shot()
+                    {
+                        ID = "Hero",
+                        Damage = this.Hero.RangedDamage,
+                        Type = this.Hero.ShotType
+                    };
+
                     var sprite = this.spriteData.DuplicateSprite("SpellShot");
                     sprite.AnimationIndex = (int)this.Hero.ShotType;
 
-                    var uiShot = new UIShot(sprite, Hero.ShootingSpeed);
+                    var uiShot = new UIShot(shot, sprite, Hero.ShootingSpeed);
                     uiShot.SetInStartPosition(
                         this.Position.X + this.Sprite.Rectangle.Width / 2 - 
                             uiShot.Sprite.Rectangle.Width / 2,
@@ -278,7 +294,7 @@ namespace EmojiHunter.UIComponents
 
                     uiShot.SetInMotion(motionX, motionY);
 
-                    uiShots.Add(uiShot); //ISSUE: We never dispose of the shots!
+                    UIObjectContainer.AddUIObject(uiShot);
                     lastShotElapsedTime = 0;
                 }
             }
@@ -313,7 +329,8 @@ namespace EmojiHunter.UIComponents
 
                     goodEmoticon.Reward.AddReward(this.Hero);
 
-                    // TO DO: Kill emoticon scenario
+                    UIEmoticonGenerator.CurrentEmoticonCount--;
+                    UIObjectContainer.RemoveUIObject(uiEmoticon.Sprite.ID);
                 }
                 else
                 {
@@ -325,18 +342,78 @@ namespace EmojiHunter.UIComponents
                     if (this.lastHeroEmoticonCollisionElapsedTime >
                         badEmoticon.AttackSpeed)
                     {
-                        this.Hero.Health -= badEmoticon.Damage;
-                        badEmoticon.Health -= this.Hero.Damage;
+                        if (this.Hero.Armor == 0)
+                        {
+                            this.Hero.Health -= badEmoticon.Damage;
+                        }
+                        else
+                        {
+                            this.Hero.Armor -= badEmoticon.Damage; 
+                        }
+
+                        if (badEmoticon.Armor == 0)
+                        {
+                            badEmoticon.Health -= this.Hero.Damage;
+                        }
+                        else
+                        {
+                            badEmoticon.Armor -= this.Hero.Damage;
+                        }
+
+                        if (badEmoticon.Health == 0)
+                        {
+                            UIObjectContainer.RemoveUIObject(uiEmoticon.Sprite.ID);
+                            UIEmoticonGenerator.CurrentEmoticonCount--;
+                            this.Hero.Kills++;
+                            this.Hero.Points += 5;
+                        }
 
                         this.lastHeroEmoticonCollisionElapsedTime %= badEmoticon.AttackSpeed;
-                        // TO DO: Kill emoticon scenario
                     }
                 }
             }
-
-            if (uiObject is UIShot)
+            else if (uiObject is UIShot)
             {
-                //TO DO
+                var uiShot = (UIShot)uiObject;
+
+                if (uiShot.Shot.ID != "Hero")
+                {
+                    if (this.Hero.Armor == 0)
+                    {
+                        this.Hero.Health -= uiShot.Shot.Damage;
+                    }
+                    else
+                    {
+                        this.Hero.Armor -= uiShot.Shot.Damage;
+                    }
+
+                    UIObjectContainer.RemoveUIObject(uiShot.Sprite.ID);
+                }
+            }
+            else if (uiObject is UIPotion)
+            {
+                var uiPotion = (UIPotion)uiObject;
+
+                switch (uiPotion.Potion.Type)
+                {
+                    case PotionType.HealthPotion:
+                        this.Hero.Health += Potion.Value;
+                        break;
+                    case PotionType.ArmorPotion:
+                        this.Hero.Armor += Potion.Value;
+                        break;
+                    case PotionType.ManaPotion:
+                        this.Hero.Mana += Potion.Value;
+                        break;
+                    case PotionType.StrengthPotion:
+                        this.Hero.Strength += Potion.Value;
+                        break;
+                    case PotionType.Length:
+                        break;                    
+                }
+
+                UIPotionGenerator.CurrentPotionCount--;
+                UIObjectContainer.RemoveUIObject(uiPotion.Sprite.ID);
             }
         }
 
@@ -360,7 +437,21 @@ namespace EmojiHunter.UIComponents
 
             this.Position += this.Hero.MovementSpeed * this.motion;
             this.Sprite.Position = this.Position;
+
+            if (IsOutsideMapBorders())
+            {
+                this.Position -= this.Hero.MovementSpeed * this.motion;
+                this.Sprite.Position = this.Position;
+            }
         }
-        
+
+        private bool IsOutsideMapBorders()
+        {
+            // Hardcoded much ?!
+            return Position.X < 0
+                || Position.Y < 0
+                || Position.X > 1600 - this.Sprite.Rectangle.Width
+                || Position.Y > 900 - this.Sprite.Rectangle.Height;
+        }
     }
 }

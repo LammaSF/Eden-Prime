@@ -30,7 +30,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("Health cannot be negative");
+                    value = 0;
                 }
 
                 this.health = value;
@@ -44,11 +44,11 @@
                 return this.armor;
             }
 
-            protected set
+            set
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("Armor cannot be negative");
+                    value = 0;
                 }
 
                 this.armor = value;
@@ -62,7 +62,7 @@
                 return this.movementSpeed;
             }
 
-            protected set
+            set
             {
                 if (value < 0)
                 {

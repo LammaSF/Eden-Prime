@@ -1,16 +1,19 @@
-﻿using System;
-using EmojiHunter.GameAnimation;
+﻿using EmojiHunter.GameAnimation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EmojiHunter.GameData;
 
 namespace EmojiHunter.UIComponents
 {
     public class UIPotion : IUIObject
     {
-        public UIPotion(AnimatedSprite sprite)
+        public UIPotion(Potion potion, AnimatedSprite sprite)
         {
+            this.Potion = potion;
             this.Sprite = sprite;
         }
+
+        public Potion Potion { get; set; }
 
         public AnimatedSprite Sprite { get; set; }
 

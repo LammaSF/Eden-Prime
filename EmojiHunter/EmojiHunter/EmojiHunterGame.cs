@@ -140,9 +140,10 @@
                     UIPotionGenerator.GeneratePotion(this.spriteData);
                 }
 
-                foreach (var uiObject in UIObjectContainer.UIObjects)
+                var uiObjects = UIObjectContainer.UIObjects;
+                for (int index = uiObjects.Count - 1; index >= 0; index--)
                 {
-                    uiObject.Update(gameTime);
+                    uiObjects[index].Update(gameTime);
                 }
 
                 base.Update(gameTime); 

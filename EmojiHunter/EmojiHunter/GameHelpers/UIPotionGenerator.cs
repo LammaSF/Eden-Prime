@@ -1,4 +1,5 @@
 ﻿using EmojiHunter.GameAnimation;
+using EmojiHunter.GameData;
 using EmojiHunter.UIComponents;
 using Microsoft.Xna.Framework;
 using System;
@@ -27,11 +28,13 @@ namespace EmojiHunter.GameHelpers
 
         public static UIPotion GeneratePotion(SpriteData spriteData)
         {
-            var potion = (PotionType)random.Next((int)PotionType.Length);
+            var potionType = (PotionType)random.Next((int)PotionType.Length);
 
-            var sprite = spriteData.DuplicateSprite($"{potion}");
+            var potion = new Potion() { Type = potionType };
 
-            var uiPotion = new UIPotion(sprite);
+            var sprite = spriteData.DuplicateSprite($"{potionType}");
+
+            var uiPotion = new UIPotion(potion, sprite);
 
             while (true)
             {

@@ -36,7 +36,7 @@ namespace EmojiHunter.GameData
 
         private const int MaxHealth = 200;
 
-        private const int MaxArmor = 100;
+        public const int MaxArmor = 100;
 
         private const int MaxMana = 150;
 
@@ -174,6 +174,10 @@ namespace EmojiHunter.GameData
                 {
                     value = CurrentMaxHealth;
                 }
+                else if (value < 0)
+                {
+                    value = 0;
+                }
 
                 this.health = value;
             }
@@ -203,6 +207,10 @@ namespace EmojiHunter.GameData
                 if (value > MaxArmor)
                 {
                     value = MaxArmor;
+                }
+                else if (value < 0)
+                {
+                    value = 0;
                 }
 
                 this.armor = value;
