@@ -65,6 +65,7 @@ namespace EmojiHunter.GameHelpers
                         continue;
                     }
 
+                    UIObjectContainer.AddUIObject(uiEmoticon);
                     return uiEmoticon;
                 }
             }

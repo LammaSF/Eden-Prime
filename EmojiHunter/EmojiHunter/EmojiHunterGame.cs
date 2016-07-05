@@ -81,22 +81,14 @@ namespace EmojiHunter
             UIObjectContainer.AddUIObject(this.uiHero);
 
             var map = new CenterMap();
-            var uiObstacles = UIObstacleGenerator.GenerateObstacles(this.spriteData, map);
+            UIObstacleGenerator.GenerateObstacles(this.spriteData, map);
 
-            foreach (var uiObstacle in uiObstacles)
-            {
-                UIObjectContainer.AddUIObject(uiObstacle);
-            }
-
-            var uiEmoticon = UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
+            UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
                 this.uiHero.Position);
-            UIObjectContainer.AddUIObject(uiEmoticon);
-            uiEmoticon = UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
+            UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
                 this.uiHero.Position);
-            UIObjectContainer.AddUIObject(uiEmoticon);
-
-            this.potion = new AnimatedSprite(spriteData.DuplicateSprite("HealthPotion"));
-            this.potion.Position = new Vector2(1000, 800);
+            UIPotionGenerator.GeneratePotion(this.spriteData);
+            UIPotionGenerator.GeneratePotion(this.spriteData);
         }
 
         /// <summary>
@@ -123,8 +115,6 @@ namespace EmojiHunter
                 uiObject.Update(gameTime);
             }
 
-            potion.Update(gameTime);
-
             base.Update(gameTime);
         }
 
@@ -146,9 +136,7 @@ namespace EmojiHunter
             }
 
             this.uiHero.Draw(spriteBatch);
-
-            this.potion.Draw(spriteBatch);
-
+            
             this.spriteBatch.End();
 
             base.Draw(gameTime);

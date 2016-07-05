@@ -64,6 +64,7 @@
     <Compile Include="GameData\Reward.cs" />
     <Compile Include="GameHelpers\UIObstacleGenerator.cs" />
     <Compile Include="GameHelpers\UIEmoticonGenerator.cs" />
+    <Compile Include="GameHelpers\UIPotionGenerator.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +86,7 @@
     <Compile Include="UIComponents\UIEmoticon.cs" />
     <Compile Include="UIComponents\UIHero.cs" />
     <Compile Include="UIComponents\UIObstacle.cs" />
+    <Compile Include="UIComponents\UIPotion.cs" />
     <Compile Include="UIComponents\UIShot.cs" />
     <Compile Include="UIComponents\UISight.cs" />
   </ItemGroup>

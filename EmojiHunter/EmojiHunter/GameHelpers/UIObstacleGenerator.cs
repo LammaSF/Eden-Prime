@@ -20,6 +20,7 @@ namespace EmojiHunter.GameHelpers
 
                 uiObstacle.Sprite.Position = pair.Key;
 
+                UIObjectContainer.AddUIObject(uiObstacle);
                 uiObstacles.Add(uiObstacle);
             }
 
