@@ -1,8 +1,12 @@
-﻿namespace EmojiHunter.GameData
+﻿using System;
+
+namespace EmojiHunter.GameData
 {
-    public class Hero//:IShooting
+    public class Hero : IShooting
     {
         #region Constants
+
+        private const string DefaultShotType = "Sunball";
 
         private const float DefaultShootingSpeed = 10f;
 
@@ -100,7 +104,7 @@
 
         #region Properties
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public bool IsRunning
         {
@@ -301,11 +305,28 @@
 
         public float ShootingAngle { get; set; }
 
-        public float ShootingSpeed { get; private set; }
+        public float ShootingSpeed { get; }
 
-        public float ShootingDelay { get; private set; }
+        public float ShootingDelay { get; }
 
-        public float SightSpeed { get; private set; }
+        public float SightSpeed { get;  }
+
+        public string ShotType => ShotType;
+
+        public int RangedDamage
+        {
+            get { return this.damage; }
+
+            set
+            {
+                if (value > CurrentMaxDamage)
+                {
+                    value = CurrentMaxDamage;
+                }
+
+                this.damage = value;
+            }
+        }
 
         #endregion
     }

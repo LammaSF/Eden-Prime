@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmojiHunter.GameData
+﻿namespace EmojiHunter.GameData
 {
     interface IShooting
     {
-        int Damage { get; set; }
+        int RangedDamage { get; set; }
 
         float ShootingSpeed { get; }
 
-        float ShootingDelay { get;  }
+        float ShootingDelay { get; }
 
-        float SightSpeed { get;  }
-
+        string ShotType { get; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace EmojiHunter.GameData.Emoticons
 {
-    public class OnFireEmoticon : BadEmoticon
+    public class OnFireEmoticon : BadEmoticon, IShooting
     {
         private const int DefaultHealth = 100;
 
@@ -10,7 +10,15 @@
 
         private const int DefaultAttackSpeed = 100; // in ms
 
-        private const float DefaultMovementSpeed = 1;
+        private const float DefaultMovementSpeed = 1f;
+
+        private const int DefaultRangedDamage = 75;
+
+        private const float DefaultShootingSpeed = 5f;
+
+        private const float DefaultShootingDelay = 3000f;
+
+        private const string DefaultShotType = "Fireball";
 
         public OnFireEmoticon(string name) : base(name)
         {
@@ -19,5 +27,18 @@
             this.Damage = DefaultDamage;
             this.AttackSpeed = DefaultAttackSpeed;
         }
+
+        public int RangedDamage
+        {
+            get { return DefaultRangedDamage; }
+
+            set { }
+        }
+
+        public float ShootingSpeed => DefaultShootingSpeed;
+
+        public float ShootingDelay => DefaultShootingDelay;
+
+        public string ShotType => DefaultShotType;
     }
 }

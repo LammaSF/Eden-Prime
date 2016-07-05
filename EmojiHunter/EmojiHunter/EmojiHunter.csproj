@@ -59,8 +59,11 @@
     <Compile Include="GameData\Emoticons\ShoutingEmoticon.cs" />
     <Compile Include="GameData\Emoticons\ShyEmoticon.cs" />
     <Compile Include="GameData\Emoticons\SmileEmoticon.cs" />
+    <Compile Include="GameData\IShooting.cs" />
+    <Compile Include="GameData\MapFactory.cs" />
     <Compile Include="GameData\Maps\CenterMap.cs" />
     <Compile Include="GameData\Maps\Map.cs" />
+    <Compile Include="GameData\Maps\SpringMap.cs" />
     <Compile Include="GameData\Reward.cs" />
     <Compile Include="GameHelpers\UIObstacleGenerator.cs" />
     <Compile Include="GameHelpers\UIEmoticonGenerator.cs" />

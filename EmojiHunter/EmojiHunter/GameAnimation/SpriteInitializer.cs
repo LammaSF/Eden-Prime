@@ -47,6 +47,14 @@ namespace EmojiHunter.GameAnimation
         DarkHero
     }
 
+    public enum SpellShotType
+    {
+        Fireball,
+        Iceball,
+        Sunball,
+        Mine
+    }
+
     public enum MiscellaneousType
     {
         Sight,

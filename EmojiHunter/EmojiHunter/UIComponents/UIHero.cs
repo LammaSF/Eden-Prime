@@ -32,7 +32,6 @@ namespace EmojiHunter.UIComponents
         Frozen
     }
 
-
     public class UIHero : IUIObject
     {
         private readonly Dictionary<Direction, Vector2> MotionByDirection =
@@ -90,6 +89,12 @@ namespace EmojiHunter.UIComponents
 
         public Vector2 Position { get; private set; }
 
+        public void SetInStartPosition(Vector2 position)
+        {
+            Position = position;
+            Sprite.Position = position;
+        }
+
         public void Update(GameTime gameTime)
         {
             this.inputManager.Update();
@@ -102,11 +107,6 @@ namespace EmojiHunter.UIComponents
             }
         }
 
-        public void SetInStartPosition(Vector2 position)
-        {
-            Position = position;
-            Sprite.Position = position;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -148,7 +148,7 @@ namespace EmojiHunter.UIComponents
             
             // ISSUE hero should move to update visual state            
       
-            ProcessIsibility(inputManager.IsKeyReleased);
+            ProcessInvisibility(inputManager.IsKeyReleased);
 
             ProcessShield(inputManager.IsKeyReleased);
 
@@ -219,8 +219,7 @@ namespace EmojiHunter.UIComponents
             }
         }
 
-
-        private void ProcessIsibility(Func<Keys[], bool> key)
+        private void ProcessInvisibility(Func<Keys[], bool> key)
         {
             bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
             if (keyInvisible)
@@ -265,7 +264,12 @@ namespace EmojiHunter.UIComponents
                 if (lastShotElapsedTime > 500)
                 {
                     var uiShot = new UIShot(this.spellShotSprite, Hero.ShootingSpeed);
-                    uiShot.SetInStartPosition(this.Position.X, this.Position.Y);
+                    uiShot.SetInStartPosition(
+                        this.Position.X + this.Sprite.Rectangle.Width / 2 - 
+                            uiShot.Sprite.Rectangle.Width / 2,
+                        this.Position.Y + this.Sprite.Rectangle.Height / 2 -
+                            uiShot.Sprite.Rectangle.Height / 2
+                        );
 
                     var motionX = (float)Math.Cos(Hero.ShootingAngle * Math.PI / 180);
                     var motionY = -(float)Math.Sin(Hero.ShootingAngle * Math.PI / 180);
@@ -355,7 +359,6 @@ namespace EmojiHunter.UIComponents
             this.Position += this.Hero.MovementSpeed * this.motion;
             this.Sprite.Position = this.Position;
         }
-
         
     }
 }

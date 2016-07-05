@@ -48,7 +48,7 @@
             this.graphics.PreferredBackBufferHeight = ScreenHeight;
             //this.graphics.ToggleFullScreen();
 
-            //this.map = MapFactory.CreateMap(mapName);
+            this.map = new MapFactory().CreateMap(mapName);
             //this.hero = HeroFactory.CreateHero(heroName);
 
             this.screenRectangle = new Rectangle(
@@ -98,8 +98,7 @@
             UIObjectContainer.AddUIObject(this.uiHero);
             // ***End of need :)
 
-            var map = new CenterMap();
-            UIObstacleGenerator.GenerateObstacles(this.spriteData, map);
+            UIObstacleGenerator.GenerateObstacles(this.spriteData, this.map);
         }
 
         /// <summary>
@@ -166,8 +165,6 @@
             {
                 uiObject.Draw(this.spriteBatch);
             }
-
-            this.uiHero.Draw(spriteBatch);
 
             this.spriteBatch.End();
 
