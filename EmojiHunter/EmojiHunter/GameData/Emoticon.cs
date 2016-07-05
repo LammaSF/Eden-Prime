@@ -10,7 +10,7 @@
 
         private int armor;
 
-        private int movementSpeed;
+        private float movementSpeed;
 
         protected Emoticon (string name)
         {
@@ -55,7 +55,7 @@
             }
         }
 
-        public int MovementSpeed
+        public float MovementSpeed
         {
             get
             {

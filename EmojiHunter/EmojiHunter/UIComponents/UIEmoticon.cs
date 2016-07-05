@@ -39,7 +39,27 @@ namespace EmojiHunter.UIComponents
 
             Move();
 
+            CheckForEmoticonObjectCollision();
+
             Sprite.Update(gameTime);
+        }
+
+        private void CheckForEmoticonObjectCollision()
+        {
+            foreach (var uiObject in UIObjectContainer.UIObjects)
+            {
+                if (this != uiObject)
+                {
+                    if (this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
+                    {
+                        if (!(uiObject is UIShot))
+                        {
+                            this.direction = -this.direction 
+                                + new Vector2(random.Next(10) - 5, random.Next(10) - 5);
+                        }
+                    }
+                }
+            }
         }
 
         private void Shoot(GameTime gameTime)
@@ -109,7 +129,7 @@ namespace EmojiHunter.UIComponents
 
             this.direction.Normalize(); // get unit velocity vector
 
-            this.position += 5 * this.direction; // this.Emoticon.MovementSpeed - hardcoded
+            this.position += this.Emoticon.MovementSpeed * this.direction; 
             this.Sprite.Position = this.position;
         }
 

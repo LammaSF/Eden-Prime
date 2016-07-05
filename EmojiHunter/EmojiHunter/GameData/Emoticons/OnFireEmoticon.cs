@@ -12,11 +12,11 @@ namespace EmojiHunter.GameData.Emoticons
 
         private const int DefaultAttackSpeed = 100; // in ms
 
-        private const float DefaultMovementSpeed = 1f;
+        private const float DefaultMovementSpeed = 4f;
 
         private const int DefaultRangedDamage = 75;
 
-        private const float DefaultShootingSpeed = 5f;
+        private const float DefaultShootingSpeed = 8f;
 
         private const float DefaultShootingDelay = 3000f;
 
@@ -27,6 +27,7 @@ namespace EmojiHunter.GameData.Emoticons
             this.Health = DefaultHealth;
             this.Armor = DefaultArmor;
             this.Damage = DefaultDamage;
+            this.MovementSpeed = DefaultMovementSpeed;
             this.AttackSpeed = DefaultAttackSpeed;
         }
 
