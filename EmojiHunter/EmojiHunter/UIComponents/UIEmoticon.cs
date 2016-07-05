@@ -1,5 +1,6 @@
 ﻿using EmojiHunter.GameAnimation;
 using EmojiHunter.GameData;
+using EmojiHunter.GameData.Emoticons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +17,8 @@ namespace EmojiHunter.UIComponents
 
         private Random random = new Random();
 
+        private bool isGoodEmoticon;
+
         private int lastShotElapsedTime;
 
         public UIEmoticon(SpriteData spriteData, AnimatedSprite sprite, Emoticon emoticon)
@@ -23,6 +26,7 @@ namespace EmojiHunter.UIComponents
             this.spriteData = spriteData;
             this.Sprite = sprite;
             this.Emoticon = emoticon;
+            this.isGoodEmoticon = emoticon is GoodEmoticon;
             this.direction = new Vector2(GetRandomFloat(), GetRandomFloat());
         }
 
@@ -56,6 +60,17 @@ namespace EmojiHunter.UIComponents
                         {
                             this.direction = -this.direction 
                                 + new Vector2(random.Next(5) - 2, random.Next(4) - 2);
+                        }
+
+                        if (uiObject is UIEmoticon
+                            && !this.isGoodEmoticon)
+                        {
+                            var uiEmoticon = (uiObject as UIEmoticon);
+
+                            if (uiEmoticon.isGoodEmoticon)
+                            {
+                                (uiEmoticon.Emoticon as GoodEmoticon).SetCrazyState();
+                            }
                         }
                     }
                 }

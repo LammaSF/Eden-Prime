@@ -334,6 +334,15 @@ namespace EmojiHunter.UIComponents
 
                     goodEmoticon.Reward.AddReward(this.Hero);
 
+                    if (this.Hero.Armor == 0)
+                    {
+                        this.Hero.Health -= goodEmoticon.State.Damage;
+                    }
+                    else
+                    {
+                        this.Hero.Armor -= goodEmoticon.State.Damage;
+                    }
+
                     UIEmoticonGenerator.CurrentEmoticonCount--;
                     UIObjectContainer.RemoveUIObject(uiEmoticon.Sprite.ID);
                 }
