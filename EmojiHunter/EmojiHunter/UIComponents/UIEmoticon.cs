@@ -3,32 +3,21 @@ using EmojiHunter.GameData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace EmojiHunter.UIComponents
 {
     public class UIEmoticon : IUIObject
     {
-        private readonly Dictionary<Direction, Vector2> MotionByDirection =
-            new Dictionary<Direction, Vector2>()
-            {
-                [Direction.Right] = new Vector2(1, 0),
-                [Direction.UpRight] = new Vector2(1, -1),
-                [Direction.Up] = new Vector2(0, -1),
-                [Direction.UpLeft] = new Vector2(-1, -1),
-                [Direction.Left] = new Vector2(-1, 0),
-                [Direction.DownLeft] = new Vector2(-1, 1),
-                [Direction.Down] = new Vector2(0, 1),
-                [Direction.DownRight] = new Vector2(1, 1),
-                [Direction.None] = new Vector2(0, 0)
-            };
-
         private Vector2 position;
-        private Direction direction = Direction.Right; // Hardcoded initial direction
+        private Vector2 direction;
+        private Random random = new Random();
 
         public UIEmoticon(AnimatedSprite sprite, Emoticon emoticon)
         {
             Sprite = sprite;
             Emoticon = emoticon;
+            this.direction = new Vector2(GetRandomFloat(), GetRandomFloat());
         }
 
         public AnimatedSprite Sprite { get; set; }
@@ -48,19 +37,32 @@ namespace EmojiHunter.UIComponents
 
         private void Move()
         {
-            if (this.direction == Direction.Left && this.position.X < 0)
+            if (this.direction.X < 0 && this.position.X < 0) // if leave the screen while moving left
             {
 
-                this.direction = Direction.Right;
+                this.direction = new Vector2(Math.Abs(GetRandomFloat()), GetRandomFloat()); // move right
             }
 
-            if (this.direction == Direction.Right && this.position.X > 1600 - Sprite.Rectangle.Width) // ISSUE - hardcoded
+            if (this.direction.X > 0 && this.position.X > 1600 - Sprite.Rectangle.Width) // ISSUE - hardcoded
             {
 
-                this.direction = Direction.Left;
+                this.direction = new Vector2(-Math.Abs(GetRandomFloat()), GetRandomFloat());
             }
 
-            this.position += 5 * MotionByDirection[direction]; // this.Emoticon.MovementSpeed - hardcoded
+            if (this.direction.Y < 0 && this.position.Y < 0)
+            {
+
+                this.direction = new Vector2(GetRandomFloat(), Math.Abs(GetRandomFloat()));
+            }
+
+            if (this.direction.Y > 0 && this.position.Y > 900 - Sprite.Rectangle.Height) // ISSUE - hardcoded
+            {
+                this.direction = new Vector2(GetRandomFloat(), -Math.Abs(GetRandomFloat()));
+            }
+
+            this.direction.Normalize(); // get unit velocity vector
+
+            this.position += 5 * this.direction; // this.Emoticon.MovementSpeed - hardcoded
             this.Sprite.Position = this.position;
         }
 
@@ -70,6 +72,11 @@ namespace EmojiHunter.UIComponents
             position.Y = y;
 
             Sprite.Position = position;
+        }
+
+        private float GetRandomFloat()
+        {
+            return (float)(random.NextDouble() * 2 - 1);
         }
     }
 }
