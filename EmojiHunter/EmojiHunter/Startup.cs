@@ -16,8 +16,8 @@ namespace EmojiHunter
         static void Main()
         {
             using (var game = new EmojiHunterGame())
-                Application.Run(new MainMenu());
-             //   game.Run();
+                //Application.Run(new MainMenu());
+                game.Run();
         }
     }
 #endif

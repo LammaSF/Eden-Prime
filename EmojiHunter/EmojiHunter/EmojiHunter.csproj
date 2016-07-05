@@ -122,7 +122,7 @@
     <None Include="Content\LightHeroNormal.xnb" />
     <None Include="Content\LightHeroShield.xnb" />
     <None Include="Content\Magicballs.xnb" />
-    <None Include="Content\Potion.xnb" />
+    <None Include="Content\Potions.xnb" />
     <None Include="Content\Spells\Magicballs.xnb" />
     <None Include="Content\Obstacles\Trees.xnb" />
     <None Include="Content\Trees.xnb" />
@@ -136,6 +136,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

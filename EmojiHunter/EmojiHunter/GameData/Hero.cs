@@ -1,6 +1,6 @@
 ﻿namespace EmojiHunter.GameData
 {
-    public class Hero
+    public class Hero//:IShooting
     {
         #region Constants
 

@@ -50,14 +50,23 @@ namespace EmojiHunter.UIComponents
             };
 
         private SpriteFont font;
+
         private HeroState state;
+
         private InputManager inputManager;
+
         private Vector2 motion;
+
         private Direction lastDirection;
+
         private List<UIShot> uiShots;
+
         private AnimatedSprite spellShotSprite;
+
         private float lastShotElapsedTime;
+
         private float lastTeleportElapsedTime;
+
         private float lastHeroEmoticonCollisionElapsedTime;
 
         public UIHero(ContentManager content, SpriteData spriteData, Hero hero)
@@ -74,8 +83,11 @@ namespace EmojiHunter.UIComponents
         }
 
         public AnimatedSprite Sprite { get; set; }
+
         public Hero Hero { get; set; }
+
         public UISight UISight { get; set; }
+
         public Vector2 Position { get; private set; }
 
         public void Update(GameTime gameTime)
@@ -90,22 +102,83 @@ namespace EmojiHunter.UIComponents
             }
         }
 
+        public void SetInStartPosition(Vector2 position)
+        {
+            Position = position;
+            Sprite.Position = position;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Sprite.Draw(spriteBatch);
+            UISight.Draw(spriteBatch);
+
+            foreach (var uiShot in uiShots)
+            {
+                uiShot.Draw(spriteBatch);
+            }
+
+            spriteBatch.DrawString(this.font, $"Health: {this.Hero.Health}",
+                new Vector2(20, 20), Color.Red);
+            spriteBatch.DrawString(this.font, $"Armor: {this.Hero.Armor}",
+                new Vector2(20, 50), Color.GreenYellow);
+            spriteBatch.DrawString(this.font, $"Mana: {this.Hero.Mana}",
+                new Vector2(20, 80), Color.Blue);
+            spriteBatch.DrawString(this.font, $"Strength:  {this.Hero.Strength}",
+                new Vector2(20, 110), Color.Yellow);
+            spriteBatch.DrawString(this.font, $"Kills: {this.Hero.Kills}",
+                new Vector2(20, 140), Color.Black);
+            spriteBatch.DrawString(this.font, $"Points:  {this.Hero.Points}",
+                new Vector2(20, 170), Color.Black);
+        }
+
         private void CheckKeyboardInput(GameTime gameTime)
+        {
+            ProcessMovement(inputManager.KeyDown);
+
+            ProcessShootingAngle(inputManager.KeyDown);
+
+            UISight.Move(Hero.ShootingAngle, this.Position);            
+
+            ProcessShooting(inputManager.KeyDown, gameTime);
+
+            ProcessTeleportation(inputManager.KeyDown, gameTime);
+
+            ProcessSprint(inputManager.IsKeyReleased);
+            
+            // ISSUE hero should move to update visual state            
+      
+            ProcessIsibility(inputManager.IsKeyReleased);
+
+            ProcessShield(inputManager.IsKeyReleased);
+
+            ProcessMirror(inputManager.IsKeyReleased);            
+
+            CheckForHeroObjectCollision(gameTime);
+        }
+
+        private void ProcessShootingAngle(Func<Keys[], bool> keyDown)
+        {
+            bool keyRotateLeft = inputManager.KeyDown(Keys.A);
+            bool keyRotateRight = inputManager.KeyDown(Keys.D);
+
+            if (keyRotateLeft)
+            {
+                Hero.ShootingAngle += Hero.SightSpeed;
+            }
+            else if (keyRotateRight)
+            {
+                Hero.ShootingAngle -= Hero.SightSpeed;
+            }
+        }
+
+        private void ProcessMovement(Func<Keys[], bool> key)
         {
             bool keyDown = inputManager.KeyDown(Keys.Down);
             bool keyLeft = inputManager.KeyDown(Keys.Left);
             bool keyRight = inputManager.KeyDown(Keys.Right);
             bool keyUp = inputManager.KeyDown(Keys.Up);
-            bool keyShoot = inputManager.KeyDown(Keys.S);
-            bool keyRotateLeft = inputManager.KeyDown(Keys.A);
-            bool keyRotateRight = inputManager.KeyDown(Keys.D);
-            bool keyTeleport = inputManager.KeyDown(Keys.T);
-            bool keySprint = inputManager.IsKeyReleased(Keys.LeftShift);
-            bool keyShield = inputManager.IsKeyReleased(Keys.Q);
-            bool keyMirror = inputManager.IsKeyReleased(Keys.W);
-            bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
 
-            // Process Movement
             if (keyUp && keyLeft)
                 Move(1 + (int)this.state * 4, Direction.UpLeft); // move up left
             else if (keyUp && keyRight)
@@ -122,20 +195,70 @@ namespace EmojiHunter.UIComponents
                 Move(2 + (int)this.state * 4, Direction.Right); // move right
             else if (keyUp)
                 Move(3 + (int)this.state * 4, Direction.Up); // move up
+        }
 
-            // Process Sight Movement
-            if (keyRotateLeft)
+        private void ProcessMirror(Func<Keys[], bool> key)
+        {
+            bool keyMirror = inputManager.IsKeyReleased(Keys.W);
+            if (keyMirror)
             {
-                Hero.ShootingAngle += Hero.SightSpeed;
+                this.state = (this.state == HeroState.Mirrored)
+                    ? HeroState.Normal
+                    : HeroState.Mirrored;
             }
-            else if (keyRotateRight)
+        }
+
+        private void ProcessShield(Func<Keys[], bool> key)
+        {
+            bool keyShield = inputManager.IsKeyReleased(Keys.Q);
+            if (keyShield)
             {
-                Hero.ShootingAngle -= Hero.SightSpeed;
+                this.state = (this.state == HeroState.Shielded)
+                    ? HeroState.Normal
+                    : HeroState.Shielded;
             }
+        }
 
-            UISight.Move(Hero.ShootingAngle, this.Position);
 
-            // Process Shooting
+        private void ProcessIsibility(Func<Keys[], bool> key)
+        {
+            bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
+            if (keyInvisible)
+            {
+                this.state = (this.state == HeroState.Invisible)
+                    ? HeroState.Normal
+                    : HeroState.Invisible;
+            }
+        }
+
+        private void ProcessSprint(Func<Keys[], bool> key)
+        {
+            bool keySprint = inputManager.IsKeyReleased(Keys.LeftShift);
+            if (keySprint)
+            {
+                Hero.IsRunning = (Hero.IsRunning == true)
+                    ? false
+                    : true;
+            }
+        }
+
+        private void ProcessTeleportation(Func<Keys[], bool> key, GameTime gameTime)
+        {
+            bool keyTeleport = inputManager.KeyDown(Keys.T);
+            lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (keyTeleport)
+            {
+                if (lastTeleportElapsedTime > 1000)
+                {
+                    Teleport();
+                    lastTeleportElapsedTime = 0;
+                }
+            }
+        }
+
+        private void ProcessShooting(Func<Keys[], bool> keyDown, GameTime gameTime)
+        {
+            bool keyShoot = inputManager.KeyDown(Keys.S);
             lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyShoot)
             {
@@ -153,50 +276,6 @@ namespace EmojiHunter.UIComponents
                     lastShotElapsedTime = 0;
                 }
             }
-
-            // Process Teleportation
-            lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-            if (keyTeleport)
-            {
-                if (lastTeleportElapsedTime > 1000)
-                {
-                    Teleport();
-                    lastTeleportElapsedTime = 0;
-                }
-            }
-
-            //Process State Change
-            if (keySprint)
-            {
-                Hero.IsRunning = (Hero.IsRunning == true)
-                    ? false
-                    : true;
-            }
-
-            // ISSUE hero should move to update visual state
-            if (keyInvisible)
-            {
-                this.state = (this.state == HeroState.Invisible)
-                    ? HeroState.Normal
-                    : HeroState.Invisible;
-            }
-
-            if (keyShield)
-            {
-                this.state = (this.state == HeroState.Shielded)
-                    ? HeroState.Normal
-                    : HeroState.Shielded;
-            }
-
-            if (keyMirror)
-            {
-                this.state = (this.state == HeroState.Mirrored)
-                    ? HeroState.Normal
-                    : HeroState.Mirrored;
-            }
-            // END OF KEYBOARD PROCESSING
-
-            CheckForHeroObjectCollision(gameTime);
         }
 
         private void CheckForHeroObjectCollision(GameTime gameTime)
@@ -277,34 +356,6 @@ namespace EmojiHunter.UIComponents
             this.Sprite.Position = this.Position;
         }
 
-        public void SetInStartPosition(Vector2 position)
-        {
-            Position = position;
-            Sprite.Position = position;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Sprite.Draw(spriteBatch);
-            UISight.Draw(spriteBatch);
-
-            foreach (var uiShot in uiShots)
-            {
-                uiShot.Draw(spriteBatch);
-            }
-
-            spriteBatch.DrawString(this.font, $"Health: {this.Hero.Health}",
-                new Vector2(20, 20), Color.Red);
-            spriteBatch.DrawString(this.font, $"Armor: {this.Hero.Armor}",
-                new Vector2(20, 50), Color.GreenYellow);
-            spriteBatch.DrawString(this.font, $"Mana: {this.Hero.Mana}", 
-                new Vector2(20, 80), Color.Blue);
-            spriteBatch.DrawString(this.font, $"Strength:  {this.Hero.Strength}", 
-                new Vector2(20, 110), Color.Yellow);
-            spriteBatch.DrawString(this.font, $"Kills: {this.Hero.Kills}", 
-                new Vector2(20, 140), Color.Black);
-            spriteBatch.DrawString(this.font, $"Points:  {this.Hero.Points}", 
-                new Vector2(20, 170), Color.Black);
-        }
+        
     }
 }

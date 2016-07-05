@@ -2,14 +2,13 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace EmojiHunter.GameAnimation
 {
-    public enum ItemType
+    public enum PotionType
     {
-        Armor,
         HealthPotion,
+        ArmorPotion,
         ManaPotion,
         StrengthPotion,
         Length
@@ -59,6 +58,7 @@ namespace EmojiHunter.GameAnimation
         private const float HeroFrameDuration = 250f;
         private const float SightFrameDuration = 100000f;
         private const float ObstacleFrameDuration = 100000f;
+        private const float PotionFrameDuration = 500f;
         private const float SpellShotFrameDuration = 100f;
         private const float EmoticonFrameDuration = 250f;
         private const float DeadEmoticonFrameDuration = 250f;
@@ -67,6 +67,7 @@ namespace EmojiHunter.GameAnimation
         private const int HeroFrameCount = 3;
         private const int SightFrameCount = 1;
         private const int ObstacleFrameCount = 1;
+        private const int PotionFrameCount = 3;
         private const int SpellShotFrameCount = 8;
         private const int EmoticonFrameCount = 10;
         private const int DeadEmoticonFrameCount = 3;
@@ -92,19 +93,19 @@ namespace EmojiHunter.GameAnimation
             InitializeSpellShotSprite(spriteData, content);
             InitializeEmoticonSprite(spriteData, content);
             InitializeObstacleSprite(spriteData, content);
-            InitializeItemSprite(spriteData, content);
+            InitializePotionSprite(spriteData, content);
         }
 
-        private static void InitializeItemSprite(SpriteData spriteData, ContentManager content)
+        private static void InitializePotionSprite(SpriteData spriteData, ContentManager content)
         {
-            var texture = content.Load<Texture2D>(@"Content\Potion");
-            for (ItemType item = (ItemType)1; item < ItemType.Length; item++)
+            var texture = content.Load<Texture2D>(@"Content\Potions");
+            for (PotionType item = 0; item < PotionType.Length; item++)
             {
                 int index = (int)item;
 
-                var sprite = new AnimatedSprite(texture, new Rectangle(0, 0, 51, 57),
-                    ObstacleFrameDuration, ObstacleFrameCount);
-                sprite.SetSize(51, 57);
+                var sprite = new AnimatedSprite(texture, new Rectangle(0, 30 * index, 30, 30),
+                    PotionFrameDuration, PotionFrameCount);
+                sprite.SetSize(30, 30);
                 sprite.Name = $"{item}";
 
                 UpdateSpriteData(spriteData, sprite);
