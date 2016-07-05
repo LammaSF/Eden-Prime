@@ -1,19 +1,26 @@
-﻿using EmojiHunter.UIComponents;
-using EmojiHunter.GameAnimation;
-using EmojiHunter.GameData;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using EmojiHunter.GameHelpers;
-using EmojiHunter.GameData.Maps;
-
-namespace EmojiHunter
+﻿namespace EmojiHunter
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+
+    using GameAnimation;
+    using GameData;
+    using GameData.Maps;
+    using GameHelpers;
+    using UIComponents;
+    
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class EmojiHunterGame : Game
     {
+        private const int PauseDelay = 500; // in ms
+
+        private const int ScreenWidth = 1600;
+
+        private const int ScreenHeight = 900;
+
         private GraphicsDeviceManager graphics;
 
         private SpriteBatch spriteBatch;
@@ -22,28 +29,35 @@ namespace EmojiHunter
 
         private Texture2D background;
 
-        private AnimatedSprite potion;
-
         private SpriteData spriteData;
 
         private UIHero uiHero;
 
         private Hero hero;
 
-        public EmojiHunterGame()
+        private Map map;
+
+        private bool paused;
+
+        private int lastPauseElapsedTime;
+
+        public EmojiHunterGame(string mapName, string heroName)
         {
             this.graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1600; // HARDCODED
-            graphics.PreferredBackBufferHeight = 900; // HARDCODED
-            //graphics.PreferredBackBufferWidth = 1280; // HARDCODED
-            //graphics.PreferredBackBufferHeight = 720; // HARDCODED
-            //graphics.ToggleFullScreen();
+            this.graphics.PreferredBackBufferWidth = ScreenWidth; 
+            this.graphics.PreferredBackBufferHeight = ScreenHeight;
+            //this.graphics.ToggleFullScreen();
 
-            screenRectangle = new Rectangle(
+            //this.map = MapFactory.CreateMap(mapName);
+            //this.hero = HeroFactory.CreateHero(heroName);
+
+            this.screenRectangle = new Rectangle(
                 0,
                 0,
                 graphics.PreferredBackBufferWidth,
                 graphics.PreferredBackBufferHeight);
+
+            this.paused = false;
         }
 
         /// <summary>
@@ -67,28 +81,25 @@ namespace EmojiHunter
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
+
             this.spriteData = new SpriteData();
 
             this.background = Content.Load<Texture2D>(@"Content\Background");
-                       
-            SpriteInitializer.InitializeSprites(this.spriteData, Content);
 
+            SpriteInitializer.InitializeSprites(this.spriteData, Content);
+            
+            // ***Desperate need of refactoring...
             this.hero = new Hero("LightHero");
             this.uiHero = new UIHero(Content, this.spriteData, this.hero);
+            // That is not hardcoded at all! Believe me!
             this.uiHero.SetInStartPosition(
-                new Vector2(150, graphics.PreferredBackBufferHeight - 182));
+                new Vector2(150, graphics.PreferredBackBufferHeight - 182)); 
 
             UIObjectContainer.AddUIObject(this.uiHero);
+            // ***End of need :)
 
             var map = new CenterMap();
             UIObstacleGenerator.GenerateObstacles(this.spriteData, map);
-
-            UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
-                this.uiHero.Position);
-            UIEmoticonGenerator.GenerateEmoticon(this.spriteData,
-                this.uiHero.Position);
-            UIPotionGenerator.GeneratePotion(this.spriteData);
-            UIPotionGenerator.GeneratePotion(this.spriteData);
         }
 
         /// <summary>
@@ -107,15 +118,36 @@ namespace EmojiHunter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-              Exit();
-                
-            foreach (var uiObject in UIObjectContainer.UIObjects)
+            this.lastPauseElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed 
+                || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                && lastPauseElapsedTime > PauseDelay)
             {
-                uiObject.Update(gameTime);
+                this.paused = !this.paused;
+                this.lastPauseElapsedTime = 0;
             }
 
-            base.Update(gameTime);
+            if (!this.paused)
+            {
+                if (UIEmoticonGenerator.CurrentEmoticonCount < 
+                    UIEmoticonGenerator.MaxEmoticonCount)
+                {
+                    UIEmoticonGenerator.GenerateEmoticon(this.spriteData, this.uiHero.Position);
+                }
+
+                if (UIPotionGenerator.CurrentPotionCount < UIPotionGenerator.MaxPotionCount)
+                {
+                    UIPotionGenerator.GeneratePotion(this.spriteData);
+                }
+
+                foreach (var uiObject in UIObjectContainer.UIObjects)
+                {
+                    uiObject.Update(gameTime);
+                }
+
+                base.Update(gameTime); 
+            }
         }
 
         /// <summary>
@@ -136,7 +168,7 @@ namespace EmojiHunter
             }
 
             this.uiHero.Draw(spriteBatch);
-            
+
             this.spriteBatch.End();
 
             base.Draw(gameTime);

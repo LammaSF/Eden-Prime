@@ -9,11 +9,15 @@ namespace EmojiHunter.GameHelpers
 {
     public class UIEmoticonGenerator
     {
+        public const int MaxEmoticonCount = 3;
+
         private const int GoodEmoticonPercentage = 25;
 
         private const int NoSpawnRadius = 50;
 
         private const int EmoticonSpriteSize = 50;
+
+        public static int CurrentEmoticonCount;
 
         private static readonly int FieldWidth = 1600 - EmoticonSpriteSize - 1;
 
@@ -66,6 +70,7 @@ namespace EmojiHunter.GameHelpers
                     }
 
                     UIObjectContainer.AddUIObject(uiEmoticon);
+                    UIEmoticonGenerator.CurrentEmoticonCount++;
                     return uiEmoticon;
                 }
             }

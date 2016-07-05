@@ -19,7 +19,7 @@ namespace EmojiHunter
 
         private void newGameButton_Click(object sender, EventArgs e)
         {
-            using (var game = new EmojiHunterGame())
+            using (var game = new EmojiHunterGame("Center", "Light"))
                 game.Run();
         }
 

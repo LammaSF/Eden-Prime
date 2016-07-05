@@ -8,11 +8,15 @@ namespace EmojiHunter.GameHelpers
 {
     public static class UIPotionGenerator
     {
-        private const int EmoticonSpriteSize = 30;
+        public const int MaxPotionCount = 3;
 
-        private static readonly int FieldWidth = 1600 - EmoticonSpriteSize - 1;
+        private const int PotionSpriteSize = 30;
 
-        private static readonly int FieldHeight = 900 - EmoticonSpriteSize - 1;
+        public static int CurrentPotionCount;
+
+        private static readonly int FieldWidth = 1600 - PotionSpriteSize - 1;
+
+        private static readonly int FieldHeight = 900 - PotionSpriteSize - 1;
 
         private static Random random;
 
@@ -43,6 +47,7 @@ namespace EmojiHunter.GameHelpers
                 }
 
                 UIObjectContainer.AddUIObject(uiPotion);
+                UIPotionGenerator.CurrentPotionCount++;
                 return uiPotion;
             }
         }
