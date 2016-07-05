@@ -49,9 +49,9 @@ namespace EmojiHunter.GameAnimation
 
     public enum SpellShotType
     {
+        Sunball,
         Fireball,
         Iceball,
-        Sunball,
         Mine
     }
 

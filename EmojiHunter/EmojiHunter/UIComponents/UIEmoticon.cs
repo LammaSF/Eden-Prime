@@ -3,19 +3,30 @@ using EmojiHunter.GameData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace EmojiHunter.UIComponents
 {
     public class UIEmoticon : IUIObject
     {
+        private SpriteData spriteData;
+
         private Vector2 position;
+
         private Vector2 direction;
+
         private Random random = new Random();
 
-        public UIEmoticon(AnimatedSprite sprite, Emoticon emoticon)
+        private List<UIShot> uiShots;
+
+        private int lastShotElapsedTime;
+
+        public UIEmoticon(SpriteData spriteData, AnimatedSprite sprite, Emoticon emoticon)
         {
-            Sprite = sprite;
-            Emoticon = emoticon;
+            this.uiShots = new List<UIShot>();
+            this.spriteData = spriteData;
+            this.Sprite = sprite;
+            this.Emoticon = emoticon;
             this.direction = new Vector2(GetRandomFloat(), GetRandomFloat());
         }
 
@@ -25,12 +36,56 @@ namespace EmojiHunter.UIComponents
 
         public void Update(GameTime gameTime)
         {
+            if (this.Emoticon is IShooting)
+            {
+                Shoot(gameTime);
+
+                foreach (var uiShot in uiShots)
+                {
+                    uiShot.Update(gameTime);
+                }
+            }
+
             Move();
+
             Sprite.Update(gameTime);
+        }
+
+        private void Shoot(GameTime gameTime)
+        {
+            var emoticon = this.Emoticon as IShooting;
+
+            lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (lastShotElapsedTime > emoticon.ShootingDelay)
+            {
+                var sprite = this.spriteData.DuplicateSprite("SpellShot");
+                sprite.AnimationIndex = (int)(this.Emoticon as IShooting).ShotType;
+
+                var uiShot = new UIShot(sprite, emoticon.ShootingSpeed);
+                uiShot.SetInStartPosition(
+                    this.position.X + this.Sprite.Rectangle.Width / 2 -
+                        uiShot.Sprite.Rectangle.Width / 2,
+                    this.position.Y + this.Sprite.Rectangle.Height / 2 -
+                        uiShot.Sprite.Rectangle.Height / 2
+                    );
+
+                var motionX = (float)Math.Cos(this.random.Next(360) * Math.PI / 180);
+                var motionY = -(float)Math.Sin(this.random.Next(360) * Math.PI / 180);
+
+                uiShot.SetInMotion(motionX, motionY);
+
+                uiShots.Add(uiShot); //ISSUE: We never dispose of the shots!
+                lastShotElapsedTime = 0;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            foreach (var uiShot in uiShots)
+            {
+                uiShot.Draw(spriteBatch);
+            }
+
             Sprite.Draw(spriteBatch);
         }
 

@@ -1,4 +1,6 @@
-﻿namespace EmojiHunter.GameData
+﻿using EmojiHunter.GameAnimation;
+
+namespace EmojiHunter.GameData
 {
     interface IShooting
     {
@@ -8,6 +10,6 @@
 
         float ShootingDelay { get; }
 
-        string ShotType { get; }
+        SpellShotType ShotType { get; }
     }
 }

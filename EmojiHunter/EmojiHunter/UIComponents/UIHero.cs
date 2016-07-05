@@ -50,6 +50,8 @@ namespace EmojiHunter.UIComponents
 
         private SpriteFont font;
 
+        private SpriteData spriteData;
+
         private HeroState state;
 
         private InputManager inputManager;
@@ -59,8 +61,6 @@ namespace EmojiHunter.UIComponents
         private Direction lastDirection;
 
         private List<UIShot> uiShots;
-
-        private AnimatedSprite spellShotSprite;
 
         private float lastShotElapsedTime;
 
@@ -72,12 +72,11 @@ namespace EmojiHunter.UIComponents
         {
             this.inputManager = InputManager.Instance;
             this.font = content.Load<SpriteFont>(@"Content\Font");
+            this.spriteData = spriteData; 
 
             this.Hero = hero;
             this.Sprite = spriteData.DuplicateSprite(this.Hero.Name);
             this.UISight = new UISight(spriteData.DuplicateSprite("Sight"));
-            this.spellShotSprite = spriteData.DuplicateSprite("SpellShot");
-            this.spellShotSprite.AnimationIndex = 2;
             this.uiShots = new List<UIShot>();
         }
 
@@ -263,7 +262,10 @@ namespace EmojiHunter.UIComponents
             {
                 if (lastShotElapsedTime > 500)
                 {
-                    var uiShot = new UIShot(this.spellShotSprite, Hero.ShootingSpeed);
+                    var sprite = this.spriteData.DuplicateSprite("SpellShot");
+                    sprite.AnimationIndex = (int)this.Hero.ShotType;
+
+                    var uiShot = new UIShot(sprite, Hero.ShootingSpeed);
                     uiShot.SetInStartPosition(
                         this.Position.X + this.Sprite.Rectangle.Width / 2 - 
                             uiShot.Sprite.Rectangle.Width / 2,

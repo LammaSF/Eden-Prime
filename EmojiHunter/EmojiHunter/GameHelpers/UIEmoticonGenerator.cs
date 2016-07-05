@@ -41,12 +41,12 @@ namespace EmojiHunter.GameHelpers
                 ? (EmoticonType)random.Next(5)
                 : (EmoticonType)random.Next(5, 10);
 
-            //var emoticon = emoticonFactory.CreateEmoticon($"Onfire");
-            var emoticon = emoticonFactory.CreateEmoticon($"{emoticonType}");
+            var emoticon = emoticonFactory.CreateEmoticon($"Onfire");
+            //var emoticon = emoticonFactory.CreateEmoticon($"{emoticonType}");
 
             var sprite = spriteData.DuplicateSprite(emoticon.Name);
 
-            var uiEmoticon = new UIEmoticon(sprite, emoticon);
+            var uiEmoticon = new UIEmoticon(spriteData, sprite, emoticon);
 
             while (true)
             {

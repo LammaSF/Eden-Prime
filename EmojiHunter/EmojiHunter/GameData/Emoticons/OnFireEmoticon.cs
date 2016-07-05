@@ -1,4 +1,6 @@
-﻿namespace EmojiHunter.GameData.Emoticons
+﻿using EmojiHunter.GameAnimation;
+
+namespace EmojiHunter.GameData.Emoticons
 {
     public class OnFireEmoticon : BadEmoticon, IShooting
     {
@@ -18,7 +20,7 @@
 
         private const float DefaultShootingDelay = 3000f;
 
-        private const string DefaultShotType = "Fireball";
+        private const SpellShotType DefaultShotType = SpellShotType.Fireball;
 
         public OnFireEmoticon(string name) : base(name)
         {
@@ -39,6 +41,6 @@
 
         public float ShootingDelay => DefaultShootingDelay;
 
-        public string ShotType => DefaultShotType;
+        public SpellShotType ShotType => DefaultShotType;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using EmojiHunter.GameAnimation;
 
 namespace EmojiHunter.GameData
 {
@@ -6,7 +6,7 @@ namespace EmojiHunter.GameData
     {
         #region Constants
 
-        private const string DefaultShotType = "Sunball";
+        private const SpellShotType DefaultShotType = SpellShotType.Sunball;
 
         private const float DefaultShootingSpeed = 10f;
 
@@ -311,7 +311,7 @@ namespace EmojiHunter.GameData
 
         public float SightSpeed { get;  }
 
-        public string ShotType => ShotType;
+        public SpellShotType ShotType => DefaultShotType;
 
         public int RangedDamage
         {
