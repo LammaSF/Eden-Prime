@@ -58,8 +58,7 @@ namespace EmojiHunter.UIComponents
                     {
                         if (!(uiObject is UIShot))
                         {
-                            this.direction = -this.direction 
-                                + new Vector2(random.Next(5) - 2, random.Next(4) - 2);
+                            this.direction = -this.direction; 
                         }
 
                         if (uiObject is UIEmoticon
@@ -70,6 +69,7 @@ namespace EmojiHunter.UIComponents
                             if (uiEmoticon.isGoodEmoticon)
                             {
                                 (uiEmoticon.Emoticon as GoodEmoticon).SetCrazyState();
+                                uiEmoticon.Sprite.AnimationIndex = 3;
                             }
                         }
                     }

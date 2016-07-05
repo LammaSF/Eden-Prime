@@ -4,7 +4,7 @@
     {
         private const int DefaultDamage = 50;
 
-        private const float DefaultMovementSpeed = 15f;
+        private const float DefaultMovementSpeed = 4f;
 
         public int Damage => DefaultDamage;
 
