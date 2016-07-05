@@ -76,7 +76,7 @@ namespace EmojiHunter.UIComponents
 
         private float GetRandomFloat()
         {
-            return (float)(random.NextDouble() * 2 - 1);
+            return (float)((new Random()).NextDouble() * 2 - 1);
         }
     }
 }
