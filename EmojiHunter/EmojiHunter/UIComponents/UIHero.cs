@@ -130,13 +130,18 @@ namespace EmojiHunter.UIComponents
                 Color.Yellow);
 
             spriteBatch.DrawString(this.font,
-                $"Kills: {this.Hero.Kills}",
+                $"Kills: {Global.Kills}",
                 new Vector2(20, 140), 
                 Color.Black);
 
             spriteBatch.DrawString(this.font,
-                $"Points:  {this.Hero.Points}",
+                $"Points:  {Global.Points}",
                 new Vector2(20, 170),
+                Color.Black);
+
+            spriteBatch.DrawString(this.font,
+                $"Damage:  {this.Hero.RangedDamage}",
+                new Vector2(20, 200),
                 Color.Black);
         }
 
@@ -364,8 +369,8 @@ namespace EmojiHunter.UIComponents
                         {
                             UIObjectContainer.RemoveUIObject(uiEmoticon.Sprite.ID);
                             UIEmoticonGenerator.CurrentEmoticonCount--;
-                            this.Hero.Kills++;
-                            this.Hero.Points += 5;
+                            Global.Kills++;
+                            Global.Points += 5;
                         }
 
                         this.lastHeroEmoticonCollisionElapsedTime %= badEmoticon.AttackSpeed;

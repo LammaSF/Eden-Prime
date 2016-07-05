@@ -55,7 +55,7 @@ namespace EmojiHunter.UIComponents
                         if (!(uiObject is UIShot))
                         {
                             this.direction = -this.direction 
-                                + new Vector2(random.Next(10) - 5, random.Next(10) - 5);
+                                + new Vector2(random.Next(5) - 2, random.Next(4) - 2);
                         }
                     }
                 }

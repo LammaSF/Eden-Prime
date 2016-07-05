@@ -2,6 +2,7 @@
 using EmojiHunter.GameData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EmojiHunter.GameHelpers;
 
 namespace EmojiHunter.UIComponents
 {
@@ -25,7 +26,76 @@ namespace EmojiHunter.UIComponents
         public void Update(GameTime gameTime)
         {
             Move();
+
+            CheckForShotObjectCollision();
+
+            if (IsOutsideMapBorders())
+            {
+                UIObjectContainer.RemoveUIObject(this.Sprite.ID);
+                return;
+            }
+
             Sprite.Update(gameTime);
+        }
+
+        private bool IsOutsideMapBorders()
+        {
+            // Hardcoded much ?!
+            return position.X < -this.Sprite.Rectangle.Width
+                || position.Y < -this.Sprite.Rectangle.Height
+                || position.X > 1600 + this.Sprite.Rectangle.Width
+                || position.Y > 900 + this.Sprite.Rectangle.Height;
+        }
+
+        private void CheckForShotObjectCollision()
+        {
+            foreach (var uiObject in UIObjectContainer.UIObjects)
+            {
+                if (this != uiObject)
+                {
+                    if (this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
+                    {
+                        if (uiObject is UIShot)
+                        {
+                            UIObjectContainer.RemoveUIObject((uiObject as UIShot).Sprite.ID);
+                            UIObjectContainer.RemoveUIObject(this.Sprite.ID);
+                            return;
+                        }
+                        else if (uiObject is UIEmoticon)
+                        {
+                            if (this.Shot.ID == "Hero")
+                            {
+                                var uiEmoticon = uiObject as UIEmoticon;
+
+                                if (uiEmoticon.Emoticon.Armor == 0)
+                                {
+                                    uiEmoticon.Emoticon.Health -= this.Shot.Damage;
+                                }
+                                else
+                                {
+                                    uiEmoticon.Emoticon.Armor -= this.Shot.Damage;
+                                }
+
+                                if (uiEmoticon.Emoticon.Health == 0)
+                                {
+                                    UIObjectContainer.RemoveUIObject(uiEmoticon.Sprite.ID);
+                                    UIEmoticonGenerator.CurrentEmoticonCount--;
+                                    Global.Kills++;
+                                    Global.Points += 5;
+                                }
+
+                                UIObjectContainer.RemoveUIObject(this.Sprite.ID);
+                                return;
+                            }
+                        }
+                        else if (uiObject is UIObstacle)
+                        {
+                            UIObjectContainer.RemoveUIObject(this.Sprite.ID);
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
