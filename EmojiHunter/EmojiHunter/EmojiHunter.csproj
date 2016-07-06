@@ -64,6 +64,7 @@
     <Compile Include="GameData\Emoticons\SmileEmoticon.cs" />
     <Compile Include="GameData\Heroes\Aquarius.cs" />
     <Compile Include="GameData\Heroes\Sagittarius.cs" />
+    <Compile Include="GameData\HeroFactory.cs" />
     <Compile Include="GameData\IShooting.cs" />
     <Compile Include="GameData\MapFactory.cs" />
     <Compile Include="GameData\Maps\CenterMap.cs" />

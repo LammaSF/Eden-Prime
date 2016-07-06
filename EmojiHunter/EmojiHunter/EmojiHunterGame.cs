@@ -9,7 +9,6 @@
     using GameData.Maps;
     using GameHelpers;
     using UIComponents;
-    using GameData.Heroes;
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -49,7 +48,7 @@
             //this.graphics.ToggleFullScreen();
 
             this.map = new MapFactory().CreateMap(mapName);
-            //this.hero = HeroFactory.CreateHero(heroName);
+            this.hero = new HeroFactory().CreateHero(heroName);
 
             this.screenRectangle = new Rectangle(
                 0,
@@ -89,7 +88,6 @@
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
             
             // ***Desperate need of refactoring...
-            this.hero = new Sagittarius("Sagittarius");
             this.uiHero = new UIHero(Content, this.spriteData, this.hero);
             // That is not hardcoded at all! Believe me!
             this.uiHero.SetInStartPosition(
