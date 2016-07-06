@@ -49,7 +49,7 @@
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreferredBackBufferWidth = ScreenWidth; 
             this.graphics.PreferredBackBufferHeight = ScreenHeight;
-            //this.graphics.ToggleFullScreen();
+          //this.graphics.ToggleFullScreen();
 
             this.map = new MapFactory().CreateMap(mapName);
             this.hero = new HeroFactory().CreateHero(heroName);
