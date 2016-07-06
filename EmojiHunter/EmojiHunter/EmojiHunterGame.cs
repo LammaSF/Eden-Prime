@@ -28,6 +28,8 @@
 
         private Texture2D background;
 
+        private Texture2D endScreen;
+
         private SpriteData spriteData;
 
         private UIHero uiHero;
@@ -37,6 +39,8 @@
         private Map map;
 
         private bool paused;
+
+        private bool isGameOver;
 
         private int lastPauseElapsedTime;
 
@@ -57,6 +61,7 @@
                 graphics.PreferredBackBufferHeight);
 
             this.paused = false;
+            this.isGameOver = false;
         }
 
         /// <summary>
@@ -84,6 +89,8 @@
             this.spriteData = new SpriteData();
 
             this.background = Content.Load<Texture2D>(@"Content\Background");
+
+            this.endScreen = Content.Load<Texture2D>(@"Content\Gameover");
 
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
             
@@ -115,6 +122,11 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (isGameOver)
+            {
+                return;
+            }
+
             this.lastPauseElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
 
             if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed 
@@ -146,6 +158,11 @@
 
                 base.Update(gameTime); 
             }
+
+            if (this.hero.Health == 0)
+            {
+                this.isGameOver = true;
+            }
         }
 
         /// <summary>
@@ -158,11 +175,18 @@
 
             this.spriteBatch.Begin();
 
-            this.spriteBatch.Draw(this.background, screenRectangle, Color.White);
-
-            foreach (var uiObject in UIObjectContainer.UIObjects)
+            if (isGameOver)
             {
-                uiObject.Draw(this.spriteBatch);
+                this.spriteBatch.Draw(this.endScreen, screenRectangle, Color.White);
+            }
+            else
+            {
+                this.spriteBatch.Draw(this.background, screenRectangle, Color.White);
+
+                foreach (var uiObject in UIObjectContainer.UIObjects)
+                {
+                    uiObject.Draw(this.spriteBatch);
+                }
             }
 
             this.spriteBatch.End();
