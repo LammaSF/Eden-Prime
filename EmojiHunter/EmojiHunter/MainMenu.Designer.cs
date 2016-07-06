@@ -37,6 +37,12 @@
             this.backButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtOptions = new System.Windows.Forms.TextBox();
+            this.HeroSwapLabel = new System.Windows.Forms.Label();
+            this.MapSwapLabel = new System.Windows.Forms.Label();
+            this.MapSpring = new System.Windows.Forms.Label();
+            this.MapCenter = new System.Windows.Forms.Label();
+            this.SagittariusHero = new System.Windows.Forms.Label();
+            this.AquariusHero = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // newGameButton
@@ -84,7 +90,7 @@
             // 
             // optionsButton
             // 
-            this.optionsButton.Location = new System.Drawing.Point(190, 142);
+            this.optionsButton.Location = new System.Drawing.Point(190, 141);
             this.optionsButton.Margin = new System.Windows.Forms.Padding(2);
             this.optionsButton.Name = "optionsButton";
             this.optionsButton.Size = new System.Drawing.Size(160, 75);
@@ -95,7 +101,7 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(190, 272);
+            this.exitButton.Location = new System.Drawing.Point(190, 409);
             this.exitButton.Margin = new System.Windows.Forms.Padding(2);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(157, 75);
@@ -106,7 +112,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(1, 411);
+            this.backButton.Location = new System.Drawing.Point(1, 409);
             this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(157, 75);
@@ -127,7 +133,7 @@
             // 
             // txtOptions
             // 
-            this.txtOptions.Location = new System.Drawing.Point(375, 30);
+            this.txtOptions.Location = new System.Drawing.Point(449, 30);
             this.txtOptions.Margin = new System.Windows.Forms.Padding(2);
             this.txtOptions.Multiline = true;
             this.txtOptions.Name = "txtOptions";
@@ -137,14 +143,74 @@
     ", S\r\nTargeting - A, D\r\n\r\n\r\n";
             this.txtOptions.Visible = false;
             // 
+            // HeroSwapLabel
+            // 
+            this.HeroSwapLabel.AutoSize = true;
+            this.HeroSwapLabel.Location = new System.Drawing.Point(899, 142);
+            this.HeroSwapLabel.Name = "HeroSwapLabel";
+            this.HeroSwapLabel.Size = new System.Drawing.Size(66, 13);
+            this.HeroSwapLabel.TabIndex = 10;
+            this.HeroSwapLabel.Text = "ChooseHero";
+            // 
+            // MapSwapLabel
+            // 
+            this.MapSwapLabel.AutoSize = true;
+            this.MapSwapLabel.Location = new System.Drawing.Point(997, 142);
+            this.MapSwapLabel.Name = "MapSwapLabel";
+            this.MapSwapLabel.Size = new System.Drawing.Size(67, 13);
+            this.MapSwapLabel.TabIndex = 11;
+            this.MapSwapLabel.Text = "Choose Map";
+            // 
+            // MapSpring
+            // 
+            this.MapSpring.AutoSize = true;
+            this.MapSpring.Location = new System.Drawing.Point(1011, 173);
+            this.MapSpring.Name = "MapSpring";
+            this.MapSpring.Size = new System.Drawing.Size(37, 13);
+            this.MapSpring.TabIndex = 12;
+            this.MapSpring.Text = "Spring";
+            // 
+            // MapCenter
+            // 
+            this.MapCenter.AutoSize = true;
+            this.MapCenter.Location = new System.Drawing.Point(1011, 203);
+            this.MapCenter.Name = "MapCenter";
+            this.MapCenter.Size = new System.Drawing.Size(38, 13);
+            this.MapCenter.TabIndex = 13;
+            this.MapCenter.Text = "Center";
+            // 
+            // SagittariusHero
+            // 
+            this.SagittariusHero.AutoSize = true;
+            this.SagittariusHero.Location = new System.Drawing.Point(902, 173);
+            this.SagittariusHero.Name = "SagittariusHero";
+            this.SagittariusHero.Size = new System.Drawing.Size(56, 13);
+            this.SagittariusHero.TabIndex = 14;
+            this.SagittariusHero.Text = "Sagittarius";
+            // 
+            // AquariusHero
+            // 
+            this.AquariusHero.AutoSize = true;
+            this.AquariusHero.Location = new System.Drawing.Point(902, 204);
+            this.AquariusHero.Name = "AquariusHero";
+            this.AquariusHero.Size = new System.Drawing.Size(48, 13);
+            this.AquariusHero.TabIndex = 15;
+            this.AquariusHero.Text = "Aquarius";
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::EmojiHunter.Properties.Resources.MainMenu;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(790, 581);
+            this.ClientSize = new System.Drawing.Size(1144, 581);
             this.ControlBox = false;
+            this.Controls.Add(this.AquariusHero);
+            this.Controls.Add(this.SagittariusHero);
+            this.Controls.Add(this.MapCenter);
+            this.Controls.Add(this.MapSpring);
+            this.Controls.Add(this.MapSwapLabel);
+            this.Controls.Add(this.HeroSwapLabel);
             this.Controls.Add(this.txtOptions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.backButton);
@@ -176,5 +242,11 @@
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtOptions;
+        private System.Windows.Forms.Label HeroSwapLabel;
+        private System.Windows.Forms.Label MapSwapLabel;
+        private System.Windows.Forms.Label MapSpring;
+        private System.Windows.Forms.Label MapCenter;
+        private System.Windows.Forms.Label SagittariusHero;
+        private System.Windows.Forms.Label AquariusHero;
     }
 }
