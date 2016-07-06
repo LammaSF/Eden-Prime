@@ -9,9 +9,9 @@
     using GameData.Maps;
     using GameHelpers;
     using UIComponents;
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
+    using System;    /// <summary>
+                     /// This is the main type for your game.
+                     /// </summary>
     public class EmojiHunterGame : Game
     {
         private const int PauseDelay = 500; // in ms
@@ -49,7 +49,7 @@
             this.graphics = new GraphicsDeviceManager(this);
             this.graphics.PreferredBackBufferWidth = ScreenWidth; 
             this.graphics.PreferredBackBufferHeight = ScreenHeight;
-          //this.graphics.ToggleFullScreen();
+            this.graphics.ToggleFullScreen();
 
             this.map = new MapFactory().CreateMap(mapName);
             this.hero = new HeroFactory().CreateHero(heroName);
@@ -124,6 +124,12 @@
         {
             if (isGameOver)
             {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                    || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    Environment.Exit(0);
+                }
+
                 return;
             }
 
