@@ -15,7 +15,7 @@ namespace EmojiHunter
         [STAThread]
         static void Main()
         {
-            using (var game = new EmojiHunterGame("Center", "Light"))
+            using (var game = new EmojiHunterGame("Spring", "Light"))
                 //Application.Run(new MainMenu());
                 game.Run();
         }

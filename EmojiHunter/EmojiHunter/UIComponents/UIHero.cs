@@ -8,6 +8,7 @@ using System;
 using EmojiHunter.GameData.Emoticons;
 using Microsoft.Xna.Framework.Content;
 using EmojiHunter.GameHelpers;
+using EmojiHunter.GameData.Heroes;
 
 namespace EmojiHunter.UIComponents
 {
@@ -67,6 +68,10 @@ namespace EmojiHunter.UIComponents
 
         private float lastHeroEmoticonCollisionElapsedTime;
 
+        private Sagittarius sagittarius;
+
+        private Aquarius aquarius;
+
         public UIHero(ContentManager content, SpriteData spriteData, Hero hero)
         {
             this.inputManager = InputManager.Instance;
@@ -74,6 +79,16 @@ namespace EmojiHunter.UIComponents
             this.spriteData = spriteData; 
 
             this.Hero = hero;
+
+            if (hero is Sagittarius)
+            {
+                this.sagittarius = hero as Sagittarius;
+            }
+            else 
+            {
+                this.aquarius = hero as Aquarius;
+            }
+
             this.Sprite = spriteData.DuplicateSprite(this.Hero.Name);
             this.UISight = new UISight(spriteData.DuplicateSprite("Sight"));
         }
@@ -137,12 +152,7 @@ namespace EmojiHunter.UIComponents
             spriteBatch.DrawString(this.font,
                 $"Points:  {Global.Points}",
                 new Vector2(20, 170),
-                Color.Black);
-
-            spriteBatch.DrawString(this.font,
-                $"Damage:  {this.Hero.RangedDamage}",
-                new Vector2(20, 200),
-                Color.Black);
+                Color.Black);            
         }
 
         private void CheckKeyboardInput(GameTime gameTime)
@@ -151,7 +161,7 @@ namespace EmojiHunter.UIComponents
 
             ProcessShootingAngle(inputManager.KeyDown);
 
-            UISight.Move(Hero.ShootingAngle, this.Position);            
+            UISight.Move(this.sagittarius.ShootingAngle, this.Position);            
 
             ProcessShooting(inputManager.KeyDown, gameTime);
 
@@ -177,11 +187,11 @@ namespace EmojiHunter.UIComponents
 
             if (keyRotateLeft)
             {
-                Hero.ShootingAngle += Hero.SightSpeed;
+                this.sagittarius.ShootingAngle += this.sagittarius.SightSpeed;
             }
             else if (keyRotateRight)
             {
-                Hero.ShootingAngle -= Hero.SightSpeed;
+                this.sagittarius.ShootingAngle -= this.sagittarius.SightSpeed;
             }
         }
 
@@ -279,14 +289,14 @@ namespace EmojiHunter.UIComponents
                     var shot = new Shot()
                     {
                         ID = "Hero",
-                        Damage = this.Hero.RangedDamage,
-                        Type = this.Hero.ShotType
+                        Damage = this.sagittarius.RangedDamage,
+                        Type = this.sagittarius.ShotType
                     };
 
                     var sprite = this.spriteData.DuplicateSprite("SpellShot");
-                    sprite.AnimationIndex = (int)this.Hero.ShotType;
+                    sprite.AnimationIndex = (int)this.sagittarius.ShotType;
 
-                    var uiShot = new UIShot(shot, sprite, Hero.ShootingSpeed);
+                    var uiShot = new UIShot(shot, sprite, this.sagittarius.ShootingSpeed);
                     uiShot.SetInStartPosition(
                         this.Position.X + this.Sprite.Rectangle.Width / 2 - 
                             uiShot.Sprite.Rectangle.Width / 2,
@@ -294,8 +304,10 @@ namespace EmojiHunter.UIComponents
                             uiShot.Sprite.Rectangle.Height / 2
                         );
 
-                    var motionX = (float)Math.Cos(Hero.ShootingAngle * Math.PI / 180);
-                    var motionY = -(float)Math.Sin(Hero.ShootingAngle * Math.PI / 180);
+                    var motionX = (float)Math.Cos(this.sagittarius.ShootingAngle 
+                        * Math.PI / 180);
+                    var motionY = -(float)Math.Sin(this.sagittarius.ShootingAngle 
+                        * Math.PI / 180);
 
                     uiShot.SetInMotion(motionX, motionY);
 

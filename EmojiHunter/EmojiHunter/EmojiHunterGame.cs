@@ -9,7 +9,7 @@
     using GameData.Maps;
     using GameHelpers;
     using UIComponents;
-    
+    using GameData.Heroes;
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -89,7 +89,7 @@
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
             
             // ***Desperate need of refactoring...
-            this.hero = new Hero("LightHero");
+            this.hero = new Sagittarius("Sagittarius");
             this.uiHero = new UIHero(Content, this.spriteData, this.hero);
             // That is not hardcoded at all! Believe me!
             this.uiHero.SetInStartPosition(

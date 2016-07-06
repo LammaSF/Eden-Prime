@@ -43,8 +43,8 @@ namespace EmojiHunter.GameAnimation
 
     public enum HeroType
     {
-        LightHero,
-        DarkHero
+        Sagittarius,
+        Aquarius
     }
 
     public enum SpellShotType
@@ -154,7 +154,7 @@ namespace EmojiHunter.GameAnimation
             texture = content.Load<Texture2D>(@"Content\LightHeroFreeze");
             AddHeroAnimations(texture, sprite);
 
-            sprite.Name = $"{HeroType.LightHero}";
+            sprite.Name = $"{HeroType.Sagittarius}";
 
             UpdateSpriteData(spriteData, sprite);
         }
