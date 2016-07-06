@@ -42,7 +42,7 @@
             // newGameButton
             // 
             this.newGameButton.Location = new System.Drawing.Point(-9, 30);
-            this.newGameButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(160, 75);
             this.newGameButton.TabIndex = 0;
@@ -53,7 +53,7 @@
             // saveButton
             // 
             this.saveButton.Location = new System.Drawing.Point(190, 30);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(2);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(160, 75);
             this.saveButton.TabIndex = 1;
@@ -63,7 +63,7 @@
             // loadButton
             // 
             this.loadButton.Location = new System.Drawing.Point(-9, 142);
-            this.loadButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.loadButton.Margin = new System.Windows.Forms.Padding(2);
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(160, 75);
             this.loadButton.TabIndex = 2;
@@ -74,7 +74,7 @@
             // resumeButton
             // 
             this.resumeButton.Location = new System.Drawing.Point(1, 272);
-            this.resumeButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.resumeButton.Margin = new System.Windows.Forms.Padding(2);
             this.resumeButton.Name = "resumeButton";
             this.resumeButton.Size = new System.Drawing.Size(160, 75);
             this.resumeButton.TabIndex = 3;
@@ -85,7 +85,7 @@
             // optionsButton
             // 
             this.optionsButton.Location = new System.Drawing.Point(190, 142);
-            this.optionsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.optionsButton.Margin = new System.Windows.Forms.Padding(2);
             this.optionsButton.Name = "optionsButton";
             this.optionsButton.Size = new System.Drawing.Size(160, 75);
             this.optionsButton.TabIndex = 4;
@@ -96,7 +96,7 @@
             // exitButton
             // 
             this.exitButton.Location = new System.Drawing.Point(190, 272);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(2);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(157, 75);
             this.exitButton.TabIndex = 5;
@@ -106,8 +106,8 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(1, 416);
-            this.backButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.backButton.Location = new System.Drawing.Point(1, 411);
+            this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(157, 75);
             this.backButton.TabIndex = 6;
@@ -128,7 +128,7 @@
             // txtOptions
             // 
             this.txtOptions.Location = new System.Drawing.Point(375, 30);
-            this.txtOptions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtOptions.Margin = new System.Windows.Forms.Padding(2);
             this.txtOptions.Multiline = true;
             this.txtOptions.Name = "txtOptions";
             this.txtOptions.Size = new System.Drawing.Size(180, 117);
@@ -155,7 +155,7 @@
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.newGameButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "MainMenu";
             this.Text = "MainMenu";
