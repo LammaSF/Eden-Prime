@@ -124,12 +124,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Content\Background.xnb" />
-    <None Include="Content\Background\Background.xnb" />
     <None Include="Content\Crosshair.xnb" />
-    <None Include="Content\Crosshair\Crosshair.xnb" />
     <None Include="Content\Emoticons.xnb" />
-    <None Include="Content\EmoticonSprites\Emoticons.xnb" />
-    <None Include="Content\EndScreen\Gameover.xnb" />
     <None Include="Content\Font.xnb" />
     <None Include="Content\Gameover.xnb" />
     <None Include="Content\LightHeroFreeze.xnb" />
@@ -139,8 +135,6 @@
     <None Include="Content\LightHeroShield.xnb" />
     <None Include="Content\Magicballs.xnb" />
     <None Include="Content\Potions.xnb" />
-    <None Include="Content\Spells\Magicballs.xnb" />
-    <None Include="Content\Obstacles\Trees.xnb" />
     <None Include="Content\Trees.xnb" />
   </ItemGroup>
   <ItemGroup>

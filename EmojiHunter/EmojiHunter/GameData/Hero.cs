@@ -6,7 +6,7 @@ namespace EmojiHunter.GameData
     {
         #region Constants
 
-        private const int DefaultSprintStrengthCost = 1; // per 100 ms 
+        private const int DefaultSprintStrengthCost = 1; // per 200 ms 
 
         private const int DefaultTeleportManaCost = 20;
 
