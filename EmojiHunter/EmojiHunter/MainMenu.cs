@@ -59,6 +59,11 @@ using System.Windows.Forms;
         {
 
         }
+
+        private void HeroSwapLabel_Click(object sender, EventArgs e)
+        {
+            //d
+        }
     }
     
 }
