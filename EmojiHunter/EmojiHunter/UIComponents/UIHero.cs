@@ -1,16 +1,18 @@
-﻿using EmojiHunter.GameAnimation;
-using EmojiHunter.GameData;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System;
-using EmojiHunter.GameData.Emoticons;
-using Microsoft.Xna.Framework.Content;
-using EmojiHunter.GameHelpers;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+    using System;
+    using System.Collections.Generic;
+
+    using GameAnimation;
+    using GameData;
+    using GameData.Emoticons;
+    using GameData.Heroes;
+    using GameHelpers;
+
     public enum Direction
     {
         Right,
@@ -67,13 +69,29 @@ namespace EmojiHunter.UIComponents
 
         private float lastHeroEmoticonCollisionElapsedTime;
 
+        private int elapsedTime;
+
+        private Sagittarius sagittarius;
+
+        private Aquarius aquarius;
+
         public UIHero(ContentManager content, SpriteData spriteData, Hero hero)
         {
             this.inputManager = InputManager.Instance;
             this.font = content.Load<SpriteFont>(@"Content\Font");
-            this.spriteData = spriteData; 
+            this.spriteData = spriteData;
 
             this.Hero = hero;
+
+            if (hero is Sagittarius)
+            {
+                this.sagittarius = hero as Sagittarius;
+            }
+            else
+            {
+                this.aquarius = hero as Aquarius;
+            }
+
             this.Sprite = spriteData.DuplicateSprite(this.Hero.Name);
             this.UISight = new UISight(spriteData.DuplicateSprite("Sight"));
         }
@@ -95,97 +113,126 @@ namespace EmojiHunter.UIComponents
         public void Update(GameTime gameTime)
         {
             this.inputManager.Update();
-            CheckKeyboardInput(gameTime);
+
+            elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (this.sagittarius != null)
+            {
+                CheckKeyboardInputSagittarius(gameTime);
+
+                UISight.Update(gameTime);
+            }
+            else
+            {
+                CheckKeyboardInputAquarius(gameTime);
+            }
+
             Sprite.Update(gameTime);
-            UISight.Update(gameTime);            
+
+            if (this.Hero.IsRunning && elapsedTime >= 200)
+            {
+                this.Hero.Strength -= this.Hero.SprintStrengthCost;
+            }
+
+            elapsedTime %= 200;
         }
-        
+
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
-            UISight.Draw(spriteBatch);
+
+            if (this.sagittarius != null)
+            {
+                UISight.Draw(spriteBatch);
+            }
 
             spriteBatch.DrawString(
-                this.font, 
+                this.font,
                 $"Health: {this.Hero.Health} / {this.Hero.CurrentMaxHealth}",
-                new Vector2(20, 20), 
+                new Vector2(20, 20),
                 Color.Red);
 
             spriteBatch.DrawString(
-                this.font, 
+                this.font,
                 $"Armor: {this.Hero.Armor} / {Hero.MaxArmor}",
-                new Vector2(20, 50), 
+                new Vector2(20, 50),
                 Color.GreenYellow);
 
             spriteBatch.DrawString(
-                this.font, 
+                this.font,
                 $"Mana: {this.Hero.Mana} / {this.Hero.CurrentMaxMana}",
-                new Vector2(20, 80), 
+                new Vector2(20, 80),
                 Color.Blue);
 
             spriteBatch.DrawString(
-                this.font, 
+                this.font,
                 $"Strength: {this.Hero.Strength} / {this.Hero.CurrentMaxStrength}",
                 new Vector2(20, 110),
                 Color.Yellow);
 
             spriteBatch.DrawString(this.font,
                 $"Kills: {Global.Kills}",
-                new Vector2(20, 140), 
+                new Vector2(20, 140),
                 Color.Black);
 
             spriteBatch.DrawString(this.font,
                 $"Points:  {Global.Points}",
                 new Vector2(20, 170),
                 Color.Black);
-
-            spriteBatch.DrawString(this.font,
-                $"Damage:  {this.Hero.RangedDamage}",
-                new Vector2(20, 200),
-                Color.Black);
         }
 
-        private void CheckKeyboardInput(GameTime gameTime)
+        private void CheckKeyboardInputAquarius(GameTime gameTime)
         {
-            ProcessMovement(inputManager.KeyDown);
+            ProcessMovement();
 
-            ProcessShootingAngle(inputManager.KeyDown);
+            ProcessTeleportation(gameTime);
 
-            UISight.Move(Hero.ShootingAngle, this.Position);            
+            ProcessSprint();
 
-            ProcessShooting(inputManager.KeyDown, gameTime);
+            // ISSUE hero should move to update visual state  
 
-            ProcessTeleportation(inputManager.KeyDown, gameTime);
+            ProcessInvisibility();
 
-            ProcessSprint(inputManager.IsKeyReleased);
-            
-            // ISSUE hero should move to update visual state            
-      
-            ProcessInvisibility(inputManager.IsKeyReleased);
+            ProcessShield();
 
-            ProcessShield(inputManager.IsKeyReleased);
+            ProcessMirror();
 
-            ProcessMirror(inputManager.IsKeyReleased);            
+            CheckForHeroObjectCollision(gameTime);                      
+        }
+
+        private void CheckKeyboardInputSagittarius(GameTime gameTime)
+        {
+            ProcessMovement();
+
+            ProcessShootingAngle();
+
+            UISight.Move(this.sagittarius.ShootingAngle, this.Position);
+
+            ProcessShooting(gameTime);
+
+            ProcessTeleportation(gameTime);
+
+            ProcessSprint();
 
             CheckForHeroObjectCollision(gameTime);
         }
 
-        private void ProcessShootingAngle(Func<Keys[], bool> keyDown)
+        private void ProcessShootingAngle()
         {
             bool keyRotateLeft = inputManager.KeyDown(Keys.A);
             bool keyRotateRight = inputManager.KeyDown(Keys.D);
 
             if (keyRotateLeft)
             {
-                Hero.ShootingAngle += Hero.SightSpeed;
+                this.sagittarius.ShootingAngle += this.sagittarius.SightSpeed;
             }
             else if (keyRotateRight)
             {
-                Hero.ShootingAngle -= Hero.SightSpeed;
+                this.sagittarius.ShootingAngle -= this.sagittarius.SightSpeed;
             }
         }
 
-        private void ProcessMovement(Func<Keys[], bool> key)
+        private void ProcessMovement()
         {
             bool keyDown = inputManager.KeyDown(Keys.Down);
             bool keyLeft = inputManager.KeyDown(Keys.Left);
@@ -210,7 +257,7 @@ namespace EmojiHunter.UIComponents
                 Move(3 + (int)this.state * 4, Direction.Up); // move up
         }
 
-        private void ProcessMirror(Func<Keys[], bool> key)
+        private void ProcessMirror()
         {
             bool keyMirror = inputManager.IsKeyReleased(Keys.W);
             if (keyMirror)
@@ -221,7 +268,7 @@ namespace EmojiHunter.UIComponents
             }
         }
 
-        private void ProcessShield(Func<Keys[], bool> key)
+        private void ProcessShield()
         {
             bool keyShield = inputManager.IsKeyReleased(Keys.Q);
             if (keyShield)
@@ -232,7 +279,7 @@ namespace EmojiHunter.UIComponents
             }
         }
 
-        private void ProcessInvisibility(Func<Keys[], bool> key)
+        private void ProcessInvisibility()
         {
             bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
             if (keyInvisible)
@@ -243,59 +290,74 @@ namespace EmojiHunter.UIComponents
             }
         }
 
-        private void ProcessSprint(Func<Keys[], bool> key)
+        private void ProcessSprint()
         {
             bool keySprint = inputManager.IsKeyReleased(Keys.LeftShift);
             if (keySprint)
             {
-                Hero.IsRunning = (Hero.IsRunning == true)
-                    ? false
-                    : true;
+                if (this.Hero.Strength > 0)
+                {
+                    Hero.IsRunning = (Hero.IsRunning == true)
+                        ? false
+                        : true;
+                }
+            }
+
+            if (this.Hero.Strength == 0)
+            {
+                Hero.IsRunning = false;
             }
         }
 
-        private void ProcessTeleportation(Func<Keys[], bool> key, GameTime gameTime)
+        private void ProcessTeleportation(GameTime gameTime)
         {
             bool keyTeleport = inputManager.KeyDown(Keys.T);
             lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyTeleport)
             {
-                if (lastTeleportElapsedTime > 1000)
+                if (lastTeleportElapsedTime > 1000 
+                    && this.Hero.Mana >= this.Hero.TeleportManaCost)
                 {
                     Teleport();
+                    this.Hero.Mana -= this.Hero.TeleportManaCost;
                     lastTeleportElapsedTime = 0;
                 }
             }
         }
 
-        private void ProcessShooting(Func<Keys[], bool> keyDown, GameTime gameTime)
+        private void ProcessShooting(GameTime gameTime)
         {
             bool keyShoot = inputManager.KeyDown(Keys.S);
             lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyShoot)
             {
-                if (lastShotElapsedTime > 500)
+                if (lastShotElapsedTime > this.sagittarius.ShootingDelay 
+                    && this.Hero.Mana >= this.sagittarius.ShootingManaCost)
                 {
+                    this.Hero.Mana -= this.sagittarius.ShootingManaCost;
+
                     var shot = new Shot()
                     {
                         ID = "Hero",
-                        Damage = this.Hero.RangedDamage,
-                        Type = this.Hero.ShotType
+                        Damage = this.sagittarius.RangedDamage,
+                        Type = this.sagittarius.ShotType
                     };
 
                     var sprite = this.spriteData.DuplicateSprite("SpellShot");
-                    sprite.AnimationIndex = (int)this.Hero.ShotType;
+                    sprite.AnimationIndex = (int)this.sagittarius.ShotType;
 
-                    var uiShot = new UIShot(shot, sprite, Hero.ShootingSpeed);
+                    var uiShot = new UIShot(shot, sprite, this.sagittarius.ShootingSpeed);
                     uiShot.SetInStartPosition(
-                        this.Position.X + this.Sprite.Rectangle.Width / 2 - 
+                        this.Position.X + this.Sprite.Rectangle.Width / 2 -
                             uiShot.Sprite.Rectangle.Width / 2,
                         this.Position.Y + this.Sprite.Rectangle.Height / 2 -
                             uiShot.Sprite.Rectangle.Height / 2
                         );
 
-                    var motionX = (float)Math.Cos(Hero.ShootingAngle * Math.PI / 180);
-                    var motionY = -(float)Math.Sin(Hero.ShootingAngle * Math.PI / 180);
+                    var motionX = (float)Math.Cos(this.sagittarius.ShootingAngle
+                        * Math.PI / 180);
+                    var motionY = -(float)Math.Sin(this.sagittarius.ShootingAngle
+                        * Math.PI / 180);
 
                     uiShot.SetInMotion(motionX, motionY);
 
@@ -362,7 +424,7 @@ namespace EmojiHunter.UIComponents
                         }
                         else
                         {
-                            this.Hero.Armor -= badEmoticon.Damage; 
+                            this.Hero.Armor -= badEmoticon.Damage;
                         }
 
                         if (badEmoticon.Armor == 0)
@@ -423,7 +485,7 @@ namespace EmojiHunter.UIComponents
                         this.Hero.Strength += Potion.Value;
                         break;
                     case PotionType.Length:
-                        break;                    
+                        break;
                 }
 
                 UIPotionGenerator.CurrentPotionCount--;

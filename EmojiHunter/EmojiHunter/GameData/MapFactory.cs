@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace EmojiHunter.GameData
 {
-    class MapFactory
+    public class MapFactory
     {
         private readonly Dictionary<string, Map> MapByName =
             new Dictionary<string, Map>()

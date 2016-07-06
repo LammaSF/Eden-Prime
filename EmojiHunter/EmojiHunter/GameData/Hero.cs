@@ -2,9 +2,13 @@
 
 namespace EmojiHunter.GameData
 {
-    public class Hero : IShooting
+    public abstract class Hero
     {
         #region Constants
+
+        private const int DefaultSprintStrengthCost = 1; // per 200 ms 
+
+        private const int DefaultTeleportManaCost = 20;
 
         private const SpellShotType DefaultShotType = SpellShotType.Sunball;
 
@@ -45,7 +49,7 @@ namespace EmojiHunter.GameData
         private const int MaxDamage = 75;
 
         #endregion
-        
+
         #region Private Fields
 
         private bool isRunning;
@@ -94,10 +98,6 @@ namespace EmojiHunter.GameData
             this.Mana = InitialMana;
             this.Strength = InitialStrength;
             this.Damage = InitialDamage;
-            this.ShootingAngle = DefaultShootingAngle;
-            this.ShootingSpeed = DefaultShootingSpeed;
-            this.ShootingDelay = DefaultShootingDelay;
-            this.SightSpeed = DefaultSightSpeed;
         }
 
         #endregion
@@ -105,6 +105,10 @@ namespace EmojiHunter.GameData
         #region Properties
 
         public string Name { get; }
+
+        public int SprintStrengthCost => DefaultSprintStrengthCost;
+
+        public int TeleportManaCost => DefaultTeleportManaCost;
 
         public bool IsRunning
         {
@@ -310,31 +314,6 @@ namespace EmojiHunter.GameData
         public int Kills { get; set; }
 
         public int Points { get; set; }
-
-        public float ShootingAngle { get; set; }
-
-        public float ShootingSpeed { get; }
-
-        public float ShootingDelay { get; }
-
-        public float SightSpeed { get;  }
-
-        public SpellShotType ShotType => DefaultShotType;
-
-        public int RangedDamage
-        {
-            get { return this.damage; }
-
-            set
-            {
-                if (value > CurrentMaxDamage)
-                {
-                    value = CurrentMaxDamage;
-                }
-
-                this.damage = value;
-            }
-        }
 
         #endregion
     }

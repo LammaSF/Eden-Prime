@@ -43,8 +43,9 @@ namespace EmojiHunter.GameAnimation
 
     public enum HeroType
     {
-        LightHero,
-        DarkHero
+        Aquarius,
+        Sagittarius,
+        Length
     }
 
     public enum SpellShotType
@@ -58,7 +59,7 @@ namespace EmojiHunter.GameAnimation
     public enum MiscellaneousType
     {
         Sight,
-        SpellShot    
+        SpellShot
     }
 
     public static class SpriteInitializer
@@ -137,37 +138,42 @@ namespace EmojiHunter.GameAnimation
 
         private static void InitializeHeroSprite(SpriteData spriteData, ContentManager content)
         {
-            var texture = content.Load<Texture2D>(@"Content\LightHeroNormal");
-            var sprite = new AnimatedSprite();
+            for (HeroType hero = 0; hero < HeroType.Length; hero++)
+            {
+                var index = (int)hero;
 
-            AddHeroAnimations(texture, sprite);
+                var texture = content.Load<Texture2D>(@"Content\LightHeroNormal");
+                var sprite = new AnimatedSprite();
 
-            texture = content.Load<Texture2D>(@"Content\LightHeroShield");
-            AddHeroAnimations(texture, sprite);
+                AddHeroAnimations(texture, sprite, index);
 
-            texture = content.Load<Texture2D>(@"Content\LightHeroMirror");
-            AddHeroAnimations(texture, sprite);
+                texture = content.Load<Texture2D>(@"Content\LightHeroShield");
+                AddHeroAnimations(texture, sprite, index);
 
-            texture = content.Load<Texture2D>(@"Content\LightHeroInvisible");
-            AddHeroAnimations(texture, sprite);
+                texture = content.Load<Texture2D>(@"Content\LightHeroMirror");
+                AddHeroAnimations(texture, sprite, index);
 
-            texture = content.Load<Texture2D>(@"Content\LightHeroFreeze");
-            AddHeroAnimations(texture, sprite);
+                texture = content.Load<Texture2D>(@"Content\LightHeroInvisible");
+                AddHeroAnimations(texture, sprite, index);
 
-            sprite.Name = $"{HeroType.LightHero}";
+                texture = content.Load<Texture2D>(@"Content\LightHeroFreeze");
+                AddHeroAnimations(texture, sprite, index);
 
-            UpdateSpriteData(spriteData, sprite);
+                sprite.Name = $"{hero}";
+
+                UpdateSpriteData(spriteData, sprite);
+            }
         }
 
-        private static void AddHeroAnimations(Texture2D texture, AnimatedSprite sprite)
+        private static void AddHeroAnimations(Texture2D texture, AnimatedSprite sprite, int index)
         {
-            sprite.AddAnimation(texture, new Rectangle(0, 128, 32, 32),
+            sprite.AddAnimation(texture, new Rectangle(0, index * 128, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, 160, 32, 32),
+            sprite.AddAnimation(texture, new Rectangle(0, index * 128 + 32, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, 192, 32, 32),
+            sprite.AddAnimation(texture, new Rectangle(0, index * 128 + 64, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, 224, 32, 32),
+            sprite.AddAnimation(texture, new Rectangle(0, index * 128 + 96, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
             sprite.SetSize(32, 32);
         }
