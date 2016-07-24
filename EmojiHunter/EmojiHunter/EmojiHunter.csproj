@@ -55,6 +55,7 @@
     <Compile Include="GameData\Emoticons\States\CrazyState.cs" />
     <Compile Include="GameData\Emoticons\States\IEmoticonState.cs" />
     <Compile Include="GameData\Emoticons\States\NormalState.cs" />
+    <Compile Include="GameData\GameCharacter.cs" />
     <Compile Include="GameData\Hero.cs" />
     <Compile Include="GameData\Emoticons\LoveEmoticon.cs" />
     <Compile Include="GameData\Emoticons\OnFireEmoticon.cs" />
