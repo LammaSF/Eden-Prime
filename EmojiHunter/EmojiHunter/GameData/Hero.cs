@@ -2,7 +2,7 @@
 
 namespace EmojiHunter.GameData
 {
-    public abstract class Hero
+    public abstract class Hero : GameCharacter
     {
         #region Constants
 
@@ -60,10 +60,6 @@ namespace EmojiHunter.GameData
 
         private float currentSpeedBonus;
 
-        private int health;
-
-        private int armor;
-
         private int mana;
 
         private int strength;
@@ -82,10 +78,9 @@ namespace EmojiHunter.GameData
 
         #region Constructors
 
-        public Hero(string name)
+        public Hero(string name) : base(name)
         {
-            this.Name = name;
-            this.MovementSpeed = InitialWalkSpeed;
+            base.MovementSpeed = InitialWalkSpeed;
             this.WalkSpeed = InitialWalkSpeed;
             this.RunSpeed = InitialRunSpeed;
             this.CurrentSpeedBonus = 0;
@@ -104,8 +99,6 @@ namespace EmojiHunter.GameData
 
         #region Properties
 
-        public string Name { get; }
-
         public int SprintStrengthCost => DefaultSprintStrengthCost;
 
         public int TeleportManaCost => DefaultTeleportManaCost;
@@ -122,8 +115,6 @@ namespace EmojiHunter.GameData
                     : this.WalkSpeed;
             }
         }
-
-        public float MovementSpeed { get; private set; }
 
         public float WalkSpeed
         {
@@ -168,9 +159,9 @@ namespace EmojiHunter.GameData
             }
         }
 
-        public int Health
+        public override int Health
         {
-            get { return this.health; }
+            get { return base.health; }
 
             set
             {
@@ -183,7 +174,7 @@ namespace EmojiHunter.GameData
                     value = 0;
                 }
 
-                this.health = value;
+                base.health = value;
             }
         }
 
@@ -202,9 +193,9 @@ namespace EmojiHunter.GameData
             }
         }
 
-        public int Armor
+        public override int Armor
         {
-            get { return this.armor; }
+            get { return base.armor; }
 
             set
             {
@@ -217,7 +208,7 @@ namespace EmojiHunter.GameData
                     value = 0;
                 }
 
-                this.armor = value;
+                base.armor = value;
             }
         }
 
