@@ -105,7 +105,10 @@ namespace EmojiHunter.GameData
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get
+            {
+                return this.isRunning;
+            }
 
             set
             {
@@ -118,7 +121,10 @@ namespace EmojiHunter.GameData
 
         public float WalkSpeed
         {
-            get { return this.walkSpeed; }
+            get
+            {
+                return this.walkSpeed;
+            }
 
             set
             {
@@ -133,7 +139,10 @@ namespace EmojiHunter.GameData
 
         public float RunSpeed
         {
-            get { return this.runSpeed; }
+            get
+            {
+                return this.runSpeed;
+            }
 
             set
             {
@@ -148,20 +157,27 @@ namespace EmojiHunter.GameData
 
         public float CurrentSpeedBonus
         {
-            get { return this.currentSpeedBonus; }
+            get
+            {
+                return this.currentSpeedBonus;
+            }
 
             set
             {
                 this.currentSpeedBonus = value;
 
                 this.WalkSpeed = InitialWalkSpeed + this.currentSpeedBonus;
+
                 this.RunSpeed = InitialRunSpeed + this.currentSpeedBonus;
             }
         }
 
         public override int Health
         {
-            get { return base.health; }
+            get
+            {
+                return base.health;
+            }
 
             set
             {
@@ -180,7 +196,10 @@ namespace EmojiHunter.GameData
 
         public int CurrentMaxHealth
         {
-            get { return this.currentMaxHealth; }
+            get
+            {
+                return this.currentMaxHealth;
+            }
 
             set
             {
@@ -195,7 +214,10 @@ namespace EmojiHunter.GameData
 
         public override int Armor
         {
-            get { return base.armor; }
+            get
+            {
+                return base.armor;
+            }
 
             set
             {
@@ -214,7 +236,10 @@ namespace EmojiHunter.GameData
 
         public int Mana
         {
-            get { return this.mana; }
+            get
+            {
+                return this.mana;
+            }
 
             set
             {
@@ -229,7 +254,10 @@ namespace EmojiHunter.GameData
 
         public int CurrentMaxMana
         {
-            get { return this.currentMaxMana; }
+            get
+            {
+                return this.currentMaxMana;
+            }
 
             set
             {
@@ -244,7 +272,10 @@ namespace EmojiHunter.GameData
 
         public int Strength
         {
-            get { return this.strength; }
+            get
+            {
+                return this.strength;
+            }
 
             set
             {
@@ -259,7 +290,10 @@ namespace EmojiHunter.GameData
 
         public int CurrentMaxStrength
         {
-            get { return this.currentMaxStrength; }
+            get
+            {
+                return this.currentMaxStrength;
+            }
 
             set
             {
@@ -274,7 +308,10 @@ namespace EmojiHunter.GameData
 
         public int Damage
         {
-            get { return this.damage; }
+            get
+            {
+                return this.damage;
+            }
 
             set
             {
@@ -289,7 +326,10 @@ namespace EmojiHunter.GameData
 
         public int CurrentMaxDamage
         {
-            get { return this.currentMaxDamage; }
+            get
+            {
+                return this.currentMaxDamage;
+            }
 
             set
             {

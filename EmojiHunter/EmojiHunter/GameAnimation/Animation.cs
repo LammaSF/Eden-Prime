@@ -45,7 +45,7 @@ namespace EmojiHunter.GameAnimation
         public void PlayAnimation(GameTime gameTime)
         {
             elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-            frame.X = frameStartPositionX + currentFrame * frameWidth;
+            frame.X = frameStartPositionX + (currentFrame * frameWidth);
 
             if (elapsedTime >= frameDuration)
             {
@@ -58,6 +58,5 @@ namespace EmojiHunter.GameAnimation
         {
             spriteBatch.Draw(this.texture, Position, this.frame, Color.White);
         }
-
     }
 }

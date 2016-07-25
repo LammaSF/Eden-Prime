@@ -9,9 +9,12 @@
     using GameData.Maps;
     using GameHelpers;
     using UIComponents;
-    using System;    /// <summary>
-                     /// This is the main type for your game.
-                     /// </summary>
+    using System;
+    
+    /// <summary>
+    /// This is the main type for your game.
+    /// </summary>
+    /// 
     public class EmojiHunterGame : Game
     {
         private const int PauseDelay = 500; // in ms
@@ -47,7 +50,7 @@
         public EmojiHunterGame(string mapName, string heroName)
         {
             this.graphics = new GraphicsDeviceManager(this);
-            this.graphics.PreferredBackBufferWidth = ScreenWidth; 
+            this.graphics.PreferredBackBufferWidth = ScreenWidth;
             this.graphics.PreferredBackBufferHeight = ScreenHeight;
             this.graphics.ToggleFullScreen();
 
@@ -72,7 +75,7 @@
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            //// TODO: Add your initialization logic here
 
             base.Initialize();
         }
@@ -93,15 +96,16 @@
             this.endScreen = Content.Load<Texture2D>(@"Content\Gameover");
 
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
-            
+
             // ***Desperate need of refactoring...
             this.uiHero = new UIHero(Content, this.spriteData, this.hero);
-            // That is not hardcoded at all! Believe me!
-            this.uiHero.SetInStartPosition(
-                new Vector2(150, graphics.PreferredBackBufferHeight - 182)); 
 
-            UIObjectContainer.AddUIObject(this.uiHero);
+            //// That is not hardcoded at all! Believe me!
+            this.uiHero.SetInStartPosition(
+                new Vector2(150, graphics.PreferredBackBufferHeight - 182));
+
             // ***End of need :)
+            UIObjectContainer.AddUIObject(this.uiHero);
 
             UIObstacleGenerator.GenerateObstacles(this.spriteData, this.map);
         }
@@ -135,7 +139,7 @@
 
             this.lastPauseElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
 
-            if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed 
+            if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 && lastPauseElapsedTime > PauseDelay)
             {
@@ -145,7 +149,7 @@
 
             if (!this.paused)
             {
-                if (UIEmoticonGenerator.CurrentEmoticonCount < 
+                if (UIEmoticonGenerator.CurrentEmoticonCount <
                     UIEmoticonGenerator.MaxEmoticonCount)
                 {
                     UIEmoticonGenerator.GenerateEmoticon(this.spriteData, this.uiHero.Position);
@@ -162,7 +166,7 @@
                     uiObjects[index].Update(gameTime);
                 }
 
-                base.Update(gameTime); 
+                base.Update(gameTime);
             }
 
             if (this.hero.Health == 0)

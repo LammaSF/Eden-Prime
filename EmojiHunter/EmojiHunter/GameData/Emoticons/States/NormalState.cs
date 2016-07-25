@@ -9,6 +9,5 @@
         public int Damage => DefaultDamage;
 
         public float MovementSpeed => DefaultMovementSpeed;
-
     }
 }

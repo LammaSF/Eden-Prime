@@ -26,7 +26,9 @@
         private void OnNewGameButtonClick(object sender, EventArgs e)
         {
             using (var game = new EmojiHunterGame(this.mapName, this.heroName))
+            {
                 game.Run();
+            }
         }
 
         private void OnSaveButtonClick(object sender, EventArgs e)
@@ -96,5 +98,4 @@
             this.aquariusHeroLabel.ForeColor = Color.Black;
         }
     }
-
 }

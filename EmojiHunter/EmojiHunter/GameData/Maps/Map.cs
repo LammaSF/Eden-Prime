@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace EmojiHunter.GameData.Maps
 {
-    
     public abstract class Map
     {
         protected Dictionary<Vector2, string> positionByObstacle;

@@ -58,7 +58,7 @@ namespace EmojiHunter.UIComponents
                     {
                         if (!(uiObject is UIShot))
                         {
-                            this.direction = -this.direction; 
+                            this.direction = -this.direction;
                         }
 
                         if (uiObject is UIEmoticon
@@ -99,8 +99,7 @@ namespace EmojiHunter.UIComponents
                     this.position.X + this.Sprite.Rectangle.Width / 2 -
                         uiShot.Sprite.Rectangle.Width / 2,
                     this.position.Y + this.Sprite.Rectangle.Height / 2 -
-                        uiShot.Sprite.Rectangle.Height / 2
-                    );
+                        uiShot.Sprite.Rectangle.Height / 2);
 
                 var motionX = (float)Math.Cos(this.random.Next(360) * Math.PI / 180);
                 var motionY = -(float)Math.Sin(this.random.Next(360) * Math.PI / 180);
@@ -121,19 +120,16 @@ namespace EmojiHunter.UIComponents
         {
             if (this.direction.X < 0 && this.position.X < 0) // if leave the screen while moving left
             {
-
                 this.direction = new Vector2(Math.Abs(GetRandomFloat()), GetRandomFloat()); // move right
             }
 
             if (this.direction.X > 0 && this.position.X > 1600 - Sprite.Rectangle.Width) // ISSUE - hardcoded
             {
-
                 this.direction = new Vector2(-Math.Abs(GetRandomFloat()), GetRandomFloat());
             }
 
             if (this.direction.Y < 0 && this.position.Y < 0)
             {
-
                 this.direction = new Vector2(GetRandomFloat(), Math.Abs(GetRandomFloat()));
             }
 
@@ -144,7 +140,7 @@ namespace EmojiHunter.UIComponents
 
             this.direction.Normalize(); // get unit velocity vector
 
-            this.position += this.Emoticon.MovementSpeed * this.direction; 
+            this.position += this.Emoticon.MovementSpeed * this.direction;
             this.Sprite.Position = this.position;
         }
 
@@ -162,4 +158,3 @@ namespace EmojiHunter.UIComponents
         }
     }
 }
-

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 using Microsoft.Xna.Framework.Input;
 
-
 namespace EmojiHunter.UIComponents
 {
     // check for keys pressed and released
@@ -15,12 +14,16 @@ namespace EmojiHunter.UIComponents
     {
         KeyboardState currentKeyState, prevKeyState;
         private static InputManager instance;
+
         public static InputManager Instance
         {
             get
             {
                 if (instance == null)
+                {
                     instance = new InputManager();
+                }
+
                 return instance;
             }
         }
@@ -30,6 +33,7 @@ namespace EmojiHunter.UIComponents
             prevKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
         }
+       
         // check for one time key pressed
         public bool IsKeyPressed(params Keys[] keys)
         {
@@ -40,6 +44,7 @@ namespace EmojiHunter.UIComponents
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -52,8 +57,10 @@ namespace EmojiHunter.UIComponents
                     return true;
                 }
             }
+
             return false;
         }
+       
         // check for continues key pressind
         public bool KeyDown(params Keys[] keys)
         {
@@ -64,8 +71,8 @@ namespace EmojiHunter.UIComponents
                     return true;
                 }
             }
+
             return false;
         }
-        
     }
 }

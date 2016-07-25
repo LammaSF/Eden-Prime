@@ -189,7 +189,7 @@
 
             ProcessSprint();
 
-            // ISSUE hero should move to update visual state  
+            //// ISSUE hero should move to update visual state  
 
             ProcessInvisibility();
 
@@ -197,7 +197,7 @@
 
             ProcessMirror();
 
-            CheckForHeroObjectCollision(gameTime);                      
+            CheckForHeroObjectCollision(gameTime);
         }
 
         private void CheckKeyboardInputSagittarius(GameTime gameTime)
@@ -240,21 +240,45 @@
             bool keyUp = inputManager.KeyDown(Keys.Up);
 
             if (keyUp && keyLeft)
-                Move(1 + (int)this.state * 4, Direction.UpLeft); // move up left
+            {
+                //// move up left
+                Move(1 + (int)this.state * 4, Direction.UpLeft);
+            }
             else if (keyUp && keyRight)
-                Move(2 + (int)this.state * 4, Direction.UpRight); // move up right
+            {
+                //// move up right
+                Move(2 + (int)this.state * 4, Direction.UpRight);
+            }
             else if (keyDown && keyLeft)
-                Move(1 + (int)this.state * 4, Direction.DownLeft); // move down left
+            {
+                //// move down left
+                Move(1 + (int)this.state * 4, Direction.DownLeft);
+            }
             else if (keyDown && keyRight)
-                Move(2 + (int)this.state * 4, Direction.DownRight); // move down right
+            {
+                //// move down right
+                Move(2 + (int)this.state * 4, Direction.DownRight);
+            }
             else if (keyDown)
-                Move(0 + (int)this.state * 4, Direction.Down); // move down
+            {
+                //// move down
+                Move(0 + (int)this.state * 4, Direction.Down);
+            }
             else if (keyLeft)
-                Move(1 + (int)this.state * 4, Direction.Left); // move left
+            {
+                //// move left
+                Move(1 + (int)this.state * 4, Direction.Left);
+            }
             else if (keyRight)
-                Move(2 + (int)this.state * 4, Direction.Right); // move right
+            {
+                //// move right
+                Move(2 + (int)this.state * 4, Direction.Right);
+            }
             else if (keyUp)
-                Move(3 + (int)this.state * 4, Direction.Up); // move up
+            {
+                //// move up
+                Move(3 + (int)this.state * 4, Direction.Up);
+            }
         }
 
         private void ProcessMirror()
@@ -315,7 +339,7 @@
             lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyTeleport)
             {
-                if (lastTeleportElapsedTime > 1000 
+                if (lastTeleportElapsedTime > 1000
                     && this.Hero.Mana >= this.Hero.TeleportManaCost)
                 {
                     Teleport();
@@ -331,7 +355,7 @@
             lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyShoot)
             {
-                if (lastShotElapsedTime > this.sagittarius.ShootingDelay 
+                if (lastShotElapsedTime > this.sagittarius.ShootingDelay
                     && this.Hero.Mana >= this.sagittarius.ShootingManaCost)
                 {
                     this.Hero.Mana -= this.sagittarius.ShootingManaCost;
@@ -351,8 +375,7 @@
                         this.Position.X + this.Sprite.Rectangle.Width / 2 -
                             uiShot.Sprite.Rectangle.Width / 2,
                         this.Position.Y + this.Sprite.Rectangle.Height / 2 -
-                            uiShot.Sprite.Rectangle.Height / 2
-                        );
+                            uiShot.Sprite.Rectangle.Height / 2);
 
                     var motionX = (float)Math.Cos(this.sagittarius.ShootingAngle
                         * Math.PI / 180);

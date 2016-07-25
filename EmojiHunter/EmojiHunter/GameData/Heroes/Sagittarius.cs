@@ -35,7 +35,10 @@ namespace EmojiHunter.GameData.Heroes
 
         public int RangedDamage
         {
-            get { return base.Damage; }
+            get
+            {
+                return Damage;
+            }
 
             set
             {

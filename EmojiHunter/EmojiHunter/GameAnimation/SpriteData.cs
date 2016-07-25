@@ -14,14 +14,19 @@ namespace EmojiHunter.GameAnimation
         public AnimatedSprite DuplicateSprite(AnimatedSprite sprite)
         {
             if (sprite == null)
+            {
                 return null;
+            }
+
             return new AnimatedSprite(sprite);
         }
 
         public AnimatedSprite DuplicateSprite(string spriteName)
         {
             if (SpriteByName.ContainsKey(spriteName))
+            {
                 return DuplicateSprite(SpriteByName[spriteName]);
+            }
 
             return null;
         }

@@ -29,6 +29,7 @@ namespace EmojiHunter.GameData.Emoticons
                 this.damage = value;
             }
         }
+
         public int AttackSpeed
         {
             get

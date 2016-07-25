@@ -38,9 +38,13 @@ namespace EmojiHunter.GameAnimation
         }
 
         public ulong ID { get; private set; }
+
         public string Name { get; set; }
+
         public int AnimationIndex { get; set; }
+
         public Rectangle Rectangle => this.rectangle;
+
         public Vector2 Position
         {
             get

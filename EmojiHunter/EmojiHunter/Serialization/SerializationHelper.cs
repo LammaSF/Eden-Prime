@@ -8,7 +8,6 @@ namespace GameShadow.Serialization
 {
     public class SerializationHelper
     {
-
         public static void Serialize<T>(T instance, string filePath)
         {
             using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -27,5 +26,4 @@ namespace GameShadow.Serialization
             }
         }
     }
-
 }

@@ -72,6 +72,5 @@
                 this.movementSpeed = value;
             }
         }
-
     }
 }

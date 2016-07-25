@@ -169,11 +169,11 @@ namespace EmojiHunter.GameAnimation
         {
             sprite.AddAnimation(texture, new Rectangle(0, index * 128, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, index * 128 + 32, 32, 32),
+            sprite.AddAnimation(texture, new Rectangle(0, (index * 128) + 32, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, index * 128 + 64, 32, 32),
+            sprite.AddAnimation(texture, new Rectangle(0, (index * 128) + 64, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, index * 128 + 96, 32, 32),
+            sprite.AddAnimation(texture, new Rectangle(0, (index * 128) + 96, 32, 32),
                 HeroFrameDuration, HeroFrameCount);
             sprite.SetSize(32, 32);
         }
@@ -233,9 +233,13 @@ namespace EmojiHunter.GameAnimation
         private static void UpdateSpriteData(SpriteData spriteData, AnimatedSprite sprite)
         {
             if (spriteData.SpriteByName.ContainsKey(sprite.Name))
+            {
                 spriteData.SpriteByName[sprite.Name] = sprite;
+            }
             else
+            {
                 spriteData.SpriteByName.Add(sprite.Name, sprite);
+            }
         }
     }
 }

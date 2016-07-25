@@ -26,6 +26,5 @@ namespace EmojiHunter.UIComponents
         {
             this.Sprite.Draw(spriteBatch);
         }
-
     }
 }

@@ -26,6 +26,5 @@
         public int ShieldingManaCost => DefaultShieldingManaCost;
 
         public int ReflectingManaCost => DefaultReflectingManaCost;
-
     }
 }
