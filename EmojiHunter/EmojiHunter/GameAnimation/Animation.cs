@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace EmojiHunter.GameAnimation
+﻿namespace EmojiHunter.GameAnimation
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     internal class Animation
     {
         private Texture2D texture;
@@ -44,19 +44,19 @@ namespace EmojiHunter.GameAnimation
 
         public void PlayAnimation(GameTime gameTime)
         {
-            elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-            frame.X = frameStartPositionX + (currentFrame * frameWidth);
+            this.elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            this.frame.X = this.frameStartPositionX + (this.currentFrame * this.frameWidth);
 
-            if (elapsedTime >= frameDuration)
+            if (this.elapsedTime >= this.frameDuration)
             {
-                currentFrame = (currentFrame + 1) % frameCount;
-                elapsedTime = 0;
+                this.currentFrame = (this.currentFrame + 1) % this.frameCount;
+                this.elapsedTime = 0;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, Position, this.frame, Color.White);
+            spriteBatch.Draw(this.texture, this.Position, this.frame, Color.White);
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-
-namespace EmojiHunter.GameAnimation
+﻿namespace EmojiHunter.GameAnimation
 {
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class AnimatedSprite
     {
         private static ulong id;
@@ -23,18 +23,21 @@ namespace EmojiHunter.GameAnimation
 
             foreach (var animation in sprite.animations)
             {
-                animations.Add(new Animation(animation));
+                this.animations.Add(new Animation(animation));
             }
 
-            this.rectangle = new Rectangle(sprite.Rectangle.X, sprite.Rectangle.Y,
-                sprite.Rectangle.Width, sprite.Rectangle.Height);
+            this.rectangle = new Rectangle(
+                sprite.Rectangle.X, 
+                sprite.Rectangle.Y,
+                sprite.Rectangle.Width, 
+                sprite.Rectangle.Height);
             this.ID = AnimatedSprite.id;
             AnimatedSprite.id++;
         }
 
         public AnimatedSprite(Texture2D texture, Rectangle frame, float frameDuration, int frameCount) : this()
         {
-            AddAnimation(texture, frame, frameDuration, frameCount);
+            this.AddAnimation(texture, frame, frameDuration, frameCount);
         }
 
         public ulong ID { get; private set; }
@@ -49,12 +52,12 @@ namespace EmojiHunter.GameAnimation
         {
             get
             {
-                return animations[AnimationIndex].Position;
+                return this.animations[this.AnimationIndex].Position;
             }
 
             set
             {
-                animations[AnimationIndex].Position = value;
+                this.animations[this.AnimationIndex].Position = value;
                 this.rectangle.X = (int)value.X;
                 this.rectangle.Y = (int)value.Y;
             }
@@ -74,12 +77,12 @@ namespace EmojiHunter.GameAnimation
 
         public void Update(GameTime gameTime)
         {
-            this.animations[AnimationIndex].PlayAnimation(gameTime);
+            this.animations[this.AnimationIndex].PlayAnimation(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.animations[AnimationIndex].Draw(spriteBatch);
+            this.animations[this.AnimationIndex].Draw(spriteBatch);
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace EmojiHunter.GameAnimation
+﻿namespace EmojiHunter.GameAnimation
 {
+    using System.Collections.Generic;
+
     public class SpriteData
     {
         public Dictionary<string, AnimatedSprite> SpriteByName { get; private set; }
 
         public SpriteData()
         {
-            SpriteByName = new Dictionary<string, AnimatedSprite>();
+            this.SpriteByName = new Dictionary<string, AnimatedSprite>();
         }
 
         public AnimatedSprite DuplicateSprite(AnimatedSprite sprite)
@@ -23,9 +23,9 @@ namespace EmojiHunter.GameAnimation
 
         public AnimatedSprite DuplicateSprite(string spriteName)
         {
-            if (SpriteByName.ContainsKey(spriteName))
+            if (this.SpriteByName.ContainsKey(spriteName))
             {
-                return DuplicateSprite(SpriteByName[spriteName]);
+                return this.DuplicateSprite(this.SpriteByName[spriteName]);
             }
 
             return null;

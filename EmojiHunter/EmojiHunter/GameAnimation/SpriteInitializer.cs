@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-
-namespace EmojiHunter.GameAnimation
+﻿namespace EmojiHunter.GameAnimation
 {
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+
     public enum PotionType
     {
         HealthPotion,
@@ -105,6 +105,20 @@ namespace EmojiHunter.GameAnimation
             InitializePotionSprite(spriteData, content);
         }
 
+        public static void InitializeSightSprite(SpriteData spriteData, ContentManager content)
+        {
+            var texture = content.Load<Texture2D>(@"Content\Crosshair");
+            var sprite = new AnimatedSprite(
+                texture,
+                new Rectangle(0, 0, 24, 24),
+                SightFrameDuration, 
+                SightFrameCount);
+            sprite.SetSize(24, 24);
+            sprite.Name = $"{MiscellaneousType.Sight}";
+
+            UpdateSpriteData(spriteData, sprite);
+        }
+
         private static void InitializePotionSprite(SpriteData spriteData, ContentManager content)
         {
             var texture = content.Load<Texture2D>(@"Content\Potions");
@@ -112,8 +126,11 @@ namespace EmojiHunter.GameAnimation
             {
                 int index = (int)item;
 
-                var sprite = new AnimatedSprite(texture, new Rectangle(0, 30 * index, 30, 30),
-                    PotionFrameDuration, PotionFrameCount);
+                var sprite = new AnimatedSprite(
+                    texture, 
+                    new Rectangle(0, 30 * index, 30, 30),
+                    PotionFrameDuration,
+                    PotionFrameCount);
                 sprite.SetSize(30, 30);
                 sprite.Name = $"{item}";
 
@@ -126,9 +143,14 @@ namespace EmojiHunter.GameAnimation
             var texture = content.Load<Texture2D>(@"Content\Trees");
             for (ObstacleType obstacle = 0; obstacle < ObstacleType.Length; obstacle++)
             {
-                var sprite = new AnimatedSprite(texture, RectangleByObstacle[obstacle],
-                    ObstacleFrameDuration, ObstacleFrameCount);
-                sprite.SetSize(RectangleByObstacle[obstacle].Width,
+                var sprite = new AnimatedSprite(
+                    texture,
+                    RectangleByObstacle[obstacle],
+                    ObstacleFrameDuration, 
+                    ObstacleFrameCount);
+
+                sprite.SetSize(
+                    RectangleByObstacle[obstacle].Width,
                     RectangleByObstacle[obstacle].Height);
                 sprite.Name = $"{obstacle}";
 
@@ -167,14 +189,26 @@ namespace EmojiHunter.GameAnimation
 
         private static void AddHeroAnimations(Texture2D texture, AnimatedSprite sprite, int index)
         {
-            sprite.AddAnimation(texture, new Rectangle(0, index * 128, 32, 32),
-                HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, (index * 128) + 32, 32, 32),
-                HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, (index * 128) + 64, 32, 32),
-                HeroFrameDuration, HeroFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, (index * 128) + 96, 32, 32),
-                HeroFrameDuration, HeroFrameCount);
+            sprite.AddAnimation(
+                texture,
+                new Rectangle(0, index * 128, 32, 32),
+                HeroFrameDuration,
+                HeroFrameCount);
+            sprite.AddAnimation(
+                texture, 
+                new Rectangle(0, (index * 128) + 32, 32, 32),
+                HeroFrameDuration,
+                HeroFrameCount);
+            sprite.AddAnimation(
+                texture, 
+                new Rectangle(0, (index * 128) + 64, 32, 32),
+                HeroFrameDuration,
+                HeroFrameCount);
+            sprite.AddAnimation(
+                texture, 
+                new Rectangle(0, (index * 128) + 96, 32, 32),
+                HeroFrameDuration, 
+                HeroFrameCount);
             sprite.SetSize(32, 32);
         }
 
@@ -184,15 +218,26 @@ namespace EmojiHunter.GameAnimation
             for (EmoticonType emoticon = 0; emoticon < EmoticonType.Length; emoticon++)
             {
                 int index = (int)emoticon;
-                var sprite = new AnimatedSprite(texture, new Rectangle(0, index * 50, 50, 50),
-                    EmoticonFrameDuration, EmoticonFrameCount);
+                var sprite = new AnimatedSprite(
+                    texture,
+                    new Rectangle(0, index * 50, 50, 50),
+                    EmoticonFrameDuration,
+                    EmoticonFrameCount);
 
-                sprite.AddAnimation(texture, new Rectangle(500, index * 50, 50, 50),
-                    DeadEmoticonFrameDuration, DeadEmoticonFrameCount);
-                sprite.AddAnimation(texture, new Rectangle(650, index * 50, 50, 50),
-                    FreezeEmoticonFrameDuration, FreezeEmoticonFrameCount);
-                sprite.AddAnimation(texture, new Rectangle(800, index * 50, 50, 50),
-                    CrazyEmoticonFrameDuration, CrazyEmoticonFrameCount);
+                sprite.AddAnimation(
+                    texture,
+                    new Rectangle(500, index * 50, 50, 50),
+                    DeadEmoticonFrameDuration,
+                    DeadEmoticonFrameCount);
+                sprite.AddAnimation(texture,
+                    new Rectangle(650, index * 50, 50, 50),
+                    FreezeEmoticonFrameDuration,
+                    FreezeEmoticonFrameCount);
+                sprite.AddAnimation(
+                    texture,
+                    new Rectangle(800, index * 50, 50, 50),
+                    CrazyEmoticonFrameDuration,
+                    CrazyEmoticonFrameCount);
                 sprite.SetSize(50, 50);
 
                 sprite.Name = $"{emoticon}";
@@ -201,29 +246,30 @@ namespace EmojiHunter.GameAnimation
             }
         }
 
-        public static void InitializeSightSprite(SpriteData spriteData, ContentManager content)
-        {
-            var texture = content.Load<Texture2D>(@"Content\Crosshair");
-            var sprite = new AnimatedSprite(texture, new Rectangle(0, 0, 24, 24),
-                SightFrameDuration, SightFrameCount);
-            sprite.SetSize(24, 24);
-            sprite.Name = $"{MiscellaneousType.Sight}";
-
-            UpdateSpriteData(spriteData, sprite);
-        }
-
         private static void InitializeSpellShotSprite(SpriteData spriteData, ContentManager content)
         {
             var texture = content.Load<Texture2D>(@"Content\Magicballs");
-            var sprite = new AnimatedSprite(texture, new Rectangle(0, 675, 75, 75),
-                SpellShotFrameDuration, SpellShotFrameCount);
+            var sprite = new AnimatedSprite(
+                texture,
+                new Rectangle(0, 675, 75, 75),
+                SpellShotFrameDuration, 
+                SpellShotFrameCount);
 
-            sprite.AddAnimation(texture, new Rectangle(0, 75, 75, 75),
-                SpellShotFrameDuration, SpellShotFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, 375, 75, 75),
-                SpellShotFrameDuration, SpellShotFrameCount);
-            sprite.AddAnimation(texture, new Rectangle(0, 225, 75, 75),
-                SpellShotFrameDuration, SpellShotFrameCount);
+            sprite.AddAnimation(
+                texture,
+                new Rectangle(0, 75, 75, 75),
+                SpellShotFrameDuration, 
+                SpellShotFrameCount);
+            sprite.AddAnimation(
+                texture,
+                new Rectangle(0, 375, 75, 75),
+                SpellShotFrameDuration,
+                SpellShotFrameCount);
+            sprite.AddAnimation(
+                texture, 
+                new Rectangle(0, 225, 75, 75),
+                SpellShotFrameDuration, 
+                SpellShotFrameCount);
             sprite.SetSize(75, 75);
             sprite.Name = $"{MiscellaneousType.SpellShot}";
 
