@@ -12,7 +12,7 @@ namespace EmojiHunter.UIComponents
     // check for keys pressed and released
     public class InputManager
     {
-        KeyboardState currentKeyState, prevKeyState;
+        private KeyboardState currentKeyState, prevKeyState;
         private static InputManager instance;
 
         public static InputManager Instance

@@ -13,13 +13,26 @@ namespace EmojiHunter.GameHelpers
 
         private const int PotionSpriteSize = 30;
 
-        public static int CurrentPotionCount;
+        private static int currentPotionCount;
 
         private static readonly int FieldWidth = 1600 - PotionSpriteSize - 1;
 
         private static readonly int FieldHeight = 900 - PotionSpriteSize - 1;
 
         private static Random random;
+
+        public static int CurrentPotionCount
+        {
+            get
+            {
+                return currentPotionCount;
+            }
+
+            set
+            {
+                currentPotionCount = value;
+            }
+        }
 
         static UIPotionGenerator()
         {

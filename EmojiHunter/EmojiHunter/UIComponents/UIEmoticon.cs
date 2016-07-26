@@ -96,10 +96,10 @@ namespace EmojiHunter.UIComponents
 
                 var uiShot = new UIShot(shot, sprite, emoticon.ShootingSpeed);
                 uiShot.SetInStartPosition(
-                    this.position.X + this.Sprite.Rectangle.Width / 2 -
-                        uiShot.Sprite.Rectangle.Width / 2,
-                    this.position.Y + this.Sprite.Rectangle.Height / 2 -
-                        uiShot.Sprite.Rectangle.Height / 2);
+                    this.position.X + (this.Sprite.Rectangle.Width / 2) -
+                        (uiShot.Sprite.Rectangle.Width / 2),
+                    this.position.Y + (this.Sprite.Rectangle.Height / 2) -
+                        (uiShot.Sprite.Rectangle.Height / 2));
 
                 var motionX = (float)Math.Cos(this.random.Next(360) * Math.PI / 180);
                 var motionY = -(float)Math.Sin(this.random.Next(360) * Math.PI / 180);
@@ -154,7 +154,7 @@ namespace EmojiHunter.UIComponents
 
         private float GetRandomFloat()
         {
-            return (float)((new Random()).NextDouble() * 2 - 1);
+            return (float)(((new Random()).NextDouble() * 2) - 1);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace EmojiHunter.GameHelpers
 
         private const int EmoticonSpriteSize = 50;
 
-        public static int CurrentEmoticonCount;
+        private static int currentEmoticonCount;
 
         private static readonly int FieldWidth = 1600 - EmoticonSpriteSize - 1;
 
@@ -26,6 +26,19 @@ namespace EmojiHunter.GameHelpers
         private static EmoticonFactory emoticonFactory;
 
         private static Random random;
+
+        public static int CurrentEmoticonCount
+        {
+            get
+            {
+                return currentEmoticonCount;
+            }
+
+            set
+            {
+                currentEmoticonCount = value;
+            }
+        }
 
         static UIEmoticonGenerator()
         {
@@ -54,10 +67,10 @@ namespace EmojiHunter.GameHelpers
                 int positionY = random.Next(1, FieldHeight);
 
                 float distanceToPlayer =
-                    (positionX - heroPosition.X)
-                    * (positionX - heroPosition.X)
-                    + (positionY - heroPosition.Y)
-                    * (positionY - heroPosition.Y);
+                    ((positionX - heroPosition.X)
+                    * (positionX - heroPosition.X))
+                    + ((positionY - heroPosition.Y)
+                    * (positionY - heroPosition.Y));
 
                 if (distanceToPlayer > NoSpawnRadius * NoSpawnRadius)
                 {

@@ -2,7 +2,7 @@
 
 namespace EmojiHunter.GameData
 {
-    interface IShooting
+    public interface IShooting
     {
         int RangedDamage { get; set; }
 

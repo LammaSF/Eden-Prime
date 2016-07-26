@@ -242,42 +242,42 @@
             if (keyUp && keyLeft)
             {
                 //// move up left
-                Move(1 + (int)this.state * 4, Direction.UpLeft);
+                Move(1 + ((int)this.state * 4), Direction.UpLeft);
             }
             else if (keyUp && keyRight)
             {
                 //// move up right
-                Move(2 + (int)this.state * 4, Direction.UpRight);
+                Move(2 + ((int)this.state * 4), Direction.UpRight);
             }
             else if (keyDown && keyLeft)
             {
                 //// move down left
-                Move(1 + (int)this.state * 4, Direction.DownLeft);
+                Move(1 + ((int)this.state * 4), Direction.DownLeft);
             }
             else if (keyDown && keyRight)
             {
                 //// move down right
-                Move(2 + (int)this.state * 4, Direction.DownRight);
+                Move(2 + ((int)this.state * 4), Direction.DownRight);
             }
             else if (keyDown)
             {
                 //// move down
-                Move(0 + (int)this.state * 4, Direction.Down);
+                Move(0 + ((int)this.state * 4), Direction.Down);
             }
             else if (keyLeft)
             {
                 //// move left
-                Move(1 + (int)this.state * 4, Direction.Left);
+                Move(1 + ((int)this.state * 4), Direction.Left);
             }
             else if (keyRight)
             {
                 //// move right
-                Move(2 + (int)this.state * 4, Direction.Right);
+                Move(2 + ((int)this.state * 4), Direction.Right);
             }
             else if (keyUp)
             {
                 //// move up
-                Move(3 + (int)this.state * 4, Direction.Up);
+                Move(3 + ((int)this.state * 4), Direction.Up);
             }
         }
 
@@ -372,10 +372,10 @@
 
                     var uiShot = new UIShot(shot, sprite, this.sagittarius.ShootingSpeed);
                     uiShot.SetInStartPosition(
-                        this.Position.X + this.Sprite.Rectangle.Width / 2 -
-                            uiShot.Sprite.Rectangle.Width / 2,
-                        this.Position.Y + this.Sprite.Rectangle.Height / 2 -
-                            uiShot.Sprite.Rectangle.Height / 2);
+                        this.Position.X + (this.Sprite.Rectangle.Width / 2) -
+                            (uiShot.Sprite.Rectangle.Width / 2),
+                        this.Position.Y + (this.Sprite.Rectangle.Height / 2) -
+                            (uiShot.Sprite.Rectangle.Height / 2));
 
                     var motionX = (float)Math.Cos(this.sagittarius.ShootingAngle
                         * Math.PI / 180);

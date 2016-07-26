@@ -13,7 +13,7 @@ namespace EmojiHunter
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             using (var game = new EmojiHunterGame("Spring", "Sagittarius"))
             {

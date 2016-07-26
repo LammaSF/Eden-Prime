@@ -1,6 +1,6 @@
 ﻿namespace EmojiHunter
 {
-    partial class MainMenu
+    public partial class MainMenu
     {
         /// <summary>
         /// Required designer variable.

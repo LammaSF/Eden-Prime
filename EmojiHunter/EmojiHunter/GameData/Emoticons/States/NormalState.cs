@@ -1,6 +1,6 @@
 ﻿namespace EmojiHunter.GameData.Emoticons.States
 {
-    class NormalState : IEmoticonState
+    public class NormalState : IEmoticonState
     {
         private const int DefaultDamage = 0;
 
