@@ -30,8 +30,8 @@ namespace EmojiHunter.UIComponents
 
         public void Update()
         {
-            prevKeyState = currentKeyState;
-            currentKeyState = Keyboard.GetState();
+            this.prevKeyState = this.currentKeyState;
+            this.currentKeyState = Keyboard.GetState();
         }
        
         // check for one time key pressed
@@ -39,7 +39,7 @@ namespace EmojiHunter.UIComponents
         {
             foreach (var key in keys)
             {
-                if (currentKeyState.IsKeyDown(key) && prevKeyState.IsKeyUp(key))
+                if (this.currentKeyState.IsKeyDown(key) && this.prevKeyState.IsKeyUp(key))
                 {
                     return true;
                 }
@@ -52,7 +52,7 @@ namespace EmojiHunter.UIComponents
         {
             foreach (var key in keys)
             {
-                if (currentKeyState.IsKeyUp(key) && prevKeyState.IsKeyDown(key))
+                if (this.currentKeyState.IsKeyUp(key) && this.prevKeyState.IsKeyDown(key))
                 {
                     return true;
                 }
@@ -66,7 +66,7 @@ namespace EmojiHunter.UIComponents
         {
             foreach (var key in keys)
             {
-                if (currentKeyState.IsKeyDown(key))
+                if (this.currentKeyState.IsKeyDown(key))
                 {
                     return true;
                 }

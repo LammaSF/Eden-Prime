@@ -1,10 +1,11 @@
-﻿using EmojiHunter.GameAnimation;
-
-namespace EmojiHunter.GameData
+﻿namespace EmojiHunter.GameData
 {
+    using EmojiHunter.GameAnimation;
+
     public abstract class Hero : GameCharacter
     {
         #region Constants
+        public const int MaxArmor = 100;
 
         private const int DefaultSprintStrengthCost = 1; // per 200 ms 
 
@@ -39,8 +40,6 @@ namespace EmojiHunter.GameData
         private const int InitialDamage = 25;
 
         private const int MaxHealth = 200;
-
-        public const int MaxArmor = 100;
 
         private const int MaxMana = 150;
 
@@ -80,7 +79,7 @@ namespace EmojiHunter.GameData
 
         public Hero(string name) : base(name)
         {
-            base.MovementSpeed = InitialWalkSpeed;
+            this.MovementSpeed = InitialWalkSpeed;
             this.WalkSpeed = InitialWalkSpeed;
             this.RunSpeed = InitialRunSpeed;
             this.CurrentSpeedBonus = 0;
@@ -176,7 +175,7 @@ namespace EmojiHunter.GameData
         {
             get
             {
-                return base.health;
+                return this.health;
             }
 
             set
@@ -190,7 +189,7 @@ namespace EmojiHunter.GameData
                     value = 0;
                 }
 
-                base.health = value;
+                this.health = value;
             }
         }
 
@@ -216,7 +215,7 @@ namespace EmojiHunter.GameData
         {
             get
             {
-                return base.armor;
+                return this.armor;
             }
 
             set
@@ -230,7 +229,7 @@ namespace EmojiHunter.GameData
                     value = 0;
                 }
 
-                base.armor = value;
+                this.armor = value;
             }
         }
 

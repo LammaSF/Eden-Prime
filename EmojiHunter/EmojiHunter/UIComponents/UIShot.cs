@@ -25,17 +25,17 @@ namespace EmojiHunter.UIComponents
 
         public void Update(GameTime gameTime)
         {
-            Move();
+            this.Move();
 
-            CheckForShotObjectCollision();
+            this.CheckForShotObjectCollision();
 
-            if (IsOutsideMapBorders())
+            if (this.IsOutsideMapBorders())
             {
                 UIObjectContainer.RemoveUIObject(this.Sprite.ID);
                 return;
             }
 
-            Sprite.Update(gameTime);
+            this.Sprite.Update(gameTime);
         }
 
         private bool IsOutsideMapBorders()

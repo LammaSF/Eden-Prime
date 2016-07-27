@@ -1,7 +1,7 @@
-﻿using EmojiHunter.GameAnimation;
-
-namespace EmojiHunter.GameData.Emoticons
+﻿namespace EmojiHunter.GameData.Emoticons
 {
+    using EmojiHunter.GameAnimation;
+
     public class ShoutingEmoticon : BadEmoticon, IShooting
     {
         private const int DefaultHealth = 100;

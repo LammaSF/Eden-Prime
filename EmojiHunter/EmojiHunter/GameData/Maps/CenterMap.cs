@@ -7,7 +7,7 @@ namespace EmojiHunter.GameData.Maps
     {
         public CenterMap()
         {
-            base.positionByObstacle =
+            this.positionByObstacle =
                 new System.Collections.Generic.Dictionary<Vector2, string>()
                 {
                     [new Vector2(200, 300)] = $"{ObstacleType.Tree1}",

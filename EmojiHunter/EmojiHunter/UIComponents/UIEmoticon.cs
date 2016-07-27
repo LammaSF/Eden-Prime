@@ -27,7 +27,7 @@ namespace EmojiHunter.UIComponents
             this.Sprite = sprite;
             this.Emoticon = emoticon;
             this.isGoodEmoticon = emoticon is GoodEmoticon;
-            this.direction = new Vector2(GetRandomFloat(), GetRandomFloat());
+            this.direction = new Vector2(this.GetRandomFloat(), this.GetRandomFloat());
         }
 
         public AnimatedSprite Sprite { get; set; }
@@ -41,11 +41,11 @@ namespace EmojiHunter.UIComponents
                 Shoot(gameTime);
             }
 
-            Move();
+            this.Move();
 
-            CheckForEmoticonObjectCollision();
+            this.CheckForEmoticonObjectCollision();
 
-            Sprite.Update(gameTime);
+            this.Sprite.Update(gameTime);
         }
 
         private void CheckForEmoticonObjectCollision()
@@ -81,8 +81,8 @@ namespace EmojiHunter.UIComponents
         {
             var emoticon = this.Emoticon as IShooting;
 
-            lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-            if (lastShotElapsedTime > emoticon.ShootingDelay)
+            this.lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (this.lastShotElapsedTime > emoticon.ShootingDelay)
             {
                 var shot = new Shot()
                 {
@@ -107,7 +107,7 @@ namespace EmojiHunter.UIComponents
                 uiShot.SetInMotion(motionX, motionY);
 
                 UIObjectContainer.AddUIObject(uiShot);
-                lastShotElapsedTime = 0;
+                this.lastShotElapsedTime = 0;
             }
         }
 
@@ -120,22 +120,22 @@ namespace EmojiHunter.UIComponents
         {
             if (this.direction.X < 0 && this.position.X < 0) // if leave the screen while moving left
             {
-                this.direction = new Vector2(Math.Abs(GetRandomFloat()), GetRandomFloat()); // move right
+                this.direction = new Vector2(Math.Abs(this.GetRandomFloat()), this.GetRandomFloat()); // move right
             }
 
             if (this.direction.X > 0 && this.position.X > 1600 - Sprite.Rectangle.Width) // ISSUE - hardcoded
             {
-                this.direction = new Vector2(-Math.Abs(GetRandomFloat()), GetRandomFloat());
+                this.direction = new Vector2(-Math.Abs(this.GetRandomFloat()), this.GetRandomFloat());
             }
 
             if (this.direction.Y < 0 && this.position.Y < 0)
             {
-                this.direction = new Vector2(GetRandomFloat(), Math.Abs(GetRandomFloat()));
+                this.direction = new Vector2(this.GetRandomFloat(), Math.Abs(this.GetRandomFloat()));
             }
 
             if (this.direction.Y > 0 && this.position.Y > 900 - Sprite.Rectangle.Height) // ISSUE - hardcoded
             {
-                this.direction = new Vector2(GetRandomFloat(), -Math.Abs(GetRandomFloat()));
+                this.direction = new Vector2(this.GetRandomFloat(), -Math.Abs(this.GetRandomFloat()));
             }
 
             this.direction.Normalize(); // get unit velocity vector
@@ -146,10 +146,10 @@ namespace EmojiHunter.UIComponents
 
         public void SetInStartPosition(float x, float y)
         {
-            position.X = x;
-            position.Y = y;
+            this.position.X = x;
+            this.position.Y = y;
 
-            Sprite.Position = position;
+            this.Sprite.Position = this.position;
         }
 
         private float GetRandomFloat()

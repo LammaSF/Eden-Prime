@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace EmojiHunter.GameData.Emoticons
+﻿namespace EmojiHunter.GameData.Emoticons
 {
+    using System;
+
     public abstract class BadEmoticon : Emoticon
     {
         private int damage;

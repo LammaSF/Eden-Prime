@@ -1,7 +1,7 @@
-﻿using EmojiHunter.GameData.Emoticons.States;
-
-namespace EmojiHunter.GameData.Emoticons
+﻿namespace EmojiHunter.GameData.Emoticons
 {
+    using EmojiHunter.GameData.Emoticons.States;
+
     public abstract class GoodEmoticon : Emoticon
     {
         private NormalState normalState;

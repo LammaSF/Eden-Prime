@@ -8,13 +8,13 @@
 
         private const int DefaultArmor = 40;
 
-        private readonly Reward DefaultReward = new Reward(HealthBoostValue, 0, 0, 0, 0);
+        private readonly Reward defaultReward = new Reward(HealthBoostValue, 0, 0, 0, 0);
 
         public LoveEmoticon(string name) : base(name)
         {
             this.Health = DefaultHealth;
             this.Armor = DefaultArmor;
-            this.Reward = DefaultReward;
+            this.Reward = this.defaultReward;
         }
     }
 }

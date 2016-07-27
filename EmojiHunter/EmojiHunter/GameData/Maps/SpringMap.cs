@@ -7,7 +7,7 @@ namespace EmojiHunter.GameData.Maps
     {
         public SpringMap()
         {
-            base.positionByObstacle =
+            this.positionByObstacle =
                 new System.Collections.Generic.Dictionary<Vector2, string>()
                 {
                     [new Vector2(800, 100)] = $"{ObstacleType.Tree5}",

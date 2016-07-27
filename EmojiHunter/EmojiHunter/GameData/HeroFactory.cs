@@ -16,9 +16,9 @@ namespace EmojiHunter.GameData
         public Hero CreateHero(string heroName)
         {
             string name = heroName.ToLower();
-            if (HeroByName.ContainsKey(name))
+            if (this.HeroByName.ContainsKey(name))
             {
-                return HeroByName[name];
+                return this.HeroByName[name];
             }
 
             throw new InvalidOperationException("Such hero name does not exist.");

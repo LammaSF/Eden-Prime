@@ -106,40 +106,40 @@
 
         public void SetInStartPosition(Vector2 position)
         {
-            Position = position;
-            Sprite.Position = position;
+            this.Position = position;
+            this.Sprite.Position = position;
         }
 
         public void Update(GameTime gameTime)
         {
             this.inputManager.Update();
 
-            elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            this.elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
 
             if (this.sagittarius != null)
             {
-                CheckKeyboardInputSagittarius(gameTime);
+                this.CheckKeyboardInputSagittarius(gameTime);
 
-                UISight.Update(gameTime);
+                this.UISight.Update(gameTime);
             }
             else
             {
-                CheckKeyboardInputAquarius(gameTime);
+                this.CheckKeyboardInputAquarius(gameTime);
             }
 
             Sprite.Update(gameTime);
 
-            if (this.Hero.IsRunning && elapsedTime >= 200)
+            if (this.Hero.IsRunning && this.elapsedTime >= 200)
             {
                 this.Hero.Strength -= this.Hero.SprintStrengthCost;
             }
 
-            elapsedTime %= 200;
+            this.elapsedTime %= 200;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch);
+            this.Sprite.Draw(spriteBatch);
 
             if (this.sagittarius != null)
             {
@@ -183,44 +183,44 @@
 
         private void CheckKeyboardInputAquarius(GameTime gameTime)
         {
-            ProcessMovement();
+            this.ProcessMovement();
 
-            ProcessTeleportation(gameTime);
+            this.ProcessTeleportation(gameTime);
 
-            ProcessSprint();
+            this.ProcessSprint();
 
             //// ISSUE hero should move to update visual state  
 
-            ProcessInvisibility();
+            this.ProcessInvisibility();
 
-            ProcessShield();
+            this.ProcessShield();
 
-            ProcessMirror();
+            this.ProcessMirror();
 
-            CheckForHeroObjectCollision(gameTime);
+            this.CheckForHeroObjectCollision(gameTime);
         }
 
         private void CheckKeyboardInputSagittarius(GameTime gameTime)
         {
-            ProcessMovement();
+            this.ProcessMovement();
 
-            ProcessShootingAngle();
+            this.ProcessShootingAngle();
 
-            UISight.Move(this.sagittarius.ShootingAngle, this.Position);
+            this.UISight.Move(this.sagittarius.ShootingAngle, this.Position);
 
-            ProcessShooting(gameTime);
+            this.ProcessShooting(gameTime);
 
-            ProcessTeleportation(gameTime);
+            this.ProcessTeleportation(gameTime);
 
-            ProcessSprint();
+            this.ProcessSprint();
 
-            CheckForHeroObjectCollision(gameTime);
+            this.CheckForHeroObjectCollision(gameTime);
         }
 
         private void ProcessShootingAngle()
         {
-            bool keyRotateLeft = inputManager.KeyDown(Keys.A);
-            bool keyRotateRight = inputManager.KeyDown(Keys.D);
+            bool keyRotateLeft = this.inputManager.KeyDown(Keys.A);
+            bool keyRotateRight = this.inputManager.KeyDown(Keys.D);
 
             if (keyRotateLeft)
             {
@@ -234,56 +234,56 @@
 
         private void ProcessMovement()
         {
-            bool keyDown = inputManager.KeyDown(Keys.Down);
-            bool keyLeft = inputManager.KeyDown(Keys.Left);
-            bool keyRight = inputManager.KeyDown(Keys.Right);
-            bool keyUp = inputManager.KeyDown(Keys.Up);
+            bool keyDown = this.inputManager.KeyDown(Keys.Down);
+            bool keyLeft = this.inputManager.KeyDown(Keys.Left);
+            bool keyRight = this.inputManager.KeyDown(Keys.Right);
+            bool keyUp = this.inputManager.KeyDown(Keys.Up);
 
             if (keyUp && keyLeft)
             {
                 //// move up left
-                Move(1 + ((int)this.state * 4), Direction.UpLeft);
+                this.Move(1 + ((int)this.state * 4), Direction.UpLeft);
             }
             else if (keyUp && keyRight)
             {
                 //// move up right
-                Move(2 + ((int)this.state * 4), Direction.UpRight);
+                this.Move(2 + ((int)this.state * 4), Direction.UpRight);
             }
             else if (keyDown && keyLeft)
             {
                 //// move down left
-                Move(1 + ((int)this.state * 4), Direction.DownLeft);
+                this.Move(1 + ((int)this.state * 4), Direction.DownLeft);
             }
             else if (keyDown && keyRight)
             {
                 //// move down right
-                Move(2 + ((int)this.state * 4), Direction.DownRight);
+                this.Move(2 + ((int)this.state * 4), Direction.DownRight);
             }
             else if (keyDown)
             {
                 //// move down
-                Move(0 + ((int)this.state * 4), Direction.Down);
+                this.Move(0 + ((int)this.state * 4), Direction.Down);
             }
             else if (keyLeft)
             {
                 //// move left
-                Move(1 + ((int)this.state * 4), Direction.Left);
+                this.Move(1 + ((int)this.state * 4), Direction.Left);
             }
             else if (keyRight)
             {
                 //// move right
-                Move(2 + ((int)this.state * 4), Direction.Right);
+                this.Move(2 + ((int)this.state * 4), Direction.Right);
             }
             else if (keyUp)
             {
                 //// move up
-                Move(3 + ((int)this.state * 4), Direction.Up);
+                this.Move(3 + ((int)this.state * 4), Direction.Up);
             }
         }
 
         private void ProcessMirror()
         {
-            bool keyMirror = inputManager.IsKeyReleased(Keys.W);
+            bool keyMirror = this.inputManager.IsKeyReleased(Keys.W);
             if (keyMirror)
             {
                 this.state = (this.state == HeroState.Mirrored)
@@ -294,7 +294,7 @@
 
         private void ProcessShield()
         {
-            bool keyShield = inputManager.IsKeyReleased(Keys.Q);
+            bool keyShield = this.inputManager.IsKeyReleased(Keys.Q);
             if (keyShield)
             {
                 this.state = (this.state == HeroState.Shielded)
@@ -305,7 +305,7 @@
 
         private void ProcessInvisibility()
         {
-            bool keyInvisible = inputManager.IsKeyReleased(Keys.E);
+            bool keyInvisible = this.inputManager.IsKeyReleased(Keys.E);
             if (keyInvisible)
             {
                 this.state = (this.state == HeroState.Invisible)
@@ -316,12 +316,12 @@
 
         private void ProcessSprint()
         {
-            bool keySprint = inputManager.IsKeyReleased(Keys.LeftShift);
+            bool keySprint = this.inputManager.IsKeyReleased(Keys.LeftShift);
             if (keySprint)
             {
                 if (this.Hero.Strength > 0)
                 {
-                    Hero.IsRunning = (Hero.IsRunning == true)
+                    this.Hero.IsRunning = (Hero.IsRunning == true)
                         ? false
                         : true;
                 }
@@ -329,33 +329,33 @@
 
             if (this.Hero.Strength == 0)
             {
-                Hero.IsRunning = false;
+                this.Hero.IsRunning = false;
             }
         }
 
         private void ProcessTeleportation(GameTime gameTime)
         {
-            bool keyTeleport = inputManager.KeyDown(Keys.T);
-            lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            bool keyTeleport = this.inputManager.KeyDown(Keys.T);
+            this.lastTeleportElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyTeleport)
             {
-                if (lastTeleportElapsedTime > 1000
+                if (this.lastTeleportElapsedTime > 1000
                     && this.Hero.Mana >= this.Hero.TeleportManaCost)
                 {
                     Teleport();
                     this.Hero.Mana -= this.Hero.TeleportManaCost;
-                    lastTeleportElapsedTime = 0;
+                    this.lastTeleportElapsedTime = 0;
                 }
             }
         }
 
         private void ProcessShooting(GameTime gameTime)
         {
-            bool keyShoot = inputManager.KeyDown(Keys.S);
-            lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+            bool keyShoot = this.inputManager.KeyDown(Keys.S);
+            this.lastShotElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
             if (keyShoot)
             {
-                if (lastShotElapsedTime > this.sagittarius.ShootingDelay
+                if (this.lastShotElapsedTime > this.sagittarius.ShootingDelay
                     && this.Hero.Mana >= this.sagittarius.ShootingManaCost)
                 {
                     this.Hero.Mana -= this.sagittarius.ShootingManaCost;
@@ -385,7 +385,7 @@
                     uiShot.SetInMotion(motionX, motionY);
 
                     UIObjectContainer.AddUIObject(uiShot);
-                    lastShotElapsedTime = 0;
+                    this.lastShotElapsedTime = 0;
                 }
             }
         }
@@ -401,7 +401,7 @@
                         this.Position -= this.Hero.MovementSpeed * this.motion;
                         this.Sprite.Position = this.Position;
 
-                        ExecuteHeroObjectCollision(gameTime, uiObject);
+                        this.ExecuteHeroObjectCollision(gameTime, uiObject);
                     }
                 }
             }
@@ -518,9 +518,9 @@
 
         private void Teleport()
         {
-            if (lastDirection != Direction.None)
+            if (this.lastDirection != Direction.None)
             {
-                this.Position += 150 * MotionByDirection[lastDirection];
+                this.Position += 150 * this.MotionByDirection[this.lastDirection];
                 this.Sprite.Position = this.Position;
             }
         }
@@ -531,13 +531,13 @@
             {
                 this.Sprite.AnimationIndex = animationIndex;
                 this.lastDirection = direction;
-                this.motion = MotionByDirection[direction];
+                this.motion = this.MotionByDirection[direction];
             }
 
             this.Position += this.Hero.MovementSpeed * this.motion;
             this.Sprite.Position = this.Position;
 
-            if (IsOutsideMapBorders())
+            if (this.IsOutsideMapBorders())
             {
                 this.Position -= this.Hero.MovementSpeed * this.motion;
                 this.Sprite.Position = this.Position;
@@ -547,10 +547,10 @@
         private bool IsOutsideMapBorders()
         {
             // Hardcoded much ?!
-            return Position.X < 0
-                || Position.Y < 0
-                || Position.X > 1600 - this.Sprite.Rectangle.Width
-                || Position.Y > 900 - this.Sprite.Rectangle.Height;
+            return this.Position.X < 0
+                || this.Position.Y < 0
+                || this.Position.X > 1600 - this.Sprite.Rectangle.Width
+                || this.Position.Y > 900 - this.Sprite.Rectangle.Height;
         }
     }
 }

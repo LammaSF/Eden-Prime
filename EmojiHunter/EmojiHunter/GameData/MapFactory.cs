@@ -16,9 +16,9 @@ namespace EmojiHunter.GameData
         public Map CreateMap(string mapName)
         {
             string name = mapName.ToLower();
-            if (MapByName.ContainsKey(name))
+            if (this.MapByName.ContainsKey(name))
             {
-                return MapByName[name];
+                return this.MapByName[name];
             }
 
             throw new InvalidOperationException("Such map name does not exist.");

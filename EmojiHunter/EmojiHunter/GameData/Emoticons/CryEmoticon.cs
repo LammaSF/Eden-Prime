@@ -1,7 +1,7 @@
-﻿using EmojiHunter.GameAnimation;
-
-namespace EmojiHunter.GameData.Emoticons
+﻿namespace EmojiHunter.GameData.Emoticons
 {
+    using EmojiHunter.GameAnimation;
+
     public class CryEmoticon : BadEmoticon, IShooting
     {
         private const int DefaultHealth = 100;

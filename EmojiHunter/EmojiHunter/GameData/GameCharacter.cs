@@ -4,13 +4,13 @@
 
     public abstract class GameCharacter
     {
-        private string name;
-
         protected int health;
 
         protected int armor;
 
         protected float movementSpeed;
+
+        private string name;
 
         protected GameCharacter(string name)
         {

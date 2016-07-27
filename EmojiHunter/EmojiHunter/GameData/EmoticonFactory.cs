@@ -1,12 +1,12 @@
 ﻿namespace EmojiHunter.GameData
 {
-    using Emoticons;
     using System;
     using System.Collections.Generic;
+    using Emoticons;
 
     public class EmoticonFactory
     {
-        private readonly Dictionary<string, Emoticon> EmoticonByName =
+        private readonly Dictionary<string, Emoticon> еmoticonByName =
             new Dictionary<string, Emoticon>()
             {
                 ["smile"] = new SmileEmoticon("Smile"),
@@ -24,9 +24,9 @@
         public Emoticon CreateEmoticon(string emoticonName)
         {
             string name = emoticonName.ToLower();
-            if (EmoticonByName.ContainsKey(name))
+            if (this.еmoticonByName.ContainsKey(name))
             {
-                return EmoticonByName[name];
+                return this.еmoticonByName[name];
             }
 
             throw new InvalidOperationException("Such emoticon name does not exist.");
