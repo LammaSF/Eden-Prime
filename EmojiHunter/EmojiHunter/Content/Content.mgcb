@@ -163,3 +163,51 @@
 /processorParam:TextureFormat=Color
 /build:Potions.png
 
+#begin sounds/bad-item.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bad-item.wav
+
+#begin sounds/button.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/button.wav
+
+#begin sounds/enemy-shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/enemy-shot.wav
+
+#begin sounds/good-item.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/good-item.wav
+
+#begin sounds/got-hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/got-hit.wav
+
+#begin sounds/got-item.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/got-item.mp3
+
+#begin sounds/health-plus.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/health-plus.wav
+
+#begin sounds/shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/shot.wav
+
