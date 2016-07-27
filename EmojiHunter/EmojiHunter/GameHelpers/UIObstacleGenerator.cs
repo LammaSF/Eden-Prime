@@ -1,10 +1,10 @@
-﻿using EmojiHunter.GameAnimation;
-using EmojiHunter.GameData.Maps;
-using EmojiHunter.UIComponents;
-using System.Collections.Generic;
-
-namespace EmojiHunter.GameHelpers
+﻿namespace EmojiHunter.GameHelpers
 {
+    using System.Collections.Generic;
+    using EmojiHunter.GameAnimation;
+    using EmojiHunter.GameData.Maps;
+    using EmojiHunter.UIComponents;
+
     public static class UIObstacleGenerator
     {
         public static List<UIObstacle> GenerateObstacles(SpriteData spriteData, Map map)

@@ -1,7 +1,7 @@
-﻿using EmojiHunter.GameAnimation;
-
-namespace EmojiHunter.GameData
+﻿namespace EmojiHunter.GameData
 {
+    using EmojiHunter.GameAnimation;
+
     public interface IShooting
     {
         int RangedDamage { get; set; }

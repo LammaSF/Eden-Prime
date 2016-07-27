@@ -127,7 +127,7 @@
                 this.CheckKeyboardInputAquarius(gameTime);
             }
 
-            Sprite.Update(gameTime);
+            this.Sprite.Update(gameTime);
 
             if (this.Hero.IsRunning && this.elapsedTime >= 200)
             {
@@ -342,7 +342,7 @@
                 if (this.lastTeleportElapsedTime > 1000
                     && this.Hero.Mana >= this.Hero.TeleportManaCost)
                 {
-                    Teleport();
+                    this.Teleport();
                     this.Hero.Mana -= this.Hero.TeleportManaCost;
                     this.lastTeleportElapsedTime = 0;
                 }

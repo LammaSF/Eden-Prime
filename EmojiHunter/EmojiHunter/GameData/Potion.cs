@@ -1,7 +1,7 @@
-﻿using EmojiHunter.GameAnimation;
-
-namespace EmojiHunter.GameData
+﻿namespace EmojiHunter.GameData
 {
+    using EmojiHunter.GameAnimation;
+
     public class Potion
     {
         public const int Value = 50;

@@ -180,9 +180,9 @@
 
             set
             {
-                if (value > CurrentMaxHealth)
+                if (value > this.CurrentMaxHealth)
                 {
-                    value = CurrentMaxHealth;
+                    value = this.CurrentMaxHealth;
                 }
                 else if (value < 0)
                 {
@@ -242,9 +242,9 @@
 
             set
             {
-                if (value > CurrentMaxMana)
+                if (value > this.CurrentMaxMana)
                 {
-                    value = CurrentMaxMana;
+                    value = this.CurrentMaxMana;
                 }
 
                 this.mana = value;
@@ -278,9 +278,9 @@
 
             set
             {
-                if (value > CurrentMaxStrength)
+                if (value > this.CurrentMaxStrength)
                 {
-                    value = CurrentMaxStrength;
+                    value = this.CurrentMaxStrength;
                 }
 
                 this.strength = value;
@@ -314,9 +314,9 @@
 
             set
             {
-                if (value > CurrentMaxDamage)
+                if (value > this.CurrentMaxDamage)
                 {
-                    value = CurrentMaxDamage;
+                    value = this.CurrentMaxDamage;
                 }
 
                 this.damage = value;

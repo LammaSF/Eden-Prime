@@ -1,12 +1,12 @@
-﻿using EmojiHunter.GameAnimation;
-using EmojiHunter.GameData;
-using EmojiHunter.UIComponents;
-using Microsoft.Xna.Framework;
-using System;
-using System.Linq;
-
-namespace EmojiHunter.GameHelpers
+﻿namespace EmojiHunter.GameHelpers
 {
+    using System;
+    using System.Linq;
+    using EmojiHunter.GameAnimation;
+    using EmojiHunter.GameData;
+    using EmojiHunter.UIComponents;
+    using Microsoft.Xna.Framework;
+
     public class UIEmoticonGenerator
     {
         public const int MaxEmoticonCount = 15;

@@ -38,7 +38,7 @@ namespace EmojiHunter.UIComponents
         {
             if (this.Emoticon is IShooting)
             {
-                Shoot(gameTime);
+                this.Shoot(gameTime);
             }
 
             this.Move();
@@ -113,17 +113,20 @@ namespace EmojiHunter.UIComponents
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch);
+            this.Sprite.Draw(spriteBatch);
         }
 
         private void Move()
         {
-            if (this.direction.X < 0 && this.position.X < 0) // if leave the screen while moving left
+            //// if leave the screen while moving left
+            if (this.direction.X < 0 && this.position.X < 0) 
             {
-                this.direction = new Vector2(Math.Abs(this.GetRandomFloat()), this.GetRandomFloat()); // move right
+                //// move right
+                this.direction = new Vector2(Math.Abs(this.GetRandomFloat()), this.GetRandomFloat()); 
             }
 
-            if (this.direction.X > 0 && this.position.X > 1600 - Sprite.Rectangle.Width) // ISSUE - hardcoded
+            //// ISSUE - hardcoded
+            if (this.direction.X > 0 && this.position.X > 1600 - this.Sprite.Rectangle.Width) 
             {
                 this.direction = new Vector2(-Math.Abs(this.GetRandomFloat()), this.GetRandomFloat());
             }
@@ -133,12 +136,14 @@ namespace EmojiHunter.UIComponents
                 this.direction = new Vector2(this.GetRandomFloat(), Math.Abs(this.GetRandomFloat()));
             }
 
-            if (this.direction.Y > 0 && this.position.Y > 900 - Sprite.Rectangle.Height) // ISSUE - hardcoded
+            //// ISSUE - hardcoded
+            if (this.direction.Y > 0 && this.position.Y > 900 - this.Sprite.Rectangle.Height) 
             {
                 this.direction = new Vector2(this.GetRandomFloat(), -Math.Abs(this.GetRandomFloat()));
             }
 
-            this.direction.Normalize(); // get unit velocity vector
+            //// get unit velocity vector
+            this.direction.Normalize(); 
 
             this.position += this.Emoticon.MovementSpeed * this.direction;
             this.Sprite.Position = this.position;

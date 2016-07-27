@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-
-namespace EmojiHunter.GameData.Maps
+﻿namespace EmojiHunter.GameData.Maps
 {
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+
     public abstract class Map
     {
         protected Dictionary<Vector2, string> positionByObstacle;

@@ -1,9 +1,9 @@
-﻿using EmojiHunter.GameData.Maps;
-using System;
-using System.Collections.Generic;
-
-namespace EmojiHunter.GameData
+﻿namespace EmojiHunter.GameData
 {
+    using System;
+    using System.Collections.Generic;
+    using EmojiHunter.GameData.Maps;
+
     public class MapFactory
     {
         private readonly Dictionary<string, Map> MapByName =

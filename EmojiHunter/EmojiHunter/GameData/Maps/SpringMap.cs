@@ -1,8 +1,8 @@
-﻿using EmojiHunter.GameAnimation;
-using Microsoft.Xna.Framework;
-
-namespace EmojiHunter.GameData.Maps
+﻿namespace EmojiHunter.GameData.Maps
 {
+    using EmojiHunter.GameAnimation;
+    using Microsoft.Xna.Framework;
+
     public class SpringMap : Map
     {
         public SpringMap()

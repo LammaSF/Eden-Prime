@@ -13,27 +13,27 @@ namespace EmojiHunter.UIComponents
 
         public UISight(AnimatedSprite sprite)
         {
-            Sprite = sprite;
+            this.Sprite = sprite;
         }
 
         public AnimatedSprite Sprite { get; set; }
 
         public void Update(GameTime gameTime)
         {
-            Sprite.Update(gameTime);
+            this.Sprite.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch);
+            this.Sprite.Draw(spriteBatch);
         }
 
         public void SetInStartPosition(float x, float y)
         {
-            position.X = x;
-            position.Y = y;
+            this.position.X = x;
+            this.position.Y = y;
 
-            Sprite.Position = position;
+            this.Sprite.Position = this.position;
         }
 
         public void Move(float angle, Vector2 heroPosition)

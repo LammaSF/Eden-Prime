@@ -1,7 +1,7 @@
-﻿using EmojiHunter.GameAnimation;
-
-namespace EmojiHunter.GameData.Heroes
+﻿namespace EmojiHunter.GameData.Heroes
 {
+    using EmojiHunter.GameAnimation;
+
     public class Sagittarius : Hero, IShooting
     {
         private const int DefaultShootingManaCost = 5;
@@ -37,14 +37,14 @@ namespace EmojiHunter.GameData.Heroes
         {
             get
             {
-                return Damage;
+                return this.Damage;
             }
 
             set
             {
-                if (value > CurrentMaxDamage)
+                if (value > this.CurrentMaxDamage)
                 {
-                    value = CurrentMaxDamage;
+                    value = this.CurrentMaxDamage;
                 }
 
                 this.Damage = value;

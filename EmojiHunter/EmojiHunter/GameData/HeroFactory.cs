@@ -1,9 +1,9 @@
-﻿using EmojiHunter.GameData.Heroes;
-using System;
-using System.Collections.Generic;
-
-namespace EmojiHunter.GameData
+﻿namespace EmojiHunter.GameData
 {
+    using System;
+    using System.Collections.Generic;
+    using EmojiHunter.GameData.Heroes;
+
     public class HeroFactory
     {
         private readonly Dictionary<string, Hero> HeroByName =

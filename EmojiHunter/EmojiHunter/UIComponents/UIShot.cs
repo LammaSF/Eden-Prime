@@ -41,10 +41,10 @@ namespace EmojiHunter.UIComponents
         private bool IsOutsideMapBorders()
         {
             // Hardcoded much ?!
-            return position.X < -this.Sprite.Rectangle.Width
-                || position.Y < -this.Sprite.Rectangle.Height
-                || position.X > 1600 + this.Sprite.Rectangle.Width
-                || position.Y > 900 + this.Sprite.Rectangle.Height;
+            return this.position.X < -this.Sprite.Rectangle.Width
+                || this.position.Y < -this.Sprite.Rectangle.Height
+                || this.position.X > 1600 + this.Sprite.Rectangle.Width
+                || this.position.Y > 900 + this.Sprite.Rectangle.Height;
         }
 
         private void CheckForShotObjectCollision()
@@ -100,15 +100,15 @@ namespace EmojiHunter.UIComponents
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch);
+            this.Sprite.Draw(spriteBatch);
         }
 
         public void SetInStartPosition(float x, float y)
         {
-            position.X = x;
-            position.Y = y;
+            this.position.X = x;
+            this.position.Y = y;
 
-            Sprite.Position = position;
+            this.Sprite.Position = this.position;
         }
 
         public void SetInMotion(float x, float y)

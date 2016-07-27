@@ -12,7 +12,7 @@
 
         public MainMenu()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             this.mapName = this.mapSpringLabel.Text;
             this.heroName = this.sagittariusHeroLabel.Text;
