@@ -1,9 +1,9 @@
-﻿using EmojiHunter.GameAnimation;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using EmojiHunter.GameAnimation;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class UIObstacle : IUIObject
     {
         public UIObstacle(AnimatedSprite sprite)

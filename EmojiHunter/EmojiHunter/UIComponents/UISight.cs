@@ -1,10 +1,10 @@
-﻿using System;
-using EmojiHunter.GameAnimation;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using System;
+    using EmojiHunter.GameAnimation;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class UISight
     {
         private const int HeroSpriteSize = 32;

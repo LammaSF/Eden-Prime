@@ -1,12 +1,12 @@
-﻿using EmojiHunter.GameAnimation;
-using EmojiHunter.GameData;
-using EmojiHunter.GameData.Emoticons;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using System;
+    using EmojiHunter.GameAnimation;
+    using EmojiHunter.GameData;
+    using EmojiHunter.GameData.Emoticons;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class UIEmoticon : IUIObject
     {
         private SpriteData spriteData;

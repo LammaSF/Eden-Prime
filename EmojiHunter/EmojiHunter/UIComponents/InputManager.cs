@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Xna.Framework.Input;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using Microsoft.Xna.Framework.Input;
+
     // check for keys pressed and released
     public class InputManager
     {

@@ -2,6 +2,23 @@
 {
     public partial class MainMenu
     {
+        private System.Windows.Forms.Button newGameButton;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.Button resumeButton;
+        private System.Windows.Forms.Button optionsButton;
+        private System.Windows.Forms.Button exitButton;
+
+        private System.Windows.Forms.Label heroLabel;
+        private System.Windows.Forms.Label mapLabel;
+        private System.Windows.Forms.Label mapSpringLabel;
+        private System.Windows.Forms.Label sagittariusHeroLabel;
+        private System.Windows.Forms.Label aquariusHeroLabel;
+        private System.Windows.Forms.Label mapCenterLabel;
+        private System.Windows.Forms.Button highscoreButton;
+        private System.Windows.Forms.Label controlsLabel;
+        private System.Windows.Forms.Label highscoresLabel;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -297,21 +314,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button newGameButton;
-        private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button loadButton;
-        private System.Windows.Forms.Button resumeButton;
-        private System.Windows.Forms.Button optionsButton;
-        private System.Windows.Forms.Button exitButton;
-
-        private System.Windows.Forms.Label heroLabel;
-        private System.Windows.Forms.Label mapLabel;
-        private System.Windows.Forms.Label mapSpringLabel;
-        private System.Windows.Forms.Label sagittariusHeroLabel;
-        private System.Windows.Forms.Label aquariusHeroLabel;
-        private System.Windows.Forms.Label mapCenterLabel;
-        private System.Windows.Forms.Button highscoreButton;
-        private System.Windows.Forms.Label controlsLabel;
-        private System.Windows.Forms.Label highscoresLabel;
+        
     }
 }

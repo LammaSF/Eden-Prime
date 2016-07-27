@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static class UIObjectContainer
     {
         private static Dictionary<ulong, IUIObject> UIObjectByID;
+
+        public static List<IUIObject> UIObjects =>
+            UIObjectContainer.UIObjectByID.Select(s => s.Value).ToList();
 
         static UIObjectContainer()
         {
@@ -22,7 +25,6 @@ namespace EmojiHunter.UIComponents
             UIObjectContainer.UIObjectByID.Remove(uiObjectID);
         }
 
-        public static List<IUIObject> UIObjects =>
-            UIObjectContainer.UIObjectByID.Select(s => s.Value).ToList();
+
     }
 }

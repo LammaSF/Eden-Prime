@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace EmojiHunter
+﻿namespace EmojiHunter
 {
+    using System;
+    using System.Windows.Forms;
+
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.

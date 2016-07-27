@@ -1,11 +1,11 @@
-﻿using EmojiHunter.GameAnimation;
-using EmojiHunter.GameData;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EmojiHunter.GameHelpers;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using EmojiHunter.GameAnimation;
+    using EmojiHunter.GameData;
+    using EmojiHunter.GameHelpers;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class UIShot : IUIObject
     {
         private float speed;

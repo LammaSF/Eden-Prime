@@ -4,12 +4,12 @@
 
     public class SpriteData
     {
-        public Dictionary<string, AnimatedSprite> SpriteByName { get; private set; }
-
         public SpriteData()
         {
             this.SpriteByName = new Dictionary<string, AnimatedSprite>();
         }
+
+        public Dictionary<string, AnimatedSprite> SpriteByName { get; private set; }
 
         public AnimatedSprite DuplicateSprite(AnimatedSprite sprite)
         {
