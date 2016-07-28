@@ -38,6 +38,31 @@
             this.Sprite.Update(gameTime);
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            this.Sprite.Draw(spriteBatch);
+        }
+
+        public void SetInStartPosition(float x, float y)
+        {
+            this.position.X = x;
+            this.position.Y = y;
+
+            this.Sprite.Position = this.position;
+        }
+
+        public void SetInMotion(float x, float y)
+        {
+            this.motion.X = x;
+            this.motion.Y = y;
+        }
+
+        public void Move()
+        {
+            this.position += this.motion * this.speed;
+            this.Sprite.Position = this.position;
+        }
+
         private bool IsOutsideMapBorders()
         {
             // Hardcoded much ?!
@@ -96,31 +121,6 @@
                     }
                 }
             }
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            this.Sprite.Draw(spriteBatch);
-        }
-
-        public void SetInStartPosition(float x, float y)
-        {
-            this.position.X = x;
-            this.position.Y = y;
-
-            this.Sprite.Position = this.position;
-        }
-
-        public void SetInMotion(float x, float y)
-        {
-            this.motion.X = x;
-            this.motion.Y = y;
-        }
-
-        public void Move()
-        {
-            this.position += this.motion * this.speed;
-            this.Sprite.Position = this.position;
         }
     }
 }

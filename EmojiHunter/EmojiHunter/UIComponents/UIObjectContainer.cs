@@ -5,26 +5,24 @@
 
     public static class UIObjectContainer
     {
-        private static Dictionary<ulong, IUIObject> UIObjectByID;
-
-        public static List<IUIObject> UIObjects =>
-            UIObjectContainer.UIObjectByID.Select(s => s.Value).ToList();
+        private static Dictionary<ulong, IUIObject> uiObjectByID;
 
         static UIObjectContainer()
         {
-            UIObjectContainer.UIObjectByID = new Dictionary<ulong, IUIObject>();
+            UIObjectContainer.uiObjectByID = new Dictionary<ulong, IUIObject>();
         }
+
+        public static List<IUIObject> UIObjects =>
+            UIObjectContainer.uiObjectByID.Select(s => s.Value).ToList();
 
         public static void AddUIObject(IUIObject uiObject)
         {
-            UIObjectContainer.UIObjectByID.Add(uiObject.Sprite.ID, uiObject);
+            UIObjectContainer.uiObjectByID.Add(uiObject.Sprite.ID, uiObject);
         }
 
         public static void RemoveUIObject(ulong uiObjectID)
         {
-            UIObjectContainer.UIObjectByID.Remove(uiObjectID);
+            UIObjectContainer.uiObjectByID.Remove(uiObjectID);
         }
-
-
     }
 }

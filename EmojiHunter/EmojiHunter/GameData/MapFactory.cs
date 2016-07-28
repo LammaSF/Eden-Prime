@@ -6,7 +6,7 @@
 
     public class MapFactory
     {
-        private readonly Dictionary<string, Map> MapByName =
+        private readonly Dictionary<string, Map> mapByName =
             new Dictionary<string, Map>()
             {
                 ["center"] = new CenterMap(),
@@ -16,9 +16,9 @@
         public Map CreateMap(string mapName)
         {
             string name = mapName.ToLower();
-            if (this.MapByName.ContainsKey(name))
+            if (this.mapByName.ContainsKey(name))
             {
-                return this.MapByName[name];
+                return this.mapByName[name];
             }
 
             throw new InvalidOperationException("Such map name does not exist.");

@@ -48,6 +48,19 @@
             this.Sprite.Update(gameTime);
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            this.Sprite.Draw(spriteBatch);
+        }
+
+        public void SetInStartPosition(float x, float y)
+        {
+            this.position.X = x;
+            this.position.Y = y;
+
+            this.Sprite.Position = this.position;
+        }
+
         private void CheckForEmoticonObjectCollision()
         {
             foreach (var uiObject in UIObjectContainer.UIObjects)
@@ -111,11 +124,6 @@
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            this.Sprite.Draw(spriteBatch);
-        }
-
         private void Move()
         {
             //// if leave the screen while moving left
@@ -146,14 +154,6 @@
             this.direction.Normalize(); 
 
             this.position += this.Emoticon.MovementSpeed * this.direction;
-            this.Sprite.Position = this.position;
-        }
-
-        public void SetInStartPosition(float x, float y)
-        {
-            this.position.X = x;
-            this.position.Y = y;
-
             this.Sprite.Position = this.position;
         }
 

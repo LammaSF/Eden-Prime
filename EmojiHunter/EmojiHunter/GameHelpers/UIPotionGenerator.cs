@@ -13,13 +13,18 @@
 
         private const int PotionSpriteSize = 30;
 
-        private static int currentPotionCount;
-
         private static readonly int FieldWidth = 1600 - PotionSpriteSize - 1;
 
         private static readonly int FieldHeight = 900 - PotionSpriteSize - 1;
 
+        private static int currentPotionCount;
+
         private static Random random;
+
+        static UIPotionGenerator()
+        {
+            UIPotionGenerator.random = new Random();
+        }
 
         public static int CurrentPotionCount
         {
@@ -32,11 +37,6 @@
             {
                 currentPotionCount = value;
             }
-        }
-
-        static UIPotionGenerator()
-        {
-            UIPotionGenerator.random = new Random();
         }
 
         public static UIPotion GeneratePotion(SpriteData spriteData)

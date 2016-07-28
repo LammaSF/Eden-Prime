@@ -5,8 +5,9 @@
     // check for keys pressed and released
     public class InputManager
     {
-        private KeyboardState currentKeyState, prevKeyState;
         private static InputManager instance;
+
+        private KeyboardState currentKeyState, prevKeyState;
 
         public static InputManager Instance
         {

@@ -17,15 +17,21 @@
 
         private const int EmoticonSpriteSize = 50;
 
-        private static int currentEmoticonCount;
-
         private static readonly int FieldWidth = 1600 - EmoticonSpriteSize - 1;
 
         private static readonly int FieldHeight = 900 - EmoticonSpriteSize - 1;
 
+        private static int currentEmoticonCount;
+
         private static EmoticonFactory emoticonFactory;
 
         private static Random random;
+
+        static UIEmoticonGenerator()
+        {
+            UIEmoticonGenerator.random = new Random();
+            UIEmoticonGenerator.emoticonFactory = new EmoticonFactory();
+        }
 
         public static int CurrentEmoticonCount
         {
@@ -38,12 +44,6 @@
             {
                 currentEmoticonCount = value;
             }
-        }
-
-        static UIEmoticonGenerator()
-        {
-            UIEmoticonGenerator.random = new Random();
-            UIEmoticonGenerator.emoticonFactory = new EmoticonFactory();
         }
 
         public static UIEmoticon GenerateEmoticon(SpriteData spriteData, Vector2 heroPosition)

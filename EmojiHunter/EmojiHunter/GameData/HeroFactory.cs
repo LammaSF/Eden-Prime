@@ -6,7 +6,7 @@
 
     public class HeroFactory
     {
-        private readonly Dictionary<string, Hero> HeroByName =
+        private readonly Dictionary<string, Hero> heroByName =
             new Dictionary<string, Hero>()
             {
                 ["sagittarius"] = new Sagittarius("Sagittarius"),
@@ -16,9 +16,9 @@
         public Hero CreateHero(string heroName)
         {
             string name = heroName.ToLower();
-            if (this.HeroByName.ContainsKey(name))
+            if (this.heroByName.ContainsKey(name))
             {
-                return this.HeroByName[name];
+                return this.heroByName[name];
             }
 
             throw new InvalidOperationException("Such hero name does not exist.");

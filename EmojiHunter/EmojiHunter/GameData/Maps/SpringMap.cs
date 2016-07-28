@@ -7,7 +7,7 @@
     {
         public SpringMap()
         {
-            this.positionByObstacle =
+            this.PositionByObstacle =
                 new System.Collections.Generic.Dictionary<Vector2, string>()
                 {
                     [new Vector2(800, 100)] = $"{ObstacleType.Tree5}",

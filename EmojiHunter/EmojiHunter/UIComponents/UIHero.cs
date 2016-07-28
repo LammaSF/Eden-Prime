@@ -1,17 +1,16 @@
 ﻿namespace EmojiHunter.UIComponents
 {
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Content;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
     using System;
     using System.Collections.Generic;
-
     using GameAnimation;
     using GameData;
     using GameData.Emoticons;
     using GameData.Heroes;
     using GameHelpers;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
 
     public enum Direction
     {
@@ -37,7 +36,7 @@
 
     public class UIHero : IUIObject
     {
-        private readonly Dictionary<Direction, Vector2> MotionByDirection =
+        private readonly Dictionary<Direction, Vector2> motionByDirection =
             new Dictionary<Direction, Vector2>()
             {
                 [Direction.Right] = new Vector2(1, 0),
@@ -520,7 +519,7 @@
         {
             if (this.lastDirection != Direction.None)
             {
-                this.Position += 150 * this.MotionByDirection[this.lastDirection];
+                this.Position += 150 * this.motionByDirection[this.lastDirection];
                 this.Sprite.Position = this.Position;
             }
         }
@@ -531,7 +530,7 @@
             {
                 this.Sprite.AnimationIndex = animationIndex;
                 this.lastDirection = direction;
-                this.motion = this.MotionByDirection[direction];
+                this.motion = this.motionByDirection[direction];
             }
 
             this.Position += this.Hero.MovementSpeed * this.motion;
