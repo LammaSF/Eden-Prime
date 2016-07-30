@@ -94,14 +94,14 @@
 
             this.endScreen = this.Content.Load<Texture2D>(@"Content\Gameover");
 
-            SpriteInitializer.InitializeSprites(this.spriteData, Content);
+            SpriteInitializer.InitializeSprites(this.spriteData, this.Content);
 
             // ***Desperate need of refactoring...
-            this.uiHero = new UIHero(Content, this.spriteData, this.hero);
+            this.uiHero = new UIHero(this.Content, this.spriteData, this.hero);
 
             //// That is not hardcoded at all! Believe me!
             this.uiHero.SetInStartPosition(
-                new Vector2(150, graphics.PreferredBackBufferHeight - 182));
+                new Vector2(150, this.graphics.PreferredBackBufferHeight - 182));
 
             // ***End of need :)
             UIObjectContainer.AddUIObject(this.uiHero);
@@ -125,7 +125,7 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (isGameOver)
+            if (this.isGameOver)
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                     || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -184,13 +184,13 @@
 
             this.spriteBatch.Begin();
 
-            if (isGameOver)
+            if (this.isGameOver)
             {
-                this.spriteBatch.Draw(this.endScreen, screenRectangle, Color.White);
+                this.spriteBatch.Draw(this.endScreen, this.screenRectangle, Color.White);
             }
             else
             {
-                this.spriteBatch.Draw(this.background, screenRectangle, Color.White);
+                this.spriteBatch.Draw(this.background, this.screenRectangle, Color.White);
 
                 foreach (var uiObject in UIObjectContainer.UIObjects)
                 {

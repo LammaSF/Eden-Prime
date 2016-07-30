@@ -13,17 +13,17 @@
     {
         public const int MaxEmoticonCount = 5;
 
-        private const int GoodEmoticonPercentage = 0;
+        private const int GoodEmoticonPercentage = 50;
 
         private const int NoSpawnRadius = 50;
 
         private const int EmoticonSpriteSize = 50;
 
-        public static int CurrentEmoticonCount;
+        private static readonly int FieldWidth = Global.ScreenWidth - EmoticonSpriteSize - 1;
 
-        private static readonly int FieldWidth = 1600 - EmoticonSpriteSize - 1;
+        private static readonly int FieldHeight = Global.ScreenHeight - EmoticonSpriteSize - 1;
 
-        private static readonly int FieldHeight = 900 - EmoticonSpriteSize - 1;
+        private static int currentEmoticonCount;
 
         private static EmoticonFactory emoticonFactory;
 
@@ -33,6 +33,19 @@
         {
             UIEmoticonGenerator.random = new Random();
             UIEmoticonGenerator.emoticonFactory = new EmoticonFactory();
+        }
+
+        public static int CurrentEmoticonCount
+        {
+            get
+            {
+                return currentEmoticonCount;
+            }
+
+            set
+            {
+                currentEmoticonCount = value;
+            }
         }
 
         public static UIEmoticon GenerateEmoticon(SpriteData spriteData, Vector2 heroPosition)
@@ -55,10 +68,10 @@
                 int positionY = random.Next(1, FieldHeight);
 
                 float distanceToPlayer =
-                    (positionX - heroPosition.X)
-                    * (positionX - heroPosition.X)
-                    + (positionY - heroPosition.Y)
-                    * (positionY - heroPosition.Y);
+                    ((positionX - heroPosition.X)
+                    * (positionX - heroPosition.X))
+                    + ((positionY - heroPosition.Y)
+                    * (positionY - heroPosition.Y));
 
                 if (distanceToPlayer > NoSpawnRadius * NoSpawnRadius)
                 {

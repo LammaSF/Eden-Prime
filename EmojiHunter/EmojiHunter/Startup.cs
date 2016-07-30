@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace EmojiHunter
+﻿namespace EmojiHunter
 {
+    using System;
+    using System.Windows.Forms;
+
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.
@@ -13,7 +13,7 @@ namespace EmojiHunter
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             using (var game = new EmojiHunterGame("Spring", "Sagittarius"))
             {

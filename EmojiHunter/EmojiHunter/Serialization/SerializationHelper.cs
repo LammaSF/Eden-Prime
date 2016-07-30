@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Runtime.Serialization;
-
-namespace GameShadow.Serialization
+﻿namespace GameShadow.Serialization
 {
+    using System.IO;
+    using System.Runtime.Serialization;
+
     public class SerializationHelper
     {
         public static void Serialize<T>(T instance, string filePath)

@@ -24,11 +24,14 @@
 
             foreach (var animation in sprite.animations)
             {
-                this.animations.Add(new Animation((Animation   )animation));
+                this.animations.Add(new Animation((Animation)animation));
             }
 
-            this.rectangle = new Rectangle(sprite.Rectangle.X, sprite.Rectangle.Y,
-                sprite.Rectangle.Width, sprite.Rectangle.Height);
+            this.rectangle = new Rectangle(
+                sprite.Rectangle.X, 
+                sprite.Rectangle.Y,
+                sprite.Rectangle.Width, 
+                sprite.Rectangle.Height);
             this.ID = AnimatedSprite.id;
             AnimatedSprite.id++;
         }

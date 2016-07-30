@@ -1,8 +1,7 @@
 ﻿namespace EmojiHunter.Animations
 {
     using System.Collections.Generic;
-    using GameAnimation;
-
+    
     public class SpriteData
     {
         public SpriteData()

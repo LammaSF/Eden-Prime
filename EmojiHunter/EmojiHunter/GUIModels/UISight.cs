@@ -45,8 +45,8 @@
             int offsetY =
                 -(int)(DistanceToHero * HeroSpriteSize * Math.Sin(angle * Math.PI / 180));
 
-            this.position.X = heroPosition.X + HeroSpriteSize / 4 + offsetX;
-            this.position.Y = heroPosition.Y + HeroSpriteSize / 4 + offsetY;
+            this.position.X = heroPosition.X + (HeroSpriteSize / 4) + offsetX;
+            this.position.Y = heroPosition.Y + (HeroSpriteSize / 4) + offsetY;
 
             this.sprite.Position = this.position;
         }

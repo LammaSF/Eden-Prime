@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Xna.Framework.Input;
-
-namespace EmojiHunter.UIComponents
+﻿namespace EmojiHunter.UIComponents
 {
+    using Microsoft.Xna.Framework.Input;
+
     // check for keys pressed and released
     public class InputManager
     {
-        KeyboardState currentKeyState, prevKeyState;
         private static InputManager instance;
+
+        private KeyboardState currentKeyState, prevKeyState;
 
         public static InputManager Instance
         {
@@ -30,8 +24,8 @@ namespace EmojiHunter.UIComponents
 
         public void Update()
         {
-            prevKeyState = currentKeyState;
-            currentKeyState = Keyboard.GetState();
+            this.prevKeyState = this.currentKeyState;
+            this.currentKeyState = Keyboard.GetState();
         }
        
         // check for one time key pressed
@@ -39,7 +33,7 @@ namespace EmojiHunter.UIComponents
         {
             foreach (var key in keys)
             {
-                if (currentKeyState.IsKeyDown(key) && prevKeyState.IsKeyUp(key))
+                if (this.currentKeyState.IsKeyDown(key) && this.prevKeyState.IsKeyUp(key))
                 {
                     return true;
                 }
@@ -52,7 +46,7 @@ namespace EmojiHunter.UIComponents
         {
             foreach (var key in keys)
             {
-                if (currentKeyState.IsKeyUp(key) && prevKeyState.IsKeyDown(key))
+                if (this.currentKeyState.IsKeyUp(key) && this.prevKeyState.IsKeyDown(key))
                 {
                     return true;
                 }
@@ -66,7 +60,7 @@ namespace EmojiHunter.UIComponents
         {
             foreach (var key in keys)
             {
-                if (currentKeyState.IsKeyDown(key))
+                if (this.currentKeyState.IsKeyDown(key))
                 {
                     return true;
                 }

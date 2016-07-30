@@ -5,7 +5,6 @@
     using EmojiHunter.Animations;
     using EmojiHunter.Repository;
     using Enumerations;
-    using GameAnimation;
     using GUIModels;
     using Models.Miscellaneous;
     using Microsoft.Xna.Framework;
@@ -16,17 +15,30 @@
 
         private const int PotionSpriteSize = 30;
 
-        public static int CurrentPotionCount;
-
         private static readonly int FieldWidth = 1600 - PotionSpriteSize - 1;
 
         private static readonly int FieldHeight = 900 - PotionSpriteSize - 1;
+
+        private static int currentPotionCount;
 
         private static Random random;
 
         static UIPotionGenerator()
         {
             UIPotionGenerator.random = new Random();
+        }
+
+        public static int CurrentPotionCount
+        {
+            get
+            {
+                return currentPotionCount;
+            }
+
+            set
+            {
+                currentPotionCount = value;
+            }
         }
 
         public static UIPotion GeneratePotion(SpriteData spriteData)
