@@ -1,0 +1,11 @@
+﻿1. New Freeze Emoticon State - the Emoticon freezes
+2. State Pattern in Bad Emoticons
+3. No magic strings/numbers
+4. Loose coupling/Strong Cohesion
+5. Way more abstract project
+6. Loading obstacles from XML file
+7. Functional menu (resume, save, load, highscore)
+8. Indications for emoticon health/armor; good and bad emoticons 
+9. Better emoticon movement and shooting
+
+

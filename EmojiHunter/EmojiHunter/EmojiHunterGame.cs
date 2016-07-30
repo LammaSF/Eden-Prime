@@ -3,26 +3,22 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
-
     using GameAnimation;
-    using GameData;
-    using GameData.Maps;
-    using GameHelpers;
-    using UIComponents;
     using System;
-    
+    using EmojiHunter.Animations;
+    using EmojiHunter.Factories;
+    using EmojiHunter.Helpers;
+    using EmojiHunter.Models.Heroes;
+    using EmojiHunter.Models.Maps;
+    using EmojiHunter.Repository;
+    using GUIModels;
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     /// 
     public class EmojiHunterGame : Game
     {
-        private const int PauseDelay = 500; // in ms
-
-        private const int ScreenWidth = 1600;
-
-        private const int ScreenHeight = 900;
-
         private GraphicsDeviceManager graphics;
 
         private SpriteBatch spriteBatch;
@@ -49,19 +45,22 @@
 
         public EmojiHunterGame(string mapName, string heroName)
         {
-            this.graphics = new GraphicsDeviceManager(this);
-            this.graphics.PreferredBackBufferWidth = ScreenWidth;
-            this.graphics.PreferredBackBufferHeight = ScreenHeight;
-            this.graphics.ToggleFullScreen();
+            this.graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = Global.ScreenWidth,
+                PreferredBackBufferHeight = Global.ScreenHeight
+            };
+
+            //this.graphics.ToggleFullScreen();
 
             this.map = new MapFactory().CreateMap(mapName);
             this.hero = new HeroFactory().CreateHero(heroName);
 
             this.screenRectangle = new Rectangle(
                 0,
-                0,
-                graphics.PreferredBackBufferWidth,
-                graphics.PreferredBackBufferHeight);
+                0, 
+                this.graphics.PreferredBackBufferWidth, 
+                this.graphics.PreferredBackBufferHeight);
 
             this.paused = false;
             this.isGameOver = false;
@@ -91,9 +90,9 @@
 
             this.spriteData = new SpriteData();
 
-            this.background = Content.Load<Texture2D>(@"Content\Background");
+            this.background = this.Content.Load<Texture2D>(@"Content\Background");
 
-            this.endScreen = Content.Load<Texture2D>(@"Content\Gameover");
+            this.endScreen = this.Content.Load<Texture2D>(@"Content\Gameover");
 
             SpriteInitializer.InitializeSprites(this.spriteData, Content);
 
@@ -141,7 +140,7 @@
 
             if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                && lastPauseElapsedTime > PauseDelay)
+                && lastPauseElapsedTime > Global.PauseDelay)
             {
                 this.paused = !this.paused;
                 this.lastPauseElapsedTime = 0;
