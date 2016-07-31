@@ -3,11 +3,12 @@
     using System;
     using System.Linq;
     using Animations;
+    using Contracts;
+    using GUIModels.UIEmoticonMoveBehaviors;
     using Repository;
     using Enumerations;
     using Factories;
     using GUIModels;
-    using Microsoft.Xna.Framework;
 
     public class UIEmoticonGenerator
     {
@@ -45,9 +46,25 @@
 
             var emoticon = emoticonFactory.CreateEmoticon($"{emoticonType}");
 
-            var sprite = spriteData.DuplicateSprite(emoticon.Name);
+            IMoveBehavior moveBehavior;
+            if (emoticon is IMelee)
+            {
+                moveBehavior = new MeleeMoveBehavior(uiHero);                
+            }
+            else if (emoticon is IShooting)
+            {
+                moveBehavior = new ShootingMoveBehavior(uiHero);
+            }
+            else
+            {
+                moveBehavior = new RunAwayMoveBehavior(uiHero);
+            }
 
-            var uiEmoticon = new UIEmoticon(spriteData, emoticon, sprite, uiHero);
+            var sprite = spriteData.DuplicateSprite(emoticon.Name);
+            var uiEmoticon = new UIEmoticon(spriteData, emoticon, sprite, uiHero)
+            {
+                MoveBehavior = moveBehavior
+            };
 
             while (true)
             {

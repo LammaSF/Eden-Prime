@@ -1,6 +1,8 @@
 ﻿namespace EmojiHunter.Models.Emoticons.BadEmoticons
 {
-    public class AngryEmoticon : Emoticon
+    using Contracts;
+
+    public class AngryEmoticon : Emoticon, IMelee
     {
         private const int DefaultHealth = 100;
 

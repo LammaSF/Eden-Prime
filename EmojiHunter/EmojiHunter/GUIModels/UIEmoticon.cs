@@ -16,13 +16,11 @@
 
         private SpriteData spriteData;
 
-        private Vector2 position;
-
-        private Vector2 direction;
-
         private bool isShooting;
 
         private int lastShotElapsedTime;
+
+        private IMoveBehavior moveBehavior;
 
         public UIEmoticon(SpriteData spriteData, IGameObject emoticon, ISprite sprite, UIHero uiHero)
         {
@@ -34,9 +32,21 @@
             this.uiHero = uiHero;
         }
 
+        public Vector2 Position { get; set; }
+
+        public Vector2 Direction { get; set; }
+
         public ISprite Sprite { get; set; }
 
         public IGameObject GameObject { get; set; }
+
+        public IMoveBehavior MoveBehavior
+        {
+            set
+            {
+                this.moveBehavior = value;
+            }
+        }
 
         public void Update(GameTime gameTime)
         {
@@ -46,9 +56,7 @@
             }
 
             this.Move();
-
             this.CheckForEmoticonObjectCollision();
-
             this.Sprite.Update(gameTime);
         }
 
@@ -59,10 +67,8 @@
 
         public void SetStartPosition(float x, float y)
         {
-            this.position.X = x;
-            this.position.Y = y;
-
-            this.Sprite.Position = this.position;
+            this.Position = new Vector2(x, y);
+            this.Sprite.Position = this.Position;
         }
 
         private void CheckForEmoticonObjectCollision()
@@ -73,7 +79,7 @@
                     && this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
                 {
                     this.GameObject.ReactOnCollision(uiObject.GameObject);
-                    this.direction = -this.direction;
+                    this.Direction = -this.Direction;
                 }
             }
         }
@@ -97,8 +103,8 @@
 
                 var uiShot = new UIShot(shot, sprite);
 
-                var positionX = this.position.X + this.Sprite.Rectangle.Width / 2 - uiShot.Sprite.Rectangle.Width / 2;
-                var positionY = this.position.Y + this.Sprite.Rectangle.Height / 2 - uiShot.Sprite.Rectangle.Height / 2;
+                var positionX = this.Position.X + this.Sprite.Rectangle.Width / 2 - uiShot.Sprite.Rectangle.Width / 2;
+                var positionY = this.Position.Y + this.Sprite.Rectangle.Height / 2 - uiShot.Sprite.Rectangle.Height / 2;
 
                 uiShot.SetStartPosition(positionX, positionY);
 
@@ -117,10 +123,7 @@
 
         private void Move()
         {
-
-
-            this.position += this.GameObject.State.MovementSpeed * this.direction;
-            this.Sprite.Position = this.position;
+            this.moveBehavior.Move(this);
         }
 
         private void OnDestroyEventHandler(object sender, EventArgs e)

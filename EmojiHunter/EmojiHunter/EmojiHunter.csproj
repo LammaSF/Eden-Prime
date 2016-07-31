@@ -56,6 +56,8 @@
   <ItemGroup>
     <Compile Include="Contracts\IAnimation.cs" />
     <Compile Include="Contracts\ICollidable.cs" />
+    <Compile Include="Contracts\IMelee.cs" />
+    <Compile Include="Contracts\IMoveBehavior.cs" />
     <Compile Include="Contracts\IDestroyable.cs" />
     <Compile Include="Contracts\IDrawable.cs" />
     <Compile Include="Contracts\IGameObject.cs" />
@@ -87,6 +89,11 @@
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Enumerations\MiscellaneousType.cs" />
     <Compile Include="Enumerations\SpellShotType.cs" />
+    <Compile Include="GUIModels\UIEmoticonMoveBehaviors\CrazyMoveBehavior.cs" />
+    <Compile Include="GUIModels\UIEmoticonMoveBehaviors\MeleeMoveBehavior.cs" />
+    <Compile Include="GUIModels\UIEmoticonMoveBehaviors\MoveBehavior.cs" />
+    <Compile Include="GUIModels\UIEmoticonMoveBehaviors\RunAwayMoveBehavior.cs" />
+    <Compile Include="GUIModels\UIEmoticonMoveBehaviors\ShootingMoveBehavior.cs" />
     <Compile Include="IO\HeroActionController.cs" />
     <Compile Include="IO\HeroStatisticsDrawer.cs" />
     <Compile Include="Models\Emoticons\BadEmoticons\AngryEmoticon.cs" />
