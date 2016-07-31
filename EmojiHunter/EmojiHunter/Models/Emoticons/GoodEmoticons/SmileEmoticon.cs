@@ -1,8 +1,8 @@
 ﻿namespace EmojiHunter.Models.Emoticons.GoodEmoticons
 {
-    using EmojiHunter.Contracts;
-    using EmojiHunter.Models.Emoticons;
-    using EmojiHunter.Models.Miscellaneous;
+    using Contracts;
+    using Emoticons;
+    using Miscellaneous;
 
     public class SmileEmoticon : Emoticon
     {
@@ -25,6 +25,6 @@
             this.Reward = new Reward(0, 0, 0, StrengthBoostValue, 0);
         }
 
-        public override IReward Reward { get; }
+        public override IReward Reward { get; set; }
     }
 }

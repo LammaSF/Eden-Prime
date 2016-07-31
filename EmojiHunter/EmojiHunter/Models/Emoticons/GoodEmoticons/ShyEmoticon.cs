@@ -25,6 +25,6 @@
             this.Reward = new Reward(0, 0, 0, 0, SpeedBoostValue);
         }
 
-        public override IReward Reward { get; }
+        public override IReward Reward { get; set; }
     }
 }

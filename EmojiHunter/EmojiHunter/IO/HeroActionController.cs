@@ -77,15 +77,11 @@
         private void CheckKeyboardInput(GameTime gameTime)
         {
             this.ProcessMovement();
-
             this.ProcessShootingAngle();
-
             this.uiHero.UISight.Move(this.sagittarius.ShootingAngle, this.uiHero.Position);
-
+            this.ProcessShootingSpellType();
             this.ProcessShooting(gameTime);
-
             this.ProcessTeleportation(gameTime);
-
             this.ProcessSprint();
         }
 
@@ -101,6 +97,21 @@
             else if (keyRotateRight)
             {
                 this.sagittarius.ShootingAngle -= this.sagittarius.SightSpeed;
+            }
+        }
+
+        private void ProcessShootingSpellType()
+        {
+            bool keySunball = this.inputManager.KeyDown(Keys.Q);
+            bool keyIceball = this.inputManager.KeyDown(Keys.W);
+
+            if (keySunball)
+            {
+                this.sagittarius.ShotType = SpellShotType.Sunball;
+            }
+            else if (keyIceball)
+            {
+                this.sagittarius.ShotType = SpellShotType.Iceball;
             }
         }
 

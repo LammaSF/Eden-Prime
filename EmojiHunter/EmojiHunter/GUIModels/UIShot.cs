@@ -1,7 +1,12 @@
 ﻿namespace EmojiHunter.GUIModels
 {
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Contracts;
+    using Enumerations;
+    using Models.Heroes;
+    using Models.LivingObjectStates;
     using Repository;
     using Helpers;
     using Microsoft.Xna.Framework;
@@ -9,14 +14,21 @@
 
     public class UIShot : IUIObject
     {
+        private const int IceballFreezeTime = 3000; // in ms
+
         private float speed;
 
         private Vector2 position;
 
         private Vector2 direction;
 
+        private bool isHeroIceball;
+
         public UIShot(IGameObject gameObject, ISprite sprite)
         {
+            var shot = (gameObject as IShot);
+            this.isHeroIceball = shot.Type == SpellShotType.Iceball
+                && shot.ID == nameof(Sagittarius);
             this.GameObject = gameObject;
             this.GameObject.Destroy += this.OnDestroyEventHandler;
             this.speed = gameObject.State.MovementSpeed;
@@ -84,7 +96,43 @@
                     && this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
                 {
                     this.ExecuteObjectCollision(uiObject);
+                    if (isHeroIceball)
+                    {
+                        this.CheckForIceballShotCollision(uiObject);
+                    }
                 }
+            }
+        }
+
+        private void CheckForIceballShotCollision(IUIObject uiObject)
+        {
+            if (uiObject is UIEmoticon)
+            {
+                var previousState = uiObject.GameObject.State;
+                uiObject.GameObject.State = new FreezeState(
+                    uiObject.GameObject.State.Health,
+                    uiObject.GameObject.State.Armor
+                    );
+                var position = uiObject.Sprite.Position;
+                uiObject.Sprite.AnimationIndex = 2;
+                uiObject.Sprite.Position = position;
+
+                Task.Run(() =>
+                {
+                    Thread.Sleep(IceballFreezeTime);
+
+                    lock (this)
+                    {
+                        var health = uiObject.GameObject.State.Health;
+                        var armor = uiObject.GameObject.State.Armor;
+                        this.GameObject.State = previousState;
+                        this.GameObject.State.Health = health;
+                        this.GameObject.State.Armor = armor;
+                        position = uiObject.Sprite.Position;
+                        uiObject.Sprite.AnimationIndex = 0;
+                        uiObject.Sprite.Position = position; 
+                    }
+                });
             }
         }
 

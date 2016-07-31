@@ -17,7 +17,7 @@
 
         public virtual event EventHandler Destroy;
 
-        public virtual IReward Reward { get; }
+        public virtual IReward Reward { get; set; }
 
         public virtual IState State
         {

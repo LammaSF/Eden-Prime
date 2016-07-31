@@ -8,6 +8,6 @@
 
         float ShootingDelay { get; }
 
-        SpellShotType ShotType { get; }
+        SpellShotType ShotType { get; set; }
     }
 }

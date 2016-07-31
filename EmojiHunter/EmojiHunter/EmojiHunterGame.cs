@@ -3,7 +3,6 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
-    using GameAnimation;
     using System;
     using Animations;
     using UIComponents;
@@ -151,7 +150,7 @@
 
             if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                && lastPauseElapsedTime > Global.PauseDelay)
+                && this.lastPauseElapsedTime > Global.PauseDelay)
             {
                 this.paused = !this.paused;
                 this.lastPauseElapsedTime = 0;

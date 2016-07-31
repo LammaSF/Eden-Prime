@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-namespace EmojiHunter.GameAnimation
+﻿namespace EmojiHunter.Animations
 {
     using System.Collections.Generic;
-    using EmojiHunter.Animations;
     using Enumerations;
-    
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+
     public static class SpriteInitializer
     {
         private const float HeroFrameDuration = 250f;

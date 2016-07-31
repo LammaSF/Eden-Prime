@@ -8,6 +8,8 @@
 
         public const int PauseDelay = 500; // in ms
 
+        public const int PointsPerKill = 5;
+
         public static int Kills { get; set; }
 
         public static int Points { get; set; }

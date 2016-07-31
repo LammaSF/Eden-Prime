@@ -25,6 +25,6 @@
             this.Reward = new Reward(HealthBoostValue, 0, 0, 0, 0);
         }
 
-        public override IReward Reward { get; }
+        public override IReward Reward { get; set; }
     }
 }

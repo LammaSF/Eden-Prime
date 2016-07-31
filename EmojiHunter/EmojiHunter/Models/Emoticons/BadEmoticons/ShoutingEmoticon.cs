@@ -27,13 +27,14 @@
             base.State.Armor = DefaultArmor;
             base.State.Damage = DefaultDamage;
             base.State.MovementSpeed = DefaultMovementSpeed;
+            this.ShotType = DefaultShotType;
         }
 
         public float ShootingSpeed => DefaultShootingSpeed;
 
         public float ShootingDelay => DefaultShootingDelay;
 
-        public SpellShotType ShotType => DefaultShotType;
+        public SpellShotType ShotType { get; set; }
 
         public override void ReactOnCollision(IGameObject other)
         {

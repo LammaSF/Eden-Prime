@@ -21,6 +21,7 @@
         public Sagittarius(string name) : base(name)
         {
             this.ShootingAngle = DefaultShootingAngle;
+            this.ShotType = DefaultShotType;
         }
 
         public int ShootingManaCost => DefaultShootingManaCost;
@@ -33,7 +34,7 @@
 
         public float SightSpeed => DefaultSightSpeed;
 
-        public SpellShotType ShotType => DefaultShotType;
+        public SpellShotType ShotType { get; set; }
 
         public override void ReactOnCollision(IGameObject other)
         {

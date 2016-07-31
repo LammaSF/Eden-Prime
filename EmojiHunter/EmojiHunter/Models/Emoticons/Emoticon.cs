@@ -14,7 +14,7 @@
             {
                 return;
             }
-
+            
             base.ReactOnCollision(other);
         }
     }

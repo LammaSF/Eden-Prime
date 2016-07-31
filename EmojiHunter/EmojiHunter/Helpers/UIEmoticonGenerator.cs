@@ -12,6 +12,8 @@
 
     public class UIEmoticonGenerator
     {
+        public const int MaxCrazyCount = 1;
+
         public const int MaxEmoticonCount = 5;
 
         private const int GoodEmoticonPercentage = 50;
@@ -33,6 +35,8 @@
             UIEmoticonGenerator.random = new Random();
             UIEmoticonGenerator.emoticonFactory = new EmoticonFactory();
         }
+
+        public static int CurrentCrazyCount { get; set; }
 
         public static int CurrentEmoticonCount { get; set; }
 
