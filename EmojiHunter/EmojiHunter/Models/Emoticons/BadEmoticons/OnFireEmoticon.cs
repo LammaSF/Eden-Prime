@@ -15,7 +15,7 @@
 
         private const float DefaultMovementSpeed = 2f;
 
-        private const float DefaultShootingSpeed = 6f;
+        private const float DefaultShootingSpeed = 8f;
 
         private const float DefaultShootingDelay = 3000f;
 

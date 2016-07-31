@@ -23,8 +23,6 @@
 
         private static readonly int FieldHeight = Global.ScreenHeight - EmoticonSpriteSize - 1;
 
-        private static int currentEmoticonCount;
-
         private static EmoticonFactory emoticonFactory;
 
         private static Random random;
@@ -35,20 +33,9 @@
             UIEmoticonGenerator.emoticonFactory = new EmoticonFactory();
         }
 
-        public static int CurrentEmoticonCount
-        {
-            get
-            {
-                return currentEmoticonCount;
-            }
+        public static int CurrentEmoticonCount { get; set; }
 
-            set
-            {
-                currentEmoticonCount = value;
-            }
-        }
-
-        public static UIEmoticon GenerateEmoticon(SpriteData spriteData, Vector2 heroPosition)
+        public static UIEmoticon GenerateEmoticon(SpriteData spriteData, UIHero uiHero)
         {
             var chance = random.Next(100);
 
@@ -60,7 +47,7 @@
 
             var sprite = spriteData.DuplicateSprite(emoticon.Name);
 
-            var uiEmoticon = new UIEmoticon(spriteData, emoticon, sprite);
+            var uiEmoticon = new UIEmoticon(spriteData, emoticon, sprite, uiHero);
 
             while (true)
             {
@@ -68,10 +55,10 @@
                 int positionY = random.Next(1, FieldHeight);
 
                 float distanceToPlayer =
-                    ((positionX - heroPosition.X)
-                    * (positionX - heroPosition.X))
-                    + ((positionY - heroPosition.Y)
-                    * (positionY - heroPosition.Y));
+                    ((positionX - uiHero.Position.X)
+                    * (positionX - uiHero.Position.X))
+                    + ((positionY - uiHero.Position.Y)
+                    * (positionY - uiHero.Position.Y));
 
                 if (distanceToPlayer > NoSpawnRadius * NoSpawnRadius)
                 {

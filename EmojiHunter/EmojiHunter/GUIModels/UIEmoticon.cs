@@ -12,26 +12,26 @@
 
     public class UIEmoticon : IUIObject
     {
+        private UIHero uiHero;
+
         private SpriteData spriteData;
 
         private Vector2 position;
 
         private Vector2 direction;
 
-        private Random random = new Random();
-
         private bool isShooting;
 
         private int lastShotElapsedTime;
 
-        public UIEmoticon(SpriteData spriteData, IGameObject emoticon, ISprite sprite)
+        public UIEmoticon(SpriteData spriteData, IGameObject emoticon, ISprite sprite, UIHero uiHero)
         {
             this.spriteData = spriteData;
             this.Sprite = sprite;
             this.GameObject = emoticon;
             this.GameObject.Destroy += this.OnDestroyEventHandler;
-            this.direction = new Vector2(this.GetRandomFloat(), this.GetRandomFloat());
             this.isShooting = emoticon is IShooting;
+            this.uiHero = uiHero;
         }
 
         public ISprite Sprite { get; set; }
@@ -96,16 +96,20 @@
                 sprite.AnimationIndex = (int)(emoticon).ShotType;
 
                 var uiShot = new UIShot(shot, sprite);
-                uiShot.SetStartPosition(
-                    this.position.X + this.Sprite.Rectangle.Width / 2 -
-                        uiShot.Sprite.Rectangle.Width / 2,
-                    this.position.Y + this.Sprite.Rectangle.Height / 2 -
-                        uiShot.Sprite.Rectangle.Height / 2);
 
-                var motionX = (float)Math.Cos(this.random.Next(360) * Math.PI / 180);
-                var motionY = -(float)Math.Sin(this.random.Next(360) * Math.PI / 180);
+                var positionX = this.position.X + this.Sprite.Rectangle.Width / 2 - uiShot.Sprite.Rectangle.Width / 2;
+                var positionY = this.position.Y + this.Sprite.Rectangle.Height / 2 - uiShot.Sprite.Rectangle.Height / 2;
 
-                uiShot.SetDirection(motionX, motionY);
+                uiShot.SetStartPosition(positionX, positionY);
+
+                var differenceX = positionX - this.uiHero.Position.X;
+                var differenceY = positionY - this.uiHero.Position.Y;
+                int sign = (differenceX >= 0) ? -1 : 1;
+                var shootingAngle = Math.Atan(differenceY / differenceX);
+                var directionX = sign * (float)Math.Cos(shootingAngle);
+                var directionY = sign * (float)Math.Sin(shootingAngle);
+
+                uiShot.SetDirection(directionX, directionY);
 
                 this.lastShotElapsedTime = 0;
             }
@@ -113,35 +117,10 @@
 
         private void Move()
         {
-            if (this.direction.X < 0 && this.position.X < 0) // if leave the screen while moving left
-            {
-                this.direction = new Vector2(Math.Abs(this.GetRandomFloat()), this.GetRandomFloat()); // move right
-            }
 
-            if (this.direction.X > 0 && this.position.X > 1600 - this.Sprite.Rectangle.Width) // ISSUE - hardcoded
-            {
-                this.direction = new Vector2(-Math.Abs(this.GetRandomFloat()), this.GetRandomFloat());
-            }
-
-            if (this.direction.Y < 0 && this.position.Y < 0)
-            {
-                this.direction = new Vector2(this.GetRandomFloat(), Math.Abs(this.GetRandomFloat()));
-            }
-
-            if (this.direction.Y > 0 && this.position.Y > 900 - this.Sprite.Rectangle.Height) // ISSUE - hardcoded
-            {
-                this.direction = new Vector2(this.GetRandomFloat(), -Math.Abs(this.GetRandomFloat()));
-            }
-
-            this.direction.Normalize(); // get unit velocity vector
 
             this.position += this.GameObject.State.MovementSpeed * this.direction;
             this.Sprite.Position = this.position;
-        }
-
-        private float GetRandomFloat()
-        {
-            return (float)((new Random()).NextDouble() * 2 - 1);
         }
 
         private void OnDestroyEventHandler(object sender, EventArgs e)

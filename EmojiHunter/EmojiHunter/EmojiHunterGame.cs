@@ -162,7 +162,7 @@
                 if (UIEmoticonGenerator.CurrentEmoticonCount <
                     UIEmoticonGenerator.MaxEmoticonCount)
                 {
-                    UIEmoticonGenerator.GenerateEmoticon(this.spriteData, this.uiHero.Position);
+                    UIEmoticonGenerator.GenerateEmoticon(this.spriteData, this.uiHero);
                 }
 
                 if (UIPotionGenerator.CurrentPotionCount < UIPotionGenerator.MaxPotionCount)

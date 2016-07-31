@@ -17,9 +17,9 @@
         {
             using (var game = new EmojiHunterGame("Spring", "Sagittarius"))
             {
-                Application.Run(new MainMenu());
+                //Application.Run(new MainMenu());
+                game.Run();
             }
-                //// game.Run();
         }
     }
 #endif
