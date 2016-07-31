@@ -5,13 +5,14 @@
     using Microsoft.Xna.Framework.Input;
     using GameAnimation;
     using System;
-    using EmojiHunter.Animations;
-    using EmojiHunter.Factories;
-    using EmojiHunter.Helpers;
-    using EmojiHunter.IO;
-    using EmojiHunter.Models.Heroes;
-    using EmojiHunter.Models.Maps;
-    using EmojiHunter.Repository;
+    using Animations;
+    using UIComponents;
+    using Factories;
+    using Helpers;
+    using IO;
+    using Models.Heroes;
+    using Models.Maps;
+    using Repository;
     using GUIModels;
 
     /// <summary>
@@ -35,6 +36,8 @@
         private SpriteData spriteData;
 
         private HeroStatisticsDrawer statsDrawer;
+
+        private HeroActionController actionController;
 
         private UIHero uiHero;
 
@@ -91,29 +94,29 @@
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            this.spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.spriteData = new SpriteData();
 
             this.background = this.Content.Load<Texture2D>(@"Content\Background");
-
             this.endScreen = this.Content.Load<Texture2D>(@"Content\Gameover");
-
             this.font = this.Content.Load<SpriteFont>(@"Content\Font");
 
-            this.statsDrawer = new HeroStatisticsDrawer(this.hero, this.font);
-
             SpriteInitializer.InitializeSprites(this.spriteData, this.Content);
-            // ***Desperate need of refactoring...
-            this.uiHero = new UIHero(this.spriteData, this.hero);
+
+            this.statsDrawer = new HeroStatisticsDrawer(this.hero, this.font);
+            this.uiHero = new UIHero(
+                this.spriteData.DuplicateSprite(nameof(Sagittarius)),
+                this.hero,
+                new UISight(this.spriteData.DuplicateSprite("Sight"))
+                );
+            this.actionController = new HeroActionController(this.uiHero, this.spriteData, InputManager.Instance);
 
             //// That is not hardcoded at all! Believe me!
-            this.uiHero.SetInStartPosition(
+            this.uiHero.SetStartPosition(
                 new Vector2(150, this.graphics.PreferredBackBufferHeight - 182));
 
             // ***End of need :)
             UIObjectContainer.AddUIObject(this.uiHero);
-
             UIObstacleGenerator.GenerateObstacles(this.spriteData, this.map);
         }
 
@@ -173,6 +176,8 @@
                     uiObjects[index].Update(gameTime);
                 }
 
+                this.actionController.Update(gameTime);
+
                 base.Update(gameTime);
             }
 
@@ -188,7 +193,7 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             this.spriteBatch.Begin();
 

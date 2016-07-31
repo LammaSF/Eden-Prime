@@ -9,7 +9,7 @@
 
         private const int DefaultSprintStrengthCost = 1; // per 200 ms 
 
-        private const int DefaultTeleportManaCost = 20;
+        private const int DefaultTeleportManaCost = 10;
 
         private const float InitialWalkSpeed = 1.5f;
 

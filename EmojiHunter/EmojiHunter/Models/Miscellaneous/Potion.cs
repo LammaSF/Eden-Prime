@@ -7,7 +7,7 @@
 
     public class Potion : GameObject
     {
-        private const int Value = 50;
+        private const int Value = 20;
 
         private PotionType potionType;
 

@@ -6,7 +6,7 @@
 
     public class Sagittarius : Hero, IShooting
     {
-        private const int DefaultShootingManaCost = 5;
+        private const int DefaultShootingManaCost = 1;
 
         private const SpellShotType DefaultShotType = SpellShotType.Sunball;
 
