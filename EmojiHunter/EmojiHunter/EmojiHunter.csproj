@@ -87,6 +87,8 @@
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Enumerations\MiscellaneousType.cs" />
     <Compile Include="Enumerations\SpellShotType.cs" />
+    <Compile Include="IO\HeroActionController.cs" />
+    <Compile Include="IO\HeroStatisticsDrawer.cs" />
     <Compile Include="Models\Emoticons\BadEmoticons\AngryEmoticon.cs" />
     <Compile Include="Models\Emoticons\GoodEmoticons\CheekyEmoticon.cs" />
     <Compile Include="Models\Emoticons\BadEmoticons\CryEmoticon.cs" />

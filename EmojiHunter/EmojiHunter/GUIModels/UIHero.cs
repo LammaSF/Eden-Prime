@@ -31,7 +31,7 @@
                 [Direction.None] = new Vector2(0, 0)
             };
 
-        private SpriteFont font;
+        //private SpriteFont font;
 
         private SpriteData spriteData;
 
@@ -53,10 +53,9 @@
 
         private Sagittarius sagittarius;
 
-        public UIHero(ContentManager content, SpriteData spriteData, Hero hero)
+        public UIHero(SpriteData spriteData, Hero hero)
         {
             this.inputManager = InputManager.Instance;
-            this.font = content.Load<SpriteFont>(@"Content\Font");
             this.spriteData = spriteData;
 
             this.Hero = hero;
@@ -110,45 +109,7 @@
         public void Draw(SpriteBatch spriteBatch)
         {
             this.Sprite.Draw(spriteBatch);
-
-            if (this.sagittarius != null)
-            {
-                this.UISight.Draw(spriteBatch);
-            }
-
-            spriteBatch.DrawString(
-                this.font,
-                $"Health: {this.Hero.Health} / {this.Hero.CurrentMaxHealth}",
-                new Vector2(20, 20),
-                Color.Red);
-
-            spriteBatch.DrawString(
-                this.font,
-                $"Armor: {this.Hero.Armor} / {this.Hero.CurrentMaxArmor}",
-                new Vector2(20, 50),
-                Color.GreenYellow);
-
-            spriteBatch.DrawString(
-                this.font,
-                $"Mana: {this.Hero.Mana} / {this.Hero.CurrentMaxMana}",
-                new Vector2(20, 80),
-                Color.Blue);
-
-            spriteBatch.DrawString(
-                this.font,
-                $"Strength: {this.Hero.Strength} / {this.Hero.CurrentMaxStrength}",
-                new Vector2(20, 110),
-                Color.Yellow);
-
-            spriteBatch.DrawString(this.font,
-                $"Kills: {Global.Kills}",
-                new Vector2(20, 140),
-                Color.Black);
-
-            spriteBatch.DrawString(this.font,
-                $"Points:  {Global.Points}",
-                new Vector2(20, 170),
-                Color.Black);
+            this.UISight.Draw(spriteBatch);
         }
 
         private void CheckKeyboardInputSagittarius(GameTime gameTime)

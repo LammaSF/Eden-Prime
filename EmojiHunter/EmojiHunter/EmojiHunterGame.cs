@@ -8,6 +8,7 @@
     using EmojiHunter.Animations;
     using EmojiHunter.Factories;
     using EmojiHunter.Helpers;
+    using EmojiHunter.IO;
     using EmojiHunter.Models.Heroes;
     using EmojiHunter.Models.Maps;
     using EmojiHunter.Repository;
@@ -29,7 +30,11 @@
 
         private Texture2D endScreen;
 
+        private SpriteFont font;
+
         private SpriteData spriteData;
+
+        private HeroStatisticsDrawer statsDrawer;
 
         private UIHero uiHero;
 
@@ -94,10 +99,13 @@
 
             this.endScreen = this.Content.Load<Texture2D>(@"Content\Gameover");
 
-            SpriteInitializer.InitializeSprites(this.spriteData, this.Content);
+            this.font = this.Content.Load<SpriteFont>(@"Content\Font");
 
+            this.statsDrawer = new HeroStatisticsDrawer(this.hero, this.font);
+
+            SpriteInitializer.InitializeSprites(this.spriteData, this.Content);
             // ***Desperate need of refactoring...
-            this.uiHero = new UIHero(this.Content, this.spriteData, this.hero);
+            this.uiHero = new UIHero(this.spriteData, this.hero);
 
             //// That is not hardcoded at all! Believe me!
             this.uiHero.SetInStartPosition(
@@ -196,6 +204,8 @@
                 {
                     uiObject.Draw(this.spriteBatch);
                 }
+
+                this.statsDrawer.Draw(this.spriteBatch);
             }
 
             this.spriteBatch.End();
