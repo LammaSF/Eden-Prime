@@ -49,7 +49,7 @@
             InitializePotionSprite(spriteData, content);
         }
 
-        public static void InitializeSightSprite(SpriteData spriteData, ContentManager content)
+        private static void InitializeSightSprite(SpriteData spriteData, ContentManager content)
         {
             var texture = content.Load<Texture2D>(@"Content\Crosshair");
             var sprite = new AnimatedSprite(

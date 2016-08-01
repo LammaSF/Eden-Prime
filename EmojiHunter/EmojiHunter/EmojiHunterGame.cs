@@ -50,6 +50,8 @@
 
         private int lastPauseElapsedTime;
 
+        private Texture2D barTexture;
+
         public EmojiHunterGame(string mapName, string heroName)
         {
             this.graphics = new GraphicsDeviceManager(this)
@@ -96,6 +98,7 @@
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.spriteData = new SpriteData();
 
+            this.barTexture = this.Content.Load<Texture2D>(@"Content\Bar");
             this.background = this.Content.Load<Texture2D>(@"Content\Background");
             this.endScreen = this.Content.Load<Texture2D>(@"Content\Gameover");
             this.font = this.Content.Load<SpriteFont>(@"Content\Font");
@@ -161,7 +164,7 @@
                 if (UIEmoticonGenerator.CurrentEmoticonCount <
                     UIEmoticonGenerator.MaxEmoticonCount)
                 {
-                    UIEmoticonGenerator.GenerateEmoticon(this.spriteData, this.uiHero);
+                    UIEmoticonGenerator.GenerateEmoticon(this.barTexture, this.spriteData, this.uiHero);
                 }
 
                 if (UIPotionGenerator.CurrentPotionCount < UIPotionGenerator.MaxPotionCount)

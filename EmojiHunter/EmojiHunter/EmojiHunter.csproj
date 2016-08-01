@@ -172,6 +172,7 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Bar.xnb" />
     <None Include="Content\MainMenu.jpg" />
     <Content Include="Icon.ico" />
   </ItemGroup>

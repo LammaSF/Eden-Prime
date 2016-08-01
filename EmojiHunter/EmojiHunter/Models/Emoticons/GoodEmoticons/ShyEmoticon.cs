@@ -8,7 +8,7 @@
     {
         private const float SpeedBoostValue = 0.05f;
 
-        private const int DefaultHealth = 200;
+        private const int DefaultHealth = 100;
 
         private const int DefaultArmor = 20;
 

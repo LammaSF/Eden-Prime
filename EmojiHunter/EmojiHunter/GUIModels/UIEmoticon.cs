@@ -16,6 +16,14 @@
 
     public class UIEmoticon : IUIObject
     {
+        private const int BarMaxWidth = 50;
+
+        private const int MaxStatsValue = 100; 
+
+        private const int HealthBarOffsetY = 4;
+
+        private const int ArmorBarOffsetY = 8;
+
         private const int SetCrazyStateChance = 10;
 
         private const int MaxRandom = 100;
@@ -23,6 +31,12 @@
         private const int CrazyStateTime = 5000; // in ms
 
         private const int DeadStateTime = 1000; // in ms
+
+        private Texture2D barTexture;
+
+        private Rectangle armorRectangle;
+
+        private Rectangle healthRectangle;
 
         private UIHero uiHero;
 
@@ -34,8 +48,11 @@
 
         private IMoveBehavior moveBehavior;
 
-        public UIEmoticon(SpriteData spriteData, IGameObject emoticon, ISprite sprite, UIHero uiHero)
+        public UIEmoticon(Texture2D barTexture, SpriteData spriteData, IGameObject emoticon, ISprite sprite, UIHero uiHero)
         {
+            this.healthRectangle = new Rectangle(0, 0, barTexture.Width, barTexture.Height);
+            this.armorRectangle = new Rectangle(0, 0, barTexture.Width, barTexture.Height);
+            this.barTexture = barTexture;
             this.spriteData = spriteData;
             this.Sprite = sprite;
             this.GameObject = emoticon;
@@ -74,7 +91,31 @@
 
             this.Move();
             this.CheckForEmoticonObjectCollision();
+            this.UpdateBars();
             this.Sprite.Update(gameTime);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            this.Sprite.Draw(spriteBatch);
+            spriteBatch.Draw(this.barTexture, this.healthRectangle, Color.Red);
+            spriteBatch.Draw(this.barTexture, this.armorRectangle, Color.DarkGreen);
+        }
+
+        public void SetStartPosition(float x, float y)
+        {
+            this.Position = new Vector2(x, y);
+            this.Sprite.Position = this.Position;
+        }
+
+        private void UpdateBars()
+        {
+            this.healthRectangle.X = (int)this.Position.X;
+            this.healthRectangle.Y = (int)this.Position.Y - HealthBarOffsetY;
+            this.healthRectangle.Width = (int)(((float)this.GameObject.State.Health / MaxStatsValue) * BarMaxWidth);
+            this.armorRectangle.X = (int)this.Position.X;
+            this.armorRectangle.Y = (int)this.Position.Y - ArmorBarOffsetY;
+            this.armorRectangle.Width = (int)(((float)this.GameObject.State.Armor / MaxStatsValue) * BarMaxWidth);
         }
 
         private void MakeEmoticonGoCrazy()
@@ -126,17 +167,6 @@
                 Thread.Sleep(CrazyStateTime);
                 UIEmoticonGenerator.CurrentCrazyCount--;
             });
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            this.Sprite.Draw(spriteBatch);
-        }
-
-        public void SetStartPosition(float x, float y)
-        {
-            this.Position = new Vector2(x, y);
-            this.Sprite.Position = this.Position;
         }
 
         private void CheckForEmoticonObjectCollision()
@@ -218,5 +248,6 @@
             Global.Kills++;
             Global.Points += Global.PointsPerKill;
         }
+
     }
 }

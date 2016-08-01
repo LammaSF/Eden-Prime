@@ -8,7 +8,7 @@
     {
         private const int HealthBoostValue = 1;
 
-        private const int DefaultHealth = 70;
+        private const int DefaultHealth = 100;
 
         private const int DefaultArmor = 40;
 

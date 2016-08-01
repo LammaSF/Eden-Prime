@@ -9,6 +9,7 @@
     using Enumerations;
     using Factories;
     using GUIModels;
+    using Microsoft.Xna.Framework.Graphics;
 
     public class UIEmoticonGenerator
     {
@@ -40,7 +41,7 @@
 
         public static int CurrentEmoticonCount { get; set; }
 
-        public static UIEmoticon GenerateEmoticon(SpriteData spriteData, UIHero uiHero)
+        public static UIEmoticon GenerateEmoticon(Texture2D barTexture2D, SpriteData spriteData, UIHero uiHero)
         {
             var chance = random.Next(100);
 
@@ -65,7 +66,7 @@
             }
 
             var sprite = spriteData.DuplicateSprite(emoticon.Name);
-            var uiEmoticon = new UIEmoticon(spriteData, emoticon, sprite, uiHero)
+            var uiEmoticon = new UIEmoticon(barTexture2D, spriteData, emoticon, sprite, uiHero)
             {
                 MoveBehavior = moveBehavior
             };
