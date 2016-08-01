@@ -27,6 +27,7 @@
             this.frameHeight = animation.frame.Height;
             this.frameDuration = animation.frameDuration;
             this.frameCount = animation.frameCount;
+            this.Size = animation.Size;
         }
 
         public Animation(Texture2D texture, Rectangle frame, double frameDuration, int frameCount)
@@ -43,6 +44,10 @@
 
         public Vector2 Position { get; set; }
 
+        public Vector2 Size { get; set; }
+
+        public Rectangle Rectangle => new Rectangle((int) this.Position.X, (int) this.Position.Y, (int) this.Size.X, (int) this.Size.Y);
+
         public void PlayAnimation(GameTime gameTime)
         {
             this.elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
@@ -57,7 +62,7 @@
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, this.Position, this.frame, Color.White);
+            spriteBatch.Draw(this.texture, this.Rectangle, this.frame, Color.White);
         }
     }
 }

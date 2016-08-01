@@ -28,29 +28,29 @@
             spriteBatch.DrawString(
                 this.font,
                 $"Armor: {this.hero.Armor} / {this.hero.CurrentMaxArmor}",
-                new Vector2(20, 50),
+                new Vector2(230, 20),
                 Color.GreenYellow);
 
             spriteBatch.DrawString(
                 this.font,
                 $"Mana: {this.hero.Mana} / {this.hero.CurrentMaxMana}",
-                new Vector2(20, 80),
+                new Vector2(410, 20),
                 Color.Blue);
 
             spriteBatch.DrawString(
                 this.font,
                 $"Strength: {this.hero.Strength} / {this.hero.CurrentMaxStrength}",
-                new Vector2(20, 110),
+                new Vector2(600, 20),
                 Color.Yellow);
 
             spriteBatch.DrawString(this.font,
                 $"Kills: {Global.Kills}",
-                new Vector2(20, 140),
+                new Vector2(1340, 20),
                 Color.Black);
 
             spriteBatch.DrawString(this.font,
                 $"Points:  {Global.Points}",
-                new Vector2(20, 170),
+                new Vector2(1450, 20),
                 Color.Black);
         }
     }

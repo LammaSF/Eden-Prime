@@ -68,6 +68,10 @@
         {
             this.rectangle.Width = width;
             this.rectangle.Height = height;
+            foreach (var animation in this.animations)
+            {
+                animation.Size = new Vector2(width, height);
+            }
         }
 
         public void AddAnimation(Texture2D texture, Rectangle frame, double frameDuration, int frameCount)

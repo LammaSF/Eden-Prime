@@ -214,7 +214,7 @@
                 new Rectangle(0, 225, 75, 75),
                 SpellShotFrameDuration, 
                 SpellShotFrameCount);
-            sprite.SetSize(75, 75);
+            sprite.SetSize(45, 45);
             sprite.Name = $"{MiscellaneousType.SpellShot}";
 
             UpdateSpriteData(spriteData, sprite);

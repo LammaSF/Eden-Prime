@@ -15,7 +15,7 @@
         [STAThread]
         public static void Main()
         {
-            using (var game = new EmojiHunterGame("Spring", "Sagittarius"))
+            using (var game = new EmojiHunterGame("Center", "Sagittarius"))
             {
                 //Application.Run(new MainMenu());
                 game.Run();

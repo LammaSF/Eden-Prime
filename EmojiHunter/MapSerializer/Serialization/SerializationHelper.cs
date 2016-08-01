@@ -1,4 +1,4 @@
-﻿namespace EmojiHunter.Serialization
+﻿namespace MapSerializer.Serialization
 {
     using System.IO;
     using System.Runtime.Serialization;

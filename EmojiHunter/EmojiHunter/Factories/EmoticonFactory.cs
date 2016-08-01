@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using EmojiHunter.Models.Emoticons.GoodEmoticons;
+    using Models.Emoticons.GoodEmoticons;
     using Models.Emoticons;
     using Models.Emoticons.BadEmoticons;
 

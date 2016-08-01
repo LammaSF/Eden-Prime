@@ -10,13 +10,13 @@
             base.Obstacles =
                 new System.Collections.Generic.Dictionary<Vector2, ObstacleType>()
                 {
-                    [new Vector2(800, 100)] = ObstacleType.Tree5,
+                    [new Vector2(800, 0)] = ObstacleType.Tree5,
                     [new Vector2(800, 350)] = ObstacleType.Tree5,
-                    [new Vector2(800, 600)] = ObstacleType.Tree5,
-                    [new Vector2(1100, 450)] = ObstacleType.Tree5,
-                    [new Vector2(1100, 200)] = ObstacleType.Tree5,
+                    [new Vector2(800, 750)] = ObstacleType.Tree5,
+                    [new Vector2(1200, 550)] = ObstacleType.Tree5,
+                    [new Vector2(1200, 100)] = ObstacleType.Tree5,
                     [new Vector2(300, 300)] = ObstacleType.Tree1,
-                    [new Vector2(200, 100)] = ObstacleType.Tree2 
+                    [new Vector2(100, 100)] = ObstacleType.Tree2
                 };
         }
     }
