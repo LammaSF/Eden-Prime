@@ -5,6 +5,7 @@
     using Microsoft.Xna.Framework.Input;
     using System;
     using Animations;
+    using Screens;
     using UIComponents;
     using Factories;
     using Helpers;
@@ -13,6 +14,8 @@
     using Models.Maps;
     using Repository;
     using GUIModels;
+    using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+    using Keys = Microsoft.Xna.Framework.Input.Keys;
 
     /// <summary>
     /// This is the main type for your game.
@@ -21,39 +24,18 @@
     public class EmojiHunterGame : Game
     {
         private GraphicsDeviceManager graphics;
-
         private SpriteBatch spriteBatch;
-
+        private Screen currentScreen;
         private Rectangle screenRectangle;
-
         private Texture2D background;
-
-        private Texture2D endScreen;
-
-        private SpriteFont font;
-
-        private SpriteData spriteData;
-
-        private HeroStatisticsDrawer statsDrawer;
-
-        private HeroActionController actionController;
-
-        private UIHero uiHero;
-
-        private Hero hero;
-
-        private Map map;
-
-        private bool paused;
-
-        private bool isGameOver;
-
-        private int lastPauseElapsedTime;
-
-        private Texture2D barTexture;
+        private string mapName;
+        private string heroName;
 
         public EmojiHunterGame(string mapName, string heroName)
         {
+            this.mapName = mapName;
+            this.heroName = heroName;
+
             this.graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = Global.ScreenWidth,
@@ -62,17 +44,12 @@
 
             //this.graphics.ToggleFullScreen();
 
-            this.map = new MapFactory().CreateMap(mapName);
-            this.hero = new HeroFactory().CreateHero(heroName);
-
             this.screenRectangle = new Rectangle(
                 0,
                 0, 
                 this.graphics.PreferredBackBufferWidth, 
                 this.graphics.PreferredBackBufferHeight);
 
-            this.paused = false;
-            this.isGameOver = false;
         }
 
         /// <summary>
@@ -84,7 +61,6 @@
         protected override void Initialize()
         {
             //// TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -94,32 +70,9 @@
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
-            this.spriteData = new SpriteData();
-
-            this.barTexture = this.Content.Load<Texture2D>(@"Content\Bar");
             this.background = this.Content.Load<Texture2D>(@"Content\Background");
-            this.endScreen = this.Content.Load<Texture2D>(@"Content\Gameover");
-            this.font = this.Content.Load<SpriteFont>(@"Content\Font");
-
-            SpriteInitializer.InitializeSprites(this.spriteData, this.Content);
-
-            this.statsDrawer = new HeroStatisticsDrawer(this.hero, this.font);
-            this.uiHero = new UIHero(
-                this.spriteData.DuplicateSprite(nameof(Sagittarius)),
-                this.hero,
-                new UISight(this.spriteData.DuplicateSprite("Sight"))
-                );
-            this.actionController = new HeroActionController(this.uiHero, this.spriteData, InputManager.Instance);
-
-            //// That is not hardcoded at all! Believe me!
-            this.uiHero.SetStartPosition(
-                new Vector2(150, this.graphics.PreferredBackBufferHeight - 182));
-
-            // ***End of need :)
-            UIObjectContainer.AddUIObject(this.uiHero);
-            UIObstacleGenerator.GenerateObstacles(this.spriteData, this.map);
+            this.currentScreen = new PlayScreen(this.Content, this.mapName, this.heroName);
         }
 
         /// <summary>
@@ -138,55 +91,8 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (this.isGameOver)
-            {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
-                    || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    Environment.Exit(0);
-                }
-
-                return;
-            }
-
-            this.lastPauseElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-
-            if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
-                || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                && this.lastPauseElapsedTime > Global.PauseDelay)
-            {
-                this.paused = !this.paused;
-                this.lastPauseElapsedTime = 0;
-            }
-
-            if (!this.paused)
-            {
-                if (UIEmoticonGenerator.CurrentEmoticonCount <
-                    UIEmoticonGenerator.MaxEmoticonCount)
-                {
-                    UIEmoticonGenerator.GenerateEmoticon(this.barTexture, this.spriteData, this.uiHero);
-                }
-
-                if (UIPotionGenerator.CurrentPotionCount < UIPotionGenerator.MaxPotionCount)
-                {
-                    UIPotionGenerator.GeneratePotion(this.spriteData);
-                }
-
-                var uiObjects = UIObjectContainer.UIObjects;
-                for (int index = uiObjects.Count - 1; index >= 0; index--)
-                {
-                    uiObjects[index].Update(gameTime);
-                }
-
-                this.actionController.Update(gameTime);
-
-                base.Update(gameTime);
-            }
-
-            if (this.hero.Health == 0)
-            {
-                this.isGameOver = true;
-            }
+            this.currentScreen.Update(gameTime);
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -198,23 +104,8 @@
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             this.spriteBatch.Begin();
-
-            if (this.isGameOver)
-            {
-                this.spriteBatch.Draw(this.endScreen, this.screenRectangle, Color.White);
-            }
-            else
-            {
-                this.spriteBatch.Draw(this.background, this.screenRectangle, Color.White);
-
-                foreach (var uiObject in UIObjectContainer.UIObjects)
-                {
-                    uiObject.Draw(this.spriteBatch);
-                }
-
-                this.statsDrawer.Draw(this.spriteBatch);
-            }
-
+            this.spriteBatch.Draw(this.background, this.screenRectangle, Color.White);
+            this.currentScreen.Draw(this.spriteBatch);
             this.spriteBatch.End();
 
             base.Draw(gameTime);

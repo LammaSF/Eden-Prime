@@ -1,5 +1,7 @@
 ﻿namespace EmojiHunter.GUIModels.UIEmoticonMoveBehaviors
 {
+    using System;
+
     public class ShootingMoveBehavior : MoveBehavior
     {
         public ShootingMoveBehavior(UIHero uiHero) : base(uiHero)

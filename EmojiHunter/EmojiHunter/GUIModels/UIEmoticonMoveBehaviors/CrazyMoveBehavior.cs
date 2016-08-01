@@ -1,5 +1,8 @@
 ﻿namespace EmojiHunter.GUIModels.UIEmoticonMoveBehaviors
 {
+    using System;
+    using Microsoft.Xna.Framework;
+
     public class CrazyMoveBehavior : MoveBehavior
     {
         public CrazyMoveBehavior(UIHero uiHero) : base(uiHero)
