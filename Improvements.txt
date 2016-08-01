@@ -1,7 +1,5 @@
-﻿1. No magic strings/numbers
-2. Loading obstacles from XML file
-3. Functional menu (resume, save, load, highscore)
-4. Good and Bad emoticons -> Sounds 
-5. Better emoticon movement
+1. No magic strings/numbers
+2. Functional menu (resume, save, load, highscore)
+3. Better emoticon movement
 
 
