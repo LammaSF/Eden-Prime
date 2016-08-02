@@ -15,9 +15,9 @@
 
         private const int PotionSpriteSize = 30;
 
-        private static readonly int FieldWidth = 1600 - PotionSpriteSize - 1;
+        private static readonly int FieldWidth = Global.ScreenWidth - PotionSpriteSize - 1;
 
-        private static readonly int FieldHeight = 900 - PotionSpriteSize - 1;
+        private static readonly int FieldHeight = Global.ScreenHeight - PotionSpriteSize - 1;
 
         private static int currentPotionCount;
 

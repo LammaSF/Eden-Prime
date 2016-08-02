@@ -49,7 +49,7 @@
                 ? (EmoticonType)random.Next(5)
                 : (EmoticonType)random.Next(5, 10);
 
-            var emoticon = emoticonFactory.CreateEmoticon($"{emoticonType}");
+            var emoticon = emoticonFactory.CreateEmoticon(emoticonType);
 
             IMoveBehavior moveBehavior;
             if (emoticon is IMelee)

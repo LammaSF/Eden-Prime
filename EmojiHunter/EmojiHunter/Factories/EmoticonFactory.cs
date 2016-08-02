@@ -5,33 +5,39 @@
     using Models.Emoticons.GoodEmoticons;
     using Models.Emoticons;
     using Models.Emoticons.BadEmoticons;
+    using Enumerations;
 
     public class EmoticonFactory
     {
-        private readonly Dictionary<string, Func<Emoticon>> getEmoticonByName =
-            new Dictionary<string, Func<Emoticon>>()
-            {
-                ["smile"] = () => new SmileEmoticon("Smile"),
-                ["cheeky"] = () => new CheekyEmoticon("Cheeky"),
-                ["grin"] = () => new GrinEmoticon("Grin"),
-                ["love"] = () => new LoveEmoticon("Love"),
-                ["sad"] = () => new SadEmoticon("Sad"),
-                ["shouting"] = () => new ShoutingEmoticon("Shouting"),
-                ["shy"] = () => new ShyEmoticon("Shy"),
-                ["cry"] = () => new CryEmoticon("Cry"),
-                ["angry"] = () => new AngryEmoticon("Angry"),
-                ["onfire"] = () => new OnfireEmoticon("Onfire")
-            };
-
-        public Emoticon CreateEmoticon(string emoticonName)
+        public Emoticon CreateEmoticon(EmoticonType emoticonType)
         {
-            string name = emoticonName.ToLower();
-            if (this.getEmoticonByName.ContainsKey(name))
+            switch (emoticonType)
             {
-                return this.getEmoticonByName[name]();
+                case EmoticonType.Angry:
+                    return new AngryEmoticon("Angry");
+                case EmoticonType.Cheeky:
+                    return new CheekyEmoticon("Cheeky");
+                case EmoticonType.Cry:
+                    return new CryEmoticon("Cry");
+                case EmoticonType.Grin:
+                    return new GrinEmoticon("Grin");
+                case EmoticonType.Love:
+                    return new LoveEmoticon("Love");
+                case EmoticonType.Onfire:
+                    return new OnfireEmoticon("Onfire");
+                case EmoticonType.Sad:
+                    return new SadEmoticon("Sad");
+                case EmoticonType.Shouting:
+                    return new ShoutingEmoticon("Shouting");
+                case EmoticonType.Shy:
+                    return new ShyEmoticon("Shy");
+                case EmoticonType.Smile:
+                    return new SmileEmoticon("Smile");
+              
+                default:
+                    throw new InvalidOperationException("Such emoticon type does not exist.");
             }
-
-            throw new InvalidOperationException("Such emoticon name does not exist.");
+            
         }
     }
 }
