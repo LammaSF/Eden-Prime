@@ -1,7 +1,6 @@
 ﻿namespace EmojiHunter
 {
     using System;
-    using System.Windows.Forms;
 
 #if WINDOWS || LINUX
     /// <summary>

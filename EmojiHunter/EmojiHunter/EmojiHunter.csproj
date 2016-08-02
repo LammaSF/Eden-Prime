@@ -176,6 +176,7 @@
     <None Include="Content\Bar.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\LightHeroReflection.xnb" />
     <None Include="Content\MainMenu.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

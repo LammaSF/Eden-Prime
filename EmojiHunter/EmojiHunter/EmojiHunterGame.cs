@@ -25,7 +25,7 @@
                 PreferredBackBufferHeight = Global.ScreenHeight
             };
 
-            //this.graphics.ToggleFullScreen();
+            this.graphics.ToggleFullScreen();
 
             this.screenRectangle = new Rectangle(
                 0,

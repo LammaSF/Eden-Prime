@@ -36,6 +36,10 @@
         private ContentManager content;
 
         private SpriteFont font;
+        private Texture2D shieldHero;
+        private Texture2D reflectionHero;
+        private Texture2D trees;
+        private Texture2D emoticons;
 
         private int elapsedTime;
 
@@ -50,6 +54,10 @@
         public MenuScreen(ContentManager content, EmojiHunterGame game, Screen previousScreen, int score)
         {
             this.content = content;
+            this.shieldHero = this.content.Load<Texture2D>(@"Content\LightHeroShield");
+            this.reflectionHero = this.content.Load<Texture2D>(@"Content\LightHeroReflection");
+            this.trees = this.content.Load<Texture2D>(@"Content\Trees");
+            this.emoticons = this.content.Load<Texture2D>(@"Content\Emoticons");
             this.font = this.content.Load<SpriteFont>(@"Content\Font");
             this.menuItems = new List<MenuItem>();
             this.InitializeMenuItems();
@@ -116,6 +124,11 @@
             {
                 menuItem.Draw(spriteBatch);
             }
+
+            spriteBatch.Draw(this.emoticons, new Vector2(640, 10));
+            spriteBatch.Draw(this.trees, new Vector2(880, 520));
+            spriteBatch.Draw(this.reflectionHero, new Vector2(1360, 540));
+            spriteBatch.Draw(this.shieldHero, new Vector2(640, 540));
 
             if (drawHighscore)
             {
