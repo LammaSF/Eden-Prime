@@ -1,5 +1,0 @@
-1. No magic strings/numbers
-2. Functional menu (resume, save, load, highscore)
-3. Better emoticon movement
-
-
