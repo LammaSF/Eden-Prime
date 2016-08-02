@@ -2,20 +2,8 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
-    using System;
-    using Animations;
     using Screens;
-    using UIComponents;
-    using Factories;
     using Helpers;
-    using IO;
-    using Models.Heroes;
-    using Models.Maps;
-    using Repository;
-    using GUIModels;
-    using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
-    using Keys = Microsoft.Xna.Framework.Input.Keys;
 
     /// <summary>
     /// This is the main type for your game.
@@ -25,17 +13,11 @@
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Screen currentScreen;
         private Rectangle screenRectangle;
         private Texture2D background;
-        private string mapName;
-        private string heroName;
 
-        public EmojiHunterGame(string mapName, string heroName)
+        public EmojiHunterGame()
         {
-            this.mapName = mapName;
-            this.heroName = heroName;
-
             this.graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = Global.ScreenWidth,
@@ -52,6 +34,7 @@
 
         }
 
+        public Screen CurrentScreen { get; set; }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -72,7 +55,7 @@
         {
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.background = this.Content.Load<Texture2D>(@"Content\Background");
-            this.currentScreen = new PlayScreen(this.Content, this.mapName, this.heroName);
+            this.CurrentScreen = new MenuScreen(this.Content, this, null);
         }
 
         /// <summary>
@@ -91,7 +74,7 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            this.currentScreen.Update(gameTime);
+            this.CurrentScreen.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -105,7 +88,7 @@
 
             this.spriteBatch.Begin();
             this.spriteBatch.Draw(this.background, this.screenRectangle, Color.White);
-            this.currentScreen.Draw(this.spriteBatch);
+            this.CurrentScreen.Draw(this.spriteBatch);
             this.spriteBatch.End();
 
             base.Draw(gameTime);

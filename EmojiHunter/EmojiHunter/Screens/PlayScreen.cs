@@ -1,15 +1,14 @@
 ﻿namespace EmojiHunter.Screens
 {
-    using System;
-    using EmojiHunter.Animations;
-    using EmojiHunter.Factories;
-    using EmojiHunter.GUIModels;
-    using EmojiHunter.Helpers;
-    using EmojiHunter.IO;
-    using EmojiHunter.Models.Heroes;
-    using EmojiHunter.Models.Maps;
-    using EmojiHunter.Repository;
-    using EmojiHunter.UIComponents;
+    using Animations;
+    using Factories;
+    using GUIModels;
+    using Helpers;
+    using IO;
+    using Models.Heroes;
+    using Models.Maps;
+    using Repository;
+    using UIComponents;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -19,7 +18,6 @@
     {
         private ContentManager content;
         private Rectangle screenRectangle;
-        private Texture2D background;
         private Texture2D endScreen;
         private SpriteFont font;
         private SpriteData spriteData;
@@ -34,13 +32,19 @@
         private Texture2D barTexture;
         private bool isGameOver;
         public bool paused;
+        private EmojiHunterGame game;
 
-        public PlayScreen(ContentManager content, string mapName, string heroName)
+        public PlayScreen(ContentManager content, string mapName, string heroName, EmojiHunterGame game)
         {
             this.content = content;
             this.mapName = mapName;
             this.heroName = heroName;
-
+            this.game = game;
+            this.screenRectangle = new Rectangle(
+                0,
+                0,
+                Global.ScreenWidth,
+                Global.ScreenHeight);
             this.Initialize();
         }
 
@@ -54,7 +58,6 @@
             this.paused = false;
             this.isGameOver = false;
             this.barTexture = this.content.Load<Texture2D>(@"Content\Bar");
-            this.background = this.content.Load<Texture2D>(@"Content\Background");
             this.endScreen = this.content.Load<Texture2D>(@"Content\Gameover");
             this.font = this.content.Load<SpriteFont>(@"Content\Font");
             this.spriteData = new SpriteData();
@@ -79,10 +82,16 @@
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                     || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
-                    Environment.Exit(0);
+                    this.game.CurrentScreen = new MenuScreen(this.content, this.game, null);
                 }
 
                 return;
+            }
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                    || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                this.game.CurrentScreen = new MenuScreen(this.content, this.game, this.game.CurrentScreen);
             }
 
             this.lastPauseElapsedTime += gameTime.ElapsedGameTime.Milliseconds;

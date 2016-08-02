@@ -1,0 +1,143 @@
+﻿namespace EmojiHunter.Screens
+{
+    using System;
+    using System.Collections.Generic;
+    using EmojiHunter.Helpers;
+    using UIComponents;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+
+    public class MenuScreen : Screen
+    {
+        private const int PressDelay = 200;
+
+        private const int MenuItemStartX = 100;
+        
+        private const int MenuItemStartY = 100;
+
+        private const int MenuItemStepY = 100;
+
+        private List<MenuItem> menuItems;
+
+        private readonly Color outOfFocusColor = Color.Black;
+
+        private readonly Color onFocusColor = Color.Red;
+        
+        private int currentIndex = 1;
+
+        private ContentManager content;
+
+        private SpriteFont font;
+
+        private int elapsedTime;
+
+        private EmojiHunterGame game;
+
+        private Screen previousScreen;
+
+        public MenuScreen(ContentManager content, EmojiHunterGame game, Screen previousScreen)
+        {
+            this.content = content;
+            this.font = this.content.Load<SpriteFont>(@"Content\Font");
+            this.menuItems = new List<MenuItem>();
+            this.InitializeMenuItems();
+            this.menuItems[this.currentIndex].Color = this.onFocusColor;
+            this.game = game;
+            this.previousScreen = previousScreen;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            InputManager.Instance.Update();
+            this.elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (InputManager.Instance.KeyDown(Keys.Down) 
+                && this.elapsedTime > PressDelay)
+            {
+                this.menuItems[this.currentIndex++].Color = this.outOfFocusColor;
+                this.currentIndex %= this.menuItems.Count;
+                this.menuItems[this.currentIndex].Color = this.onFocusColor;
+                this.elapsedTime = 0;
+            }
+            else if (InputManager.Instance.KeyDown(Keys.Up)
+                && this.elapsedTime > PressDelay)
+            {
+                this.menuItems[this.currentIndex].Color = this.outOfFocusColor;
+                this.currentIndex = (this.menuItems.Count + this.currentIndex - 1) % this.menuItems.Count;
+                this.menuItems[this.currentIndex].Color = this.onFocusColor;
+                this.elapsedTime = 0;
+            }
+
+            if (InputManager.Instance.KeyDown(Keys.Enter))
+            {
+                 this.menuItems[this.currentIndex].PressMenuItem();      
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (var menuItem in this.menuItems)
+            {
+                menuItem.Draw(spriteBatch);
+            }
+        }
+
+        private void InitializeMenuItems()
+        {
+            var positionY = MenuItemStartY;
+            var menuItem = new MenuItem(this.font, MenuNames.ResumeMenuName, new Vector2(MenuItemStartX, positionY), this.outOfFocusColor);
+            menuItem.Pressed += this.OnResumePressedEventHandler;
+            this.menuItems.Add(menuItem);
+
+            positionY += MenuItemStartY;
+            menuItem = new MenuItem(this.font, MenuNames.NewGameMenuName, new Vector2(MenuItemStartX, positionY), this.outOfFocusColor);
+            menuItem.Pressed += this.OnNewGamePressedEventHandler;
+            this.menuItems.Add(menuItem);
+
+            positionY += MenuItemStartY;
+            menuItem = new MenuItem(this.font, MenuNames.SaveMenuName, new Vector2(MenuItemStartX, positionY), this.outOfFocusColor);
+            menuItem.Pressed += this.OnSavePressedEventHandler;
+            this.menuItems.Add(menuItem);
+
+            positionY += MenuItemStartY;
+            menuItem = new MenuItem(this.font, MenuNames.LoadMenuName, new Vector2(MenuItemStartX, positionY), this.outOfFocusColor);
+            menuItem.Pressed += this.OnLoadPressedEventHandler;
+            this.menuItems.Add(menuItem);
+
+            positionY += MenuItemStartY;
+            menuItem = new MenuItem(this.font, MenuNames.ExitMenuName, new Vector2(MenuItemStartX, positionY), this.outOfFocusColor);
+            menuItem.Pressed += this.OnExitPressedEventHandler;
+            this.menuItems.Add(menuItem);
+        }
+
+        private void OnExitPressedEventHandler(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void OnResumePressedEventHandler(object sender, EventArgs e)
+        {
+            if (this.previousScreen != null)
+            {
+                this.game.CurrentScreen = this.previousScreen;
+            }
+        }
+
+        private void OnNewGamePressedEventHandler(object sender, EventArgs e)
+        {
+            this.game.CurrentScreen = new PlayScreen(this.content, Global.MapName, Global.HeroName, this.game);
+        }
+
+        private void OnSavePressedEventHandler(object sender, EventArgs e)
+        {
+            // TO DO
+        }
+
+        private void OnLoadPressedEventHandler(object sender, EventArgs e)
+        {
+            // TO DO
+        }
+    }
+}

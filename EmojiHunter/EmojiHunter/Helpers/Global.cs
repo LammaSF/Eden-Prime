@@ -10,6 +10,10 @@
 
         public const int PointsPerKill = 5;
 
+        public const string MapName = "Center";
+
+        public const string HeroName = "Sagittarius";
+
         public static int Kills { get; set; }
 
         public static int Points { get; set; }

@@ -15,7 +15,10 @@
         [STAThread]
         public static void Main()
         {
-            new EmojiHunterGame("Center", "Sagittarius").Run();
+            using (var game = new EmojiHunterGame())
+            {
+                game.Run();
+            }
         }
     }
 #endif
