@@ -1,9 +1,11 @@
 ﻿namespace EmojiHunter.Models.Heroes
 {
+    using System.Runtime.Serialization;
     using Contracts;
     using Enumerations;
     using Miscellaneous;
 
+    [DataContract]
     public class Sagittarius : Hero, IShooting
     {
         private const int DefaultShootingManaCost = 1;
@@ -22,18 +24,27 @@
         {
             this.ShootingAngle = DefaultShootingAngle;
             this.ShotType = DefaultShotType;
+            this.ShootingSpeed = DefaultShootingSpeed;
+            this.ShootingDelay = DefaultShootingDelay;
+            this.SightSpeed = DefaultSightSpeed;
+            this.ShootingManaCost = DefaultShootingManaCost;
         }
+        [DataMember]
+        public int ShootingManaCost { get; set; }
 
-        public int ShootingManaCost => DefaultShootingManaCost;
-
+        [DataMember]
         public float ShootingAngle { get; set; }
 
-        public float ShootingSpeed => DefaultShootingSpeed;
+        [DataMember]
+        public float ShootingSpeed { get; set; }
 
-        public float ShootingDelay => DefaultShootingDelay;
+        [DataMember]
+        public float ShootingDelay { get; set; }
 
-        public float SightSpeed => DefaultSightSpeed;
+        [DataMember]
+        public float SightSpeed { get; set; }
 
+        [DataMember]
         public SpellShotType ShotType { get; set; }
 
         public override void ReactOnCollision(IGameObject other)

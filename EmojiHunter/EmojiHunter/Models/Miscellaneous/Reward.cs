@@ -1,7 +1,9 @@
 ﻿namespace EmojiHunter.Models.Miscellaneous
 {
+    using System.Runtime.Serialization;
     using Contracts;
 
+    [DataContract]
     public class Reward : IReward
     {
         public Reward(int health, int mana, int damage, int strength, float speed)
@@ -13,14 +15,19 @@
             this.Speed = speed;
         }
 
-        public int Health { get; }
+        [DataMember]
+        public int Health { get; set; }
 
-        public int Mana { get; }
+        [DataMember]
+        public int Mana { get; set; }
 
-        public int Damage { get; }
+        [DataMember]
+        public int Damage { get; set; }
 
-        public int Strength { get; }
+        [DataMember]
+        public int Strength { get; set; }
 
-        public float Speed { get; }
+        [DataMember]
+        public float Speed { get; set; }
     }
 }

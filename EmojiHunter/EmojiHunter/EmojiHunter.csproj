@@ -143,6 +143,7 @@
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Screens\PlayScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Serialization\SerializationContainer.cs" />
     <Compile Include="Serialization\PathHelper.cs" />
     <Compile Include="Serialization\SerializationHelper.cs" />
     <Compile Include="Startup.cs" />

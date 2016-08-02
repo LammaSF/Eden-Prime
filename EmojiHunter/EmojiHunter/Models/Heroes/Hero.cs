@@ -1,8 +1,10 @@
 ﻿namespace EmojiHunter.Models.Heroes
 {
+    using System.Runtime.Serialization;
     using Contracts;
     using Models;
 
+    [DataContract]
     public abstract class Hero : LivingObject, IHero
     {
         #region Constants
@@ -80,18 +82,21 @@
             this.CurrentMaxMana = InitialMana;
             this.CurrentMaxStrength = InitialStrength;
             this.CurrentMaxDamage = InitialDamage;
+            this.CurrentMaxArmor = MaxArmor;
             this.Mana = InitialMana;
             this.Strength = InitialStrength;
+            this.SprintStrengthCost = DefaultSprintStrengthCost;
+            this.TeleportManaCost = DefaultTeleportManaCost;
         }
 
         #endregion
 
         #region Properties
+        [DataMember]
+        public int SprintStrengthCost { get; set; }
+        [DataMember]
+        public int TeleportManaCost { get; set; }
         
-        public int SprintStrengthCost => DefaultSprintStrengthCost;
-
-        public int TeleportManaCost => DefaultTeleportManaCost;
-
         public int Health
         {
             get
@@ -109,7 +114,7 @@
                 this.State.Health = value;
             }
         }
-
+        [DataMember]
         public int CurrentMaxHealth
         {
             get
@@ -127,7 +132,7 @@
                 this.currentMaxHealth = value;
             }
         }
-
+        [DataMember]
         public int Armor
         {
             get
@@ -146,8 +151,10 @@
             }
         }
 
-        public int CurrentMaxArmor => MaxArmor;
+        [DataMember]
+        public int CurrentMaxArmor { get; set; }
 
+        [DataMember]
         public int Mana
         {
             get
@@ -165,7 +172,7 @@
                 this.mana = value;
             }
         }
-
+        [DataMember]
         public int CurrentMaxMana
         {
             get
@@ -183,7 +190,7 @@
                 this.currentMaxMana = value;
             }
         }
-
+        [DataMember]
         public int Strength
         {
             get
@@ -201,7 +208,7 @@
                 this.strength = value;
             }
         }
-
+        [DataMember]
         public int CurrentMaxStrength
         {
             get
@@ -219,7 +226,7 @@
                 this.currentMaxStrength = value;
             }
         }
-
+        [DataMember]
         public int Damage
         {
             get
@@ -237,7 +244,7 @@
                 this.State.Damage = value;
             }
         }
-
+        [DataMember]
         public int CurrentMaxDamage
         {
             get
@@ -255,7 +262,7 @@
                 this.currentMaxDamage = value;
             }
         }
-
+        [DataMember]
         public bool IsRunning
         {
             get
@@ -271,8 +278,8 @@
                     : this.WalkSpeed;
             }
         }
-
-        private float WalkSpeed
+        [DataMember]
+        public float WalkSpeed
         {
             get
             {
@@ -289,8 +296,8 @@
                 this.walkSpeed = value;
             }
         }
-
-        private float RunSpeed
+        [DataMember]
+        public float RunSpeed
         {
             get
             {
@@ -307,8 +314,8 @@
                 this.runSpeed = value;
             }
         }
-
-        private float CurrentSpeedBonus
+        [DataMember]
+        public float CurrentSpeedBonus
         {
             get
             {

@@ -1,7 +1,9 @@
 ﻿namespace EmojiHunter.Models.Emoticons.BadEmoticons
 {
+    using System.Runtime.Serialization;
     using Contracts;
 
+    [DataContract]
     public class SadEmoticon : Emoticon, IMelee
     {
         private const int DefaultHealth = 100;

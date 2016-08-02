@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using EmojiHunter.Helpers;
+    using System.IO;
+    using Helpers;
+    using Serialization;
     using UIComponents;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
@@ -11,6 +13,8 @@
 
     public class MenuScreen : Screen
     {
+        private const string RelativePath = "data.xml";
+            
         private const int PressDelay = 200;
 
         private const int MenuItemStartX = 100;
@@ -127,17 +131,29 @@
 
         private void OnNewGamePressedEventHandler(object sender, EventArgs e)
         {
-            this.game.CurrentScreen = new PlayScreen(this.content, Global.MapName, Global.HeroName, this.game);
+            this.game.CurrentScreen = new PlayScreen(this.content, Global.MapName, Global.HeroName, this.game, false);
         }
 
         private void OnSavePressedEventHandler(object sender, EventArgs e)
         {
-            // TO DO
+            if (this.previousScreen != null)
+            {
+                var dataFilePath = PathHelper.GetDataFilePath(RelativePath);
+                SerializationHelper.Serialize(this.game.SerializationContainer, dataFilePath);
+            }
         }
 
         private void OnLoadPressedEventHandler(object sender, EventArgs e)
         {
-            // TO DO
+            SerializationContainer container;
+            var dataFilePath = PathHelper.GetDataFilePath(RelativePath);
+            if (File.Exists(dataFilePath))
+            {
+                container = SerializationHelper.Deserialize<SerializationContainer>(dataFilePath);
+                this.game.SerializationContainer = container;
+            }
+
+            this.game.CurrentScreen = new PlayScreen(this.content, Global.MapName, Global.HeroName, this.game, true);
         }
     }
 }

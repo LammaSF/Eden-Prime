@@ -4,6 +4,6 @@
     {
         int Health { get; set; }
 
-        int CurrentMaxHealth { get; }
+        int CurrentMaxHealth { get; set; }
     }
 }

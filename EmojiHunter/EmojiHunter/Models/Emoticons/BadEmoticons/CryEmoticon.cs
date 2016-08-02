@@ -1,10 +1,12 @@
 ﻿namespace EmojiHunter.Models.Emoticons.BadEmoticons
 {
+    using System.Runtime.Serialization;
     using Contracts;
     using Miscellaneous;
     using Enumerations;
     using Emoticons;
 
+    [DataContract]
     public class CryEmoticon : Emoticon, IShooting
     {
         private const int DefaultHealth = 100;
@@ -28,12 +30,16 @@
             base.State.Damage = DefaultDamage;
             base.State.MovementSpeed = DefaultMovementSpeed;
             this.ShotType = DefaultShotType;
+            this.ShootingSpeed = DefaultShootingSpeed;
+            this.ShootingDelay = DefaultShootingDelay;
         }
+        [DataMember]
+        public float ShootingSpeed { get; set; }
 
-        public float ShootingSpeed => DefaultShootingSpeed;
+        [DataMember]
+        public float ShootingDelay { get; set; }
 
-        public float ShootingDelay => DefaultShootingDelay;
-
+        [DataMember]
         public SpellShotType ShotType { get; set; }
 
         public override void ReactOnCollision(IGameObject other)

@@ -55,7 +55,7 @@
             this.barTexture = barTexture;
             this.spriteData = spriteData;
             this.Sprite = sprite;
-            this.GameObject = emoticon;
+            GameObject = emoticon;
             this.GameObject.Destroy += this.OnDestroyEventHandler;
             this.isShooting = emoticon is IShooting;
             this.uiHero = uiHero;

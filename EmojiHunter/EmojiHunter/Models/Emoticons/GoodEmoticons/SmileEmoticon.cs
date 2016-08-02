@@ -1,9 +1,11 @@
 ﻿namespace EmojiHunter.Models.Emoticons.GoodEmoticons
 {
+    using System.Runtime.Serialization;
     using Contracts;
     using Emoticons;
     using Miscellaneous;
 
+    [DataContract]
     public class SmileEmoticon : Emoticon
     {
         private const int StrengthBoostValue = 1;
@@ -25,6 +27,7 @@
             this.Reward = new Reward(0, 0, 0, StrengthBoostValue, 0);
         }
 
+        [DataMember]
         public override IReward Reward { get; set; }
     }
 }

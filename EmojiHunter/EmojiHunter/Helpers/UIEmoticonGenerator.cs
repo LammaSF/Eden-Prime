@@ -1,14 +1,17 @@
 ﻿namespace EmojiHunter.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Animations;
     using Contracts;
+    using Models.Emoticons;
     using GUIModels.UIEmoticonMoveBehaviors;
     using Repository;
     using Enumerations;
     using Factories;
     using GUIModels;
+    using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
     public class UIEmoticonGenerator
@@ -96,6 +99,36 @@
                     UIEmoticonGenerator.CurrentEmoticonCount++;
                     return uiEmoticon;
                 }
+            }
+        }
+
+        public static void GenerateEmoticons(Texture2D barTexture, SpriteData spriteData, UIHero uiHero, IList<Emoticon> emoticons, IList<Vector2> emoticonPositions)
+        {
+            for (int index = 0; index < emoticons.Count; index++)
+            {
+                IMoveBehavior moveBehavior;
+                if (emoticons[index] is IMelee)
+                {
+                    moveBehavior = new MeleeMoveBehavior(uiHero);
+                }
+                else if (emoticons[index] is IShooting)
+                {
+                    moveBehavior = new ShootingMoveBehavior(uiHero);
+                }
+                else
+                {
+                    moveBehavior = new RunAwayMoveBehavior(uiHero);
+                }
+
+                var sprite = spriteData.DuplicateSprite(emoticons[index].Name);
+                var uiEmoticon = new UIEmoticon(barTexture, spriteData, emoticons[index], sprite, uiHero)
+                {
+                    MoveBehavior = moveBehavior
+                };
+
+                uiEmoticon.SetStartPosition(emoticonPositions[index].X, emoticonPositions[index].Y);
+                UIObjectContainer.AddUIObject(uiEmoticon);
+                UIEmoticonGenerator.CurrentEmoticonCount++;
             }
         }
     }

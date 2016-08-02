@@ -1,9 +1,11 @@
 ﻿namespace EmojiHunter.Models.Emoticons.GoodEmoticons
 {
+    using System.Runtime.Serialization;
     using EmojiHunter.Contracts;
     using EmojiHunter.Models.Miscellaneous;
     using Emoticons;
 
+    [DataContract]
     public class CheekyEmoticon : Emoticon
     {
         private const int ManaBoostValue = 1;
@@ -25,6 +27,7 @@
             this.Reward = new Reward(0, ManaBoostValue, 0, 0, 0);
         }
 
+        [DataMember]
         public override IReward Reward { get; set; }
     }
 }

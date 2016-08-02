@@ -4,9 +4,9 @@
 
     public interface IShooting
     {
-        float ShootingSpeed { get; }
+        float ShootingSpeed { get; set; }
 
-        float ShootingDelay { get; }
+        float ShootingDelay { get; set; }
 
         SpellShotType ShotType { get; set; }
     }

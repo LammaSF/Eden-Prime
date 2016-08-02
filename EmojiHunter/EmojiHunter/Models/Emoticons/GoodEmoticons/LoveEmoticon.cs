@@ -1,9 +1,11 @@
 ﻿namespace EmojiHunter.Models.Emoticons.GoodEmoticons
 {
+    using System.Runtime.Serialization;
     using EmojiHunter.Contracts;
     using EmojiHunter.Models.Emoticons;
     using EmojiHunter.Models.Miscellaneous;
 
+    [DataContract]
     public class LoveEmoticon : Emoticon
     {
         private const int HealthBoostValue = 1;
@@ -24,7 +26,8 @@
             base.State.MovementSpeed = DefaultMovementSpeed;
             this.Reward = new Reward(HealthBoostValue, 0, 0, 0, 0);
         }
-
+        
+        [DataMember]
         public override IReward Reward { get; set; }
     }
 }

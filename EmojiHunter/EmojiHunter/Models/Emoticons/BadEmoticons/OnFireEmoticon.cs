@@ -1,10 +1,12 @@
 ﻿namespace EmojiHunter.Models.Emoticons.BadEmoticons
 {
+    using System.Runtime.Serialization;
     using Contracts;
     using Enumerations;
     using Emoticons;
     using Miscellaneous;
 
+    [DataContract]
     public class OnfireEmoticon : Emoticon, IShooting
     {
         private const int DefaultHealth = 100;
@@ -28,12 +30,16 @@
             base.State.Damage = DefaultDamage;
             base.State.MovementSpeed = DefaultMovementSpeed;
             this.ShotType = DefaultShotType;
+            this.ShootingSpeed = DefaultShootingSpeed;
+            this.ShootingDelay = DefaultShootingDelay;
         }
+        [DataMember]
+        public float ShootingSpeed { get; set; }
 
-        public float ShootingSpeed => DefaultShootingSpeed;
+        [DataMember]
+        public float ShootingDelay { get; set; }
 
-        public float ShootingDelay => DefaultShootingDelay;
-
+        [DataMember]
         public SpellShotType ShotType { get; set; }
 
         public override void ReactOnCollision(IGameObject other)

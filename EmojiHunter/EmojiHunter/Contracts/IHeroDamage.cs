@@ -4,6 +4,6 @@
     {
         int Damage { get; }
         
-        int CurrentMaxDamage { get; }
+        int CurrentMaxDamage { get; set; }
     }
 }

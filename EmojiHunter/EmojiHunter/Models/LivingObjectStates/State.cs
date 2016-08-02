@@ -1,7 +1,9 @@
 ﻿namespace EmojiHunter.Models.LivingObjectStates
 {
+    using System.Runtime.Serialization;
     using Contracts;
 
+    [DataContract]
     public abstract class State : IState
     {
         private int health;
@@ -20,6 +22,7 @@
             this.MovementSpeed = movementSpeed;
         }
 
+        [DataMember]
         public int Health
         {
             get
@@ -38,6 +41,7 @@
             }
         }
 
+        [DataMember]
         public int Armor
         {
             get
@@ -56,6 +60,7 @@
             }
         }
 
+        [DataMember]
         public int Damage
         {
             get
@@ -74,6 +79,7 @@
             }
         }
 
+        [DataMember]
         public float MovementSpeed
         {
             get

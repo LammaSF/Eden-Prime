@@ -1,5 +1,8 @@
 ﻿namespace EmojiHunter.Models.LivingObjectStates
 {
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public class CrazyState : State
     {
         private const int DefaultDamage = 50;

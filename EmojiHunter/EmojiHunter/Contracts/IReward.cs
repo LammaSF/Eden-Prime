@@ -2,14 +2,14 @@
 {
     public interface IReward
     {
-        int Health { get; }
+        int Health { get; set; }
 
-        int Mana { get; }
+        int Mana { get; set; }
 
-        int Damage { get; }
+        int Damage { get; set; }
 
-        int Strength { get; }
+        int Strength { get; set; }
 
-        float Speed { get; }
+        float Speed { get; set; }
     }
 }

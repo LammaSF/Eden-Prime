@@ -4,6 +4,6 @@
     {
         int Mana { get; set; }
 
-        int CurrentMaxMana { get; }
+        int CurrentMaxMana { get; set; }
     }
 }

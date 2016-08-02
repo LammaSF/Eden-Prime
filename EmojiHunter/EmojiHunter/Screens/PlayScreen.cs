@@ -1,6 +1,10 @@
 ﻿namespace EmojiHunter.Screens
 {
+    using System.Linq;
+    using System.Runtime.InteropServices;
     using Animations;
+    using EmojiHunter.Models.Emoticons;
+    using EmojiHunter.Serialization;
     using Factories;
     using GUIModels;
     using Helpers;
@@ -34,7 +38,7 @@
         public bool paused;
         private EmojiHunterGame game;
 
-        public PlayScreen(ContentManager content, string mapName, string heroName, EmojiHunterGame game)
+        public PlayScreen(ContentManager content, string mapName, string heroName, EmojiHunterGame game, bool load)
         {
             this.content = content;
             this.mapName = mapName;
@@ -46,22 +50,55 @@
                 Global.ScreenWidth,
                 Global.ScreenHeight);
             this.Initialize();
+            if (load)
+            {
+                this.Load();
+            }
+            else
+            {
+                this.StartNewGame();
+            }
         }
 
         private void Initialize()
         {
+            this.paused = false;
+            this.isGameOver = false;
             UIEmoticonGenerator.CurrentEmoticonCount = 0;
             UIPotionGenerator.CurrentPotionCount = 0;
             UIObjectContainer.Reset();
+            Global.Points = 0;
+            Global.Kills = 0;
             this.map = new MapFactory().CreateMap(this.mapName);
-            this.hero = new HeroFactory().CreateHero(this.heroName);
-            this.paused = false;
-            this.isGameOver = false;
             this.barTexture = this.content.Load<Texture2D>(@"Content\Bar");
             this.endScreen = this.content.Load<Texture2D>(@"Content\Gameover");
             this.font = this.content.Load<SpriteFont>(@"Content\Font");
             this.spriteData = new SpriteData();
             SpriteInitializer.InitializeSprites(this.spriteData, this.content);
+        }
+
+        private void Load()
+        {
+            Global.Kills = this.game.SerializationContainer.Kills;
+            Global.Points = this.game.SerializationContainer.Points;
+            this.hero = this.game.SerializationContainer.Hero;
+            this.statsDrawer = new HeroStatisticsDrawer(this.hero, this.font);
+            this.uiHero = new UIHero(
+                this.spriteData.DuplicateSprite(nameof(Sagittarius)),
+                this.hero,
+                new UISight(this.spriteData.DuplicateSprite("Sight"))
+                );
+            this.actionController = new HeroActionController(this.uiHero, this.spriteData, InputManager.Instance);
+            this.uiHero.SetStartPosition(this.game.SerializationContainer.HeroPosition);
+            UIObjectContainer.AddUIObject(this.uiHero);
+            UIObstacleGenerator.GenerateObstacles(this.spriteData, this.map);
+            UIEmoticonGenerator.GenerateEmoticons(this.barTexture, this.spriteData, this.uiHero,
+                this.game.SerializationContainer.Emoticons, this.game.SerializationContainer.EmoticonPositions);
+        }
+
+        private void StartNewGame()
+        {
+            this.hero = new HeroFactory().CreateHero(this.heroName);
             this.statsDrawer = new HeroStatisticsDrawer(this.hero, this.font);
             this.uiHero = new UIHero(
                 this.spriteData.DuplicateSprite(nameof(Sagittarius)),
@@ -91,6 +128,8 @@
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                     || Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
+                this.game.SerializationContainer = this.GetContainer();
+
                 this.game.CurrentScreen = new MenuScreen(this.content, this.game, this.game.CurrentScreen);
             }
 
@@ -130,6 +169,29 @@
             {
                 this.isGameOver = true;
             }
+        }
+
+        private SerializationContainer GetContainer()
+        {
+            var sagittarius = this.uiHero.GameObject as Sagittarius;
+            var heroPosition = this.uiHero.Position;
+            var emoticons = UIObjectContainer.UIObjects
+                .Where(uio => uio.GameObject is Emoticon)
+                .Select(uio => uio.GameObject as Emoticon)
+                .ToList();
+            var emoticonPositions = UIObjectContainer.UIObjects
+                .Where(uio => uio.GameObject is Emoticon)
+                .Select(uio => uio.Sprite.Position)
+                .ToList();
+            return new SerializationContainer
+            {
+                Hero = sagittarius,
+                HeroPosition = heroPosition,
+                Emoticons = emoticons,
+                EmoticonPositions = emoticonPositions,
+                Kills = Global.Kills,
+                Points = Global.Points
+            };
         }
 
         public override void Draw(SpriteBatch spriteBatch)

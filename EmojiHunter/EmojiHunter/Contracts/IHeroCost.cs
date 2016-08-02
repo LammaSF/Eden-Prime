@@ -2,8 +2,8 @@
 {
     public interface IHeroCost
     {
-        int SprintStrengthCost { get; }
+        int SprintStrengthCost { get; set; }
 
-        int TeleportManaCost { get; }
+        int TeleportManaCost { get; set; }
     }
 }

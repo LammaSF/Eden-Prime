@@ -1,5 +1,6 @@
 ﻿namespace EmojiHunter
 {
+    using EmojiHunter.Serialization;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Screens;
@@ -35,6 +36,8 @@
         }
 
         public Screen CurrentScreen { get; set; }
+
+        public SerializationContainer SerializationContainer { get; set; }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic

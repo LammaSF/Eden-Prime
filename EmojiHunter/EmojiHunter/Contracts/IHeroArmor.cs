@@ -4,6 +4,6 @@
     {
         int Armor { get; set; }
 
-        int CurrentMaxArmor { get; }
+        int CurrentMaxArmor { get; set; }
     }
 }

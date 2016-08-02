@@ -1,8 +1,10 @@
 ﻿namespace EmojiHunter.Models
 {
     using System;
+    using System.Runtime.Serialization;
     using Contracts;
 
+    [DataContract]
     public abstract class LivingObject : GameObject
     {
         protected LivingObject(string name)
@@ -11,8 +13,8 @@
         }
 
         public override event EventHandler Destroy;
-
-        public string Name { get; }
+        [DataMember]
+        public string Name { get; set; }
 
         public override void ReactOnCollision(IGameObject other)
         {

@@ -1,9 +1,11 @@
 ﻿namespace EmojiHunter.Models.Emoticons.GoodEmoticons
 {
+    using System.Runtime.Serialization;
     using EmojiHunter.Contracts;
     using EmojiHunter.Models.Emoticons;
     using EmojiHunter.Models.Miscellaneous;
 
+    [DataContract]
     public class ShyEmoticon : Emoticon
     {
         private const float SpeedBoostValue = 0.05f;
@@ -25,6 +27,7 @@
             this.Reward = new Reward(0, 0, 0, 0, SpeedBoostValue);
         }
 
+        [DataMember]
         public override IReward Reward { get; set; }
     }
 }
