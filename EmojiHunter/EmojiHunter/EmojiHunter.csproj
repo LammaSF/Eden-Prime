@@ -138,6 +138,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Screens\Highscore.cs" />
     <Compile Include="Screens\MenuItem.cs" />
     <Compile Include="Screens\MenuNames.cs" />
     <Compile Include="Screens\MenuScreen.cs" />

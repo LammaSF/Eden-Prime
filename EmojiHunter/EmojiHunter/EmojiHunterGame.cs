@@ -58,7 +58,7 @@
         {
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.background = this.Content.Load<Texture2D>(@"Content\Background");
-            this.CurrentScreen = new MenuScreen(this.Content, this, null);
+            this.CurrentScreen = new MenuScreen(this.Content, this, null, 0);
         }
 
         /// <summary>

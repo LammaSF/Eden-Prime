@@ -14,6 +14,8 @@
     public class MenuScreen : Screen
     {
         private const string RelativePath = "data.xml";
+
+        private const string HighPath = "highscore.xml";
             
         private const int PressDelay = 200;
 
@@ -41,7 +43,11 @@
 
         private Screen previousScreen;
 
-        public MenuScreen(ContentManager content, EmojiHunterGame game, Screen previousScreen)
+        private Highscore highscore;
+
+        private bool drawHighscore;
+
+        public MenuScreen(ContentManager content, EmojiHunterGame game, Screen previousScreen, int score)
         {
             this.content = content;
             this.font = this.content.Load<SpriteFont>(@"Content\Font");
@@ -50,6 +56,30 @@
             this.menuItems[this.currentIndex].Color = this.onFocusColor;
             this.game = game;
             this.previousScreen = previousScreen;
+            this.LoadHighscores();
+            this.highscore.AddScore(score);
+            this.SaveHighscores();
+        }
+
+        private void SaveHighscores()
+        {
+            if (this.highscore != null)
+            {
+                var dataFilePath = PathHelper.GetDataFilePath(HighPath);
+                SerializationHelper.Serialize(this.highscore, dataFilePath);
+            }
+        }
+
+        private void LoadHighscores()
+        {
+            if (File.Exists(HighPath))
+            {
+                this.highscore = SerializationHelper.Deserialize<Highscore>(HighPath);
+            }
+            else
+            {
+                this.highscore = new Highscore();
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -86,6 +116,11 @@
             {
                 menuItem.Draw(spriteBatch);
             }
+
+            if (drawHighscore)
+            {
+                this.highscore?.Draw(spriteBatch, this.font);
+            }
         }
 
         private void InitializeMenuItems()
@@ -111,9 +146,19 @@
             this.menuItems.Add(menuItem);
 
             positionY += MenuItemStartY;
+            menuItem = new MenuItem(this.font, MenuNames.HighscoreMenuName, new Vector2(MenuItemStartX, positionY), this.outOfFocusColor);
+            menuItem.Pressed += this.OnHighscorePressedEventHandler;
+            this.menuItems.Add(menuItem);
+
+            positionY += MenuItemStartY;
             menuItem = new MenuItem(this.font, MenuNames.ExitMenuName, new Vector2(MenuItemStartX, positionY), this.outOfFocusColor);
             menuItem.Pressed += this.OnExitPressedEventHandler;
             this.menuItems.Add(menuItem);
+        }
+
+        private void OnHighscorePressedEventHandler(object sender, EventArgs e)
+        {
+            this.drawHighscore = true;
         }
 
         private void OnExitPressedEventHandler(object sender, EventArgs e)

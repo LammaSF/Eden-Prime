@@ -9,6 +9,8 @@
         public const string SaveMenuName = "Save";
 
         public const string LoadMenuName = "Load";
+
+        public const string HighscoreMenuName = "Highscore";
         
         public const string ExitMenuName = "Exit";
     }

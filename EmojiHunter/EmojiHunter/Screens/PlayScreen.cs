@@ -119,7 +119,7 @@
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                     || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
-                    this.game.CurrentScreen = new MenuScreen(this.content, this.game, null);
+                    this.game.CurrentScreen = new MenuScreen(this.content, this.game, null, Global.Points);
                 }
 
                 return;
@@ -130,7 +130,7 @@
             {
                 this.game.SerializationContainer = this.GetContainer();
 
-                this.game.CurrentScreen = new MenuScreen(this.content, this.game, this.game.CurrentScreen);
+                this.game.CurrentScreen = new MenuScreen(this.content, this.game, this.game.CurrentScreen, 0);
             }
 
             this.lastPauseElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
