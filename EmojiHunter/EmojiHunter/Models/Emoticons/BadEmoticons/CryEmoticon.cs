@@ -15,11 +15,11 @@
 
         private const int DefaultDamage = 10;
 
-        private const float DefaultMovementSpeed = 2f;
+        private const float DefaultMovementSpeed = 1.2f;
 
         private const float DefaultShootingSpeed = 8f;
 
-        private const float DefaultShootingDelay = 3000f;
+        private const float DefaultShootingDelay = 2000f;
 
         private const SpellShotType DefaultShotType = SpellShotType.Iceball;
 

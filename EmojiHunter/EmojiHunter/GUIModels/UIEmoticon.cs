@@ -46,8 +46,6 @@
 
         private int lastShotElapsedTime;
 
-        private IMoveBehavior moveBehavior;
-
         public UIEmoticon(Texture2D barTexture, SpriteData spriteData, IGameObject emoticon, ISprite sprite, UIHero uiHero)
         {
             this.healthRectangle = new Rectangle(0, 0, barTexture.Width, barTexture.Height);
@@ -55,7 +53,7 @@
             this.barTexture = barTexture;
             this.spriteData = spriteData;
             this.Sprite = sprite;
-            GameObject = emoticon;
+            this.GameObject = emoticon;
             this.GameObject.Destroy += this.OnDestroyEventHandler;
             this.isShooting = emoticon is IShooting;
             this.uiHero = uiHero;
@@ -69,13 +67,7 @@
 
         public IGameObject GameObject { get; set; }
 
-        public IMoveBehavior MoveBehavior
-        {
-            set
-            {
-                this.moveBehavior = value;
-            }
-        }
+        public IMoveBehavior MoveBehavior { get; set; }
 
         public void Update(GameTime gameTime)
         {
@@ -137,13 +129,13 @@
                 Vector2 position;
                 lock (this)
                 {
-                    previousBehavior = this.moveBehavior;
+                    previousBehavior = this.MoveBehavior;
                     previousState = this.GameObject.State;
                     this.GameObject.State = new CrazyState(
                         this.GameObject.State.Health,
                         this.GameObject.State.Armor
                         );
-                    this.moveBehavior = new CrazyMoveBehavior(this.uiHero);
+                    this.MoveBehavior = new CrazyMoveBehavior(this.uiHero);
                     position = this.Sprite.Position;
                     this.Sprite.AnimationIndex = 3;
                     this.Sprite.Position = position; 
@@ -221,7 +213,7 @@
 
         private void Move()
         {
-            this.moveBehavior.Move(this);
+            this.MoveBehavior.Move(this);
         }
 
         private void OnDestroyEventHandler(object sender, EventArgs e)

@@ -12,7 +12,7 @@
 
         private const int DefaultDamage = 3;
 
-        private const float DefaultMovementSpeed = 2.5f;
+        private const float DefaultMovementSpeed = 1.5f;
 
         public SadEmoticon(string name) : base(name)
         {

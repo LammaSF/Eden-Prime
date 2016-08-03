@@ -16,7 +16,7 @@
 
         private const int DefaultDamage = 0;
 
-        private const float DefaultMovementSpeed = 2f;
+        private const float DefaultMovementSpeed = 0.2f;
 
         public SmileEmoticon(string name) : base(name)
         {

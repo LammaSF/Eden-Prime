@@ -18,7 +18,7 @@
 
                 if (!HasLeftScreen(uiEmoticon.Position))
                 {
-                    uiEmoticon.Position += uiEmoticon.Direction * ((int)(DecreaseSpeedFactor * uiEmoticon.GameObject.State.MovementSpeed));
+                    uiEmoticon.Position += uiEmoticon.Direction * (DecreaseSpeedFactor * uiEmoticon.GameObject.State.MovementSpeed);
                 }
                 uiEmoticon.Sprite.Position = uiEmoticon.Position;
             }

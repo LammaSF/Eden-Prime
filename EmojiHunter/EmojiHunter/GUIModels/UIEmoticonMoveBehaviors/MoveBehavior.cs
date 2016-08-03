@@ -7,7 +7,7 @@
 
     public abstract class MoveBehavior : IMoveBehavior
     {
-        protected const double DecreaseSpeedFactor = 0.5;
+        protected const float DecreaseSpeedFactor = 1;
         private const int EmoticonSpriteSize = 50;
         private const int VicinityRadius = 150;
         protected static readonly int FieldWidth = Global.ScreenWidth - EmoticonSpriteSize - 1;

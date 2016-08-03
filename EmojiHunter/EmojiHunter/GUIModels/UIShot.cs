@@ -96,7 +96,7 @@
                     && this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
                 {
                     this.ExecuteObjectCollision(uiObject);
-                    if (isHeroIceball)
+                    if (this.isHeroIceball)
                     {
                         this.CheckForIceballShotCollision(uiObject);
                     }
@@ -108,6 +108,7 @@
         {
             if (uiObject is UIEmoticon)
             {
+                var previousBehavior = (uiObject as UIEmoticon).MoveBehavior;
                 var previousState = uiObject.GameObject.State;
                 uiObject.GameObject.State = new FreezeState(
                     uiObject.GameObject.State.Health,
@@ -125,9 +126,10 @@
                     {
                         var health = uiObject.GameObject.State.Health;
                         var armor = uiObject.GameObject.State.Armor;
-                        this.GameObject.State = previousState;
-                        this.GameObject.State.Health = health;
-                        this.GameObject.State.Armor = armor;
+                        uiObject.GameObject.State = previousState;
+                        uiObject.GameObject.State.Health = health;
+                        uiObject.GameObject.State.Armor = armor;
+                        (uiObject as UIEmoticon).MoveBehavior = previousBehavior;
                         position = uiObject.Sprite.Position;
                         uiObject.Sprite.AnimationIndex = 0;
                         uiObject.Sprite.Position = position; 

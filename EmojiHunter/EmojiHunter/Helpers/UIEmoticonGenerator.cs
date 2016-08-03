@@ -20,7 +20,7 @@
 
         public const int MaxEmoticonCount = 5;
 
-        private const int GoodEmoticonPercentage = 50;
+        private const int GoodEmoticonPercentage = 100;
 
         private const int NoSpawnRadius = 50;
 

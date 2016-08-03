@@ -7,7 +7,7 @@
 
     public class UIHero : IUIObject
     {
-        private const int AdjustionConstant = 5;
+        private const int AdjustionConstant = 2;
 
         public UIHero(ISprite sprite, IGameObject hero, UISight uiSight)
         {
