@@ -1,7 +1,5 @@
 ﻿namespace EmojiHunter.GUIModels.UIEmoticonMoveBehaviors
 {
-    using System;
-
     public class ShootingMoveBehavior : MoveBehavior
     {
         public ShootingMoveBehavior(UIHero uiHero) : base(uiHero)
@@ -10,13 +8,20 @@
 
         public override void Move(UIEmoticon uiEmoticon)
         {
-            // TO DO
-            // You have access to this.UIHero.Position
-            // You have access to uiEmoticon
-            // uiEmoticon.Sprite.Position;
-            // uiEmoticon.Direction;
-            // uiEmoticon.Position;
-            // uiEmoticon.GameObject.State.MovementSpeed;
+            var direction = this.UIHero.Position - uiEmoticon.Position;
+
+            var displacement = direction;
+            if (OutsideHeroVicinity(displacement))
+            {
+                direction.Normalize();
+                uiEmoticon.Direction = direction;
+
+                if (!HasLeftScreen(uiEmoticon.Position))
+                {
+                    uiEmoticon.Position += uiEmoticon.Direction * ((int)(DecreaseSpeedFactor * uiEmoticon.GameObject.State.MovementSpeed));
+                }
+                uiEmoticon.Sprite.Position = uiEmoticon.Position;
+            }
         }
     }
 }
