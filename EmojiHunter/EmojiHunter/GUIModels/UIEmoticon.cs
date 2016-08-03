@@ -169,7 +169,6 @@
                     && this.Sprite.Rectangle.Intersects(uiObject.Sprite.Rectangle))
                 {
                     this.GameObject.ReactOnCollision(uiObject.GameObject);
-                    this.Direction = -this.Direction;
                 }
             }
         }

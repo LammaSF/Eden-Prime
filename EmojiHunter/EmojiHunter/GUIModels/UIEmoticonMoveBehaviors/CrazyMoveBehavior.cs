@@ -14,13 +14,12 @@
             Random randomNumber = new Random();
             int directionXComponent = randomNumber.Next(-10, 10);
             int directionYComponent = randomNumber.Next(-10, 10);
-            int movementSpeed = randomNumber.Next(-10, 10);
+            float movementSpeed = (float)randomNumber.NextDouble();
 
             var direction = new Vector2(directionXComponent, directionYComponent);
             direction.Normalize();
             uiEmoticon.Direction = direction;
             uiEmoticon.Position += uiEmoticon.Direction * movementSpeed;
-            uiEmoticon.Sprite.Position = uiEmoticon.Position;
 
             if (uiEmoticon.Position.X < 0)
             {
@@ -38,6 +37,8 @@
             {
                 uiEmoticon.Position -= new Vector2(0, 10);
             }
+
+            uiEmoticon.Sprite.Position = uiEmoticon.Position;
         }
     }
 }
