@@ -15,7 +15,6 @@ Later, the team decided to migrate the game to MonoGame 3.5.
 * Zhivko Zhekov (Jivko1)  
 * Lilyana Babacheva (Lamms)
 * Penko Georgiev (penko96)
-* Radoslav Stefanov (radoslav89)
 * Svetoslav Ivanov (svetljo)
 * Valentin Lolov (valcho62)
 
@@ -34,8 +33,6 @@ Later, the team decided to migrate the game to MonoGame 3.5.
  Lilyana Babacheva - menu and IO (Play/Resume, Save/Load, Quit, etc.) 
 
  Penko Georgiev - teleport functionality
-
- Radoslav Stefanov -
 
  Svetoslav Ivanov - game graphics, hero movement, shooting, controls, hindsight
  
