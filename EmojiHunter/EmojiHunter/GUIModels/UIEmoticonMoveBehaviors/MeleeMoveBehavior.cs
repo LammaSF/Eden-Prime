@@ -8,13 +8,16 @@
 
         public override void Move(UIEmoticon uiEmoticon)
         {
-            // TO DO
-            // You have access to this.UIHero.Position
-            // You have access to uiEmoticon
-            // uiEmoticon.Sprite.Position;
-            // uiEmoticon.Direction;
-            // uiEmoticon.Position;
-            // uiEmoticon.GameObject.State.MovementSpeed;
+            var direction = this.UIHero.Position - uiEmoticon.Position;
+            direction.Normalize();
+            uiEmoticon.Direction = direction;
+
+            if (!HasLeftScreen(uiEmoticon.Position))
+            {
+                uiEmoticon.Position += uiEmoticon.Direction * ((int)(DecreaseSpeedFactor * uiEmoticon.GameObject.State.MovementSpeed));
+            }
+
+            uiEmoticon.Sprite.Position = uiEmoticon.Position;
         }
     }
 }
